@@ -36,11 +36,13 @@ EOBUNDLES
 
 # Tell antigen that you're done.
 antigen apply
-# antigen config end
+# ================= antigen config end ===================
 
+# alias
+alias emacs='/usr/local/bin/emacs' # brew install emacs
 
 # powerlevel9k
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history nvm os_icon time)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history os_icon time)
 
 # alias
 ## 本地静态服务器
