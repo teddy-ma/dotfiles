@@ -7,7 +7,7 @@ local reading_layout= {
 
 local coding_layout= {
   {"Atom",   nil,  main_monitor, hs.layout.left50,   nil, nil},
-  {"Google Chrome",  nil,  second_monitor, hs.layout.maximized,   nil, nil},
+  {"Chromium",  nil,  second_monitor, hs.layout.maximized,   nil, nil},
   {"iTerm2",  nil,  main_monitor, hs.layout.right50,   nil, nil},
 }
 
@@ -21,7 +21,7 @@ end)
 
 hs.hotkey.bind(hyper, '2', function()
   hs.application.launchOrFocus('Atom')
-  hs.application.launchOrFocus('Google Chrome')
+  hs.application.launchOrFocus('Chromium')
   hs.application.launchOrFocus('iTerm')
 
   hs.layout.apply(coding_layout)
