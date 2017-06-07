@@ -1,8 +1,8 @@
 
 local reading_layout= {
-  {"Mail",    nil,  second_monitor, hs.layout.maximized,   nil, nil},
+  {"Rambox", nil,  second_monitor, hs.layout.maximized,   nil, nil},
   {"Google Chrome",  nil,  main_monitor, hs.layout.left50,   nil, nil},
-  {"Slack",  nil,  main_monitor, hs.layout.right50,   nil, nil},
+  {"Evernote",  nil,  main_monitor, hs.layout.right50,   nil, nil},
 }
 
 local coding_layout= {
@@ -12,9 +12,9 @@ local coding_layout= {
 }
 
 hs.hotkey.bind(hyper, '1', function()
-  hs.application.launchOrFocus('Mail')
+  hs.application.launchOrFocus('Rambox')
   hs.application.launchOrFocus('Google Chrome')
-  hs.application.launchOrFocus('Slack')
+  hs.application.launchOrFocus('Evernote')
 
   hs.layout.apply(reading_layout)
 end)
