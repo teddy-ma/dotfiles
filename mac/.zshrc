@@ -60,5 +60,8 @@ export NVM_DIR="$HOME/.nvm"
 # command line history config
 # ignore duplicate commands, ignore commands starting with a space
 export HISTCONTROL=erasedups:ignorespace
-# keep the last 5000 entries
+# keep the last 20000 entries
 export HISTSIZE=20000
+
+export PATH="$HOME/.bin:$PATH"
+eval "$(rbenv init - --no-rehash)"

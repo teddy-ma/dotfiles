@@ -8,6 +8,8 @@
 + git
 + zsh
 
+powerline font https://github.com/powerline/fonts
+
 ## usage
 
 ```shell
