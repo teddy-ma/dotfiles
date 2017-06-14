@@ -4,9 +4,7 @@
 
 ## prepare
 
-+ homebrew
-+ git
-+ zsh
+https://github.com/thoughtbot/laptop
 
 ## usage
 
