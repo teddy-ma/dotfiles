@@ -50,9 +50,6 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history os_icon time)
 
 # show system info (brew install archey)
 archey -c
-
-# rbenv
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 # nvm
 export NVM_DIR="$HOME/.nvm"
 . "/usr/local/opt/nvm/nvm.sh"
@@ -64,4 +61,5 @@ export HISTCONTROL=erasedups:ignorespace
 export HISTSIZE=20000
 
 export PATH="$HOME/.bin:$PATH"
+# rbenv
 eval "$(rbenv init - --no-rehash)"

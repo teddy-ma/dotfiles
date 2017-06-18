@@ -16,15 +16,8 @@ git@github.com:teddy-ma/dotfiles.git
 git clone https://github.com/zsh-users/antigen.git .antigen
 cd dotfiles
 brew bundle
+stow mac
 ```
-
-create link
-
-`cd dotfiles && stow mac`
-
-or
-
-`cd dotfile && stow linux`
 
 ## more
 
