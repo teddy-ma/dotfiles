@@ -53,10 +53,6 @@ hs.hotkey.bind(hyper, "f", function()
   win:maximize()
 end)
 
-hs.hotkey.bind(hyper, "c", function()
-  local win = hs.window.focusedWindow()
-  win:fullscreenAlmostCenter()
-end)
 
 -- +-----------------+
 -- |        |        |
@@ -128,22 +124,4 @@ function hs.window.down(win)
   f.w = max.w
   f.h = max.h / 2
   win:setFrame(f)
-end
-
-
--- +------------------+
--- |                  |
--- |  +------------+  +--> minY
--- |  |    HERE    |  |
--- |  +------------+  |
--- |                  |
--- +------------------+
-function hs.window.fullscreenAlmostCenter(win)
-  local offsetW = hs.screen.minX(win:screen()) - hs.screen.almostMinX(win:screen())
-  win:setFrame({
-    x = hs.screen.almostMinX(win:screen()),
-    y = hs.screen.minY(win:screen()),
-    w = hs.screen.minWidth(isFullscreen) + (2 * offsetW),
-    h = hs.screen.minHeight(isFullscreen)
-  })
 end
