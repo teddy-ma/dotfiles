@@ -50,9 +50,6 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history os_icon time)
 
 # show system info (brew install archey)
 archey -c
-# nvm
-export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
 
 # command line history config
 # ignore duplicate commands, ignore commands starting with a space
