@@ -40,6 +40,7 @@ antigen apply
 
 # alias
 alias emacs='/usr/local/bin/emacs' # brew install emacs
+alias vim='/usr/local/bin/nvim' # brew install neovim
 
 # powerlevel9k
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history os_icon time)

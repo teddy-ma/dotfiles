@@ -49,7 +49,7 @@ onoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
 xnoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
 onoremap in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
 xnoremap in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
- 
+
 onoremap al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
 xnoremap al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
 onoremap il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
@@ -67,10 +67,10 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>l :call ToggleNumber()<CR>
 nnoremap <leader><space> :noh<CR>
 nnoremap <leader>s :mksession<CR>
-nnoremap <leader>a :Ag 
+nnoremap <leader>a :Ag
 nnoremap <leader>c :SyntasticCheck<CR>:Errors<CR>
 nnoremap <leader>1 :set number!<CR>
-nnoremap <leader>d :Make! 
+nnoremap <leader>d :Make!
 nnoremap <leader>r :call RunTestFile()<CR>
 nnoremap <leader>g :call RunGoFile()<CR>
 vnoremap <leader>y "+y
@@ -118,7 +118,7 @@ set nocompatible
 "endif
 "" }}}
 " MacVim {{{
-set guioptions-=r 
+set guioptions-=r
 set guioptions-=L
 " }}}
 " AutoGroups {{{
@@ -135,10 +135,10 @@ augroup configgroup
 augroup END
 " }}}
 " Backups {{{
-set backup 
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp 
-set backupskip=/tmp/*,/private/tmp/* 
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp 
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupskip=/tmp/*,/private/tmp/*
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set writebackup
 " }}}
 " Custom Functions {{{
@@ -196,10 +196,10 @@ function! <SID>CleanFile()
     let @/=_s
     call cursor(l, c)
 endfunction
- 
+
 function! s:NextTextObject(motion, dir)
   let c = nr2char(getchar())
- 
+
   if c ==# "b"
       let c = "("
   elseif c ==# "B"
@@ -207,7 +207,7 @@ function! s:NextTextObject(motion, dir)
   elseif c ==# "r"
       let c = "["
   endif
- 
+
   exe "normal! ".a:dir.c."v".a:motion.c
 endfunction
 " }}}
