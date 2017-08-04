@@ -1,8 +1,8 @@
-
 local reading_layout= {
-  {"Rambox",        nil, second_monitor, hs.layout.maximized, nil, nil},
-  {"Google Chrome", nil, main_monitor,   hs.layout.left50,    nil, nil},
-  {"Evernote",      nil, main_monitor,   hs.layout.right50,   nil, nil},
+  {"Rambox",        nil, second_monitor, nil, nil, hs.geometry.rect(0, 920, 1080, 960)},
+  {"Google Chrome", nil, main_monitor,   hs.layout.left70,    nil, nil},
+  {"Finder",        nil, main_monitor,   hs.layout.right30,    nil, nil},
+  {"Evernote",      nil, main_monitor,   nil, nil, hs.geometry.rect(0, 0, 1080, 900)}
 }
 
 local coding_layout= {
@@ -21,6 +21,7 @@ hs.hotkey.bind(hyper, '1', function()
   hs.application.launchOrFocus('Rambox')
   hs.application.launchOrFocus('Google Chrome')
   hs.application.launchOrFocus('Evernote')
+  hs.application.launchOrFocus('Finder')
 
   hs.layout.apply(reading_layout)
 end)

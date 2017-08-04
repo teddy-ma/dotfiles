@@ -48,7 +48,7 @@ hs.hotkey.bind(hyper, "down", function()
   win:down()
 end)
 
-hs.hotkey.bind(hyper, "f", function()
+hs.hotkey.bind(hyper, "m", function()
   local win = hs.window.focusedWindow()
   win:maximize()
 end)
