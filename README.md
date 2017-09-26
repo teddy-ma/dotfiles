@@ -18,8 +18,7 @@ cd dotfiles
 brew bundle
 stow mac
 
-ln -s ~/Dropbox/Apps/Atom ~/.atom
-ln -s ~/Dropbox/Config/zsh_history ~/.zsh_history
+apm stars --install
 ```
 
 ## more
