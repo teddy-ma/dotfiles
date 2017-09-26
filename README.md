@@ -17,6 +17,9 @@ git clone https://github.com/zsh-users/antigen.git .antigen
 cd dotfiles
 brew bundle
 stow mac
+
+ln -s ~/Dropbox/Apps/Atom ~/.atom
+ln -s ~/Dropbox/Config/zsh_history ~/.zsh_history
 ```
 
 ## more
