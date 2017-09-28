@@ -12,7 +12,7 @@ powerline font https://github.com/powerline/fonts
 
 ```shell
 cd ~
-git@github.com:teddy-ma/dotfiles.git
+git clone git@github.com:teddy-ma/dotfiles.git
 git clone https://github.com/zsh-users/antigen.git .antigen
 cd dotfiles
 brew bundle
