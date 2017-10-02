@@ -6,10 +6,36 @@ export LC_ALL=en_US.UTF-8
 
 # git clone https://github.com/zsh-users/antigen.git ~/.antigen
 source ~/.antigen/antigen.zsh
-# need powerline font https://github.com/powerline/fonts
-antigen theme bhilburn/powerlevel9k powerlevel9k
 
 antigen use oh-my-zsh
+
+SPACESHIP_PROMPT_ORDER=(
+  time          # Time stampts section
+  user          # Username section
+  host          # Hostname section
+  dir           # Current directory section
+  git           # Git section (git_branch + git_status)
+  node          # Node.js section
+  ruby          # Ruby section
+  elixir        # Elixir section
+  xcode         # Xcode section
+  swift         # Swift section
+  rust          # Rust section
+  haskell       # Haskell Stack section
+  pyenv         # Pyenv section
+  kubecontext   # Kubectl context section
+  exec_time     # Execution time
+  line_sep      # Line break
+  battery       # Battery level and status
+  exit_code     # Exit code section
+  char          # Prompt character
+)
+
+SPACESHIP_KUBECONTEXT_SHOW=false
+SPACESHIP_PACKAGE_SHOW=false
+SPACESHIP_BATTERY_THRESHOLD=35
+SPACESHIP_EXIT_CODE_SHOW=true
+
 antigen bundles <<EOBUNDLES
     autojump
     bundler
@@ -33,6 +59,7 @@ antigen bundles <<EOBUNDLES
     t413/zsh-background-notify
 EOBUNDLES
 # notify needs `brew install terminal-notifier`
+antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
 
 # Tell antigen that you're done.
 antigen apply
@@ -43,8 +70,6 @@ alias emacs='/usr/local/bin/emacs' # brew install emacs
 alias vim='/usr/local/bin/nvim' # brew install neovim
 alias ls='/usr/local/bin/exa' # brew install exa
 
-# powerlevel9k
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history os_icon time)
 
 # alias
 ## 本地静态服务器
@@ -65,3 +90,4 @@ export HISTSIZE=20000
 export PATH="$HOME/.bin:$PATH"
 # rbenv
 eval "$(rbenv init - --no-rehash)"
+source /Users/teddy/.asdf/asdf.sh
