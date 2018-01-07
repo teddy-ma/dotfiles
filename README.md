@@ -17,8 +17,6 @@ git clone https://github.com/zsh-users/antigen.git .antigen
 cd dotfiles
 brew bundle
 stow mac
-
-apm stars --install
 ```
 
 ## more

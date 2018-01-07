@@ -30,7 +30,7 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(haskell
      ruby
      javascript
      html
@@ -322,6 +322,16 @@ you should place your code here."
 
   (setq-default js2-basic-offset 2)
   (setq-default js-indent-level 2)
+  (setq-default web-mode-code-indent-offset 2)
+  (setq-default web-mode-indent-style 2)
+  (setq-default web-mode-markup-indent-offset 2)
+  (setq-default web-mode-css-indent-offset 2)
+  (setq-default web-mode-code-indent-offset 2)
+  (setq-default web-mode-indent-style 2)
+  (setq-default web-mode-markup-indent-offset 2)
+  (setq-default web-mode-css-indent-offset 2)
+  (setq-default web-mode-code-indent-offset 2)
+  (setq-default web-mode-indent-style 2)
 
   (delete-selection-mode 1)
   (global-hungry-delete-mode)
