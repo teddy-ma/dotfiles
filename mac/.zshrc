@@ -11,6 +11,7 @@ source ~/.antigen/antigen.zsh
 
 antigen use oh-my-zsh
 
+# zsh theme begin
 SPACESHIP_PROMPT_ORDER=(
   time          # Time stampts section
   user          # Username section
@@ -37,7 +38,12 @@ SPACESHIP_KUBECONTEXT_SHOW=false
 SPACESHIP_PACKAGE_SHOW=false
 SPACESHIP_BATTERY_THRESHOLD=35
 SPACESHIP_EXIT_CODE_SHOW=true
+SPACESHIP_TIME_SHOW=true
 
+antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
+# zsh theme config end
+
+# notify needs `brew install terminal-notifier`
 antigen bundles <<EOBUNDLES
     autojump
     bundler
@@ -60,8 +66,6 @@ antigen bundles <<EOBUNDLES
     zsh-users/zsh-completions
     t413/zsh-background-notify
 EOBUNDLES
-# notify needs `brew install terminal-notifier`
-antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
 
 # Tell antigen that you're done.
 antigen apply
