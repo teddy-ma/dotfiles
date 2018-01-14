@@ -82,7 +82,7 @@ alias ls='/usr/local/bin/exa' # brew install exa
 # alias rs="ruby -run -e httpd . -p 3000"
 
 # show system info (brew install archey)
-archey -c -o
+# archey -c -o
 # nvm
 export NVM_DIR="$HOME/.nvm"
 . "/usr/local/opt/nvm/nvm.sh"
