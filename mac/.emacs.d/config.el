@@ -63,8 +63,6 @@
     :config
     (ivy-mode t))
 
-(setq ivy-initial-inputs-alist nil)
-
 (use-package counsel
   :ensure t
   :bind (("M-x" . counsel-M-x))
@@ -101,14 +99,54 @@
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
   )
 
-(use-package neotree
+(use-package treemacs
+  :ensure t
+  :defer t
+  :init
+  (with-eval-after-load 'winum
+    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+  :config
+  (progn
+    (use-package treemacs-evil
+      :ensure t
+      :demand t)
+    (setq treemacs-change-root-without-asking nil
+          treemacs-collapse-dirs              (if (executable-find "python") 3 0)
+          treemacs-file-event-delay           5000
+          treemacs-follow-after-init          t
+          treemacs-follow-recenter-distance   0.1
+          treemacs-goto-tag-strategy          'refetch-index
+          treemacs-indentation                2
+          treemacs-indentation-string         " "
+          treemacs-is-never-other-window      nil
+          treemacs-never-persist              nil
+          treemacs-no-png-images              nil
+          treemacs-recenter-after-file-follow nil
+          treemacs-recenter-after-tag-follow  nil
+          treemacs-show-hidden-files          t
+          treemacs-silent-filewatch           nil
+          treemacs-silent-refresh             nil
+          treemacs-sorting                    'alphabetic-desc
+          treemacs-tag-follow-cleanup         t
+          treemacs-tag-follow-delay           1.5
+          treemacs-width                      35)
+
+    (treemacs-follow-mode t)
+    (treemacs-filewatch-mode t)
+    (pcase (cons (not (null (executable-find "git")))
+                 (not (null (executable-find "python3"))))
+      (`(t . t)
+       (treemacs-git-mode 'extended))
+      (`(t . _)
+       (treemacs-git-mode 'simple))))
+  )
+
+(use-package treemacs-projectile
+  :defer t
   :ensure t
   :config
-  (global-set-key (kbd "C-c t") 'neotree-toggle))
-
-(setq neo-smart-open t)
-
-(setq neo-theme 'arrow)
+  (setq treemacs-header-function #'treemacs-projectile-create-header)
+  )
 
 (use-package dracula-theme
   :disabled
@@ -353,12 +391,11 @@
 
 (use-package web-mode
   :ensure t
-  :mode ("\\.html\\'")
+  :mode (("\\.html\\'" . web-mode)
+         ("\\.erb\\'" . web-mode))
   :config
   (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-engines-alist
-        '(("django" . "focus/.*\\.html\\'")
-          ("ctemplate" . "realtimecrm/.*\\.html\\'"))))
+  )
 
 (use-package web-beautify
   :ensure t
