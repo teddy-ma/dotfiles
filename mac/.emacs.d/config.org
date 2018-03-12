@@ -275,32 +275,6 @@ I should consider https://github.com/Alexander-Miller/treemacs.
 
 * Appearance
 
-I like the dracula theme - dark with neon highlights.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package dracula-theme
-    :disabled
-    :ensure t
-    :config
-    (load-theme 'dracula t))
-#+END_SRC
-
-I'm trying out =apropospriate=.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package apropospriate-theme
-    :ensure t)
-#+END_SRC
-
-I'm now using my own translation of Panda Theme (now on [[https://melpa.org/#/panda-theme][melpa]]!).
-
-#+BEGIN_SRC emacs-lisp
-  (use-package panda-theme
-    :ensure t
-    :config
-    (load-theme 'panda t))
-#+END_SRC
-
 Set a nice font.
 
 #+BEGIN_SRC emacs-lisp
@@ -324,12 +298,25 @@ Add emoji support. This is useful when working with html.
     :ensure t)
 #+END_SRC
 
-mode line config
+Use a clear dark theme
+
+#+BEGIN_SRC emacs-lisp
+  (use-package panda-theme
+    :ensure t
+    :config
+    (load-theme 'panda t))
+#+END_SRC
+
+Power line mode line
 
 #+BEGIN_SRC emacs-lisp
   (setq display-time-24hr-format t)
   (display-time-mode 1)
 
+  (use-package powerline
+    :ensure t)
+  (use-package smart-mode-line
+    :ensure t)
   (use-package smart-mode-line-powerline-theme
     :ensure t
     :after powerline

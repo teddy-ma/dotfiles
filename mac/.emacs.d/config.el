@@ -150,20 +150,6 @@
   (setq treemacs-header-function #'treemacs-projectile-create-header)
   )
 
-(use-package dracula-theme
-  :disabled
-  :ensure t
-  :config
-  (load-theme 'dracula t))
-
-(use-package apropospriate-theme
-  :ensure t)
-
-(use-package panda-theme
-  :ensure t
-  :config
-  (load-theme 'panda t))
-
 (set-face-attribute 'default nil
              :family "SourceCodePro+Powerline+Awesome Regular"
              :height 150
@@ -175,9 +161,18 @@
 (use-package emojify
   :ensure t)
 
+(use-package panda-theme
+  :ensure t
+  :config
+  (load-theme 'panda t))
+
 (setq display-time-24hr-format t)
 (display-time-mode 1)
 
+(use-package powerline
+  :ensure t)
+(use-package smart-mode-line
+  :ensure t)
 (use-package smart-mode-line-powerline-theme
   :ensure t
   :after powerline
