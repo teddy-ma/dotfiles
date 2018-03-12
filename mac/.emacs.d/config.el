@@ -93,10 +93,13 @@
   :ensure t
   :bind ("C-=" . er/expand-region))
 
-(use-package multiple-cursors)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(use-package multiple-cursors
+  :ensure t
+  :config
+  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  )
 
 (use-package neotree
   :ensure t
@@ -128,30 +131,6 @@
              )
 
 (set-fontset-font t 'unicode "STIXGeneral" nil 'prepend)
-
-(setq prettify-symbols-unprettify-at-point 'right-edge)
-(global-prettify-symbols-mode 0)
-
-(add-hook
- 'python-mode-hook
- (lambda ()
-   (mapc (lambda (pair) (push pair prettify-symbols-alist))
-         '(("def" . "𝒇")
-           ("class" . "𝑪")
-           ("and" . "∧")
-           ("or" . "∨")
-           ("not" . "￢")
-           ("in" . "∈")
-           ("not in" . "∉")
-           ("return" . "⟼")
-           ("yield" . "⟻")
-           ("for" . "∀")
-           ("!=" . "≠")
-           ("==" . "＝")
-           (">=" . "≥")
-           ("<=" . "≤")
-           ("[]" . "⃞")
-           ("=" . "≝")))))
 
 (use-package powerline
   :disabled

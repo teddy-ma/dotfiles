@@ -144,12 +144,6 @@ I *never* want whitespace at the end of lines. Remove it on save.
       (ivy-mode t))
 #+END_SRC
 
-By default =ivy= starts filters with =^=. I don't normally want that and can easily type it manually when I do.
-
-#+BEGIN_SRC emacs-lisp
-  (setq ivy-initial-inputs-alist nil)
-#+END_SRC
-
 =counsel= is a collection of =ivy= enhanced versions of common Emacs commands. I haven't bound much as =ivy-mode= takes care of most things.
 
 #+BEGIN_SRC emacs-lisp
@@ -211,35 +205,81 @@ Suggest next keys to me based on currently entered key combination.
 ** multi select
 
 #+BEGIN_SRC emacs-lisp
-  (use-package multiple-cursors)
-  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (use-package multiple-cursors
+    :ensure t
+    :config
+    (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+    (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+    (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+    )
 #+END_SRC
 
-** TODO File tree
+** File tree
 
 I don't use this a whole lot, preferring to navigate via searches such as =counsel-find-file=, but it's occasionally useful to have a file tree.
 
 I should consider https://github.com/Alexander-Miller/treemacs.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package neotree
+  (use-package treemacs
+    :ensure t
+    :defer t
+    :init
+    (with-eval-after-load 'winum
+      (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+    :config
+    (progn
+      (use-package treemacs-evil
+        :ensure t
+        :demand t)
+      (setq treemacs-change-root-without-asking nil
+            treemacs-collapse-dirs              (if (executable-find "python") 3 0)
+            treemacs-file-event-delay           5000
+            treemacs-follow-after-init          t
+            treemacs-follow-recenter-distance   0.1
+            treemacs-goto-tag-strategy          'refetch-index
+            treemacs-indentation                2
+            treemacs-indentation-string         " "
+            treemacs-is-never-other-window      nil
+            treemacs-never-persist              nil
+            treemacs-no-png-images              nil
+            treemacs-recenter-after-file-follow nil
+            treemacs-recenter-after-tag-follow  nil
+            treemacs-show-hidden-files          t
+            treemacs-silent-filewatch           nil
+            treemacs-silent-refresh             nil
+            treemacs-sorting                    'alphabetic-desc
+            treemacs-tag-follow-cleanup         t
+            treemacs-tag-follow-delay           1.5
+            treemacs-width                      35)
+
+      (treemacs-follow-mode t)
+      (treemacs-filewatch-mode t)
+      (pcase (cons (not (null (executable-find "git")))
+                   (not (null (executable-find "python3"))))
+        (`(t . t)
+         (treemacs-git-mode 'extended))
+        (`(t . _)
+         (treemacs-git-mode 'simple))))
+    :bind
+    (:map global-map
+          ([f8]         . treemacs-toggle)
+          ("M-0"        . treemacs-select-window)
+          ("C-c 1"      . treemacs-delete-other-windows)
+          ("M-m ft"     . treemacs-toggle)
+          ("M-m fT"     . treemacs)
+          ("M-m fB"     . treemacs-bookmark)
+          ("M-m f C-t"  . treemacs-find-file)
+          ("M-m f M-t"  . treemacs-find-tag)))
+
+  (use-package treemacs-projectile
+    :defer t
     :ensure t
     :config
-    (global-set-key (kbd "C-c t") 'neotree-toggle))
-#+END_SRC
-
-When I open the tree try to jump to current file.
-
-#+BEGIN_SRC emacs-lisp
-  (setq neo-smart-open t)
-#+END_SRC
-
-Use a simple theme for the file tree.
-
-#+BEGIN_SRC emacs-lisp
-  (setq neo-theme 'arrow)
+    (setq treemacs-header-function #'treemacs-projectile-create-header)
+    :bind (:map global-map
+                ("M-m fP" . treemacs-projectile)
+                ("M-m fp" . treemacs-projectile-toggle)))
 #+END_SRC
 
 * Appearance
@@ -307,7 +347,7 @@ Add emoji support. This is useful when working with html.
 
 #+BEGIN_SRC emacs-lisp
   (use-package emojify
-    :Ensure t)
+    :ensure t)
 #+END_SRC
 
 Sometimes it helps to focus on the thing currently under the cursor. This turns off syntax highlighting for everything but the current thing. It's useful sometimes but a bit buggy in certain modes. I wonder if I could improve the config / find a better alternative?
