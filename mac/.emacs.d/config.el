@@ -94,6 +94,8 @@
 (use-package multiple-cursors
   :ensure t
   :config
+  (global-unset-key (kbd "M-<down-mouse-1>"))
+  (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
   (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
   (global-set-key (kbd "C->") 'mc/mark-next-like-this)
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
@@ -170,23 +172,23 @@
 
 (set-fontset-font t 'unicode "STIXGeneral" nil 'prepend)
 
-(use-package powerline
-  :disabled
-  :ensure t
-  :config
-  (setq powerline-default-separator 'utf-8))
-
-(use-package feebleline
-  :ensure t)
-
 (use-package emojify
   :ensure t)
 
+(setq display-time-24hr-format t)
+(display-time-mode 1)
+
+(use-package smart-mode-line-powerline-theme
+  :ensure t
+  :after powerline
+  :after smart-mode-line
+  :config
+  (sml/setup)
+  (sml/apply-theme 'powerline)
+  )
+
 (use-package focus
   :ensure t)
-
-(use-package nyan-mode
-    :ensure t)
 
 (global-hl-line-mode 1)
 
