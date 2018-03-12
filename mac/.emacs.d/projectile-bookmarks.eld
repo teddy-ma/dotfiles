@@ -1,1 +1,1 @@
-("~/code/gfresh/gfreshx/" "~/dotfiles/" "~/code/gfresh/beachprice-ruby/")
+("~/dotfiles/" "~/code/gfresh/gfreshx/" "~/code/gfresh/beachprice-ruby/")

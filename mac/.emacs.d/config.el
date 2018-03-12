@@ -435,6 +435,9 @@
   (use-package alchemist
     :ensure t))
 
+(use-package inf-ruby
+:ensure t)
+
 (use-package irony
   :ensure t
   :hook (c-mode . irony-mode))
