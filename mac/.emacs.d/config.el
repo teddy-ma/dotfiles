@@ -24,9 +24,11 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(setq custom-file (make-temp-file "emacs-custom"))
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
 
-(add-to-list 'load-path "~/.emacs.d/lisp/")
+(setq user-full-name "Teddy Ma"
+      user-mail-address "mlc880926@gmail.com")
 
 (setq inhibit-startup-screen t)
 
@@ -50,18 +52,34 @@
 
 (use-package crux
   :ensure t
-  :bind (("C-a" . crux-move-beginning-of-line)))
+  :bind (("C-a" . crux-move-beginning-of-line)
+         ("C-c f" . crux-recentf-find-file)
+         ("C-c r" . crux-rename-file-and-buffer)
+         ("C-c D" . crux-delete-file-and-buffer))
+)
+
+(use-package smart-hungry-delete
+  :ensure t
+  :bind (("<backspace>" . smart-hungry-delete-backward-char)
+         ("C-d" . smart-hungry-delete-forward-char))
+  :defer nil ;; dont defer so we can add our functions to hooks
+  :config (smart-hungry-delete-add-default-hooks))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (use-package smex
   :ensure t)
+(use-package flx
+  :ensure t)
 
 (use-package ivy
-    :ensure t
-    :diminish ivy-mode
-    :config
-    (ivy-mode t))
+      :ensure t
+      :config
+      (ivy-mode t)
+      (setq ivy-re-builders-alist
+            '((ivy-switch-buffer . ivy--regex-plus)
+              (t . ivy--regex-fuzzy)))
+)
 
 (use-package counsel
   :ensure t
@@ -153,39 +171,84 @@
 (set-face-attribute 'default nil
              :family "SourceCodePro+Powerline+Awesome Regular"
              :height 150
-             :weight 'normal
-             )
-
-(set-fontset-font t 'unicode "STIXGeneral" nil 'prepend)
+             :weight 'normal)
 
 (use-package emojify
   :ensure t)
 
-(use-package panda-theme
+(use-package cyberpunk-theme
+  :if (window-system)
   :ensure t
-  :config
-  (load-theme 'panda t))
+  :init
+  (progn
+    (load-theme 'cyberpunk t)
+    (set-face-attribute `mode-line nil
+                        :box nil)
+    (set-face-attribute `mode-line-inactive nil
+                        :box nil)))
 
-(setq display-time-24hr-format t)
-(display-time-mode 1)
+(use-package solarized-theme
+  :defer 10
+  :init
+  (setq solarized-use-variable-pitch nil)
+  :ensure t)
 
-(use-package powerline
-  :ensure t)
-(use-package smart-mode-line
-  :ensure t)
-(use-package smart-mode-line-powerline-theme
-  :ensure t
-  :after powerline
-  :after smart-mode-line
-  :config
-  (sml/setup)
-  (sml/apply-theme 'powerline)
-  )
+(defun switch-theme (theme)
+  "Disables any currently active themes and loads THEME."
+  ;; This interactive call is taken from `load-theme'
+  (interactive
+   (list
+    (intern (completing-read "Load custom theme: "
+                             (mapc 'symbol-name
+                                   (custom-available-themes))))))
+  (let ((enabled-themes custom-enabled-themes))
+    (mapc #'disable-theme custom-enabled-themes)
+    (load-theme theme t)))
 
-(use-package focus
-  :ensure t)
+(defun disable-active-themes ()
+  "Disables any currently active themes listed in `custom-enabled-themes'."
+  (interactive)
+  (mapc #'disable-theme custom-enabled-themes))
+
+(bind-key "s-<f12>" 'switch-theme)
+(bind-key "s-<f11>" 'disable-active-themes)
 
 (global-hl-line-mode 1)
+
+;; UTF-8 please
+(setq locale-coding-system 'utf-8) ; pretty
+(set-terminal-coding-system 'utf-8) ; pretty
+(set-keyboard-coding-system 'utf-8) ; pretty
+(set-selection-coding-system 'utf-8) ; please
+(prefer-coding-system 'utf-8) ; with sugar on top
+
+;; Turn off the blinking cursor
+(blink-cursor-mode -1)
+
+(setq-default indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
+(setq-default indicate-empty-lines t)
+
+;; Don't count two spaces after a period as the end of a sentence.
+;; Just one space is needed.
+(setq sentence-end-double-space nil)
+
+;; delete the region when typing, just like as we expect nowadays.
+(delete-selection-mode t)
+
+(show-paren-mode t)
+
+(column-number-mode t)
+
+(global-visual-line-mode)
+
+(setq uniquify-buffer-name-style 'forward)
+
+;; -i gets alias definitions from .bash_profile
+(setq shell-command-switch "-ic")
+
+;; Don't beep at me
+(setq visible-bell nil)
 
 (use-package smartparens
   :ensure t

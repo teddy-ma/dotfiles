@@ -47,50 +47,47 @@ If =use-package= is not installed, install it.
 
 ** Set custom settings to load in own file
 
-This stops emacs adding customised settings to =init.el=. I try to avoid using customize anyway, preferring programmatic control of variables. Creating it as a temporary file effectively disables it (i.e. any changes are session local).
+Set up the customize file to its own separate file, instead of saving
+customize settings in [[file:init.el][init.el]].
 
-#+BEGIN_SRC emacs-lisp
-  (setq custom-file (make-temp-file "emacs-custom"))
-#+END_SRC
+#+begin_src emacs-lisp
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
+#+end_src
 
-** Add custom packages to load path
-
-By default Emacs only includes files directly under =user-emacs-directory= (usually =~/.emacs.d/=), so we need to add any folders containing custom packages.
-
-I put my scripts under =~/dotfiles/lisp/= and symlink it with =ln -s ~/dotfiles/lisp ~/.emacs.d/lisp=.
-
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/lisp/")
-#+END_SRC
-* Preferences
-
-Don't display the help screen on startup.
+** Personal Information
+#+begin_src emacs-lisp
+  (setq user-full-name "Teddy Ma"
+        user-mail-address "mlc880926@gmail.com")
+#+end_src
+** Common Preferences
+*** Don't display the help screen on startup.
 
 #+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-screen t)
 #+END_SRC
 
-On  I use ⌘  and prefer ⌥ as =meta=≈
+***  and ⌘ are both meta key
 
 #+BEGIN_SRC emacs-lisp
   (setq mac-command-modifier 'meta
         mac-option-modifier 'meta)
 #+END_SRC
 
-I prefer lines to wrap.
+*** Alway use visual line
 
 #+BEGIN_SRC emacs-lisp
   (global-visual-line-mode 1)
 #+END_SRC
 
-Let's turn off unwanted window decoration.
+*** Keep quite and clearn
 
 #+BEGIN_SRC emacs-lisp
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
 #+END_SRC
 
-Make the =yes or no= prompts shorter.
+*** Y or N
 
 #+BEGIN_SRC emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
@@ -110,14 +107,33 @@ A common frustration with new Emacs users is the =filename#= files created. This
 
 * Interface
 ** Basics
-
+*** CRUX
 =crux= has useful functions extracted from Emacs Prelude. Set =C-a= to move to the first non-whitespace character on a line, and then to toggle between that and the beginning of the line.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package crux
-    :ensure t
-    :bind (("C-a" . crux-move-beginning-of-line)))
+    (use-package crux
+      :ensure t
+      :bind (("C-a" . crux-move-beginning-of-line)
+             ("C-c f" . crux-recentf-find-file)
+             ("C-c r" . crux-rename-file-and-buffer)
+             ("C-c D" . crux-delete-file-and-buffer))
+    )
 #+END_SRC
+
+*** Hungry Delete
+
+hungry delete can make life easier, but emacs-smart-hungry-delete is more powerful
+
+#+BEGIN_SRC emacs-lisp
+  (use-package smart-hungry-delete
+    :ensure t
+    :bind (("<backspace>" . smart-hungry-delete-backward-char)
+           ("C-d" . smart-hungry-delete-forward-char))
+    :defer nil ;; dont defer so we can add our functions to hooks
+    :config (smart-hungry-delete-add-default-hooks))
+#+END_SRC
+
+*** Trailing Whitespace
 
 I *never* want whitespace at the end of lines. Remove it on save.
 
@@ -127,21 +143,26 @@ I *never* want whitespace at the end of lines. Remove it on save.
 
 ** Command completion
 
-=smart M-x= suggests =M-x= commands based on recency and frequency. I don't tend to use it directly but =counsel= uses it to order suggestions.
+ivy deps
 
 #+BEGIN_SRC emacs-lisp
   (use-package smex
     :ensure t)
+  (use-package flx
+    :ensure t)
 #+END_SRC
 
-=ivy= is a generic completion framework which uses the minibuffer. Turning on =ivy-mode= enables replacement of lots of built in =ido= functionality.
+=ivy= is a generic completion framework which uses the minibuffer. Turning on =ivy-mode= with fuzzy support enables replacement of lots of built in =ido= functionality.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package ivy
-      :ensure t
-      :diminish ivy-mode
-      :config
-      (ivy-mode t))
+    (use-package ivy
+        :ensure t
+        :config
+        (ivy-mode t)
+        (setq ivy-re-builders-alist
+              '((ivy-switch-buffer . ivy--regex-plus)
+                (t . ivy--regex-fuzzy)))
+  )
 #+END_SRC
 
 =counsel= is a collection of =ivy= enhanced versions of common Emacs commands. I haven't bound much as =ivy-mode= takes care of most things.
@@ -218,10 +239,6 @@ Suggest next keys to me based on currently entered key combination.
 
 ** File tree
 
-I don't use this a whole lot, preferring to navigate via searches such as =counsel-find-file=, but it's occasionally useful to have a file tree.
-
-I should consider https://github.com/Alexander-Miller/treemacs.
-
 #+BEGIN_SRC emacs-lisp
   (use-package treemacs
     :ensure t
@@ -274,21 +291,14 @@ I should consider https://github.com/Alexander-Miller/treemacs.
 #+END_SRC
 
 * Appearance
-
+** Font
 Set a nice font.
 
 #+BEGIN_SRC emacs-lisp
   (set-face-attribute 'default nil
                :family "SourceCodePro+Powerline+Awesome Regular"
                :height 150
-               :weight 'normal
-               )
-#+END_SRC
-
-Set a preferred unicode font.
-
-#+BEGIN_SRC emacs-lisp
-  (set-fontset-font t 'unicode "STIXGeneral" nil 'prepend)
+               :weight 'normal)
 #+END_SRC
 
 Add emoji support. This is useful when working with html.
@@ -297,49 +307,139 @@ Add emoji support. This is useful when working with html.
   (use-package emojify
     :ensure t)
 #+END_SRC
+** Theme
+*** Cyberpunk theme
 
-Use a clear dark theme
+The [[https://github.com/n3mo/cyberpunk-theme.el][cyberpunk theme]] is dark and colorful. However, I don't like the
+boxes around the mode line.
 
-#+BEGIN_SRC emacs-lisp
-  (use-package panda-theme
-    :ensure t
-    :config
-    (load-theme 'panda t))
-#+END_SRC
+#+begin_src emacs-lisp
+(use-package cyberpunk-theme
+  :if (window-system)
+  :ensure t
+  :init
+  (progn
+    (load-theme 'cyberpunk t)
+    (set-face-attribute `mode-line nil
+                        :box nil)
+    (set-face-attribute `mode-line-inactive nil
+                        :box nil)))
+#+end_src
 
-Power line mode line
+I tend to switch themes more often than normal. For example, switching
+to a lighter theme (such as the default) or to a different theme
+depending on the time of day or my mood. Normally, switching themes is
+a multi-step process with ~disable-theme~ and ~load-theme~. The
+~switch-theme~ function will do that in one swoop. I just choose which
+theme I want to go to.
 
-#+BEGIN_SRC emacs-lisp
-  (setq display-time-24hr-format t)
-  (display-time-mode 1)
+*** Solarized theme
 
-  (use-package powerline
-    :ensure t)
-  (use-package smart-mode-line
-    :ensure t)
-  (use-package smart-mode-line-powerline-theme
-    :ensure t
-    :after powerline
-    :after smart-mode-line
-    :config
-    (sml/setup)
-    (sml/apply-theme 'powerline)
-    )
-#+End_SRC
+Here's some configuration for [[https://github.com/bbatsov/solarized-emacs/][bbatsov's solarized themes]].
 
-Sometimes it helps to focus on the thing currently under the cursor. This turns off syntax highlighting for everything but the current thing. It's useful sometimes but a bit buggy in certain modes. I wonder if I could improve the config / find a better alternative?
+#+begin_src emacs-lisp
+(use-package solarized-theme
+  :defer 10
+  :init
+  (setq solarized-use-variable-pitch nil)
+  :ensure t)
+#+end_src
 
-#+BEGIN_SRC emacs-lisp
-  (use-package focus
-    :ensure t)
-#+END_SRC
+*** Monokai theme
 
-Highlight the current line.
+#+begin_src emacs-lisp :tangle no
+(use-package monokai-theme
+  :if (window-system)
+  :ensure t
+  :init
+  (setq monokai-use-variable-pitch nil))
+#+end_src
+
+*** Waher theme
+
+#+begin_src emacs-lisp :tangle no
+(use-package waher-theme
+  if (window-system)
+  :ensure t
+  :init
+  (load-theme 'waher))
+#+end_src
+
+*** Convenient theme functions
+
+#+begin_src emacs-lisp
+(defun switch-theme (theme)
+  "Disables any currently active themes and loads THEME."
+  ;; This interactive call is taken from `load-theme'
+  (interactive
+   (list
+    (intern (completing-read "Load custom theme: "
+                             (mapc 'symbol-name
+                                   (custom-available-themes))))))
+  (let ((enabled-themes custom-enabled-themes))
+    (mapc #'disable-theme custom-enabled-themes)
+    (load-theme theme t)))
+
+(defun disable-active-themes ()
+  "Disables any currently active themes listed in `custom-enabled-themes'."
+  (interactive)
+  (mapc #'disable-theme custom-enabled-themes))
+
+(bind-key "s-<f12>" 'switch-theme)
+(bind-key "s-<f11>" 'disable-active-themes)
+#+end_src
+** Mode Line
+** Misc
+*** Highlight the current line.
 
 #+BEGIN_SRC emacs-lisp
   (global-hl-line-mode 1)
 #+END_SRC
 
+*** default utf8
+#+BEGIN_SRC emacs-lisp
+  ;; UTF-8 please
+  (setq locale-coding-system 'utf-8) ; pretty
+  (set-terminal-coding-system 'utf-8) ; pretty
+  (set-keyboard-coding-system 'utf-8) ; pretty
+  (set-selection-coding-system 'utf-8) ; please
+  (prefer-coding-system 'utf-8) ; with sugar on top
+#+END_SRC
+*** cursor
+#+BEGIN_SRC emacs-lisp
+  ;; Turn off the blinking cursor
+  (blink-cursor-mode -1)
+#+END_SRC
+
+*** tabs and indent
+#+BEGIN_SRC emacs-lisp
+
+  (setq-default indent-tabs-mode nil)
+  (setq-default indent-tabs-mode nil)
+  (setq-default indicate-empty-lines t)
+
+  ;; Don't count two spaces after a period as the end of a sentence.
+  ;; Just one space is needed.
+  (setq sentence-end-double-space nil)
+
+  ;; delete the region when typing, just like as we expect nowadays.
+  (delete-selection-mode t)
+
+  (show-paren-mode t)
+
+  (column-number-mode t)
+
+  (global-visual-line-mode)
+
+  (setq uniquify-buffer-name-style 'forward)
+
+  ;; -i gets alias definitions from .bash_profile
+  (setq shell-command-switch "-ic")
+
+  ;; Don't beep at me
+  (setq visible-bell nil)
+
+#+END_SRC
 * Coding
 ** Programming specific interface improvements
 
