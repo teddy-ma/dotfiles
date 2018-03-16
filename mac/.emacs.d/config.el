@@ -169,19 +169,23 @@
 
 (set-face-attribute 'default nil
              :family "SourceCodePro+Powerline+Awesome Regular"
-             :height 150
+             :height 180
              :weight 'normal)
 
 (use-package emojify
   :ensure t)
 
-(setq ns-use-srgb-colorspace nil)
+(use-package solarized-theme
+  :ensure t
+  :init
+  (load-theme 'solarized-dark t))
 
-(use-package powerline
+(use-package spaceline
   :ensure t
   :config
-  (powerline-default-theme)
-)
+  (require 'spaceline-config)
+  (setq powerline-default-separator (quote arrow))
+  (spaceline-emacs-theme))
 
 (global-hl-line-mode 1)
 

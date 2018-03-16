@@ -3,8 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "async" "async.el" (23206 6312 438317 696000))
-;;; Generated autoloads from async.el
+;;;### (autoloads nil "async" "../../../../../.emacs.d/elpa/async-20180119.533/async.el"
+;;;;;;  "df579b857c3571a18ab0e4ae35e49a7f")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/async-20180119.533/async.el
 
 (autoload 'async-start-process "async" "\
 Start the executable PROGRAM asynchronously.  See `async-start'.
@@ -68,9 +69,9 @@ returns nil.  It can still be useful, however, as an argument to
 
 ;;;***
 
-;;;### (autoloads nil "async-bytecomp" "async-bytecomp.el" (23206
-;;;;;;  6312 436090 324000))
-;;; Generated autoloads from async-bytecomp.el
+;;;### (autoloads nil "async-bytecomp" "../../../../../.emacs.d/elpa/async-20180119.533/async-bytecomp.el"
+;;;;;;  "74771a817b3b51f878725bab4198d4f6")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/async-20180119.533/async-bytecomp.el
 
 (autoload 'async-byte-recompile-directory "async-bytecomp" "\
 Compile all *.el files in DIRECTORY asynchronously.
@@ -97,9 +98,9 @@ Async compilation of packages can be controlled by
 
 ;;;***
 
-;;;### (autoloads nil "dired-async" "dired-async.el" (23206 6312
-;;;;;;  432830 55000))
-;;; Generated autoloads from dired-async.el
+;;;### (autoloads nil "dired-async" "../../../../../.emacs.d/elpa/async-20180119.533/dired-async.el"
+;;;;;;  "9fa4eacc12640ee5a2a48604f72f8ef6")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/async-20180119.533/dired-async.el
 
 (defvar dired-async-mode nil "\
 Non-nil if Dired-Async mode is enabled.
@@ -138,8 +139,13 @@ Run ‘dired-do-rename’ asynchronously.
 
 ;;;***
 
-;;;### (autoloads nil nil ("async-pkg.el" "smtpmail-async.el") (23206
-;;;;;;  6312 440750 209000))
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/async-20180119.533/async-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/async-20180119.533/async-bytecomp.el"
+;;;;;;  "../../../../../.emacs.d/elpa/async-20180119.533/async-pkg.el"
+;;;;;;  "../../../../../.emacs.d/elpa/async-20180119.533/async.el"
+;;;;;;  "../../../../../.emacs.d/elpa/async-20180119.533/dired-async.el"
+;;;;;;  "../../../../../.emacs.d/elpa/async-20180119.533/smtpmail-async.el")
+;;;;;;  (23211 39068 218730 633000))
 
 ;;;***
 

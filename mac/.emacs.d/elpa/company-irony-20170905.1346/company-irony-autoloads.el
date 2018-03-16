@@ -3,9 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "company-irony" "company-irony.el" (23206 6458
-;;;;;;  300667 486000))
-;;; Generated autoloads from company-irony.el
+;;;### (autoloads nil "company-irony" "../../../../../.emacs.d/elpa/company-irony-20170905.1346/company-irony.el"
+;;;;;;  "eae55fa8aa0efede5c05b2c7a3d7dc59")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/company-irony-20170905.1346/company-irony.el
 
 (autoload 'company-irony "company-irony" "\
 
@@ -22,6 +22,12 @@ This may be useful to company < `0.8.4', newer version of company
 include these commands by default.
 
 \(fn)" nil nil)
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/company-irony-20170905.1346/company-irony-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/company-irony-20170905.1346/company-irony.el")
+;;;;;;  (23211 39138 150937 759000))
 
 ;;;***
 

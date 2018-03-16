@@ -3,9 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "js2-imenu-extras" "js2-imenu-extras.el" (23206
-;;;;;;  6338 111787 888000))
-;;; Generated autoloads from js2-imenu-extras.el
+;;;### (autoloads nil "js2-imenu-extras" "../../../../../.emacs.d/elpa/js2-mode-20180305.1647/js2-imenu-extras.el"
+;;;;;;  "a7580f86032a9ca1d6f6e543cf770ba7")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/js2-mode-20180305.1647/js2-imenu-extras.el
 
 (autoload 'js2-imenu-extras-setup "js2-imenu-extras" "\
 
@@ -19,9 +19,9 @@ Toggle Imenu support for frameworks and structural patterns.
 
 ;;;***
 
-;;;### (autoloads nil "js2-mode" "js2-mode.el" (23206 6338 118321
-;;;;;;  739000))
-;;; Generated autoloads from js2-mode.el
+;;;### (autoloads nil "js2-mode" "../../../../../.emacs.d/elpa/js2-mode-20180305.1647/js2-mode.el"
+;;;;;;  "9c2ee6cb8e20053363d2f823756a80ff")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/js2-mode-20180305.1647/js2-mode.el
 
 (autoload 'js2-highlight-unused-variables-mode "js2-mode" "\
 Toggle highlight of unused variables.
@@ -55,8 +55,12 @@ variables (`sgml-basic-offset' et al) locally, like so:
 
 ;;;***
 
-;;;### (autoloads nil nil ("js2-mode-pkg.el" "js2-old-indent.el")
-;;;;;;  (23206 6338 116438 166000))
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/js2-mode-20180305.1647/js2-imenu-extras.el"
+;;;;;;  "../../../../../.emacs.d/elpa/js2-mode-20180305.1647/js2-mode-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/js2-mode-20180305.1647/js2-mode-pkg.el"
+;;;;;;  "../../../../../.emacs.d/elpa/js2-mode-20180305.1647/js2-mode.el"
+;;;;;;  "../../../../../.emacs.d/elpa/js2-mode-20180305.1647/js2-old-indent.el")
+;;;;;;  (23211 39098 498352 956000))
 
 ;;;***
 

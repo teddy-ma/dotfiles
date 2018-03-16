@@ -3,9 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "which-key" "which-key.el" (23206 6228 144603
-;;;;;;  264000))
-;;; Generated autoloads from which-key.el
+;;;### (autoloads nil "which-key" "../../../../../.emacs.d/elpa/which-key-20180301.1018/which-key.el"
+;;;;;;  "001ac8a2f9c9e872b269f2b071647e92")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/which-key-20180301.1018/which-key.el
 
 (defvar which-key-mode nil "\
 Non-nil if Which-Key mode is enabled.
@@ -161,6 +161,12 @@ Show the top-level bindings in KEYMAP using which-key. KEYMAP
 is selected interactively by mode in `minor-mode-map-alist'.
 
 \(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/which-key-20180301.1018/which-key-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/which-key-20180301.1018/which-key.el")
+;;;;;;  (23211 39009 278096 616000))
 
 ;;;***
 

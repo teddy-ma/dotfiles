@@ -3,9 +3,10 @@
 
 (setq mc/cmds-to-run-for-all
       '(
-	))
+        ))
 
 (setq mc/cmds-to-run-once
       '(
-	org-self-insert-command
-	))
+        org-self-insert-command
+        smart-hungry-delete-backward-char
+        ))

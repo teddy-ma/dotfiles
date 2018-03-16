@@ -293,12 +293,10 @@ Maybe I should consider https://github.com/victorhge/iedit
 
 * Appearance
 ** Font
-Set a nice font.
-
 #+BEGIN_SRC emacs-lisp
   (set-face-attribute 'default nil
                :family "SourceCodePro+Powerline+Awesome Regular"
-               :height 150
+               :height 180
                :weight 'normal)
 #+END_SRC
 
@@ -309,19 +307,13 @@ Add emoji support. This is useful when working with html.
     :ensure t)
 #+END_SRC
 ** Theme
-
-** Mode Line
-And finally we build our mode line:
-
 #+BEGIN_SRC emacs-lisp
-(setq ns-use-srgb-colorspace nil)
-
-(use-package powerline
-  :ensure t
-  :config
-  (powerline-default-theme)
-)
+  (use-package solarized-theme
+    :ensure t
+    :init
+    (load-theme 'solarized-dark t))
 #+END_SRC
+** Mode Line
 ** Misc
 *** Highlight the current line.
 

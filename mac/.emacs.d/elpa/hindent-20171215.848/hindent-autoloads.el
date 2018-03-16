@@ -3,8 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "hindent" "hindent.el" (23206 6362 128787 799000))
-;;; Generated autoloads from hindent.el
+;;;### (autoloads nil "hindent" "../../../../../.emacs.d/elpa/hindent-20171215.848/hindent.el"
+;;;;;;  "492238c3a1fa6eb08b91ef6c8a1a9726")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/hindent-20171215.848/hindent.el
 
 (autoload 'hindent-mode "hindent" "\
 Indent code with the hindent program.
@@ -46,6 +47,12 @@ the file.
 \(fn BEG END &optional DROP-NEWLINE)" t nil)
 
 (define-obsolete-function-alias 'hindent/reformat-decl 'hindent-reformat-decl)
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/hindent-20171215.848/hindent-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/hindent-20171215.848/hindent.el")
+;;;;;;  (23211 39123 812115 350000))
 
 ;;;***
 

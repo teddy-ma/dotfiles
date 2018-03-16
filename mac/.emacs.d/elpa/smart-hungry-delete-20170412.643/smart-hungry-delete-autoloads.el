@@ -3,9 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "smart-hungry-delete" "smart-hungry-delete.el"
-;;;;;;  (23210 7344 862315 273000))
-;;; Generated autoloads from smart-hungry-delete.el
+;;;### (autoloads nil "smart-hungry-delete" "../../../../../.emacs.d/elpa/smart-hungry-delete-20170412.643/smart-hungry-delete.el"
+;;;;;;  "ab4ea6b13d9d4ecbccac0e36ce824b89")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/smart-hungry-delete-20170412.643/smart-hungry-delete.el
 
 (autoload 'smart-hungry-delete-add-default-hooks "smart-hungry-delete" "\
 Add to some hooks for sensible default character/word/delimiter configuration.
@@ -31,6 +31,12 @@ else fall back to (delete-char 1).
 With prefix argument ARG, just delete a single char.
 
 \(fn ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/smart-hungry-delete-20170412.643/smart-hungry-delete-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/smart-hungry-delete-20170412.643/smart-hungry-delete.el")
+;;;;;;  (23211 38998 675192 577000))
 
 ;;;***
 

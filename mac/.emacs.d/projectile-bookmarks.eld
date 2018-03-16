@@ -1,1 +1,1 @@
-("~/dotfiles/" "~/Downloads/read-emacs-config/" "~/code/gfresh/gfreshx/" "~/code/gfresh/beachprice-ruby/")
+("~/dotfiles/" "~/code/gfresh/gfreshx/" "~/Downloads/read-emacs-config/" "~/code/gfresh/beachprice-ruby/")

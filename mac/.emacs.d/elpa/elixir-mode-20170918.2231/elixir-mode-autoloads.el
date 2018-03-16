@@ -3,9 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "elixir-mode" "elixir-mode.el" (23206 6365
-;;;;;;  367140 942000))
-;;; Generated autoloads from elixir-mode.el
+;;;### (autoloads nil "elixir-mode" "../../../../../.emacs.d/elpa/elixir-mode-20170918.2231/elixir-mode.el"
+;;;;;;  "04f556e66952b813624c366915ed1d61")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/elixir-mode-20170918.2231/elixir-mode.el
 
 (autoload 'elixir-mode-open-github "elixir-mode" "\
 Elixir mode open GitHub page.
@@ -57,8 +57,11 @@ Major mode for editing Elixir code.
 
 ;;;***
 
-;;;### (autoloads nil nil ("elixir-mode-pkg.el" "elixir-smie.el")
-;;;;;;  (23206 6365 368620 167000))
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/elixir-mode-20170918.2231/elixir-mode-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/elixir-mode-20170918.2231/elixir-mode-pkg.el"
+;;;;;;  "../../../../../.emacs.d/elpa/elixir-mode-20170918.2231/elixir-mode.el"
+;;;;;;  "../../../../../.emacs.d/elpa/elixir-mode-20170918.2231/elixir-smie.el")
+;;;;;;  (23211 39128 576152 523000))
 
 ;;;***
 

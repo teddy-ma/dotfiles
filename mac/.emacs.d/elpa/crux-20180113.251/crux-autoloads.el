@@ -3,8 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "crux" "crux.el" (23206 6217 363044 360000))
-;;; Generated autoloads from crux.el
+;;;### (autoloads nil "crux" "../../../../../.emacs.d/elpa/crux-20180113.251/crux.el"
+;;;;;;  "9b61b904af85ff59e781608fe27c8aa5")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/crux-20180113.251/crux.el
 
 (autoload 'crux-open-with "crux" "\
 Open visited file in default external program.
@@ -210,6 +211,12 @@ skip typos you don't want to fix with `SPC', and you can
 abort completely with `C-g'.
 
 \(fn P)" t nil)
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/crux-20180113.251/crux-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/crux-20180113.251/crux.el")
+;;;;;;  (23211 38997 825745 995000))
 
 ;;;***
 

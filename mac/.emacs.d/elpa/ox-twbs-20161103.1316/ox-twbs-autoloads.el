@@ -3,8 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "ox-twbs" "ox-twbs.el" (23206 6487 312437 537000))
-;;; Generated autoloads from ox-twbs.el
+;;;### (autoloads nil "ox-twbs" "../../../../../.emacs.d/elpa/ox-twbs-20161103.1316/ox-twbs.el"
+;;;;;;  "269af6697f6f8a2fa0d04e1f0d7bcb68")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/ox-twbs-20161103.1316/ox-twbs.el
 
 (put 'org-twbs-head-include-default-style 'safe-local-variable 'booleanp)
 
@@ -106,6 +107,12 @@ publishing directory.
 Return output file name.
 
 \(fn PLIST FILENAME PUB-DIR)" nil nil)
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/ox-twbs-20161103.1316/ox-twbs-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/ox-twbs-20161103.1316/ox-twbs.el")
+;;;;;;  (23211 39142 267771 797000))
 
 ;;;***
 

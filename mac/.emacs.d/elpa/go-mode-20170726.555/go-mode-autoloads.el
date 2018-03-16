@@ -3,8 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "go-mode" "go-mode.el" (23206 6327 691878 929000))
-;;; Generated autoloads from go-mode.el
+;;;### (autoloads nil "go-mode" "../../../../../.emacs.d/elpa/go-mode-20170726.555/go-mode.el"
+;;;;;;  "da2a278e3a70254d5970c74fb1de3504")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/go-mode-20170726.555/go-mode.el
 
 (autoload 'go-mode "go-mode" "\
 Major mode for editing Go source text.
@@ -92,6 +93,12 @@ Download a paste from the playground and insert it in a Go buffer.
 Tries to look for a URL at point.
 
 \(fn URL)" t nil)
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/go-mode-20170726.555/go-mode-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/go-mode-20170726.555/go-mode.el")
+;;;;;;  (23211 39088 643130 891000))
 
 ;;;***
 

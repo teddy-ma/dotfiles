@@ -3,9 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "treemacs-projectile" "treemacs-projectile.el"
-;;;;;;  (23206 15238 770939 498000))
-;;; Generated autoloads from treemacs-projectile.el
+;;;### (autoloads nil "treemacs-projectile" "../../../../../.emacs.d/elpa/treemacs-projectile-20180203.416/treemacs-projectile.el"
+;;;;;;  "c08aeb956fcbc995d6cb39a37bda056c")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/treemacs-projectile-20180203.416/treemacs-projectile.el
 
 (autoload 'treemacs-projectile "treemacs-projectile" "\
 Open treemacs for the current projectile project.
@@ -21,6 +21,12 @@ and select it.
 If no treemacs buffer exists call `treemacs-projectile'.
 
 \(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/treemacs-projectile-20180203.416/treemacs-projectile-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/treemacs-projectile-20180203.416/treemacs-projectile.el")
+;;;;;;  (23211 39028 998550 220000))
 
 ;;;***
 

@@ -3,9 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "rich-minority" "rich-minority.el" (23206 29104
-;;;;;;  378096 567000))
-;;; Generated autoloads from rich-minority.el
+;;;### (autoloads nil "rich-minority" "../../../../../.emacs.d/elpa/rich-minority-20170813.622/rich-minority.el"
+;;;;;;  "a04e8165920193588dc944ddbb567d21")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/rich-minority-20170813.622/rich-minority.el
 
 (autoload 'rm--mode-list-as-string-list "rich-minority" "\
 Return `minor-mode-list' as a simple list of strings.
@@ -30,6 +30,12 @@ the mode if ARG is omitted or nil, and toggle it if ARG is `toggle'.
 \\{rich-minority-mode-map}
 
 \(fn &optional ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/rich-minority-20170813.622/rich-minority-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/rich-minority-20170813.622/rich-minority.el")
+;;;;;;  (23211 39040 611922 210000))
 
 ;;;***
 

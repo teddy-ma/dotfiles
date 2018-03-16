@@ -3,9 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "dumb-jump" "dumb-jump.el" (23206 6311 915444
-;;;;;;  888000))
-;;; Generated autoloads from dumb-jump.el
+;;;### (autoloads nil "dumb-jump" "../../../../../.emacs.d/elpa/dumb-jump-20180228.2206/dumb-jump.el"
+;;;;;;  "d7b98b7afc0d17a6fe96782a74ced4dc")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/dumb-jump-20180228.2206/dumb-jump.el
 
 (defvar dumb-jump-mode-map (let ((map (make-sparse-keymap))) (define-key map (kbd "C-M-g") 'dumb-jump-go) (define-key map (kbd "C-M-p") 'dumb-jump-back) (define-key map (kbd "C-M-q") 'dumb-jump-quick-look) map))
 
@@ -63,6 +63,12 @@ for a description of this minor mode.")
 Minor mode for jumping to variable and function definitions
 
 \(fn &optional ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/dumb-jump-20180228.2206/dumb-jump-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/dumb-jump-20180228.2206/dumb-jump.el")
+;;;;;;  (23211 39066 882565 165000))
 
 ;;;***
 

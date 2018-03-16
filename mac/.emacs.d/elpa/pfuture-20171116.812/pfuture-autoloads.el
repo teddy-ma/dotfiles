@@ -3,9 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "pfuture" "pfuture.el" (23206 15232 933403
-;;;;;;  674000))
-;;; Generated autoloads from pfuture.el
+;;;### (autoloads nil "pfuture" "../../../../../.emacs.d/elpa/pfuture-20171116.812/pfuture.el"
+;;;;;;  "d86985b55e7237984631d32d94dc10e9")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/pfuture-20171116.812/pfuture.el
 
 (autoload 'pfuture-new "pfuture" "\
 Create a new future process for command CMD and arguments CMD-ARGS.
@@ -18,6 +18,12 @@ this is wrong: (pfuture-new \"git status\")
 this is right: (pfuture-new \"git\" \"status\")
 
 \(fn CMD &rest CMD-ARGS)" nil nil)
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/pfuture-20171116.812/pfuture-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/pfuture-20171116.812/pfuture.el")
+;;;;;;  (23211 39017 934536 729000))
 
 ;;;***
 

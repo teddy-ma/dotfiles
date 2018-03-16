@@ -3,9 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "bind-key" "bind-key.el" (23206 6215 682008
-;;;;;;  734000))
-;;; Generated autoloads from bind-key.el
+;;;### (autoloads nil "bind-key" "../../../../../.emacs.d/elpa/bind-key-20171210.2125/bind-key.el"
+;;;;;;  "44e5b61f8ff09233587a9d8ca743fa5d")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/bind-key-20171210.2125/bind-key.el
 
 (autoload 'bind-key "bind-key" "\
 Bind KEY-NAME to COMMAND in KEYMAP (`global-map' if not passed).
@@ -68,6 +68,12 @@ function symbol (unquoted).
 Display all the personal keybindings defined by `bind-key'.
 
 \(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/bind-key-20171210.2125/bind-key-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/bind-key-20171210.2125/bind-key.el")
+;;;;;;  (23211 38995 396951 201000))
 
 ;;;***
 

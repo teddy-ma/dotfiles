@@ -3,9 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "expand-region" "expand-region.el" (23206 6232
-;;;;;;  589332 926000))
-;;; Generated autoloads from expand-region.el
+;;;### (autoloads nil "expand-region" "../../../../../.emacs.d/elpa/expand-region-20171217.2125/expand-region.el"
+;;;;;;  "69d4110c8dc5ec31d74ce206f094df15")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/expand-region-20171217.2125/expand-region.el
 
 (autoload 'er/expand-region "expand-region" "\
 Increase selected region by semantic units.
@@ -19,9 +19,9 @@ before calling `er/expand-region' for the first time.
 
 ;;;***
 
-;;;### (autoloads nil "expand-region-custom" "expand-region-custom.el"
-;;;;;;  (23206 6232 617341 949000))
-;;; Generated autoloads from expand-region-custom.el
+;;;### (autoloads nil "expand-region-custom" "../../../../../.emacs.d/elpa/expand-region-20171217.2125/expand-region-custom.el"
+;;;;;;  "65696caf6c61d5bb31444a192c5119b5")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/expand-region-20171217.2125/expand-region-custom.el
 
 (let ((loads (get 'expand-region 'custom-loads))) (if (member '"expand-region-custom" loads) nil (put 'expand-region 'custom-loads (cons '"expand-region-custom" loads))))
 
@@ -79,16 +79,36 @@ If set to nil, always place the cursor at the beginning of the region.")
 
 ;;;***
 
-;;;### (autoloads nil nil ("cc-mode-expansions.el" "clojure-mode-expansions.el"
-;;;;;;  "cperl-mode-expansions.el" "css-mode-expansions.el" "enh-ruby-mode-expansions.el"
-;;;;;;  "er-basic-expansions.el" "erlang-mode-expansions.el" "expand-region-core.el"
-;;;;;;  "expand-region-pkg.el" "feature-mode-expansions.el" "html-mode-expansions.el"
-;;;;;;  "js-mode-expansions.el" "js2-mode-expansions.el" "jsp-expansions.el"
-;;;;;;  "latex-mode-expansions.el" "nxml-mode-expansions.el" "octave-expansions.el"
-;;;;;;  "python-el-expansions.el" "python-el-fgallina-expansions.el"
-;;;;;;  "python-mode-expansions.el" "ruby-mode-expansions.el" "sml-mode-expansions.el"
-;;;;;;  "subword-mode-expansions.el" "text-mode-expansions.el" "the-org-mode-expansions.el"
-;;;;;;  "web-mode-expansions.el") (23206 6232 627798 356000))
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/expand-region-20171217.2125/cc-mode-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/clojure-mode-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/cperl-mode-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/css-mode-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/enh-ruby-mode-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/er-basic-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/erlang-mode-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/expand-region-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/expand-region-core.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/expand-region-custom.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/expand-region-pkg.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/expand-region.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/feature-mode-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/html-mode-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/js-mode-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/js2-mode-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/jsp-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/latex-mode-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/nxml-mode-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/octave-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/python-el-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/python-el-fgallina-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/python-mode-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/ruby-mode-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/sml-mode-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/subword-mode-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/text-mode-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/the-org-mode-expansions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/expand-region-20171217.2125/web-mode-expansions.el")
+;;;;;;  (23211 39012 820413 979000))
 
 ;;;***
 
