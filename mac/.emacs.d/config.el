@@ -53,7 +53,6 @@
 (use-package crux
   :ensure t
   :bind (("C-a" . crux-move-beginning-of-line)
-         ("C-c f" . crux-recentf-find-file)
          ("C-c r" . crux-rename-file-and-buffer)
          ("C-c D" . crux-delete-file-and-buffer))
 )
@@ -176,42 +175,13 @@
 (use-package emojify
   :ensure t)
 
-(use-package cyberpunk-theme
-  :if (window-system)
+(setq ns-use-srgb-colorspace nil)
+
+(use-package powerline
   :ensure t
-  :init
-  (progn
-    (load-theme 'cyberpunk t)
-    (set-face-attribute `mode-line nil
-                        :box nil)
-    (set-face-attribute `mode-line-inactive nil
-                        :box nil)))
-
-(use-package solarized-theme
-  :defer 10
-  :init
-  (setq solarized-use-variable-pitch nil)
-  :ensure t)
-
-(defun switch-theme (theme)
-  "Disables any currently active themes and loads THEME."
-  ;; This interactive call is taken from `load-theme'
-  (interactive
-   (list
-    (intern (completing-read "Load custom theme: "
-                             (mapc 'symbol-name
-                                   (custom-available-themes))))))
-  (let ((enabled-themes custom-enabled-themes))
-    (mapc #'disable-theme custom-enabled-themes)
-    (load-theme theme t)))
-
-(defun disable-active-themes ()
-  "Disables any currently active themes listed in `custom-enabled-themes'."
-  (interactive)
-  (mapc #'disable-theme custom-enabled-themes))
-
-(bind-key "s-<f12>" 'switch-theme)
-(bind-key "s-<f11>" 'disable-active-themes)
+  :config
+  (powerline-default-theme)
+)
 
 (global-hl-line-mode 1)
 
@@ -249,6 +219,8 @@
 
 ;; Don't beep at me
 (setq visible-bell nil)
+
+(setq battery-mode-line-format "[%b%p%% %t]")
 
 (use-package smartparens
   :ensure t
@@ -321,7 +293,6 @@
   :ensure t
   :config
   (add-hook 'after-init-hook 'global-flycheck-mode)
-  (add-hook 'flycheck-mode-hook 'jc/use-eslint-from-node-modules)
   (add-to-list 'flycheck-checkers 'proselint)
   (setq-default flycheck-highlighting-mode 'lines)
   ;; Define fringe indicator / warning levels
@@ -427,28 +398,6 @@
   (add-hook 'js2-mode-hook 'prettier-js-mode)
   (add-hook 'rjsx-mode-hook 'prettier-js-mode))
 
-(use-package js-doc
-  :ensure t
-  :bind (:map js2-mode-map
-         ("C-c i" . js-doc-insert-function-doc)
-         ("@" . js-doc-insert-tag))
-  :config
-  (setq js-doc-mail-address "jamiecollinson@gmail.com"
-       js-doc-author (format "Jamie Collinson <%s>" js-doc-mail-address)
-       js-doc-url "jamiecollinson.com"
-       js-doc-license "MIT License"))
-
-(defun jc/use-eslint-from-node-modules ()
-  "Set local eslint if available."
-  (let* ((root (locate-dominating-file
-                (or (buffer-file-name) default-directory)
-                "node_modules"))
-         (eslint (and root
-                      (expand-file-name "node_modules/eslint/bin/eslint.js"
-                                        root))))
-    (when (and eslint (file-executable-p eslint))
-      (setq-local flycheck-javascript-eslint-executable eslint))))
-
 (use-package web-mode
   :ensure t
   :mode (("\\.html\\'" . web-mode)
@@ -510,6 +459,9 @@
 (use-package flycheck-irony
   :ensure t
   :hook (flycheck-mode . flycheck-irony-setup))
+
+(use-package rust-mode
+  :ensure t )
 
 (setq org-startup-indented 'f)
 (setq org-special-ctrl-a/e 't)
