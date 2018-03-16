@@ -108,13 +108,12 @@ A common frustration with new Emacs users is the =filename#= files created. This
 * Interface
 ** Basics
 *** CRUX
-=crux= has useful functions extracted from Emacs Prelude. Set =C-a= to move to the first non-whitespace character on a line, and then to toggle between that and the beginning of the line.
+=crux= is a list of useful functions.
 
 #+BEGIN_SRC emacs-lisp
     (use-package crux
       :ensure t
       :bind (("C-a" . crux-move-beginning-of-line)
-             ("C-c f" . crux-recentf-find-file)
              ("C-c r" . crux-rename-file-and-buffer)
              ("C-c D" . crux-delete-file-and-buffer))
     )
@@ -143,7 +142,7 @@ I *never* want whitespace at the end of lines. Remove it on save.
 
 ** Command completion
 
-ivy deps
+=ivy= deps
 
 #+BEGIN_SRC emacs-lisp
   (use-package smex
@@ -224,6 +223,8 @@ Suggest next keys to me based on currently entered key combination.
 #+END_SRC
 
 ** Multiple cursors
+
+Maybe I should consider https://github.com/victorhge/iedit
 
 #+BEGIN_SRC emacs-lisp
   (use-package multiple-cursors
@@ -898,8 +899,6 @@ Add flycheck support.
 
 * Org
 ** General settings.
-
-I should comment on these more...
 
 #+BEGIN_SRC emacs-lisp
   (setq org-startup-indented 'f)
