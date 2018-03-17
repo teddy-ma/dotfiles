@@ -154,14 +154,11 @@ I *never* want whitespace at the end of lines. Remove it on save.
 =ivy= is a generic completion framework which uses the minibuffer. Turning on =ivy-mode= with fuzzy support enables replacement of lots of built in =ido= functionality.
 
 #+BEGIN_SRC emacs-lisp
-    (use-package ivy
-        :ensure t
-        :config
-        (ivy-mode t)
-        (setq ivy-re-builders-alist
-              '((ivy-switch-buffer . ivy--regex-plus)
-                (t . ivy--regex-fuzzy)))
-  )
+  (use-package ivy
+    :ensure t
+    :config
+    (ivy-mode t)
+    )
 #+END_SRC
 
 =counsel= is a collection of =ivy= enhanced versions of common Emacs commands. I haven't bound much as =ivy-mode= takes care of most things.
@@ -169,7 +166,13 @@ I *never* want whitespace at the end of lines. Remove it on save.
 #+BEGIN_SRC emacs-lisp
   (use-package counsel
     :ensure t
-    :bind (("M-x" . counsel-M-x))
+    :bind
+    (("M-x" . counsel-M-x))
+    :config
+    (setq ivy-re-builders-alist
+          '((ivy-switch-buffer . ivy--regex-plus)
+            (t . ivy--regex-fuzzy)))
+    (setq ivy-initial-inputs-alist nil)
     )
 #+END_SRC
 

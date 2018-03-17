@@ -72,17 +72,20 @@
   :ensure t)
 
 (use-package ivy
-      :ensure t
-      :config
-      (ivy-mode t)
-      (setq ivy-re-builders-alist
-            '((ivy-switch-buffer . ivy--regex-plus)
-              (t . ivy--regex-fuzzy)))
-)
+  :ensure t
+  :config
+  (ivy-mode t)
+  )
 
 (use-package counsel
   :ensure t
-  :bind (("M-x" . counsel-M-x))
+  :bind
+  (("M-x" . counsel-M-x))
+  :config
+  (setq ivy-re-builders-alist
+        '((ivy-switch-buffer . ivy--regex-plus)
+          (t . ivy--regex-fuzzy)))
+  (setq ivy-initial-inputs-alist nil)
   )
 
 (use-package swiper
@@ -179,13 +182,6 @@
   :ensure t
   :init
   (load-theme 'solarized-dark t))
-
-(use-package spaceline
-  :ensure t
-  :config
-  (require 'spaceline-config)
-  (setq powerline-default-separator (quote arrow))
-  (spaceline-emacs-theme))
 
 (global-hl-line-mode 1)
 
