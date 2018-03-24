@@ -50,6 +50,8 @@
       kept-old-versions 5    ; and how many of the old
       )
 
+(global-auto-revert-mode t)
+
 (use-package crux
   :ensure t
   :bind (("C-a" . crux-move-beginning-of-line)

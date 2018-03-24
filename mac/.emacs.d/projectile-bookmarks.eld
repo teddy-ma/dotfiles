@@ -1,1 +1,1 @@
-("~/dotfiles/" "~/code/gfresh/gfreshx/" "~/code/songofcode/allaboutscala/" "~/code/songofcode/snake_game/" "~/code/songofcode/entry/" "~/Documents/entry/" "~/Downloads/read-emacs-config/" "~/code/gfresh/beachprice-ruby/")
+("~/dotfiles/" "~/code/gfresh/gfreshx/" "~/code/songofcode/allaboutscala/" "~/code/songofcode/snake_game/" "~/code/songofcode/entry/" "~/Documents/entry/" "~/Downloads/read-emacs-config/" "~/code/gfresh/beachprice-ruby/" "/private/tmp/my_project/")

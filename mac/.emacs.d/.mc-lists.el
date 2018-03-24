@@ -9,4 +9,5 @@
       '(
         org-self-insert-command
         smart-hungry-delete-backward-char
+        smart-hungry-delete-forward-char
         ))
