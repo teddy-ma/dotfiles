@@ -4,17 +4,20 @@
 #+DATE: Sun Mar 11 14:33:18 2018
 
 * Setup
-** Make it easy to edit this file!
-
+** Make it easy to edit and reload this file!
 #+BEGIN_SRC emacs-lisp
   (defun find-config ()
     "Edit config.org"
     (interactive)
     (find-file "~/.emacs.d/config.org"))
+  (defun reload-config()
+    "Reload config.org"
+    (interactive)
+    (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
 
   (global-set-key (kbd "C-c I") 'find-config)
+  (global-set-key (kbd "C-c R") 'reload-config)
 #+END_SRC
-
 ** Configure package sources
 
 Add repositories from which we'll load packages. I prefer to live on the bleeding edge so have only enabled melpa. Setting =package-enable-at-startup= to =nil= prevents a second package load and slightly improves startup time.
@@ -149,24 +152,17 @@ I *never* want whitespace at the end of lines. Remove it on save.
 #+END_SRC
 
 ** Command completion
-
-=ivy= deps
+=ivy= is a generic completion framework which uses the minibuffer. Turning on =ivy-mode= with fuzzy support enables replacement of lots of built in =ido= functionality.
 
 #+BEGIN_SRC emacs-lisp
   (use-package smex
     :ensure t)
   (use-package flx
     :ensure t)
-#+END_SRC
-
-=ivy= is a generic completion framework which uses the minibuffer. Turning on =ivy-mode= with fuzzy support enables replacement of lots of built in =ido= functionality.
-
-#+BEGIN_SRC emacs-lisp
   (use-package ivy
     :ensure t
     :config
-    (ivy-mode t)
-    )
+    (ivy-mode t))
 #+END_SRC
 
 =counsel= is a collection of =ivy= enhanced versions of common Emacs commands. I haven't bound much as =ivy-mode= takes care of most things.
@@ -180,8 +176,7 @@ I *never* want whitespace at the end of lines. Remove it on save.
     (setq ivy-re-builders-alist
           '((ivy-switch-buffer . ivy--regex-plus)
             (t . ivy--regex-fuzzy)))
-    (setq ivy-initial-inputs-alist nil)
-    )
+    (setq ivy-initial-inputs-alist nil))
 #+END_SRC
 
 =swiper= is an =ivy= enhanced version of isearch.
@@ -245,8 +240,7 @@ Maybe I should consider https://github.com/victorhge/iedit
     (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
     (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
     (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-    (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-    )
+    (global-set-key (kbd "C-<") 'mc/mark-previous-like-this))
 #+END_SRC
 
 ** File tree

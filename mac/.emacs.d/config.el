@@ -3,8 +3,13 @@
   "Edit config.org"
   (interactive)
   (find-file "~/.emacs.d/config.org"))
+(defun reload-config()
+  "Reload config.org"
+  (interactive)
+  (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
 
 (global-set-key (kbd "C-c I") 'find-config)
+(global-set-key (kbd "C-c R") 'reload-config)
 
 (require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
@@ -75,12 +80,10 @@
   :ensure t)
 (use-package flx
   :ensure t)
-
 (use-package ivy
   :ensure t
   :config
-  (ivy-mode t)
-  )
+  (ivy-mode t))
 
 (use-package counsel
   :ensure t
@@ -90,8 +93,7 @@
   (setq ivy-re-builders-alist
         '((ivy-switch-buffer . ivy--regex-plus)
           (t . ivy--regex-fuzzy)))
-  (setq ivy-initial-inputs-alist nil)
-  )
+  (setq ivy-initial-inputs-alist nil))
 
 (use-package swiper
   :ensure t
