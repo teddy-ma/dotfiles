@@ -50,6 +50,9 @@
       kept-old-versions 5    ; and how many of the old
       )
 
+(setq make-backup-file nil)
+(setq auto-save-default nil)
+
 (global-auto-revert-mode t)
 
 (use-package crux
@@ -193,6 +196,11 @@
 (set-keyboard-coding-system 'utf-8) ; pretty
 (set-selection-coding-system 'utf-8) ; please
 (prefer-coding-system 'utf-8) ; with sugar on top
+
+(use-package beacon
+  :ensure t
+  :init
+  (beacon-mode 1))
 
 ;; Turn off the blinking cursor
 (blink-cursor-mode -1)
@@ -516,6 +524,14 @@
 (setq org-src-fontify-natively 't)
 (setq org-src-tab-acts-natively t)
 (setq org-src-window-setup 'current-window)
+
+(setq org-todo-keywords
+      '((sequence "TODO" "DOING" "BLOCKED" "|" "DONE")))
+
+;http://sachachua.com/blog/2015/02/learn-take-notes-efficiently-org-mode/
+(set-register ?b (cons 'file "~/Documents/blog.org"))
+(set-register ?t (cons 'file "~/Documents/todo.org"))
+(set-register ?n (cons 'file "~/Documents/note.org"))
 
 (setq org-agenda-files (list "~/Documents/blog.org"
                              "~/Documents/note.org"

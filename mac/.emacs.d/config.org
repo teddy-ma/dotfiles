@@ -88,7 +88,6 @@ customize settings in [[file:init.el][init.el]].
 #+END_SRC
 
 *** Y or N
-
 #+BEGIN_SRC emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
@@ -105,6 +104,11 @@ A common frustration with new Emacs users is the =filename#= files created. This
         )
 #+END_SRC
 
+*** No autosave and backup
+#+BEGIN_SRC emacs-lisp
+  (setq make-backup-file nil)
+  (setq auto-save-default nil)
+#+END_SRC
 *** Auto refresh
 #+BEGIN_SRC emacs-lisp
   (global-auto-revert-mode t)
@@ -336,6 +340,13 @@ Add emoji support. This is useful when working with html.
   (set-keyboard-coding-system 'utf-8) ; pretty
   (set-selection-coding-system 'utf-8) ; please
   (prefer-coding-system 'utf-8) ; with sugar on top
+#+END_SRC
+*** light follow cursor
+#+BEGIN_SRC emacs-lisp
+  (use-package beacon
+    :ensure t
+    :init
+    (beacon-mode 1))
 #+END_SRC
 *** cursor
 #+BEGIN_SRC emacs-lisp
@@ -858,7 +869,6 @@ Add flycheck support.
 #+END_SRC
 * Org
 ** General settings.
-
 #+BEGIN_SRC emacs-lisp
   (setq org-startup-indented 'f)
   (setq org-special-ctrl-a/e 't)
@@ -866,7 +876,18 @@ Add flycheck support.
   (setq org-src-tab-acts-natively t)
   (setq org-src-window-setup 'current-window)
 #+END_SRC
-
+** Task stages
+#+BEGIN_SRC emacs-lisp
+  (setq org-todo-keywords
+        '((sequence "TODO" "DOING" "BLOCKED" "|" "DONE")))
+#+END_SRC
+** Make it easy to open common files
+#+BEGIN_SRC emacs-lisp
+  ;http://sachachua.com/blog/2015/02/learn-take-notes-efficiently-org-mode/
+  (set-register ?b (cons 'file "~/Documents/blog.org"))
+  (set-register ?t (cons 'file "~/Documents/todo.org"))
+  (set-register ?n (cons 'file "~/Documents/note.org"))
+#+END_SRC
 ** Agenda
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-files (list "~/Documents/blog.org"
