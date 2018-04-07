@@ -139,11 +139,6 @@
   :bind
   ([remap other-window] . switch-window))
 
-(use-package dashboard
-  :ensure t
-  :config
-  (dashboard-setup-startup-hook))
-
 (use-package treemacs
   :ensure t
   :defer t
@@ -622,6 +617,3 @@
   :bind
   (("M-j" . pyim-convert-code-at-point) ;与 pyim-probe-dynamic-english 配合
    ("C-;" . pyim-delete-word-from-personal-buffer)))
-
-(use-package symon
-  :ensure t)
