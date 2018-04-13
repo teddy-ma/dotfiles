@@ -336,7 +336,7 @@ Add emoji support. This is useful when working with html.
   (global-hl-line-mode 1)
 #+END_SRC
 
-*** default utf8
+*** Default utf8
 #+BEGIN_SRC emacs-lisp
   ;; UTF-8 please
   (setq locale-coding-system 'utf-8) ; pretty
@@ -345,22 +345,20 @@ Add emoji support. This is useful when working with html.
   (set-selection-coding-system 'utf-8) ; please
   (prefer-coding-system 'utf-8) ; with sugar on top
 #+END_SRC
-*** light follow cursor
+*** Light follow cursor
 #+BEGIN_SRC emacs-lisp
   (use-package beacon
     :ensure t
     :init
     (beacon-mode 1))
 #+END_SRC
-*** cursor
+*** Cursor
 #+BEGIN_SRC emacs-lisp
   ;; Turn off the blinking cursor
   (blink-cursor-mode -1)
 #+END_SRC
-
-*** tabs and indent
+*** Tabs and indent
 #+BEGIN_SRC emacs-lisp
-
   (setq-default indent-tabs-mode nil)
   (setq-default indent-tabs-mode nil)
   (setq-default indicate-empty-lines t)
@@ -385,15 +383,13 @@ Add emoji support. This is useful when working with html.
 
   ;; Don't beep at me
   (setq visible-bell nil)
-
 #+END_SRC
-*** display battery
+*** Display battery
 #+begin_src emacs-lisp
 (setq battery-mode-line-format "[%b%p%% %t]")
 #+end_src
 * Coding
 ** Programming specific interface improvements
-
 When programming I like my editor to try to help me with keeping parentheses balanced.
 
 #+BEGIN_SRC emacs-lisp
@@ -446,7 +442,6 @@ Smart dash guesses _ vs - depending on context.
 #+END_SRC
 
 ** Project management
-
 Projectile handles folders which are in version control.
 
 #+BEGIN_SRC emacs-lisp
@@ -475,7 +470,6 @@ There is no function for projectile-grep, but we could use =counsel-git-grep= wh
 #+END_SRC
 
 ** Fuzzy search
-
 =fzf= is a fuzzy file finder which is very quick.
 
 #+BEGIN_SRC emacs-lisp
@@ -484,7 +478,6 @@ There is no function for projectile-grep, but we could use =counsel-git-grep= wh
 #+END_SRC
 
 ** Environment management
-
 By default Emacs doesn't read from the same environment variables set in your terminal. This package fixes that.
 
 #+BEGIN_SRC emacs-lisp
@@ -495,7 +488,6 @@ By default Emacs doesn't read from the same environment variables set in your te
 #+END_SRC
 
 ** Jump to source
-
 Individual language packages often support IDE features like jump to source, but =dumb-jump= attempts to support many languages by simple searching. It's quite effective even with dynamic libraries like JS and Python.
 
 #+BEGIN_SRC emacs-lisp
@@ -508,7 +500,6 @@ Individual language packages often support IDE features like jump to source, but
 #+END_SRC
 
 ** Git
-
 Magit is an awesome interface to git. Summon it with `C-x g`.
 
 #+BEGIN_SRC emacs-lisp
@@ -535,7 +526,6 @@ TimeMachine lets us step through the history of a file as recorded in git.
 #+END_SRC
 
 ** Syntax checking
-
 =Flycheck= is a general syntax highlighting framework which other packages hook into. It's an improvment on the built in =flymake=.
 
 Setup is pretty simple - we just enable globally and turn on a custom eslint function, and also add a custom checker for proselint.
@@ -601,11 +591,8 @@ Proselint is an external program, install it with =pip install proselint= for th
 #+END_SRC
 
 ** Autocomplete
-
 Company mode provides good autocomplete options. Perhaps I should add company-quickhelp for documentation (https://github.com/expez/company-quickhelp)?
-
 It would also be good to improve integration with yasnippet as I don't feel I'm making the best use there.
-
 #+BEGIN_SRC emacs-lisp
   (use-package company
     :ensure t
@@ -633,7 +620,6 @@ I don't want suggestions from open files / buffers to be automatically lowercase
 #+END_SRC
 
 ** Snippets
-
 Unlike autocomplete which suggests words / symbols, snippets are pre-prepared templates which you fill in.
 
 I'm using a community library (=[[https://github.com/AndreaCrotti/yasnippet-snippets]]=) with *lots* of ready made options, and have my own directory of custom snippets I've added. Not sure if I should unify these by forking =yasnippet-snippets=.
@@ -652,7 +638,6 @@ Type the shortcut and press =TAB= to complete, or =M-/= to autosuggest a snippet
 #+END_SRC
 
 ** Javascript
-
 In JS indent to 2 spaces.
 
 #+BEGIN_SRC emacs-lisp
@@ -702,7 +687,6 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
 #+END_SRC
 
 ** Web mode
-
 Web mode handles html/css/js.
 
 #+BEGIN_SRC emacs-lisp
@@ -716,7 +700,6 @@ Web mode handles html/css/js.
 #+END_SRC
 
 ** Web Beautify
-
 Web beautify prettifies html / css / js using js-beautify - install with =npm install -g js-beautify=.
 
 #+BEGIN_SRC emacs-lisp
@@ -886,7 +869,6 @@ Add flycheck support.
                                "~/Documents/reading.org"))
 #+END_SRC
 ** Export
-
 Add bootstrap styled export.
 
 #+BEGIN_SRC emacs-lisp
@@ -896,7 +878,6 @@ Add bootstrap styled export.
 
 * Extras
 ** Writing
-
 =writegood-mode= highlights bad word choices and has functions for calculating readability.
 
 #+BEGIN_SRC emacs-lisp
@@ -908,7 +889,6 @@ Add bootstrap styled export.
 #+END_SRC
 
 ** Stack Overflow
-
 SX is a full stack overflow client within Emacs.
 
 #+BEGIN_SRC emacs-lisp
@@ -925,7 +905,7 @@ SX is a full stack overflow client within Emacs.
                ("a" . sx-ask)
                ("s" . sx-search)))
 #+END_SRC
-** pinyin
+** Pinyin
 #+BEGIN_SRC emacs-lisp
   (use-package pyim
     :ensure nil

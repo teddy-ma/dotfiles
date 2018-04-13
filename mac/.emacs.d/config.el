@@ -374,7 +374,7 @@
   (setq company-idle-delay t)
 
   (use-package company-go
-    :ensure t
+    :Ensure t
     :config
     (add-to-list 'company-backends 'company-go))
 
