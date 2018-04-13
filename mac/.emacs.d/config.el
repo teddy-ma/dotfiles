@@ -47,6 +47,9 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+(setq make-backup-file nil)
+(setq auto-save-default nil)
+
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
       backup-by-copying t    ; Don't delink hardlinks
       version-control t      ; Use version numbers on backups
@@ -54,9 +57,6 @@
       kept-new-versions 20   ; how many of the newest versions to keep
       kept-old-versions 5    ; and how many of the old
       )
-
-(setq make-backup-file nil)
-(setq auto-save-default nil)
 
 (global-auto-revert-mode t)
 
@@ -374,7 +374,7 @@
   (setq company-idle-delay t)
 
   (use-package company-go
-    :Ensure t
+    :ensure t
     :config
     (add-to-list 'company-backends 'company-go))
 
@@ -460,6 +460,12 @@
   :config
   (add-to-list 'company-backends 'company-ghc))
 
+(use-package intero
+  :ensure t
+  :config
+  (add-hook 'haskell-mode-hook 'intero-mode)
+  (add-to-list 'exec-path "~/.cabal/bin"))
+
 (use-package elixir-mode
   :ensure t
   :config
@@ -482,47 +488,6 @@
 (use-package flycheck-irony
   :ensure t
   :hook (flycheck-mode . flycheck-irony-setup))
-
-(use-package autodisass-java-bytecode
-  :ensure t
-  :defer t)
-
-(use-package google-c-style
-  :defer t
-  :ensure t
-  :commands
-  (google-set-c-style))
-
-(use-package meghanada
-  :defer t
-  :init
-  (add-hook 'java-mode-hook
-            (lambda ()
-              (google-set-c-style)
-              (google-make-newline-indent)
-              (meghanada-mode t)
-              (smartparens-mode t)
-              (rainbow-delimiters-mode t)
-              (highlight-symbol-mode t)
-              (add-hook 'before-save-hook 'meghanada-code-beautify-before-save)))
-
-  :config
-  (use-package realgud
-    :ensure t)
-  (setq indent-tabs-mode nil)
-  (setq tab-width 2)
-  (setq c-basic-offset 2)
-  (setq meghanada-server-remote-debug t)
-  (setq meghanada-javac-xlint "-Xlint:all,-processing")
-  :bind
-  (:map meghanada-mode-map
-        ("C-S-t" . meghanada-switch-testcase)
-        ("M-RET" . meghanada-local-variable)
-        ("C-M-." . helm-imenu)
-        ("M-r" . meghanada-reference)
-        ("M-t" . meghanada-typeinfo)
-        ("C-z" . hydra-meghanada/body))
-  )
 
 (use-package scala-mode
   :interpreter
