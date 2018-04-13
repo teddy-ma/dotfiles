@@ -7,6 +7,7 @@
 
 (setq mc/cmds-to-run-once
       '(
+        mouse-set-secondary
         org-self-insert-command
         smart-hungry-delete-backward-char
         smart-hungry-delete-forward-char
