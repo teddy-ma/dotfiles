@@ -463,8 +463,7 @@
 (use-package intero
   :ensure t
   :config
-  (add-hook 'haskell-mode-hook 'intero-mode)
-  (add-to-list 'exec-path "~/.cabal/bin"))
+  (add-hook 'haskell-mode-hook 'intero-mode))
 
 (use-package elixir-mode
   :ensure t
