@@ -464,9 +464,9 @@ Display line changes in gutter based on git history. Enable it everywhere.
 #+BEGIN_SRC emacs-lisp
   (use-package git-gutter
     :ensure t
+    :diminish git-gutter-mode
     :config
-    (global-git-gutter-mode 't)
-    :diminish git-gutter-mode)
+    (global-git-gutter-mode 't))
 #+END_SRC
 
 TimeMachine lets us step through the history of a file as recorded in git.
@@ -837,7 +837,7 @@ SX is a full stack overflow client within Emacs.
                     pyim-probe-punctuation-after-punctuation))
 
     ;; 开启拼音搜索功能
-    (pyim-isearch-mode 1)
+    ;; (pyim-isearch-mode 1)
 
     ;; 使用 pupup-el 来绘制选词框, 如果用 emacs26, 建议设置
     ;; 为 'posframe, 速度很快并且菜单不会变形，不过需要用户

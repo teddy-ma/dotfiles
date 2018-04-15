@@ -306,9 +306,10 @@
 
 (use-package git-gutter
   :ensure t
+  :diminish git-gutter-mode
   :config
-  (global-git-gutter-mode 't)
-  :diminish git-gutter-mode)
+
+  (global-git-gutter-mode 't))
 
 (use-package git-timemachine
   :ensure t)
@@ -564,7 +565,7 @@
                   pyim-probe-punctuation-after-punctuation))
 
   ;; 开启拼音搜索功能
-  (pyim-isearch-mode 1)
+  ;; (pyim-isearch-mode 1)
 
   ;; 使用 pupup-el 来绘制选词框, 如果用 emacs26, 建议设置
   ;; 为 'posframe, 速度很快并且菜单不会变形，不过需要用户
