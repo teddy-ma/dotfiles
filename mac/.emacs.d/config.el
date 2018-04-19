@@ -203,20 +203,18 @@
 
 (global-hl-line-mode 1)
 
-;; UTF-8 please
-(setq locale-coding-system 'utf-8) ; pretty
-(set-terminal-coding-system 'utf-8) ; pretty
-(set-keyboard-coding-system 'utf-8) ; pretty
-(set-selection-coding-system 'utf-8) ; please
-(prefer-coding-system 'utf-8) ; with sugar on top
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
 
 (use-package beacon
   :ensure t
   :init
   (beacon-mode 1))
 
-;; Turn off the blinking cursor
-(blink-cursor-mode -1)
+(blink-cursor-mode -1)  ;; Turn off the blinking cursor
 
 (setq-default indent-tabs-mode nil)
 (setq-default indent-tabs-mode nil)
@@ -245,11 +243,7 @@
 
 (setq battery-mode-line-format "[%b%p%% %t]")
 
-(use-package smartparens
-  :ensure t
-  :diminish smartparens-mode
-  :config
-  (add-hook 'prog-mode-hook 'smartparens-mode))
+
 
 (use-package rainbow-delimiters
   :ensure t
@@ -308,7 +302,6 @@
   :ensure t
   :diminish git-gutter-mode
   :config
-
   (global-git-gutter-mode 't))
 
 (use-package git-timemachine
@@ -474,7 +467,7 @@
     :ensure t))
 
 (use-package inf-ruby
-:ensure t)
+  :ensure t)
 
 (use-package irony
   :ensure t
@@ -505,14 +498,13 @@
 (setq org-todo-keywords
       '((sequence "TODO" "DOING" "BLOCKED" "|" "DONE")))
 
-;http://sachachua.com/blog/2015/02/learn-take-notes-efficiently-org-mode/
 (set-register ?b (cons 'file "~/Documents/blog.org"))
 (set-register ?t (cons 'file "~/Documents/todo.org"))
 (set-register ?n (cons 'file "~/Documents/note.org"))
 
 (setq org-agenda-files (list "~/Documents/blog.org"
                              "~/Documents/note.org"
-                             "~/Documents/reading.org"))
+                             "~/Documents/todo.org"))
 
 (use-package ox-twbs
   :ensure t)

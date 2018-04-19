@@ -3,7 +3,7 @@
 #+TOC: true
 #+DATE: Sun April 7 20:44:22 2018
 
-* Setup
+* Sextup
 ** Make it easy to edit and reload this file
 #+BEGIN_SRC emacs-lisp
   (defun find-config ()
@@ -34,7 +34,6 @@
 
   (setq package-enable-at-startup nil)
 #+END_SRC
-
 ** Bootstrap use-package
 #+BEGIN_SRC emacs-lisp
   (unless (package-installed-p 'use-package)
@@ -46,8 +45,8 @@ Set up the customize file to its own separate file, instead of saving
 customize settings in [[file:init.el][init.el]].
 
 #+begin_src emacs-lisp
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file)
+  (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+  (load custom-file)
 #+end_src
 ** Personal Information
 #+begin_src emacs-lisp
@@ -304,14 +303,13 @@ It's hard to customize mode line...
 #+BEGIN_SRC emacs-lisp
   (global-hl-line-mode 1)
 #+END_SRC
-*** Default utf8
+*** Global UTF8
 #+BEGIN_SRC emacs-lisp
-  ;; UTF-8 please
-  (setq locale-coding-system 'utf-8) ; pretty
-  (set-terminal-coding-system 'utf-8) ; pretty
-  (set-keyboard-coding-system 'utf-8) ; pretty
-  (set-selection-coding-system 'utf-8) ; please
-  (prefer-coding-system 'utf-8) ; with sugar on top
+  (setq locale-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
 #+END_SRC
 *** Light follow cursor
 #+BEGIN_SRC emacs-lisp
@@ -322,8 +320,7 @@ It's hard to customize mode line...
 #+END_SRC
 *** Cursor
 #+BEGIN_SRC emacs-lisp
-  ;; Turn off the blinking cursor
-  (blink-cursor-mode -1)
+  (blink-cursor-mode -1)  ;; Turn off the blinking cursor
 #+END_SRC
 *** Tabs and indent
 #+BEGIN_SRC emacs-lisp
@@ -706,7 +703,7 @@ Elixir highlighting is not built into emacs at present. Elixir-mode gives all th
 ** Ruby
 #+BEGIN_SRC emacs-lisp
   (use-package inf-ruby
-  :ensure t)
+    :ensure t)
 #+END_SRC
 ** C
 Emacs has a great built in C/C++ mode, but we can improve on it with =irony-mode= for code completion via =libclang=.
@@ -757,8 +754,8 @@ Add flycheck support.
         '((sequence "TODO" "DOING" "BLOCKED" "|" "DONE")))
 #+END_SRC
 ** Make it easy to open common files
+use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-notes-efficiently-org-mode/
 #+BEGIN_SRC emacs-lisp
-  ;http://sachachua.com/blog/2015/02/learn-take-notes-efficiently-org-mode/
   (set-register ?b (cons 'file "~/Documents/blog.org"))
   (set-register ?t (cons 'file "~/Documents/todo.org"))
   (set-register ?n (cons 'file "~/Documents/note.org"))
@@ -767,7 +764,7 @@ Add flycheck support.
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-files (list "~/Documents/blog.org"
                                "~/Documents/note.org"
-                               "~/Documents/reading.org"))
+                               "~/Documents/todo.org"))
 #+END_SRC
 ** Export
 Add bootstrap styled export.
@@ -776,7 +773,6 @@ Add bootstrap styled export.
   (use-package ox-twbs
     :ensure t)
 #+END_SRC
-
 * Extras
 ** Writing
 =writegood-mode= highlights bad word choices and has functions for calculating readability.
