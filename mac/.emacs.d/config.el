@@ -243,7 +243,11 @@
 
 (setq battery-mode-line-format "[%b%p%% %t]")
 
-
+(use-package smartparens
+  :ensure t
+  :diminish smartparens-mode
+  :config
+  (add-hook 'prog-mode-hook 'smartparens-mode))
 
 (use-package rainbow-delimiters
   :ensure t
