@@ -443,6 +443,9 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 
+(use-package lua-mode
+  :ensure t)
+
 (use-package haskell-mode
   :ensure t)
 
@@ -505,6 +508,12 @@
 (set-register ?b (cons 'file "~/Documents/blog.org"))
 (set-register ?t (cons 'file "~/Documents/todo.org"))
 (set-register ?n (cons 'file "~/Documents/note.org"))
+
+(use-package org-download
+  :ensure t
+  :config
+  (setq-default org-download-image-dir "~/Documents/assets")
+  (add-hook 'dired-mode-hook 'org-download-enable))
 
 (setq org-agenda-files (list "~/Documents/blog.org"
                              "~/Documents/note.org"
