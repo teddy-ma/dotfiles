@@ -9,3 +9,7 @@ end)
 hs.hotkey.bind(hyper, 'f', function()
   hs.application.launchOrFocus('Finder')
 end)
+
+hs.hotkey.bind(hyper, 't', function()
+  spoon.AClock:toggleShow()
+end)

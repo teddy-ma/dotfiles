@@ -1,3 +1,4 @@
+hs.loadSpoon("AClock")
 
 require "modules/config"
 require "modules/app"
