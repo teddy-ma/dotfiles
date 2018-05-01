@@ -4,9 +4,14 @@
 
 ## prepare
 
-https://github.com/thoughtbot/laptop
-
-powerline font https://github.com/powerline/fonts
+```shell
+curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/mac
+sh mac 2>&1 | tee ~/laptop.log
+brew cask install dropbox
+ln -s ~/Dropbox/Config/zsh_history ~/.zsh_history
+ln -s ~/Dropbox/Config/id_rsa ~/.ssh/id_rsa
+ln -s ~/Dropbox/Config/id_rsa.pub ~/.ssh/id_rsa.pub
+```
 
 ## usage
 
