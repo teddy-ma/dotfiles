@@ -25,7 +25,6 @@ SPACESHIP_PROMPT_ORDER=(
   swift         # Swift section
   rust          # Rust section
   haskell       # Haskell Stack section
-  pyenv         # Pyenv section
   kubecontext   # Kubectl context section
   exec_time     # Execution time
   line_sep      # Line break
@@ -56,7 +55,6 @@ antigen bundles <<EOBUNDLES
     git-extras
     history
     npm
-    rbenv
     rsync
     urltools
     vundle
@@ -83,9 +81,6 @@ alias ls='/usr/local/bin/exa' # brew install exa
 
 # show system info (brew install archey)
 # archey -c -o
-# nvm
-export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
 
 # command line history config
 # ignore duplicate commands, ignore commands starting with a space
@@ -94,5 +89,6 @@ export HISTCONTROL=erasedups:ignorespace
 export HISTSIZE=20000
 
 export PATH="$HOME/.bin:$PATH"
-# rbenv
-eval "$(rbenv init - --no-rehash)"
+# recommended by brew doctor
+export PATH="/usr/local/bin:$PATH"
+source /Users/teddy/.asdf/asdf.sh
