@@ -528,6 +528,11 @@
   :config
   (add-to-list 'writegood-weasel-words "actionable"))
 
+(use-package writeroom-mode
+  :ensure t
+  :config
+  (setq writeroom-width 140))
+
 (use-package sx
   :ensure t
   :config
