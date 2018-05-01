@@ -18,7 +18,7 @@ brew "redis", restart_service: true
 brew "stow"
 brew "the_silver_searcher"
 brew "tmux"
-brew "vim"
+brew "nvim"
 brew "watchman"
 brew "wget"
 brew "yarn"
