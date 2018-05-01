@@ -189,7 +189,7 @@
   )
 
 (set-face-attribute 'default nil
-             :family "SourceCodePro+Powerline+Awesome Regular"
+             :family "Hack Nerd Font Regular"
              :height 180
              :weight 'normal)
 

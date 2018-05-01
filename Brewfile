@@ -28,6 +28,7 @@ brew "thoughtbot/formulae/rcm"
 brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
 cask "atom"
 cask "chromium"
+cask "hammerspoon"
 cask "dropbox"
 cask "emacs"
 cask "google-chrome"
