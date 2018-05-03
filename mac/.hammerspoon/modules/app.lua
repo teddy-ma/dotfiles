@@ -1,9 +1,5 @@
 hs.hotkey.bind(hyper, 'i', function()
-  hs.application.launchOrFocus('iTerm')
-end)
-
-hs.hotkey.bind(hyper, 'e', function()
-  hs.application.launchOrFocus('Evernote')
+  hs.application.launchOrFocus('Terminal')
 end)
 
 hs.hotkey.bind(hyper, 'f', function()

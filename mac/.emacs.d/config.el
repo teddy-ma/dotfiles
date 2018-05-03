@@ -189,9 +189,9 @@
   )
 
 (set-face-attribute 'default nil
-             :family "Hack Nerd Font Regular"
-             :height 180
-             :weight 'normal)
+                    :family "Hack Nerd Font"
+                    :height 180
+                    :weight 'normal)
 
 (use-package emojify
   :ensure t)
