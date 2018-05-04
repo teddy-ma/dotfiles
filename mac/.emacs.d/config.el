@@ -522,6 +522,11 @@
 (use-package ox-twbs
   :ensure t)
 
+(use-package org-trello
+  :ensure t
+  :config
+  (custom-set-variables '(org-trello-files '("~/Documents/trello.org"))))
+
 (use-package writegood-mode
   :ensure t
   :bind ("C-c g" . writegood-mode)
