@@ -503,7 +503,7 @@
 (setq org-src-window-setup 'current-window)
 
 (setq org-todo-keywords
-      '((sequence "TODO" "DOING" "BLOCKED" "|" "DONE")))
+      '((sequence "TODO" "DOING" "|" "DONE" "BLOCKED")))
 
 (set-register ?b (cons 'file "~/Documents/blog.org"))
 (set-register ?t (cons 'file "~/Documents/todo.org"))
@@ -516,7 +516,7 @@
   (add-hook 'dired-mode-hook 'org-download-enable))
 
 (setq org-agenda-files (list "~/Documents/blog.org"
-                             "~/Documents/note.org"
+                             ;; note should not have todo "~/Documents/note.org"
                              "~/Documents/todo.org"))
 
 (use-package ox-twbs
