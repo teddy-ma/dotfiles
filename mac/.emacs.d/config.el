@@ -519,8 +519,9 @@
                              ;; note should not have todo "~/Documents/note.org"
                              "~/Documents/todo.org"))
 
-(use-package ox-twbs
-  :ensure t)
+(use-package ox-hugo
+  :ensure t
+  :after ox)
 
 (use-package org-trello
   :ensure t
