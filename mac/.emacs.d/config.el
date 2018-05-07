@@ -1,3 +1,4 @@
+
 (defun find-config ()
   "Edit config.org"
   (interactive)
@@ -15,13 +16,9 @@
                   (not (gnutls-available-p))))
      (proto (if no-ssl "http" "https")))
 ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
-(add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
-(when (< emacs-major-version 24)
-  ;; For important compatibility libraries like cl-lib
-  (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
-(package-initialize)
+(add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t))
 
+(package-initialize)
 (setq package-enable-at-startup nil)
 
 (unless (package-installed-p 'use-package)
@@ -386,7 +383,7 @@
     :ensure t
     :diminish yas-minor-mode
     :config
-    (add-to-list 'yas-snippet-dirs "~/.emacs.d/yasnippet-snippets")
+    ;;(add-to-list 'yas-snippet-dirs "~/.emacs.d/yasnippet-snippets")
     (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
     (yas-global-mode)
     (global-set-key (kbd "M-/") 'company-yasnippet))
@@ -555,7 +552,7 @@
              ("s" . sx-search)))
 
 (use-package pyim
-  :ensure nil
+  :ensure t
   :demand t
   :config
   ;; 激活 basedict 拼音词库

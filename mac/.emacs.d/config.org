@@ -3,7 +3,7 @@
 #+TOC: true
 #+DATE: Sun April 7 20:44:22 2018
 
-* Sextup
+* Setup
 ** Make it easy to edit and reload this file
 #+BEGIN_SRC emacs-lisp
   (defun find-config ()
@@ -25,13 +25,9 @@
                     (not (gnutls-available-p))))
        (proto (if no-ssl "http" "https")))
   ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
-  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-  ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
-  (when (< emacs-major-version 24)
-    ;; For important compatibility libraries like cl-lib
-    (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
-  (package-initialize)
+  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t))
 
+  (package-initialize)
   (setq package-enable-at-startup nil)
 #+END_SRC
 ** Bootstrap use-package
@@ -576,7 +572,7 @@ Type the shortcut and press =TAB= to complete, or =M-/= to autosuggest a snippet
       :ensure t
       :diminish yas-minor-mode
       :config
-      (add-to-list 'yas-snippet-dirs "~/.emacs.d/yasnippet-snippets")
+      ;;(add-to-list 'yas-snippet-dirs "~/.emacs.d/yasnippet-snippets")
       (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
       (yas-global-mode)
       (global-set-key (kbd "M-/") 'company-yasnippet))
@@ -780,8 +776,6 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
                                "~/Documents/todo.org"))
 #+END_SRC
 ** Export
-export gfm
-
 #+BEGIN_SRC emacs-lisp
   (use-package ox-gfm
     :ensure t
@@ -834,7 +828,7 @@ SX is a full stack overflow client within Emacs.
 ** Pinyin
 #+BEGIN_SRC emacs-lisp
   (use-package pyim
-    :ensure nil
+    :ensure t
     :demand t
     :config
     ;; 激活 basedict 拼音词库
