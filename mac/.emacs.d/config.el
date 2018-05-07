@@ -1,4 +1,3 @@
-
 (defun find-config ()
   "Edit config.org"
   (interactive)
@@ -519,9 +518,12 @@
                              ;; note should not have todo "~/Documents/note.org"
                              "~/Documents/todo.org"))
 
-(use-package ox-hugo
+(use-package ox-gfm
   :ensure t
-  :after ox)
+  :after ox
+  :config
+  (custom-set-variables '(org-export-initial-scope 'subtree)
+                        '(org-export-with-toc nil)))
 
 (use-package org-trello
   :ensure t
