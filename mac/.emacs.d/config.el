@@ -522,6 +522,10 @@
   (custom-set-variables '(org-export-initial-scope 'subtree)
                         '(org-export-with-toc nil)))
 
+(use-package ox-hugo
+  :ensure t
+  :after ox)
+
 (use-package org-trello
   :ensure t
   :config

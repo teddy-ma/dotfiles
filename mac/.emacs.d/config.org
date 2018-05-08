@@ -776,6 +776,7 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
                                "~/Documents/todo.org"))
 #+END_SRC
 ** Export
+gfm
 #+BEGIN_SRC emacs-lisp
   (use-package ox-gfm
     :ensure t
@@ -783,6 +784,14 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
     :config
     (custom-set-variables '(org-export-initial-scope 'subtree)
                           '(org-export-with-toc nil)))
+#+END_SRC
+
+hugo
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ox-hugo
+    :ensure t
+    :after ox)
 #+END_SRC
 ** Org Trello
 #+BEGIN_SRC emacs-lisp
