@@ -13,11 +13,11 @@
 
 (require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                  (not (gnutls-available-p))))
-     (proto (if no-ssl "http" "https")))
-;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
-(add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t))
-
+                    (not (gnutls-available-p))))
+       (proto (if no-ssl "http" "https")))
+  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+  ;; yasnippet collection
+  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t))
 (package-initialize)
 (setq package-enable-at-startup nil)
 
@@ -380,13 +380,16 @@
 (setq company-dabbrev-downcase nil)
 
 (use-package yasnippet
-    :ensure t
-    :diminish yas-minor-mode
-    :config
-    ;;(add-to-list 'yas-snippet-dirs "~/.emacs.d/yasnippet-snippets")
-    (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
-    (yas-global-mode)
-    (global-set-key (kbd "M-/") 'company-yasnippet))
+  :ensure t
+  :diminish yas-minor-mode
+  :config
+  (add-to-list 'yas-snippet-dirs "~/.emacs.d/yasnippet-snippets")
+  (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
+  (yas-global-mode 1)
+  (global-set-key (kbd "M-/") 'company-yasnippet))
+
+(use-package yasnippet-snippets
+  :ensure t)
 
 (setq-default js-indent-level 2)
 

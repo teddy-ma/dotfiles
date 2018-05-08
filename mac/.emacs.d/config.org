@@ -22,11 +22,11 @@
 #+BEGIN_SRC emacs-lisp
   (require 'package)
   (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                    (not (gnutls-available-p))))
-       (proto (if no-ssl "http" "https")))
-  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
-  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t))
-
+                      (not (gnutls-available-p))))
+         (proto (if no-ssl "http" "https")))
+    (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+    ;; yasnippet collection
+    (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t))
   (package-initialize)
   (setq package-enable-at-startup nil)
 #+END_SRC
@@ -561,21 +561,20 @@ I don't want suggestions from open files / buffers to be automatically lowercase
   (setq company-dabbrev-downcase nil)
 #+END_SRC
 ** Snippets
-Unlike autocomplete which suggests words / symbols, snippets are pre-prepared templates which you fill in.
-
-I'm using a community library (=[[https://github.com/AndreaCrotti/yasnippet-snippets]]=) with *lots* of ready made options, and have my own directory of custom snippets I've added. Not sure if I should unify these by forking =yasnippet-snippets=.
-
 Type the shortcut and press =TAB= to complete, or =M-/= to autosuggest a snippet.
 
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
-      :ensure t
-      :diminish yas-minor-mode
-      :config
-      ;;(add-to-list 'yas-snippet-dirs "~/.emacs.d/yasnippet-snippets")
-      (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
-      (yas-global-mode)
-      (global-set-key (kbd "M-/") 'company-yasnippet))
+    :ensure t
+    :diminish yas-minor-mode
+    :config
+    (add-to-list 'yas-snippet-dirs "~/.emacs.d/yasnippet-snippets")
+    (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
+    (yas-global-mode 1)
+    (global-set-key (kbd "M-/") 'company-yasnippet))
+
+  (use-package yasnippet-snippets
+    :ensure t)
 #+END_SRC
 ** Javascript
 In JS indent to 2 spaces.
