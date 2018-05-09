@@ -472,8 +472,10 @@
   (use-package alchemist
     :ensure t))
 
-(use-package inf-ruby
-  :ensure t)
+(use-package robe
+  :ensure t
+  :config
+  (add-hook 'ruby-mode-hook 'robe-mode))
 
 (use-package irony
   :ensure t
