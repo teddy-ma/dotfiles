@@ -543,6 +543,9 @@
   :config
   (setq writeroom-width 140))
 
+(abbrev-mode t)
+;; ~/.emacs.d/abbrev_defs
+
 (use-package sx
   :ensure t
   :config
