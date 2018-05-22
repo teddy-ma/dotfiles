@@ -1,4 +1,3 @@
-
 (defun find-config ()
   "Edit config.org"
   (interactive)
@@ -15,7 +14,10 @@
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
        (proto (if no-ssl "http" "https")))
+
   (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+  ;; org
+  (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
   ;; yasnippet collection
   (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t))
 (package-initialize)
@@ -186,7 +188,7 @@
 
 (set-face-attribute 'default nil
                     :family "Hack Nerd Font"
-                    :height 180
+                    :height 160
                     :weight 'normal)
 
 (use-package emojify
@@ -502,6 +504,9 @@
 (setq org-src-fontify-natively 't)
 (setq org-src-tab-acts-natively t)
 (setq org-src-window-setup 'current-window)
+
+(use-package org
+    :ensure org-plus-contrib)
 
 (setq org-todo-keywords
       '((sequence "TODO" "DOING" "|" "DONE" "BLOCKED")))
