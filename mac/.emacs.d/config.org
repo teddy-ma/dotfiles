@@ -785,6 +785,13 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
   (set-register ?t (cons 'file "~/Documents/todo.org"))
   (set-register ?n (cons 'file "~/Documents/note.org"))
 #+END_SRC
+** Executable src
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages 'org-babel-load-languages '((ruby . t)
+                                                             (plantuml . t)
+                                                             )))
+#+END_SRC
 ** Drag and drop images
 #+BEGIN_SRC emacs-lisp
   (use-package org-download
@@ -807,6 +814,17 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
     :config
     (custom-set-variables '(org-export-initial-scope 'subtree)
                           '(org-export-with-toc nil)))
+#+END_SRC
+** PlantUML
+#+BEGIN_SRC emacs-lisp
+  (use-package plantuml-mode
+    :ensure t)
+
+  (add-to-list
+   'org-src-lang-modes '("plantuml" . plantuml))
+
+  ;; brew install plantuml
+  (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2018.6/libexec/plantuml.jar")
 #+END_SRC
 ** Org Trello
 #+BEGIN_SRC emacs-lisp

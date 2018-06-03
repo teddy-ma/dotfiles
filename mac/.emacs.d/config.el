@@ -527,6 +527,11 @@
 (set-register ?t (cons 'file "~/Documents/todo.org"))
 (set-register ?n (cons 'file "~/Documents/note.org"))
 
+(with-eval-after-load 'org
+  (org-babel-do-load-languages 'org-babel-load-languages '((ruby . t)
+                                                           (plantuml . t)
+                                                           )))
+
 (use-package org-download
   :ensure t
   :config
@@ -543,6 +548,14 @@
   :config
   (custom-set-variables '(org-export-initial-scope 'subtree)
                         '(org-export-with-toc nil)))
+
+(use-package plantuml-mode
+  :ensure t)
+
+(add-to-list
+ 'org-src-lang-modes '("plantuml" . plantuml))
+
+(setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2018.6/libexec/plantuml.jar")
 
 (use-package org-trello
   :ensure t
