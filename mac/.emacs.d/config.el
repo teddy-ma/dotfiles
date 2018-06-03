@@ -516,6 +516,10 @@
 (use-package org
     :ensure org-plus-contrib)
 
+(use-package dashboard
+  :config
+  (dashboard-setup-startup-hook))
+
 (setq org-todo-keywords
       '((sequence "TODO" "DOING" "|" "DONE" "BLOCKED")))
 
