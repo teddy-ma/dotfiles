@@ -444,6 +444,9 @@
          :map js2-mode-map
          ("C-c b" . web-beautify-js)))
 
+(use-package yaml-mode
+  :ensure t)
+
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
@@ -555,6 +558,7 @@
 (add-to-list
  'org-src-lang-modes '("plantuml" . plantuml))
 
+;; brew install plantuml
 (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2018.6/libexec/plantuml.jar")
 
 (use-package org-trello
