@@ -550,7 +550,9 @@
   :after ox
   :config
   (custom-set-variables '(org-export-initial-scope 'subtree)
-                        '(org-export-with-toc nil)))
+                        '(org-export-with-toc nil)
+                        '(org-export-headline-levels 4)
+                        ))
 
 (use-package plantuml-mode
   :ensure t)
