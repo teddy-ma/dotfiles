@@ -507,6 +507,12 @@
   :interpreter
   ("scala" . scala-mode))
 
+(use-package ensime
+  :ensure t
+  :config
+  (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+  (add-hook 'ruby-mode-hook 'robe-mode))
+
 (use-package rust-mode
   :ensure t )
 
@@ -561,7 +567,7 @@
  'org-src-lang-modes '("plantuml" . plantuml))
 
 ;; brew install plantuml
-(setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2018.6/libexec/plantuml.jar")
+(setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2018.7/libexec/plantuml.jar")
 
 (use-package org-trello
   :ensure t

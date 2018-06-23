@@ -754,6 +754,14 @@ Add flycheck support.
     :interpreter
     ("scala" . scala-mode))
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ensime
+    :ensure t
+    :config
+    (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+    (add-hook 'ruby-mode-hook 'robe-mode))
+#+END_SRC
 ** Rust
 #+BEGIN_SRC emacs-lisp
   (use-package rust-mode
@@ -831,7 +839,7 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
    'org-src-lang-modes '("plantuml" . plantuml))
 
   ;; brew install plantuml
-  (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2018.6/libexec/plantuml.jar")
+  (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2018.7/libexec/plantuml.jar")
 #+END_SRC
 ** Org Trello
 #+BEGIN_SRC emacs-lisp
