@@ -567,7 +567,7 @@
  'org-src-lang-modes '("plantuml" . plantuml))
 
 ;; brew install plantuml
-(setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2018.7/libexec/plantuml.jar")
+(setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2018.8/libexec/plantuml.jar")
 
 (use-package org-trello
   :ensure t
