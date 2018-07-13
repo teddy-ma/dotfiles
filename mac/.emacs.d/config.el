@@ -15,11 +15,9 @@
                     (not (gnutls-available-p))))
        (proto (if no-ssl "http" "https")))
 
-  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-  ;; org
+  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t) ;; org
   (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
-  ;; yasnippet collection
-  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t))
+  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)) ;; yasnippet collection
 (package-initialize)
 (setq package-enable-at-startup nil)
 
@@ -248,6 +246,11 @@
 (setq visible-bell nil)
 
 (setq battery-mode-line-format "[%b%p%% %t]")
+
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-appearance . dark))
+(setq ns-use-proxy-icon  nil)
+(setq frame-title-format nil)
 
 (use-package smartparens
   :ensure t
@@ -568,6 +571,12 @@
 
 ;; brew install plantuml
 (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2018.8/libexec/plantuml.jar")
+
+(use-package ox-reveal
+  :ensure ox-reveal)
+
+(setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
+(setq org-reveal-mathjax t)
 
 (use-package org-trello
   :ensure t
