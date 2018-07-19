@@ -39,7 +39,9 @@ SPACESHIP_BATTERY_THRESHOLD=35
 SPACESHIP_EXIT_CODE_SHOW=true
 SPACESHIP_TIME_SHOW=true
 
-antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
+# antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
+antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
+
 # zsh theme config end
 
 # notify needs `brew install terminal-notifier`
