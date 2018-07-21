@@ -701,6 +701,14 @@ Markdown support isn't built into Emacs, add it with =markdown-mode=.
   (use-package lua-mode
     :ensure t)
 #+END_SRC
+** Lisp
+#+BEGIN_SRC emacs-lisp
+  (use-package slime
+    :ensure t
+    :config
+    (setq inferior-lisp-program "/usr/local/bin/sbcl")
+    (setq slime-contribs '(slime-fancy)))
+#+END_SRC
 ** Haskell
 Install haskell mode.
 #+BEGIN_SRC emacs-lisp

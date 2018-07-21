@@ -480,6 +480,12 @@
 (use-package lua-mode
   :ensure t)
 
+(use-package slime
+  :ensure t
+  :config
+  (setq inferior-lisp-program "/usr/local/bin/sbcl")
+  (setq slime-contribs '(slime-fancy)))
+
 (use-package haskell-mode
   :ensure t)
 

@@ -1,1 +1,1 @@
-("~/Dropbox/code/joywork/greenman/" "~/dotfiles/" "~/Dropbox/code/gfresh/gfreshx/" "~/Dropbox/code/til/c/learn-c-the-hard-way/" "~/Dropbox/code/til/haskell/learn-haskell/words/" "~/Dropbox/code/github-comment/" "~/code/gfresh/gfreshx/" "~/code/til/")
+("~/Dropbox/code/til/c/learn-c-the-hard-way/" "~/dotfiles/" "~/Dropbox/code/til/lisp/reddit1.0/" "~/Dropbox/code/joywork/greenman/" "~/Dropbox/code/gfresh/gfreshx/" "~/Dropbox/code/til/haskell/learn-haskell/words/" "~/Dropbox/code/github-comment/" "~/code/gfresh/gfreshx/" "~/code/til/")
