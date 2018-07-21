@@ -11,7 +11,7 @@ source ~/.antigen/antigen.zsh
 
 antigen use oh-my-zsh
 
-# zsh theme begin
+# zsh theme SPACESHIP config begin
 SPACESHIP_PROMPT_ORDER=(
   time          # Time stampts section
   user          # Username section
@@ -41,8 +41,7 @@ SPACESHIP_TIME_SHOW=true
 
 # antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
 antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
-
-# zsh theme config end
+# zsh theme SPACESHIP config end
 
 # notify needs `brew install terminal-notifier`
 antigen bundles <<EOBUNDLES
@@ -77,7 +76,6 @@ alias vim='/usr/local/bin/nvim' # brew install neovim
 alias ls='/usr/local/bin/exa' # brew install exa
 
 
-# alias
 ## 本地静态服务器
 # alias rs="ruby -run -e httpd . -p 3000"
 
