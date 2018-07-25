@@ -11,6 +11,7 @@
 
 (setq mc/cmds-to-run-once
       '(
+        kill-region
         mouse-set-secondary
         org-self-insert-command
         smart-hungry-delete-backward-char
