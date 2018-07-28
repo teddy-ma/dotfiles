@@ -266,8 +266,7 @@
 (use-package rainbow-mode
   :ensure t
   :config
-  (setq rainbow-x-colors nil)
-  (add-hook 'prog-mode-hook 'rainbow-mode))
+  (setq rainbow-x-colors nil))
 
 (use-package aggressive-indent
     :ensure t)
@@ -278,6 +277,11 @@
   :ensure t
   :config
   (add-hook 'python-mode-hook 'smart-dash-mode))
+
+(use-package highlight-indent-guides
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
 
 (use-package projectile
   :ensure t
