@@ -608,11 +608,6 @@
 (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
 (setq org-reveal-mathjax t)
 
-(use-package org-trello
-  :ensure t
-  :config
-  (custom-set-variables '(org-trello-files '("~/Documents/trello.org"))))
-
 (use-package writegood-mode
   :ensure t
   :bind ("C-c g" . writegood-mode)
