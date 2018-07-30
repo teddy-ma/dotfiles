@@ -279,9 +279,7 @@
   (add-hook 'python-mode-hook 'smart-dash-mode))
 
 (use-package highlight-indent-guides
-  :ensure t
-  :config
-  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
+  :ensure t)
 
 (use-package projectile
   :ensure t
