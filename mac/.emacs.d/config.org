@@ -836,9 +836,9 @@ Add flycheck support.
 ** Easy open common files
 use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-notes-efficiently-org-mode/
 #+BEGIN_SRC emacs-lisp
-  (set-register ?b (cons 'file "~/Documents/blog.org"))
-  (set-register ?t (cons 'file "~/Documents/todo.org"))
-  (set-register ?n (cons 'file "~/Documents/note.org"))
+  (set-register ?b (cons 'file "~/Documents/org/blog.org"))
+  (set-register ?t (cons 'file "~/Documents/org/todo.org"))
+  (set-register ?n (cons 'file "~/Documents/org/note.org"))
 #+END_SRC
 ** Executable src
 #+BEGIN_SRC emacs-lisp
@@ -852,14 +852,14 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
   (use-package org-download
     :ensure t
     :config
-    (setq-default org-download-image-dir "~/Documents/assets")
+    (setq-default org-download-image-dir "~/Documents/org/assets")
     (add-hook 'dired-mode-hook 'org-download-enable))
 #+END_SRC
 ** Agenda
 #+BEGIN_SRC emacs-lisp
-  (setq org-agenda-files (list "~/Documents/blog.org"
-                               ;; note should not have todo "~/Documents/note.org"
-                               "~/Documents/todo.org"))
+  (setq org-agenda-files (list "~/Documents/org/blog.org"
+                               ;; note should not have todo "~/Documents/org/note.org"
+                               "~/Documents/org/todo.org"))
 #+END_SRC
 ** Export
 #+BEGIN_SRC emacs-lisp

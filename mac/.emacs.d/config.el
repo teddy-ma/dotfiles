@@ -566,9 +566,9 @@
 (setq org-todo-keywords
       '((sequence "TODO" "DOING" "|" "DONE" "BLOCKED")))
 
-(set-register ?b (cons 'file "~/Documents/blog.org"))
-(set-register ?t (cons 'file "~/Documents/todo.org"))
-(set-register ?n (cons 'file "~/Documents/note.org"))
+(set-register ?b (cons 'file "~/Documents/org/blog.org"))
+(set-register ?t (cons 'file "~/Documents/org/todo.org"))
+(set-register ?n (cons 'file "~/Documents/org/note.org"))
 
 (with-eval-after-load 'org
   (org-babel-do-load-languages 'org-babel-load-languages '((ruby . t)
@@ -578,12 +578,12 @@
 (use-package org-download
   :ensure t
   :config
-  (setq-default org-download-image-dir "~/Documents/assets")
+  (setq-default org-download-image-dir "~/Documents/org/assets")
   (add-hook 'dired-mode-hook 'org-download-enable))
 
-(setq org-agenda-files (list "~/Documents/blog.org"
-                             ;; note should not have todo "~/Documents/note.org"
-                             "~/Documents/todo.org"))
+(setq org-agenda-files (list "~/Documents/org/blog.org"
+                             ;; note should not have todo "~/Documents/org/note.org"
+                             "~/Documents/org/todo.org"))
 
 (use-package ox-gfm
   :ensure t
