@@ -578,7 +578,9 @@
 (use-package org-download
   :ensure t
   :config
-  (setq-default org-download-image-dir "~/Documents/org/assets")
+  (setq-default org-download-image-dir "~/Documents/org/assets/images")
+  (setq-default org-download-timestamp "")
+  (setq-default org-download-heading-lvl nil)
   (add-hook 'dired-mode-hook 'org-download-enable))
 
 (setq org-agenda-files (list "~/Documents/org/blog.org"
