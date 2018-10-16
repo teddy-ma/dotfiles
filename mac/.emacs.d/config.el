@@ -62,6 +62,9 @@
       kept-old-versions 5    ; and how many of the old
       )
 
+;; Move file to trash instead of removing.
+(setq-default delete-by-moving-to-trash t)
+
 (global-auto-revert-mode t)
 
 (use-package crux
@@ -199,6 +202,9 @@
 
 (use-package emojify
   :ensure t)
+
+(use-package all-the-icons)
+;; MUST DO M-x all-the-icons-install-fonts after
 
 (use-package solarized-theme
   :ensure t
@@ -571,9 +577,11 @@
 (set-register ?n (cons 'file "~/Documents/org/note.org"))
 
 (with-eval-after-load 'org
-  (org-babel-do-load-languages 'org-babel-load-languages '((ruby . t)
+  (org-babel-do-load-languages 'org-babel-load-languages '(
+                                                           (ruby . t)
                                                            (plantuml . t)
-                                                           )))
+                                                           (js . t)
+                                                           ))
 
 (use-package org-download
   :ensure t
