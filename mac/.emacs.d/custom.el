@@ -6,7 +6,7 @@
  '(custom-safe-themes
    (quote
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" default)))
- '(org-agenda-files (quote ("~/Documents/blog.org" "~/Documents/note.org")))
+ '(org-agenda-files (quote ("~/Documents/note.org")))
  '(org-export-headline-levels 4)
  '(org-export-initial-scope (quote subtree))
  '(org-export-with-toc nil)

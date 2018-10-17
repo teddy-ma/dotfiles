@@ -581,7 +581,7 @@
                                                            (ruby . t)
                                                            (plantuml . t)
                                                            (js . t)
-                                                           ))
+                                                           )))
 
 (use-package org-download
   :ensure t
