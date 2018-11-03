@@ -11,8 +11,9 @@ define_modmap({
 # Keybindings for Firefox/Chrome
 define_conditional_modmap(re.compile("Firefox|Google-chrome"), {
     Key.LEFT_ALT: Key.LEFT_CTRL,
+    Key.LEFT_CTRL: Key.LEFT_META,
     Key.LEFT_META: Key.LEFT_ALT,
-    Key.CAPSLOCK: Key.LEFT_META
+    # Key.CAPSLOCK: Key.LEFT_META
 })
 
 define_keymap(re.compile("Firefox|Google-chrome"), {
@@ -45,8 +46,8 @@ define_keymap(lambda wm_class: wm_class not in ("Emacs", "URxvt", "Konsole"), {
     #K("Win-v"): with_mark(K("page_up")),
     #K("C-v"): with_mark(K("page_down")),
     # Beginning/End of file
-    K("Win-Shift-comma"): with_mark(K("C-home")),
-    K("Win-Shift-dot"): with_mark(K("C-end")),
+    # K("Win-Shift-comma"): with_mark(K("C-home")),
+    # K("Win-Shift-dot"): with_mark(K("C-end")),
     # Newline
     # K("C-m"): K("enter"),
     # K("C-j"): K("enter"),
