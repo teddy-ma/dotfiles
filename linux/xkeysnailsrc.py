@@ -9,10 +9,10 @@ define_modmap({
 })
 
 # Keybindings for Firefox/Chrome
-define_conditional_modmap(lambda wm_class: wm_class not in ("Emacs", "URxvt", "Konsole", {
-    Key.LEFT_ALT: Key.LEFT_META,
+define_conditional_modmap(re.compile("Firefox|Google-chrome"), {
+    Key.LEFT_ALT: Key.LEFT_CTRL,
     Key.LEFT_META: Key.LEFT_ALT,
-    Key.CAPSLOCK: Key.LEFT_ALT
+    Key.CAPSLOCK: Key.LEFT_META
 })
 
 define_keymap(re.compile("Firefox|Google-chrome"), {
@@ -30,41 +30,41 @@ define_keymap(re.compile("Firefox|Google-chrome"), {
 # Emacs-like keybindings in non-Emacs applications (part)
 define_keymap(lambda wm_class: wm_class not in ("Emacs", "URxvt", "Konsole"), {
     # Cursor
-    K("M-b"): with_mark(K("left")),
-    K("M-f"): with_mark(K("right")),
-    K("M-p"): with_mark(K("up")),
-    K("M-n"): with_mark(K("down")),
-    K("M-h"): with_mark(K("backspace")),
+    K("Win-b"): with_mark(K("left")),
+    K("Win-f"): with_mark(K("right")),
+    K("Win-p"): with_mark(K("up")),
+    K("Win-n"): with_mark(K("down")),
+    K("Win-h"): with_mark(K("backspace")),
     # Forward/Backward word
-    #K("M-b"): with_mark(K("C-left")),
-    #K("M-f"): with_mark(K("C-right")),
+    #K("Win-b"): with_mark(K("C-left")),
+    #K("Win-f"): with_mark(K("C-right")),
     # Beginning/End of line
-    K("M-a"): with_mark(K("home")),
-    K("M-e"): with_mark(K("end")),
+    K("Win-a"): with_mark(K("home")),
+    K("Win-e"): with_mark(K("end")),
     # Page up/down
-    #K("M-v"): with_mark(K("page_up")),
+    #K("Win-v"): with_mark(K("page_up")),
     #K("C-v"): with_mark(K("page_down")),
     # Beginning/End of file
-    K("M-Shift-comma"): with_mark(K("C-home")),
-    K("M-Shift-dot"): with_mark(K("C-end")),
+    K("Win-Shift-comma"): with_mark(K("C-home")),
+    K("Win-Shift-dot"): with_mark(K("C-end")),
     # Newline
     # K("C-m"): K("enter"),
     # K("C-j"): K("enter"),
     # K("C-o"): [K("enter"), K("left")],
     # Copy
     #K("C-w"): [K("C-x"), set_mark(False)],
-    K("M-w"): [K("C-c"), set_mark(False)],
-    K("M-y"): [K("C-v"), set_mark(False)],
+    K("Win-w"): [K("C-c"), set_mark(False)],
+    K("Win-y"): [K("C-v"), set_mark(False)],
     # Delete
-    K("M-d"): [K("delete"), set_mark(False)],
-    # K("M-d"): [K("C-delete"), set_mark(False)],
+    K("Win-d"): [K("delete"), set_mark(False)],
+    # K("Win-d"): [K("C-delete"), set_mark(False)],
     # Kill line
-    K("M-k"): [K("Shift-end"), K("C-x"), set_mark(False)],
+    K("Win-k"): [K("Shift-end"), K("C-x"), set_mark(False)],
     # Undo
-    K("M-slash"): [K("C-z"), set_mark(False)],
+    K("Win-slash"): [K("C-z"), set_mark(False)],
     # K("C-Shift-ro"): K("C-z"),
     # Mark
-    K("M-space"): set_mark(True),
+    K("Win-space"): set_mark(True),
     #K("C-M-space"): with_or_set_mark(K("C-right")),
     # Search
     # K("C-s"): K("F3"),
