@@ -27,7 +27,7 @@ define_keymap(re.compile("Firefox|Google-chrome"), {
     K("C-KEY_6"): K("M-KEY_6")
 }, "Firefox and Chrome")
 
-define_keymap(re.compile("Konsole"), {
+define_keymap(re.compile("konsole"), {
     K("M-l"): K("C-l")
 }, "Konsole");
 
