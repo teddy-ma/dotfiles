@@ -19,17 +19,17 @@ define_conditional_modmap(re.compile("Firefox|Google-chrome"), {
 
 define_keymap(re.compile("Firefox|Google-chrome"), {
     # remap switch tab shortcuts
-    K("C-1"): K("A-1"),
-    K("C-2"): K("A-2"),
-    K("C-3"): K("A-3"),
-    K("C-4"): K("A-4"),
-    K("C-5"): K("A-5"),
-    K("C-6"): K("A-6"),
+    K("C-KEY_1"): K("M-KEY_1"),
+    K("C-KEY_2"): K("M-KEY_2"),
+    K("C-KEY_3"): K("M-KEY_3"),
+    K("C-KEY_4"): K("M-KEY_4"),
+    K("C-KEY_5"): K("M-KEY_5"),
+    K("C-KEY_6"): K("M-KEY_6")
 }, "Firefox and Chrome")
 
 define_keymap(re.compile("Konsole"), {
-    K("A-l"): K("C-l"),
-});
+    K("M-l"): K("C-l")
+}, "Konsole");
 
 # Emacs-like keybindings in non-Emacs applications (part)
 define_keymap(lambda wm_class: wm_class not in ("Emacs", "URxvt", "Konsole"), {
