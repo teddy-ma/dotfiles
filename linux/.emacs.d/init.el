@@ -1,5 +1,0 @@
-;;(set-keyboard-coding-system nil)
-;;(setq x-ctrl-keysym 'alt)
-;;(setq x-ctrl-keysym 'meta)
-;;(setq x-alt-keysym 'ctrl)
-;;(setq x-meta-keysym 'ctrl)
