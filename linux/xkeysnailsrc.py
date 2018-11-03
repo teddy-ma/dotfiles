@@ -12,12 +12,12 @@ define_modmap({
 # Keybindings for Firefox/Chrome
 define_conditional_modmap(re.compile("Firefox|Google-chrome"), {
     Key.LEFT_ALT: Key.LEFT_CTRL,
-    Key.LEFT_CTRL: Key.LEFT_META,
-    Key.LEFT_META: Key.LEFT_ALT
+    Key.LEFT_CTRL: Key.CAPSLOCK,
+    Key.LEFT_META: Key.LEFT_ALT,
+    Key.CAPSLOCK: Key.LEFT_META
 })
 
 define_keymap(re.compile("Firefox|Google-chrome"), {
-    
     # Ctrl+Alt+j/k to switch next/previous tab
     #Key.LEFT_META: Key.LEFT_CTRL,
     #Key.LEFT_CTRL: Key.LEFT_META

@@ -72,7 +72,7 @@ antigen apply
 
 # alias
 #alias emacs='/usr/local/bin/emacs' # brew install emacs
-# alias vim='/usr/local/bin/nvim' # brew install neovim
+alias vim='/usr/bin/nvim' # brew install neovim
 # alias ls='/usr/local/bin/exa' # brew install exa
 # alias cat='/usr/local/bin/bat' # brew install bat
 
