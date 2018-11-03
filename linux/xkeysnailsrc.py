@@ -4,19 +4,19 @@ import re
 from xkeysnail.transform import *
 
 # [Global modemap] Change modifier keys as in xmodmap
-define_modmap({
-    Key.CAPSLOCK: Key.LEFT_CTRL
-})
+# define_modmap({
+    
+# })
 
 # Keybindings for Firefox/Chrome
-define_conditional_modmap(re.compile("Firefox|Google-chrome"), {
-    Key.LEFT_ALT: Key.LEFT_CTRL,
-    Key.LEFT_CTRL: Key.LEFT_META,
-    Key.LEFT_META: Key.LEFT_ALT,
-    # Key.CAPSLOCK: Key.LEFT_META
-})
+# define_conditional_modmap(re.compile("Firefox|Google-chrome"), {
+   
+# })
 
 define_keymap(re.compile("Firefox|Google-chrome"), {
+    Key.LEFT_ALT: Key.LEFT_CTRL,
+    Key.LEFT_CTRL: Key.LEFT_META,
+    Key.LEFT_META: Key.LEFT_ALT
     # Ctrl+Alt+j/k to switch next/previous tab
     #Key.LEFT_META: Key.LEFT_CTRL,
     #Key.LEFT_CTRL: Key.LEFT_META
@@ -31,6 +31,8 @@ define_keymap(re.compile("Firefox|Google-chrome"), {
 # Emacs-like keybindings in non-Emacs applications (part)
 define_keymap(lambda wm_class: wm_class not in ("Emacs", "URxvt", "Konsole"), {
     # Cursor
+    Key.CAPSLOCK: Key.LEFT_CTRL,
+    Key.LEFT_CTRL: Key.CAPSLOCK,
     K("Win-b"): with_mark(K("left")),
     K("Win-f"): with_mark(K("right")),
     K("Win-p"): with_mark(K("up")),
