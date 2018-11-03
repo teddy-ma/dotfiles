@@ -18,21 +18,22 @@ define_conditional_modmap(re.compile("Firefox|Google-chrome"), {
 })
 
 define_keymap(re.compile("Firefox|Google-chrome"), {
-    # Ctrl+Alt+j/k to switch next/previous tab
-    #Key.LEFT_META: Key.LEFT_CTRL,
-    #Key.LEFT_CTRL: Key.LEFT_META
-    #K("C-M-j"): K("C-TAB"),
-    #K("C-M-k"): K("C-Shift-TAB"),
-    # Type C-j to focus to the content
-    #K("C-j"): K("C-f6"),
-    # very naive "Edit in editor" feature (just an example)
-    #K("C-o"): [K("C-a"), K("C-c"), launch(["gedit"]), sleep(0.5), K("C-v")]
+    # remap switch tab shortcuts
+    K("C-KEY_1"): K("M-KEY_1"),
+    K("C-KEY_2"): K("M-KEY_2"),
+    K("C-KEY_3"): K("M-KEY_3"),
+    K("C-KEY_4"): K("M-KEY_4"),
+    K("C-KEY_5"): K("M-KEY_5"),
+    K("C-KEY_6"): K("M-KEY_6")
 }, "Firefox and Chrome")
+
+define_keymap(re.compile("Konsole"), {
+    K("M-l"): K("C-l")
+}, "Konsole");
 
 # Emacs-like keybindings in non-Emacs applications (part)
 define_keymap(lambda wm_class: wm_class not in ("Emacs", "URxvt", "Konsole"), {
     # Cursor
-   
     K("Win-b"): with_mark(K("left")),
     K("Win-f"): with_mark(K("right")),
     K("Win-p"): with_mark(K("up")),

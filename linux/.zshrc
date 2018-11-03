@@ -89,9 +89,4 @@ export HISTCONTROL=erasedups:ignorespace
 export HISTSIZE=20000
 
 export PATH="$HOME/.bin:$PATH"
-# recommended by brew doctor
-export PATH="/usr/local/bin:$PATH"
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
