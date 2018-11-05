@@ -28,7 +28,8 @@ define_keymap(re.compile("Firefox|Google-chrome"), {
 }, "Firefox and Chrome")
 
 define_keymap(re.compile("konsole"), {
-    K("M-l"): K("C-l")
+    K("M-l"): K("C-l"),
+    K("M-k"): K("C-l")
 }, "Konsole");
 
 # Emacs-like keybindings in non-Emacs applications (part)

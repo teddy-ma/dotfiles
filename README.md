@@ -2,7 +2,6 @@
 
 这是我的 dotfiles, 使用 stow 管理
 
-
 ## MacOS
 ```shell
 curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/mac
