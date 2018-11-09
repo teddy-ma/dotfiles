@@ -90,3 +90,7 @@ export HISTSIZE=20000
 
 export PATH="$HOME/.bin:$PATH"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+. $HOME/.asdf/asdf.sh
+
+. $HOME/.asdf/completions/asdf.bash
