@@ -242,13 +242,6 @@
 ;; Don't beep at me
 (setq visible-bell nil)
 
-(setq battery-mode-line-format "[%b%p%% %t]")
-
-(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-(add-to-list 'default-frame-alist '(ns-appearance . dark))
-(setq ns-use-proxy-icon  nil)
-(setq frame-title-format nil)
-
 (use-package smartparens
   :ensure t
   :diminish smartparens-mode
