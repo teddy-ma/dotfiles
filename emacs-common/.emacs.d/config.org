@@ -1,0 +1,950 @@
+#+TITLE: Emacs Config
+#+AUTHOR: Teddy Ma
+#+TOC: true
+#+DATE: Sun April 7 20:44:22 2018
+
+* Setup
+** Make it easy to edit and reload this file
+#+BEGIN_SRC emacs-lisp
+  (defun find-config ()
+    "Edit config.org"
+    (interactive)
+    (find-file "~/.emacs.d/config.org"))
+  (defun reload-config()
+    "Reload config.org"
+    (interactive)
+    (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
+
+  (global-set-key (kbd "C-c I") 'find-config)
+  (global-set-key (kbd "C-c R") 'reload-config)
+#+END_SRC
+** Configure package sources
+#+BEGIN_SRC emacs-lisp
+  (require 'package)
+  (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                      (not (gnutls-available-p))))
+         (proto (if no-ssl "http" "https")))
+
+    (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t) ;; org
+    (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+    (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)) ;; yasnippet collection
+  (package-initialize)
+  (setq package-enable-at-startup nil)
+#+END_SRC
+** Bootstrap use-package
+a good guide about use-package https://phenix3443.github.io/notebook/emacs/use-package-manual.html
+
+#+BEGIN_SRC emacs-lisp
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+
+  (setq use-package-always-ensure t)
+#+END_SRC
+** Set custom settings to load in own file
+Set up the customize file to its own separate file, instead of saving
+customize settings in [[file:init.el][init.el]].
+
+#+begin_src emacs-lisp
+  (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+  (load custom-file)
+#+end_src
+
+** Common Preferences
+*** Don't display the help screen on startup.
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-screen t)
+#+END_SRC
+
+*** Alway use visual line
+#+BEGIN_SRC emacs-lisp
+  (global-visual-line-mode 1)
+#+END_SRC
+*** Don't display tool bar and scroll bar
+#+BEGIN_SRC emacs-lisp
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+#+END_SRC
+*** Y or N
+#+BEGIN_SRC emacs-lisp
+  (defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+*** No autosave and backup
+#+BEGIN_SRC emacs-lisp
+  (setq make-backup-file nil)
+  (setq auto-save-default nil)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
+        backup-by-copying t    ; Don't delink hardlinks
+        version-control t      ; Use version numbers on backups
+        delete-old-versions t  ; Automatically delete excess backups
+        kept-new-versions 20   ; how many of the newest versions to keep
+        kept-old-versions 5    ; and how many of the old
+        )
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  ;; Move file to trash instead of removing.
+  (setq-default delete-by-moving-to-trash t)
+#+END_SRC
+*** Auto refresh
+#+BEGIN_SRC emacs-lisp
+  (global-auto-revert-mode t)
+#+END_SRC
+* Interface
+** Basics
+*** CRUX
+=crux= is a list of useful functions.
+
+#+BEGIN_SRC emacs-lisp
+    (use-package crux
+      :ensure t
+      :bind (("C-a" . crux-move-beginning-of-line)
+             ("C-c r" . crux-rename-file-and-buffer)
+             ("C-c D" . crux-delete-file-and-buffer))
+    )
+#+END_SRC
+
+*** Hungry Delete
+hungry delete can make life easier, but emacs-smart-hungry-delete is more powerful
+
+#+BEGIN_SRC emacs-lisp
+  (use-package smart-hungry-delete
+    :ensure t
+    :bind (("<backspace>" . smart-hungry-delete-backward-char)
+           ("C-d" . smart-hungry-delete-forward-char))
+    :defer nil ;; dont defer so we can add our functions to hooks
+    :config (smart-hungry-delete-add-default-hooks))
+#+END_SRC
+
+*** Trailing Whitespace
+I *never* want whitespace at the end of lines. Remove it on save.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+#+END_SRC
+** Command completion
+=ivy= is a generic completion framework which uses the minibuffer. Turning on =ivy-mode= with fuzzy support enables replacement of lots of built in =ido= functionality.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package smex
+    :ensure t)
+  (use-package flx
+    :ensure t)
+  (use-package ivy
+    :ensure t
+    :config
+    (ivy-mode t))
+#+END_SRC
+
+=counsel= is a collection of =ivy= enhanced versions of common Emacs commands. I haven't bound much as =ivy-mode= takes care of most things.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package counsel
+    :ensure t
+    :bind
+    (("M-x" . counsel-M-x))
+    :config
+    (setq ivy-re-builders-alist
+          '((ivy-switch-buffer . ivy--regex-plus)
+            (t . ivy--regex-fuzzy)))
+    (setq ivy-initial-inputs-alist nil))
+#+END_SRC
+
+=swiper= is an =ivy= enhanced version of isearch.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package swiper
+    :ensure t
+    :bind (("M-s" . swiper)))
+#+END_SRC
+
+=hydra= presents menus for =ivy= commands.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy-hydra
+    :ensure t)
+#+END_SRC
+
+** Suggest next key
+Suggest next keys to me based on currently entered key combination.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :ensure t
+    :diminish which-key-mode
+    :config
+    (add-hook 'after-init-hook 'which-key-mode))
+#+END_SRC
+
+** Easier selection
+=expand-region= expands the region around the cursor semantically depending on mode. Hard to describe but a killer feature.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package expand-region
+    :ensure t
+    :bind ("C-=" . er/expand-region))
+#+END_SRC
+** Multiple cursors
+Maybe I should consider https://github.com/victorhge/iedit
+#+BEGIN_SRC emacs-lisp
+  (use-package multiple-cursors
+    :ensure t
+    :config
+    (global-unset-key (kbd "M-<down-mouse-1>"))
+    (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
+    (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+    (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+    (global-set-key (kbd "C-<") 'mc/mark-previous-like-this))
+#+END_SRC
+** Switch window
+#+BEGIN_SRC emacs-lisp
+  (use-package switch-window
+    :ensure t
+    :config
+    (setq switch-window-input-style 'minibuffer)
+    (setq switch-window-increase 4)
+    (setq switch-window-threshod 2)
+    (setq switch-window-shortcut-style 'qwerty)
+    (setq switch-window-qwerty-shortcuts
+          '("a" "s" "d" "f" "j" "k" "l"))
+    :bind
+    ([remap other-window] . switch-window))
+#+END_SRC
+** File tree
+#+BEGIN_SRC emacs-lisp
+  (use-package treemacs
+    :ensure t
+    :defer t
+    :init
+    (with-eval-after-load 'winum
+      (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+    :config
+    (progn
+      (use-package treemacs-evil
+        :ensure t
+        :demand t)
+      (setq treemacs-change-root-without-asking nil
+            treemacs-collapse-dirs              (if (executable-find "python") 3 0)
+            treemacs-file-event-delay           5000
+            treemacs-follow-after-init          t
+            treemacs-follow-recenter-distance   0.1
+            treemacs-goto-tag-strategy          'refetch-index
+            treemacs-indentation                2
+            treemacs-indentation-string         " "
+            treemacs-is-never-other-window      nil
+            treemacs-never-persist              nil
+            treemacs-no-png-images              nil
+            treemacs-recenter-after-file-follow nil
+            treemacs-recenter-after-tag-follow  nil
+            treemacs-show-hidden-files          t
+            treemacs-silent-filewatch           nil
+            treemacs-silent-refresh             nil
+            treemacs-sorting                    'alphabetic-desc
+            treemacs-tag-follow-cleanup         t
+            treemacs-tag-follow-delay           1.5
+            treemacs-width                      35)
+
+      (treemacs-follow-mode t)
+      (treemacs-filewatch-mode t)
+      (pcase (cons (not (null (executable-find "git")))
+                   (not (null (executable-find "python3"))))
+        (`(t . t)
+         (treemacs-git-mode 'extended))
+        (`(t . _)
+         (treemacs-git-mode 'simple))))
+    )
+
+  (use-package treemacs-projectile
+    :defer t
+    :ensure t
+    :config
+    (setq treemacs-header-function #'treemacs-projectile-create-header)
+    )
+#+END_SRC
+* Appearance
+** Font
+#+BEGIN_SRC emacs-lisp
+  (set-face-attribute 'default nil
+                      :family "Hack Nerd Font"
+                      :height 160
+                      :weight 'normal)
+#+END_SRC
+
+Add emoji support. This is useful when working with html.
+#+BEGIN_SRC emacs-lisp
+  (use-package emojify
+    :ensure t)
+#+END_SRC
+
+Pretty icons
+#+BEGIN_SRC emacs-lisp
+  (use-package all-the-icons)
+  ;; MUST DO M-x all-the-icons-install-fonts after
+#+END_SRC
+
+** Theme
+#+BEGIN_SRC emacs-lisp
+  (use-package solarized-theme
+    :ensure t
+    :init
+    (load-theme 'solarized-dark t))
+#+END_SRC
+** Mode Line
+It's hard to customize mode line...
+** Misc
+*** Highlight the current line.
+#+BEGIN_SRC emacs-lisp
+  (global-hl-line-mode 1)
+#+END_SRC
+*** Global UTF8
+#+BEGIN_SRC emacs-lisp
+  (setq locale-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
+#+END_SRC
+*** Light follow cursor
+#+BEGIN_SRC emacs-lisp
+  (use-package beacon
+    :ensure t
+    :init
+    (beacon-mode 1))
+#+END_SRC
+*** Cursor
+#+BEGIN_SRC emacs-lisp
+  (blink-cursor-mode -1)  ;; Turn off the blinking cursor
+#+END_SRC
+*** Tabs and indent
+#+BEGIN_SRC emacs-lisp
+  (setq-default indent-tabs-mode nil)
+  (setq-default indent-tabs-mode nil)
+  (setq-default indicate-empty-lines t)
+
+  ;; Don't count two spaces after a period as the end of a sentence.
+  ;; Just one space is needed.
+  (setq sentence-end-double-space nil)
+
+  ;; delete the region when typing, just like as we expect nowadays.
+  (delete-selection-mode t)
+
+  (show-paren-mode t)
+
+  (column-number-mode t)
+
+  (global-visual-line-mode)
+
+  (setq uniquify-buffer-name-style 'forward)
+
+  ;; -i gets alias definitions from .bash_profile
+  (setq shell-command-switch "-ic")
+
+  ;; Don't beep at me
+  (setq visible-bell nil)
+#+END_SRC
+*** Display battery
+#+begin_src emacs-lisp
+(setq battery-mode-line-format "[%b%p%% %t]")
+#+end_src
+
+* Coding
+** Programming specific interface improvements
+When programming I like my editor to try to help me with keeping parentheses balanced.
+#+BEGIN_SRC emacs-lisp
+  (use-package smartparens
+    :ensure t
+    :diminish smartparens-mode
+    :config
+    (add-hook 'prog-mode-hook 'smartparens-mode))
+#+END_SRC
+
+Highlight parens etc. for improved readability.
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters
+    :ensure t
+    :config
+    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+#+END_SRC
+
+Highlight strings which represent colours. I only want this in programming modes, and I don't want colour names to be highlighted (=x-colors=).
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-mode
+    :ensure t
+    :config
+    (setq rainbow-x-colors nil))
+#+END_SRC
+
+Keep things indented correctly for me.
+#+BEGIN_SRC emacs-lisp
+  (use-package aggressive-indent
+      :ensure t)
+#+END_SRC
+
+Expand parentheses for me.
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'prog-mode-hook 'electric-pair-mode)
+#+END_SRC
+
+Smart dash guesses _ vs - depending on context.
+#+BEGIN_SRC emacs-lisp
+  (use-package smart-dash
+    :ensure t
+    :config
+    (add-hook 'python-mode-hook 'smart-dash-mode))
+#+END_SRC
+
+Emacs minor mode to highlight indentation
+#+BEGIN_SRC emacs-lisp
+  (use-package highlight-indent-guides
+    :ensure t)
+#+END_SRC
+
+** Project management
+Projectile handles folders which are in version control.
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :ensure t
+    :config
+    (projectile-mode +1)
+    (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+    (setq projectile-enable-caching t)
+    (projectile-mode))
+#+END_SRC
+
+Tell projectile to integrate with =ivy= for completion.
+#+BEGIN_SRC emacs-lisp
+  (setq projectile-completion-system 'ivy)
+#+END_SRC
+
+Add some extra completion options via integration with =counsel=. In particular this enables =C-c p SPC= for smart buffer / file search, and =C-c p s s= for search via =ag=.
+#+BEGIN_SRC emacs-lisp
+  (use-package counsel-projectile
+    :ensure t
+    :config
+    (add-hook 'after-init-hook 'counsel-projectile-mode)
+    (global-set-key (kbd "C-c p f") 'counsel-git))
+#+END_SRC
+
+** Fuzzy search
+=fzf= is a fuzzy file finder which is very quick.
+#+BEGIN_SRC emacs-lisp
+  (use-package fzf
+    :ensure t)
+#+END_SRC
+** Find File with Line Number
+#+BEGIN_SRC emacs-lisp
+  ;; Open files and goto lines like we see from g++ etc. i.e. file:line#
+  ;; (to-do "make `find-file-line-number' work for emacsclient as well")
+  ;; (to-do "make `find-file-line-number' check if the file exists")
+  (defadvice find-file (around find-file-line-number
+                               (filename &optional wildcards)
+                               activate)
+    "Turn files like file.cpp:14 into file.cpp and going to the 14-th line."
+    (save-match-data
+      (let* ((matched (string-match "^\\(.*\\):\\([0-9]+\\):?$" filename))
+             (line-number (and matched
+                               (match-string 2 filename)
+                               (string-to-number (match-string 2 filename))))
+             (filename (if matched (match-string 1 filename) filename)))
+        ad-do-it
+        (when line-number
+          ;; goto-line is for interactive use
+          (goto-char (point-min))
+          (forward-line (1- line-number))))))
+#+END_SRC
+** Environment management
+By default Emacs doesn't read from the same environment variables set in your terminal. This package fixes that.
+#+BEGIN_SRC emacs-lisp
+  (use-package exec-path-from-shell
+    :ensure t
+    :config
+    (exec-path-from-shell-initialize))
+#+END_SRC
+** Jump to source
+Individual language packages often support IDE features like jump to source, but =dumb-jump= attempts to support many languages by simple searching. It's quite effective even with dynamic libraries like JS and Python.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dumb-jump
+    :ensure t
+    :diminish dumb-jump-mode
+    :bind (("C-M-g" . dumb-jump-go)
+           ("C-M-p" . dumb-jump-back)
+           ("C-M-q" . dumb-jump-quick-look)))
+#+END_SRC
+
+** Git
+Magit is an awesome interface to git. Summon it with `C-x g`.
+#+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :ensure t
+    :bind ("C-x g" . magit-status))
+#+END_SRC
+
+Display line changes in gutter based on git history. Enable it everywhere.
+#+BEGIN_SRC emacs-lisp
+  (use-package git-gutter
+    :ensure t
+    :diminish git-gutter-mode
+    :config
+    (global-git-gutter-mode 't))
+#+END_SRC
+
+TimeMachine lets us step through the history of a file as recorded in git.
+#+BEGIN_SRC emacs-lisp
+  (use-package git-timemachine
+    :ensure t)
+#+END_SRC
+** Syntax checking
+=Flycheck= is a general syntax highlighting framework which other packages hook into. It's an improvment on the built in =flymake=.
+
+Setup is pretty simple - we just enable globally and turn on a custom eslint function, and also add a custom checker for proselint.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :ensure t
+    :config
+    (add-hook 'after-init-hook 'global-flycheck-mode)
+    (add-to-list 'flycheck-checkers 'proselint)
+    (setq-default flycheck-highlighting-mode 'lines)
+    ;; Define fringe indicator / warning levels
+    (define-fringe-bitmap 'flycheck-fringe-bitmap-ball
+      (vector #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00011100
+              #b00111110
+              #b00111110
+              #b00111110
+              #b00011100
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000))
+    (flycheck-define-error-level 'error
+      :severity 2
+      :overlay-category 'flycheck-error-overlay
+      :fringe-bitmap 'flycheck-fringe-bitmap-ball
+      :fringe-face 'flycheck-fringe-error)
+    (flycheck-define-error-level 'warning
+      :severity 1
+      :overlay-category 'flycheck-warning-overlay
+      :fringe-bitmap 'flycheck-fringe-bitmap-ball
+      :fringe-face 'flycheck-fringe-warning)
+    (flycheck-define-error-level 'info
+      :severity 0
+      :overlay-category 'flycheck-info-overlay
+      :fringe-bitmap 'flycheck-fringe-bitmap-ball
+      :fringe-face 'flycheck-fringe-info))
+    #+END_SRC
+
+Proselint is a syntax checker for English language. This defines a custom checker which will run in texty modes.
+
+Proselint is an external program, install it with =pip install proselint= for this to work.
+
+#+BEGIN_SRC emacs-lisp
+  (flycheck-define-checker proselint
+    "A linter for prose."
+    :command ("proselint" source-inplace)
+    :error-patterns
+    ((warning line-start (file-name) ":" line ":" column ": "
+              (id (one-or-more (not (any " "))))
+              (message (one-or-more not-newline)
+                       (zero-or-more "\n" (any " ") (one-or-more not-newline)))
+              line-end))
+    :modes (text-mode markdown-mode gfm-mode org-mode))
+#+END_SRC
+
+** Autocomplete
+Company mode provides good autocomplete options. Perhaps I should add company-quickhelp for documentation (https://github.com/expez/company-quickhelp)?
+It would also be good to improve integration with yasnippet as I don't feel I'm making the best use there.
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :ensure t
+    :diminish
+    :config
+    (add-hook 'after-init-hook 'global-company-mode)
+
+    (setq company-idle-delay t)
+
+    (use-package company-go
+      :ensure t
+      :config
+      (add-to-list 'company-backends 'company-go))
+
+    (use-package company-anaconda
+      :ensure t
+      :config
+      (add-to-list 'company-backends 'company-anaconda)))
+#+END_SRC
+
+I don't want suggestions from open files / buffers to be automatically lowercased as these are often camelcase function names.
+
+#+BEGIN_SRC emacs-lisp
+  (setq company-dabbrev-downcase nil)
+#+END_SRC
+** Snippets
+Type the shortcut and press =TAB= to complete, or =M-/= to autosuggest a snippet.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :diminish yas-minor-mode
+    :config
+    (add-to-list 'yas-snippet-dirs "~/.emacs.d/yasnippet-snippets")
+    (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
+    (yas-global-mode 1)
+    (global-set-key (kbd "M-/") 'company-yasnippet))
+
+  (use-package yasnippet-snippets
+    :ensure t)
+#+END_SRC
+** Javascript
+In JS indent to 2 spaces.
+#+BEGIN_SRC emacs-lisp
+  (setq-default js-indent-level 2)
+#+END_SRC
+
+JS2 mode improves on the built in JS mode.
+#+BEGIN_SRC emacs-lisp
+  (use-package js2-mode
+    :ensure t
+    :mode "\\.js\\'"
+    :config
+    (setq-default js2-ignored-warnings '("msg.extra.trailing.comma")))
+#+END_SRC
+
+=js2-refactor= supports some useful refactoring options and builds on top of =js2-mode=.
+#+BEGIN_SRC emacs-lisp
+  (use-package js2-refactor
+    :ensure t
+    :config
+    (js2r-add-keybindings-with-prefix "C-c C-m")
+    (add-hook 'js2-mode-hook 'js2-refactor-mode))
+#+END_SRC
+
+RJSX mode makes JSX work well.
+#+BEGIN_SRC emacs-lisp
+  (use-package rjsx-mode
+    :ensure t)
+#+END_SRC
+
+Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 and RJSX modes.
+#+BEGIN_SRC emacs-lisp
+  (use-package prettier-js
+    :ensure t
+    :config
+    (setq prettier-js-args '(
+                          "--trailing-comma" "es5"
+                          "--single-quote" "true"
+                          "--print-width" "100"
+                          ))
+    (add-hook 'js2-mode-hook 'prettier-js-mode)
+    (add-hook 'rjsx-mode-hook 'prettier-js-mode))
+#+END_SRC
+** Web mode
+Web mode handles html/css/js.
+#+BEGIN_SRC emacs-lisp
+  (use-package web-mode
+    :ensure t
+    :mode (("\\.html\\'" . web-mode)
+           ("\\.erb\\'" . web-mode))
+    :config
+    (setq web-mode-markup-indent-offset 2)
+    )
+#+END_SRC
+** Web Beautify
+Web beautify prettifies html / css / js using js-beautify - install with =npm install -g js-beautify=.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package web-beautify
+    :ensure t
+    :bind (:map web-mode-map
+           ("C-c b" . web-beautify-html)
+           :map js2-mode-map
+           ("C-c b" . web-beautify-js)))
+#+END_SRC
+** Yaml
+#+BEGIN_SRC emacs-lisp
+  (use-package yaml-mode
+    :ensure t)
+#+END_SRC
+** Markdown
+Markdown support isn't built into Emacs, add it with =markdown-mode=.
+#+BEGIN_SRC emacs-lisp
+  (use-package markdown-mode
+    :ensure t
+    :commands (markdown-mode gfm-mode)
+    :mode (("README\\.md\\'" . gfm-mode)
+           ("\\.md\\'" . markdown-mode)
+           ("\\.markdown\\'" . markdown-mode))
+    :init (setq markdown-command "multimarkdown"))
+#+END_SRC
+** Lua
+#+BEGIN_SRC emacs-lisp
+  (use-package lua-mode
+    :ensure t)
+#+END_SRC
+** Lisp
+#+BEGIN_SRC emacs-lisp
+  (use-package slime
+    :ensure t
+    :config
+    (setq inferior-lisp-program "/usr/local/bin/sbcl")
+    (setq slime-contribs '(slime-fancy)))
+#+END_SRC
+** Haskell
+Install haskell mode.
+#+BEGIN_SRC emacs-lisp
+  (use-package haskell-mode
+    :ensure t)
+#+END_SRC
+
+Code formatting is easier with =hindent=.
+#+BEGIN_SRC emacs-lisp
+  (use-package hindent
+    :ensure t)
+#+END_SRC
+
+Completion is via =ghc-mod= / =company=. Install the former separately with =cabal install ghc-mod=.
+#+BEGIN_SRC emacs-lisp
+  (use-package ghc
+    :ensure t
+    :config
+    (add-hook 'haskell-mode-hook (lambda () (ghc-init))))
+  (use-package company-ghc
+    :ensure t
+    :config
+    (add-to-list 'company-backends 'company-ghc))
+#+END_SRC
+
+Complete interactive development program for Haskell
+#+BEGIN_SRC emacs-lisp
+  (use-package intero
+    :ensure t
+    :config
+    (add-hook 'haskell-mode-hook 'intero-mode))
+#+END_SRC
+** Elixir
+Elixir highlighting is not built into emacs at present. Elixir-mode gives all the usual niceties, and alchemist improves interaction with tools like =iex=, =mix= and =elixir-format=.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package elixir-mode
+    :ensure t
+    :config
+
+    (use-package alchemist
+      :ensure t))
+#+END_SRC
+** Ruby
+#+BEGIN_SRC emacs-lisp
+  (use-package robe
+    :ensure t
+    :config
+    (add-hook 'ruby-mode-hook 'robe-mode))
+#+END_SRC
+** C
+Emacs has a great built in C/C++ mode, but we can improve on it with =irony-mode= for code completion via =libclang=.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package irony
+    :ensure t
+    :hook (c-mode . irony-mode))
+#+END_SRC
+
+Add company mode support.
+#+BEGIN_SRC emacs-lisp
+  (use-package company-irony
+    :ensure t
+    :config
+    (add-to-list 'company-backends 'company-irony))
+#+END_SRC
+
+Add flycheck support.
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck-irony
+    :ensure t
+    :hook (flycheck-mode . flycheck-irony-setup))
+#+END_SRC
+** Scala
+#+BEGIN_SRC emacs-lisp
+  (use-package scala-mode
+    :interpreter
+    ("scala" . scala-mode))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ensime
+    :ensure t
+    :config
+    (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+    (add-hook 'ruby-mode-hook 'robe-mode))
+#+END_SRC
+** Rust
+#+BEGIN_SRC emacs-lisp
+  (use-package rust-mode
+    :ensure t )
+#+END_SRC
+* Org
+** General settings.
+#+BEGIN_SRC emacs-lisp
+  (setq org-startup-indented 'f)
+  (setq org-special-ctrl-a/e 't)
+  (setq org-src-fontify-natively 't)
+  (setq org-src-tab-acts-natively t)
+  (setq org-src-window-setup 'current-window)
+
+  (use-package org
+      :ensure org-plus-contrib)
+#+END_SRC
+** Easy open common files
+use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-notes-efficiently-org-mode/
+#+BEGIN_SRC emacs-lisp
+  (set-register ?b (cons 'file "~/Documents/org/blog.org"))
+  (set-register ?t (cons 'file "~/Documents/org/todo.org"))
+  (set-register ?n (cons 'file "~/Documents/org/note.org"))
+#+END_SRC
+** Dashboard Org
+#+BEGIN_SRC emacs-lisp
+  (use-package dashboard
+    :config
+    (dashboard-setup-startup-hook))
+#+END_SRC
+** Task stages
+#+BEGIN_SRC emacs-lisp
+  (setq org-todo-keywords
+        '((sequence "TODO" "DOING" "|" "DONE" "BLOCKED")))
+#+END_SRC
+
+** Executable src
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages
+     'org-babel-load-languages '(
+                                 (c . t)
+                                 (ruby . t)
+                                 (python . t)
+                                 (plantuml . t)
+                                 (js . t)
+                                 )))
+#+END_SRC
+** Drag and drop images
+#+BEGIN_SRC emacs-lisp
+  (use-package org-download
+    :ensure t
+    :config
+    (setq-default org-download-image-dir "~/Documents/org/assets/images")
+    (setq-default org-download-timestamp "")
+    (setq-default org-download-heading-lvl nil)
+    (add-hook 'dired-mode-hook 'org-download-enable))
+#+END_SRC
+
+** Export
+#+BEGIN_SRC emacs-lisp
+  (use-package ox-gfm
+    :ensure t
+    :after ox
+    :config
+    (custom-set-variables '(org-export-initial-scope 'subtree)
+                          '(org-export-with-toc nil)
+                          '(org-export-headline-levels 4)
+                          ))
+#+END_SRC
+
+** Reveal.js
+#+BEGIN_SRC emacs-lisp
+  (use-package ox-reveal
+    :ensure ox-reveal)
+
+  (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
+  (setq org-reveal-mathjax t)
+#+END_SRC
+
+* Extras
+** Writing
+=writegood-mode= highlights bad word choices and has functions for calculating readability.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package writegood-mode
+    :ensure t
+    :bind ("C-c g" . writegood-mode)
+    :config
+    (add-to-list 'writegood-weasel-words "actionable"))
+
+  (abbrev-mode t)
+  ;; ~/.emacs.d/abbrev_defs
+#+END_SRC
+
+** Stack Overflow
+SX is a full stack overflow client within Emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package sx
+    :ensure t
+    :config
+    (bind-keys :prefix "C-c s"
+               :prefix-map my-sx-map
+               :prefix-docstring "Global keymap for SX."
+               ("q" . sx-tab-all-questions)
+               ("i" . sx-inbox)
+               ("o" . sx-open-link)
+               ("u" . sx-tab-unanswered-my-tags)
+               ("a" . sx-ask)
+               ("s" . sx-search)))
+#+END_SRC
+** Pinyin
+#+BEGIN_SRC emacs-lisp
+  (use-package pyim
+    :ensure t
+    :demand t
+    :config
+    ;; 激活 basedict 拼音词库
+    (use-package pyim-basedict
+      :ensure nil
+      :config (pyim-basedict-enable))
+
+    (setq default-input-method "pyim")
+
+    (setq pyim-default-scheme 'quanpin)
+
+    ;; 设置 pyim 探针设置，这是 pyim 高级功能设置，可以实现 *无痛* 中英文切换 :-)
+    ;; 我自己使用的中英文动态切换规则是：
+    ;; 1. 光标只有在注释里面时，才可以输入中文。
+    ;; 2. 光标前是汉字字符时，才能输入中文。
+    ;; 3. 使用 M-j 快捷键，强制将光标前的拼音字符串转换为中文。
+    (setq-default pyim-english-input-switch-functions
+                  '(pyim-probe-dynamic-english
+                    pyim-probe-isearch-mode
+                    pyim-probe-program-mode
+                    pyim-probe-org-structure-template))
+
+    (setq-default pyim-punctuation-half-width-functions
+                  '(pyim-probe-punctuation-line-beginning
+                    pyim-probe-punctuation-after-punctuation))
+
+    ;; 开启拼音搜索功能
+    ;; (pyim-isearch-mode 1)
+
+    ;; 使用 pupup-el 来绘制选词框, 如果用 emacs26, 建议设置
+    ;; 为 'posframe, 速度很快并且菜单不会变形，不过需要用户
+    ;; 手动安装 posframe 包。
+    (setq pyim-page-tooltip 'popup)
+
+    ;; 选词框显示5个候选词
+    (setq pyim-page-length 5)
+
+    ;; 让 Emacs 启动时自动加载 pyim 词库
+    (add-hook 'emacs-startup-hook
+              #'(lambda () (pyim-restart-1 t)))
+    :bind
+    (("M-j" . pyim-convert-code-at-point) ;与 pyim-probe-dynamic-english 配合
+     ("C-;" . pyim-delete-word-from-personal-buffer)))
+#+END_SRC

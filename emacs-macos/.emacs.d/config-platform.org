@@ -1,0 +1,61 @@
+#+TITLE: Emacs Config For macOS
+#+AUTHOR: Teddy Ma
+#+TOC: true
+#+DATE: Sun April 7 20:44:22 2018
+
+** Personal Information
+#+begin_src emacs-lisp
+  (setq user-full-name "Teddy Ma"
+        user-mail-address "mlc880926@gmail.com")
+#+end_src
+*** option and command are both meta key
+#+BEGIN_SRC emacs-lisp
+  (setq mac-command-modifier 'meta
+        mac-option-modifier 'meta)
+#+END_SRC
+
+*** Matching titlebar color on MacOS
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+  (add-to-list 'default-frame-alist '(ns-appearance . dark))
+  (setq ns-use-proxy-icon  nil)
+  (setq frame-title-format nil)
+#+END_SRC
+
+** Agenda
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-files (list "~/Documents/org/blog.org"
+                               ;; note should not have todo "~/Documents/org/note.org"
+                               "~/Documents/org/todo.org"))
+#+END_SRC
+
+** PlantUML
+#+BEGIN_SRC emacs-lisp
+  (use-package plantuml-mode
+    :ensure t)
+
+  (add-to-list
+   'org-src-lang-modes '("plantuml" . plantuml))
+
+  ;; brew install plantuml
+  (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2018.8/libexec/plantuml.jar")
+#+END_SRC
+
+** Environment management
+By default Emacs doesn't read from the same environment variables set in your terminal. This package fixes that.
+#+BEGIN_SRC emacs-lisp
+  (use-package exec-path-from-shell
+    :ensure t
+    :config
+    (exec-path-from-shell-initialize))
+#+END_SRC
+** Better undo
+=undo-tree= visualises undo history as a tree for easy navigation.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+    :ensure t
+    :diminish undo-tree-mode:
+    :config
+    (global-undo-tree-mode 1))
+#+END_SRC
