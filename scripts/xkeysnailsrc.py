@@ -6,15 +6,15 @@ from xkeysnail.transform import *
 # [Global modemap] Change modifier keys as in xmodmap
 define_modmap({
     Key.CAPSLOCK: Key.LEFT_CTRL,
-    Key.LEFT_CTRL: Key.CAPSLOCK
+    Key.LEFT_CTRL: Key.CAPSLOCK,
+    Key.LEFT_META: Key.LEFT_ALT,
+    Key.CAPSLOCK: Key.LEFT_META
 })
 
 # Keybindings for Firefox/Chrome
 define_conditional_modmap(re.compile("Firefox|Google-chrome"), {
     Key.LEFT_ALT: Key.LEFT_CTRL,
-    Key.LEFT_CTRL: Key.CAPSLOCK,
-    Key.LEFT_META: Key.LEFT_ALT,
-    Key.CAPSLOCK: Key.LEFT_META
+    Key.LEFT_CTRL: Key.CAPSLOCK,    
 })
 
 define_keymap(re.compile("Firefox|Google-chrome"), {
