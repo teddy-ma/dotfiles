@@ -548,9 +548,6 @@
 (setq org-src-tab-acts-natively t)
 (setq org-src-window-setup 'current-window)
 
-(use-package org
-    :ensure org-plus-contrib)
-
 (use-package dashboard
   :config
   (dashboard-setup-startup-hook))
