@@ -27,7 +27,18 @@
 (use-package org
     :ensure org-plus-contrib)
 #+END_SRC
-
+** Executable src
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages
+     'org-babel-load-languages '(
+                                 (c . t)
+                                 (ruby . t)
+                                 (python . t)
+                                 (plantuml . t)
+                                 (js . t)
+                                 )))
+#+END_SRC
 ** Agenda
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-files (list "~/Documents/org/blog.org"
