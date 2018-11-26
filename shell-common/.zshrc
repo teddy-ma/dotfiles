@@ -73,9 +73,6 @@ antigen apply
 ## 本地静态服务器
 # alias rs="ruby -run -e httpd . -p 3000"
 
-# show system info (brew install archey)
-# archey -c -o
-
 # command line history config
 # ignore duplicate commands, ignore commands starting with a space
 export HISTCONTROL=erasedups:ignorespace
@@ -84,6 +81,5 @@ export HISTSIZE=20000
 
 export PATH="$HOME/.bin:$PATH"
 
-
-# alias
-source ~/.zsh_alias
+# platform
+source ~/.zsh_platform
