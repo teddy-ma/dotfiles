@@ -28,7 +28,7 @@ SPACESHIP_PROMPT_ORDER=(
   char          # Prompt character
 )
 
-antigen theme https://github.com/Tahuri/environment-configuration tahuri
+antigen theme https://github.com/patrick330602/termuxer termuxer
 # zsh theme SPACESHIP config end
 
 # notify needs `brew install terminal-notifier`
