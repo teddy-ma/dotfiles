@@ -28,7 +28,8 @@ SPACESHIP_PROMPT_ORDER=(
   char          # Prompt character
 )
 
-antigen theme fino
+antigen theme bhilburn/powerlevel9k powerlevel9k
+POWERLEVEL9K_MODE='nerdfont-complete'
 
 # notify needs `brew install terminal-notifier`
 antigen bundles <<EOBUNDLES
