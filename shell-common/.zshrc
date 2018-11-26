@@ -13,6 +13,10 @@ export LC_ALL=en_US.UTF-8
 
 antigen use oh-my-zsh
 
+# platform
+source ~/.zsh_platform
+
+
 # zsh theme SPACESHIP config begin
 SPACESHIP_PROMPT_ORDER=(
   time          # Time stampts section
@@ -40,6 +44,7 @@ SPACESHIP_PACKAGE_SHOW=false
 #SPACESHIP_BATTERY_THRESHOLD=35
 SPACESHIP_EXIT_CODE_SHOW=true
 SPACESHIP_TIME_SHOW=true
+
 
 antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
 # zsh theme SPACESHIP config end
@@ -81,7 +86,3 @@ export HISTCONTROL=erasedups:ignorespace
 export HISTSIZE=20000
 
 export PATH="$HOME/.bin:$PATH"
-
-
-# platform
-source ~/.zsh_platform
