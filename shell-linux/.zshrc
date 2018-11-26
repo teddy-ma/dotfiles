@@ -6,16 +6,9 @@ export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 # 全部使用 utf-8
 
-
-# git clone https://github.com/zsh-users/antigen.git ~/.antigen
-[ -f ~/.antigen/antigen.zsh ] && source ~/.antigen/antigen.zsh
-[ -f /usr/share/zsh/share/antigen.zsh ] && source /usr/share/zsh/share/antigen.zsh
+source /usr/share/zsh/share/antigen.zsh
 
 antigen use oh-my-zsh
-
-# platform
-source ~/.zsh_platform
-
 
 # zsh theme SPACESHIP config begin
 SPACESHIP_PROMPT_ORDER=(
@@ -26,27 +19,16 @@ SPACESHIP_PROMPT_ORDER=(
   git           # Git section (git_branch + git_status)
   node          # Node.js section
   ruby          # Ruby section
-  elixir        # Elixir section
-  xcode         # Xcode section
-  swift         # Swift section
+  elixir        # Elixir section  
   rust          # Rust section
   haskell       # Haskell Stack section
-  kubecontext   # Kubectl context section
   exec_time     # Execution time
   line_sep      # Line break
- # battery       # Battery level and status
   exit_code     # Exit code section
   char          # Prompt character
 )
 
-SPACESHIP_KUBECONTEXT_SHOW=false
-SPACESHIP_PACKAGE_SHOW=false
-#SPACESHIP_BATTERY_THRESHOLD=35
-SPACESHIP_EXIT_CODE_SHOW=true
-SPACESHIP_TIME_SHOW=true
-
-
-antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
+antigen theme https://github.com/Tahuri/environment-configuration tahuri
 # zsh theme SPACESHIP config end
 
 # notify needs `brew install terminal-notifier`
@@ -84,5 +66,3 @@ antigen apply
 export HISTCONTROL=erasedups:ignorespace
 # keep the last 20000 entries
 export HISTSIZE=20000
-
-export PATH="$HOME/.bin:$PATH"
