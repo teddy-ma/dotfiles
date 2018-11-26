@@ -19,7 +19,7 @@ SPACESHIP_PROMPT_ORDER=(
   git           # Git section (git_branch + git_status)
   node          # Node.js section
   ruby          # Ruby section
-  elixir        # Elixir section  
+  elixir        # Elixir section
   rust          # Rust section
   haskell       # Haskell Stack section
   exec_time     # Execution time
@@ -28,8 +28,7 @@ SPACESHIP_PROMPT_ORDER=(
   char          # Prompt character
 )
 
-antigen theme https://github.com/patrick330602/termuxer termuxer
-# zsh theme SPACESHIP config end
+antigen theme fino
 
 # notify needs `brew install terminal-notifier`
 antigen bundles <<EOBUNDLES
