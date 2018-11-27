@@ -31,7 +31,6 @@ SPACESHIP_PROMPT_ORDER=(
 antigen theme bhilburn/powerlevel9k powerlevel9k
 POWERLEVEL9K_MODE='nerdfont-complete'
 
-# notify needs `brew install terminal-notifier`
 antigen bundles <<EOBUNDLES
     autojump
     bundler
@@ -44,10 +43,8 @@ antigen bundles <<EOBUNDLES
     git-extras
     history
     npm
-    rsync
-    urltools
     vundle
-    tmuxinator
+    chucknorris
     zsh-users/zsh-syntax-highlighting
     zsh-users/zsh-history-substring-search
     zsh-users/zsh-completions
