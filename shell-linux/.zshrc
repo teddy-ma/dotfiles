@@ -10,24 +10,6 @@ source /usr/share/zsh/share/antigen.zsh
 
 antigen use oh-my-zsh
 
-# zsh theme SPACESHIP config begin
-SPACESHIP_PROMPT_ORDER=(
-  time          # Time stampts section
-  user          # Username section
-  host          # Hostname section
-  dir           # Current directory section
-  git           # Git section (git_branch + git_status)
-  node          # Node.js section
-  ruby          # Ruby section
-  elixir        # Elixir section
-  rust          # Rust section
-  haskell       # Haskell Stack section
-  exec_time     # Execution time
-  line_sep      # Line break
-  exit_code     # Exit code section
-  char          # Prompt character
-)
-
 antigen theme bhilburn/powerlevel9k powerlevel9k
 POWERLEVEL9K_MODE='nerdfont-complete'
 
@@ -42,12 +24,16 @@ antigen bundles <<EOBUNDLES
     git
     git-extras
     history
+    colored-man-pages
+    sudo
+    catimg
     npm
     vundle
     chucknorris
     zsh-users/zsh-syntax-highlighting
     zsh-users/zsh-history-substring-search
     zsh-users/zsh-completions
+    zsh-users/zsh-autosuggestions
     t413/zsh-background-notify
 EOBUNDLES
 
