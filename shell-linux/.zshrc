@@ -27,17 +27,10 @@ man() {
 }
 
 # Aliases for a few useful commands
-alias mirrorUpdate="sudo reflector --latest 250 --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
-alias yaourt="yaourt --pager --color"
-alias pacmanGhost="~/.pacman.sh"
-alias shivita="toilet -f mono12 -F rainbow 'andrea' | ponythink -f winona"
 alias emacs="emacs -nw"
 alias ls="~/.gem/ruby/2.5.0/bin/colorls"
 alias ip="ip -c"
 alias rm="rm -i"
-alias x="ranger"
-alias c="cmus"
-alias h="htop"
 
 # Prompt settings
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
