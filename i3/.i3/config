@@ -146,7 +146,7 @@ set $ws2 2
 set $ws3 3
 set $ws4 4
 set $ws5 5
-set $ws6 6
+set $ws6 6
 set $ws7 7
 set $ws8 8
 
@@ -185,6 +185,16 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 # assign [class="Pale moon"] $ws2
 # assign [class="Pcmanfm"] $ws3
 # assign [class="Skype"] $ws5
+
+workspace $ws1 output HDMI-1
+workspace $ws2 output HDMI-1
+workspace $ws3 output HDMI-1
+workspace $ws4 output HDMI-1
+workspace $ws5 output DVI-D-1
+workspace $ws6 output DVI-D-1
+workspace $ws7 output DVI-D-1
+workspace $ws8 output DVI-D-1
+
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
@@ -345,6 +355,7 @@ bar {
         urgent_workspace   #16a085 #FDF6E3 #E5201D
     }
 }
+
 
 # hide/unhide i3status bar
 bindsym $mod+m bar mode toggle
