@@ -39,7 +39,6 @@ stow linux
 | 模块       | 说明                  |
 |--------------|-----------------------|
 | emacs-common | 通用的 emacs 配置文件 |
-
 | emacs-linux | linux 适用的 emacs 配置           |
 | emacs-macos | macOS 适用的 emacs 配置           |
 | git-common  | 通用的 git 配置文件               |
@@ -50,11 +49,5 @@ stow linux
 | shell       | zsh 的配置文件                    |
 | tmux        | tmux 的配置文件                   |
 
-
-### scripts
-
-这不是 dotfile, 仅仅是一些可能用到的配置文件和脚本
-
 ### private
-
 不存在的文件夹, 用来存放私有的配置文件 (ssh key 等不方便放在公开仓库的信息).
