@@ -3,6 +3,9 @@
 这是我的 dotfiles, 使用 stow 管理
 
 ## MacOS
+
+MacOS 主要依赖 thoughtbot 的 laptop 脚本进行初始化，然后配合 dropbox 上储存的私有配置文件完成配置。
+
 ```shell
 curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/mac
 sh mac 2>&1 | tee ~/laptop.log
@@ -16,12 +19,15 @@ cd ~
 git clone git@github.com:teddy-ma/dotfiles.git
 git clone https://github.com/zsh-users/antigen.git .antigen
 cd dotfiles
-stow mac
-cd mac
+sh install-mac.sh
+cd homebrew
 brew bundle
 ```
 
 ## Linux
+
+Linux 下只需要安装几个最基础的包，就可以进入 stow 开始配置了。
+
 ```shell
 sudo apt-get install git stow zsh
 chsh -s /bin/zsh
@@ -30,24 +36,26 @@ cd ~
 git clone git@github.com:teddy-ma/dotfiles.git
 git clone https://github.com/zsh-users/antigen.git .antigen
 cd dotfiles
-stow linux
+sh install-linux.sh
 ```
-
 
 ## 模块
 
-| 模块       | 说明                  |
-|--------------|-----------------------|
-| emacs-common | 通用的 emacs 配置文件 |
-| emacs-linux | linux 适用的 emacs 配置           |
-| emacs-macos | macOS 适用的 emacs 配置           |
-| git-common  | 通用的 git 配置文件               |
-| git-macos   | macOS 适用的 git 配置             |
-| hammerspoon | macOS 专用的工具 hammerspoon 配置 |
-| neovim      | neovim 的配置文件                 |
-| psql        | postgresql 的命令行配置           |
-| shell       | zsh 的配置文件                    |
-| tmux        | tmux 的配置文件                   |
+| 模块         | 说明                              |
+|--------------|-----------------------------------|
+| emacs-common | 通用的 emacs 配置文件             |
+| emacs-linux  | linux 适用的 emacs 配置           |
+| emacs-macos  | macOS 适用的 emacs 配置           |
+| git-common   | 通用的 git 配置文件               |
+| git-macos    | macOS 适用的 git 配置             |
+| git-linux    | linux 适用的 git 配置             |
+| shell-macos  | macOS 适用的 shell 配置           |
+| shell-linux  | linux 适用的 shell 配置           |
+| hammerspoon  | macOS 专用的工具 hammerspoon 配置 |
+| neovim       | neovim 的配置文件                 |
+| psql         | postgresql 的命令行配置           |
+| shell        | zsh 的配置文件                    |
+| tmux         | tmux 的配置文件                   |
 
 ### private
-不存在的文件夹, 用来存放私有的配置文件 (ssh key 等不方便放在公开仓库的信息).
+不在仓库中但是应该存在的文件夹, 用来存放私有的配置文件 (ssh key 等不方便放在公开仓库的信息).
