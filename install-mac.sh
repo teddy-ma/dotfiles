@@ -5,5 +5,5 @@ stow git-macos
 stow hammerspoon
 stow neovim
 stow psql
-stow shell-mac
+stow shell-macos
 stow tmux
