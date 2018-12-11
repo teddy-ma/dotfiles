@@ -215,9 +215,6 @@ Maybe I should consider https://github.com/victorhge/iedit
       (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
     :config
     (progn
-      (use-package treemacs-evil
-        :ensure t
-        :demand t)
       (setq treemacs-change-root-without-asking nil
             treemacs-collapse-dirs              (if (executable-find "python") 3 0)
             treemacs-file-event-delay           5000
@@ -812,7 +809,6 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
   (setq org-todo-keywords
         '((sequence "TODO" "DOING" "|" "DONE" "BLOCKED")))
 #+END_SRC
-
 
 ** Drag and drop images
 #+BEGIN_SRC emacs-lisp
