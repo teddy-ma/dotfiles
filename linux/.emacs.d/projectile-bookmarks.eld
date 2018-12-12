@@ -1,1 +1,0 @@
-("~/code/xkeyrap/" "~/code/xdemo/" "~/dotfiles/")
