@@ -47,8 +47,9 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 #exec --no-startup-id pulseaudio
 #exec --no-startup-id pa-applet
 #bindsym $mod+Ctrl+m exec pavucontrol
-exec xrandr --output HDMI-1 --auto --left-of DVI-D-1
-################################################################################################
+#exec xrandr --output HDMI-1 --auto --left-of DP-1 --auto --left-of DVI-D-1
+
+exec xrandr --output DP-1 --auto --output HDMI-1 --auto --left-of DP-1 --output DVI-D-1 --auto --right-of DP-1
 
 # Screen brightness controls
 # bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
@@ -142,13 +143,16 @@ bindsym $mod+Ctrl+Left workspace prev
 # something like: set $ws1 1:mail
 #                 set $ws2 2:
 set $ws1 1
-set $ws2 2
-set $ws3 3
-set $ws4 4
-set $ws5 5
-set $ws6 6
-set $ws7 7
+set $ws2 2
+
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+
+set $ws7 7
 set $ws8 8
+set $ws9 9
 
 # switch to workspace
 bindsym F1 workspace $ws1
@@ -159,6 +163,7 @@ bindsym F5 workspace $ws5
 bindsym F6 workspace $ws6
 bindsym F7 workspace $ws7
 bindsym F8 workspace $ws8
+bindsym F9 workspace $ws9
 
 # Move focused container to workspace
 bindsym $mod+Ctrl+1 move container to workspace $ws1
@@ -169,6 +174,7 @@ bindsym $mod+Ctrl+5 move container to workspace $ws5
 bindsym $mod+Ctrl+6 move container to workspace $ws6
 bindsym $mod+Ctrl+7 move container to workspace $ws7
 bindsym $mod+Ctrl+8 move container to workspace $ws8
+bindsym $mod+Ctrl+9 move container to workspace $ws9
 
 # Move to workspace with focused container
 bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
@@ -179,6 +185,7 @@ bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws8; workspace $ws9
 
 # Open applications on specific workspaces
 # assign [class="Thunderbird"] $ws1
@@ -188,12 +195,13 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 
 workspace $ws1 output HDMI-1
 workspace $ws2 output HDMI-1
-workspace $ws3 output HDMI-1
-workspace $ws4 output HDMI-1
-workspace $ws5 output DVI-D-1
-workspace $ws6 output DVI-D-1
+workspace $ws3 output DP-1
+workspace $ws4 output DP-1
+workspace $ws5 output DP-1
+workspace $ws6 output DP-1
 workspace $ws7 output DVI-D-1
 workspace $ws8 output DVI-D-1
+workspace $ws9 output DVI-D-1
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
