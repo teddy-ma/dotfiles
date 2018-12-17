@@ -445,14 +445,6 @@ Add some extra completion options via integration with =counsel=. In particular 
           (goto-char (point-min))
           (forward-line (1- line-number))))))
 #+END_SRC
-** Environment management
-By default Emacs doesn't read from the same environment variables set in your terminal. This package fixes that.
-#+BEGIN_SRC emacs-lisp
-  (use-package exec-path-from-shell
-    :ensure t
-    :config
-    (exec-path-from-shell-initialize))
-#+END_SRC
 ** Jump to source
 Individual language packages often support IDE features like jump to source, but =dumb-jump= attempts to support many languages by simple searching. It's quite effective even with dynamic libraries like JS and Python.
 
