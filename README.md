@@ -56,6 +56,9 @@ sh install-linux.sh
 | psql         | postgresql 的命令行配置           |
 | shell        | zsh 的配置文件                    |
 | tmux         | tmux 的配置文件                   |
+| xresources   | xresources 的配置文件             |
+| i3           | i3 的配置文件                     |
+
 
 ### private
 不在仓库中但是应该存在的文件夹, 用来存放私有的配置文件 (ssh key 等不方便放在公开仓库的信息).
