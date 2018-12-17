@@ -1,6 +1,6 @@
 # /home/teddy/.config/tmuxinator/songofcode.yml
 
-name: songofcode
+name: init
 root: ~/code/songofcode
 
 # Optional tmux socket
@@ -43,7 +43,7 @@ root: ~/code/songofcode
 # post: tmux -CC attach -t songofcode
 
 windows:
-  - editor:
+  - songofcode:
       layout: main-vertical
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
@@ -52,3 +52,25 @@ windows:
         - bundle exec middleman serve
         - cd soc && gulp serve
         - cd ~/Documents/org && sh guard.sh
+
+  - services:
+      layout: main-vertical
+      panes:
+        - systemctl start rabbitmq.service
+        - systemctl start redis.service
+        - systemctl start postgresql.service
+        - systemctl start mariadb.service
+
+  - i3:
+      layout: main-vertical
+      panes:
+        - sh ~/.i3/init.sh
+
+  - custom:
+      layout: main-vertical
+      panes:
+        - echo 'astrill'
+        - echo 'xkeyrap'
+        
+
+
