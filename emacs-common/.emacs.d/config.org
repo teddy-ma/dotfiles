@@ -203,54 +203,6 @@ Maybe I should consider https://github.com/victorhge/iedit
     :bind
     ([remap other-window] . switch-window))
 #+END_SRC
-** File tree
-#+BEGIN_SRC emacs-lisp
-  (use-package treemacs
-    :ensure t
-    :defer t
-    :init
-    (with-eval-after-load 'winum
-      (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
-    :config
-    (progn
-      (setq treemacs-change-root-without-asking nil
-            treemacs-collapse-dirs              (if (executable-find "python") 3 0)
-            treemacs-file-event-delay           5000
-            treemacs-follow-after-init          t
-            treemacs-follow-recenter-distance   0.1
-            treemacs-goto-tag-strategy          'refetch-index
-            treemacs-indentation                2
-            treemacs-indentation-string         " "
-            treemacs-is-never-other-window      nil
-            treemacs-never-persist              nil
-            treemacs-no-png-images              nil
-            treemacs-recenter-after-file-follow nil
-            treemacs-recenter-after-tag-follow  nil
-            treemacs-show-hidden-files          t
-            treemacs-silent-filewatch           nil
-            treemacs-silent-refresh             nil
-            treemacs-sorting                    'alphabetic-desc
-            treemacs-tag-follow-cleanup         t
-            treemacs-tag-follow-delay           1.5
-            treemacs-width                      35)
-
-      (treemacs-follow-mode t)
-      (treemacs-filewatch-mode t)
-      (pcase (cons (not (null (executable-find "git")))
-                   (not (null (executable-find "python3"))))
-        (`(t . t)
-         (treemacs-git-mode 'extended))
-        (`(t . _)
-         (treemacs-git-mode 'simple))))
-    )
-
-  (use-package treemacs-projectile
-    :defer t
-    :ensure t
-    :config
-    (setq treemacs-header-function #'treemacs-projectile-create-header)
-    )
-#+END_SRC
 * Appearance
 ** Font
 #+BEGIN_SRC emacs-lisp
@@ -406,7 +358,6 @@ Tell projectile to integrate with =ivy= for completion.
   (setq projectile-completion-system 'ivy)
 #+END_SRC
 
-
 Add some extra completion options via integration with =counsel=. In particular this enables =C-c p SPC= for smart buffer / file search, and =C-c p s s= for search via =ag=.
 #+BEGIN_SRC emacs-lisp
   (use-package counsel-projectile
@@ -421,6 +372,62 @@ Integration with Helm
   (use-package helm-projectile
     :ensure t)
 #+END_SRC
+
+Integration with neotree
+#+BEGIN_SRC emacs-lisp
+  (use-package neotree
+    :ensure t
+    :config
+
+    ; modified version of https://github.com/hemmvm/dotemacs/blob/master/site-lisp/util--neotree.el
+    (defun neotree-project-tree-open ()
+      (interactive)
+      (let ((project-dir (ignore-errors (projectile-project-root)))
+            (file-name (buffer-file-name)))
+        (if project-dir
+            (progn
+              (neotree-dir project-dir)
+              (neotree-find file-name))
+          (neotree-find)))
+      (neo-global--select-window))
+
+    (defun neotree-project-tree-toggle ()
+      (interactive)
+      (if (neo-global--window-exists-p)
+          (neotree-hide)
+        (neotree-project-tree-open)))
+
+    (setq neo-show-hidden-files t)
+    (setq neo-theme 'arrow)
+    (setq neo-window-width 35)
+
+    (defun custom-neotree-enter-hide ()
+      (interactive)
+      (neotree-enter)
+      (let ((current (neo-buffer--get-filename-current-line)))
+        (if (not (and current (file-accessible-directory-p current)))
+            (neotree-hide)))
+      )
+
+    (defun custom-neotree-peek ()
+      (interactive)
+      (let ((neo-window (neo-global--get-window)))
+        (neotree-enter)
+        (select-window neo-window))
+      )
+
+    (add-hook
+     'neotree-mode-hook
+     (lambda ()
+       (define-key neotree-mode-map (kbd "RET") 'custom-neotree-enter-hide)))
+
+    (add-hook
+     'neotree-mode-hook
+     (lambda ()
+       (define-key neotree-mode-map (kbd "TAB") 'custom-neotree-peek))))
+
+#+END_SRC
+
 
 ** Fuzzy search
 =fzf= is a fuzzy file finder which is very quick.
@@ -798,12 +805,6 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
   (set-register ?b (cons 'file "~/Documents/org/blog.org"))
   (set-register ?t (cons 'file "~/Documents/org/todo.org"))
   (set-register ?n (cons 'file "~/Documents/org/note.org"))
-#+END_SRC
-** Dashboard Org
-#+BEGIN_SRC emacs-lisp
-  (use-package dashboard
-    :config
-    (dashboard-setup-startup-hook))
 #+END_SRC
 ** Task stages
 #+BEGIN_SRC emacs-lisp
