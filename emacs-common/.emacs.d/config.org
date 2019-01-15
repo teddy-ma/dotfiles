@@ -375,6 +375,8 @@ Add some extra completion options via integration with =counsel=. In particular 
 
 Integration with Helm
 #+BEGIN_SRC emacs-lisp
+  (use-package helm
+    :ensure t)
   (use-package helm-projectile
     :ensure t)
 #+END_SRC
@@ -433,7 +435,6 @@ Integration with neotree
        (define-key neotree-mode-map (kbd "TAB") 'custom-neotree-peek))))
 
 #+END_SRC
-
 
 ** Fuzzy search
 =fzf= is a fuzzy file finder which is very quick.
