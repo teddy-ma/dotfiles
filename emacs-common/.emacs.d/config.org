@@ -27,7 +27,6 @@
     (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
     (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)) ;; yasnippet collection
   (package-initialize)
-  (setq package-enable-at-startup nil)
 #+END_SRC
 ** Bootstrap use-package
 a good guide about use-package https://phenix3443.github.io/notebook/emacs/use-package-manual.html
@@ -844,8 +843,7 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
 ** Reveal.js
 #+BEGIN_SRC emacs-lisp
   (use-package ox-reveal
-    :ensure ox-reveal)
-
+    :ensure t)
   (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
   (setq org-reveal-mathjax t)
 #+END_SRC
@@ -885,7 +883,7 @@ SX is a full stack overflow client within Emacs.
 ** Pinyin
 #+BEGIN_SRC emacs-lisp
   (use-package pyim
-    :ensure nil
+    :ensure t
     :demand t
     :config
     ;; 激活 basedict 拼音词库，五笔用户请继续阅读 README
