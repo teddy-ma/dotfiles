@@ -20,12 +20,14 @@
 ** Configure package sources
 #+BEGIN_SRC emacs-lisp
   (require 'package)
-  (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                      (not (gnutls-available-p))))
-         (proto (if no-ssl "http" "https")))
-
-    (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-    (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)) ;; yasnippet collection
+  (setq package-archives
+        '(("GNU ELPA"     . "https://elpa.gnu.org/packages/")
+          ("MELPA Stable" . "https://stable.melpa.org/packages/")
+          ("MELPA"        . "https://melpa.org/packages/"))
+        package-archive-priorities
+        '(("GNU ELPA"     . 10)
+          ("MELPA Stable" . 5)
+          ("MELPA"        . 0)))
   (package-initialize)
 #+END_SRC
 ** Bootstrap use-package
@@ -173,6 +175,43 @@ Suggest next keys to me based on currently entered key combination.
   (use-package expand-region
     :ensure t
     :bind ("C-=" . er/expand-region))
+#+END_SRC
+** Duplicate current line
+#+BEGIN_SRC emacs-lisp
+  (defun duplicate-line ()
+    (interactive)
+    (let ((col (current-column)))
+      (move-beginning-of-line 1)
+      (kill-line)
+      (yank)
+      (newline)
+      (yank)
+      (move-to-column col)))
+
+  (global-set-key (kbd "C-S-d") 'duplicate-line)
+#+END_SRC
+** Move line up and down
+#+BEGIN_SRC emacs-lisp
+  (defun move-line-down ()
+    (interactive)
+    (let ((col (current-column)))
+      (save-excursion
+        (forward-line)
+        (transpose-lines 1))
+      (forward-line)
+      (move-to-column col)))
+
+  (defun move-line-up ()
+    (interactive)
+    (let ((col (current-column)))
+      (save-excursion
+        (forward-line)
+        (transpose-lines -1))
+      (forward-line -1)
+      (move-to-column col)))
+
+  (global-set-key (kbd "C-S-j") 'move-line-down)
+  (global-set-key (kbd "C-S-k") 'move-line-up)
 #+END_SRC
 ** Multiple cursors
 Maybe I should consider https://github.com/victorhge/iedit
@@ -344,7 +383,6 @@ Emacs minor mode to highlight indentation
   (use-package highlight-indent-guides
     :ensure t)
 #+END_SRC
-
 ** Project management
 Projectile handles folders which are in version control.
 #+BEGIN_SRC emacs-lisp
