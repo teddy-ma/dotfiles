@@ -28,7 +28,7 @@ man() {
 
 # Aliases for a few useful commands
 alias emacs="emacs -nw"
-alias ls="~/.gem/ruby/2.5.0/bin/colorls"
+alias ls="~/.gem/ruby/2.6.0/bin/colorls"
 alias ip="ip -c"
 alias rm="rm -i"
 
