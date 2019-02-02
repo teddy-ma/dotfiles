@@ -6,7 +6,7 @@ export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 # 全部使用 utf-8
 
-source /usr/share/zsh/share/antigen.zsh
+source ~/.antigen/antigen.zsh
 
 antigen use oh-my-zsh
 

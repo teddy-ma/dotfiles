@@ -29,7 +29,7 @@ brew bundle
 Linux 下只需要安装几个最基础的包，就可以进入 stow 开始配置了。
 
 ```shell
-sudo apt-get install git stow zsh
+sudo pacman -S git stow zsh
 chsh -s /bin/zsh
 
 cd ~
