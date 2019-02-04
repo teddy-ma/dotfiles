@@ -147,5 +147,6 @@ export HISTCONTROL=erasedups:ignorespace
 export HISTSIZE=20000
 # path setting 
 PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
+export PATH="$HOME/.cargo/bin:$PATH"
 export GEM_HOME=$(ruby -e 'print Gem.user_dir')
 
