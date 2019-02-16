@@ -93,3 +93,6 @@ export PATH="$HOME/.bin:$PATH"
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# added by travis gem
+[ -f /Users/teddy/.travis/travis.sh ] && source /Users/teddy/.travis/travis.sh
