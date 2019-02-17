@@ -17,6 +17,11 @@
   (global-set-key (kbd "C-c I") 'find-config)
   (global-set-key (kbd "C-c R") 'reload-config)
 #+END_SRC
+** Personal Information
+#+begin_src emacs-lisp
+  (setq user-full-name "Teddy Ma"
+        user-mail-address "mlc880926@gmail.com")
+#+end_src
 ** Configure package sources
 #+BEGIN_SRC emacs-lisp
   (require 'package)
@@ -52,7 +57,14 @@ customize settings in [[file:init.el][init.el]].
 #+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-screen t)
 #+END_SRC
-
+*** Environment management
+By default Emacs doesn't read from the same environment variables set in your terminal. This package fixes that.
+#+BEGIN_SRC emacs-lisp
+  (use-package exec-path-from-shell
+    :ensure t
+    :config
+    (exec-path-from-shell-initialize))
+#+END_SRC
 *** Alway use visual line
 #+BEGIN_SRC emacs-lisp
   (global-visual-line-mode 1)
@@ -826,7 +838,7 @@ Add flycheck support.
   (use-package ensime
     :ensure t
     :config
-    (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+    (add-hook 'scala-mode-hook 'ensime-scala-mode-hook))
 #+END_SRC
 ** Rust
 #+BEGIN_SRC emacs-lisp
