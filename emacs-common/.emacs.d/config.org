@@ -785,6 +785,12 @@ Elixir highlighting is not built into emacs at present. Elixir-mode gives all th
     :ensure t
     :config
     (add-hook 'ruby-mode-hook 'robe-mode))
+
+
+  (use-package rubocop
+    :ensure t
+    :config
+    (add-hook 'ruby-mode-hook 'rubocop-mode))
 #+END_SRC
 ** C
 Emacs has a great built in C/C++ mode, but we can improve on it with =irony-mode= for code completion via =libclang=.
@@ -821,7 +827,6 @@ Add flycheck support.
     :ensure t
     :config
     (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-    (add-hook 'ruby-mode-hook 'robe-mode))
 #+END_SRC
 ** Rust
 #+BEGIN_SRC emacs-lisp
