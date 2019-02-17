@@ -410,7 +410,9 @@ Integration with Helm
   (use-package helm-ag
     :ensure t)
   (use-package helm-projectile
-    :ensure t)
+    :ensure t
+    :config
+    (global-set-key (kbd "C-S-f") 'helm-projectile-ag))
 #+END_SRC
 
 Integration with neotree
@@ -418,7 +420,6 @@ Integration with neotree
   (use-package neotree
     :ensure t
     :config
-
     ; modified version of https://github.com/hemmvm/dotemacs/blob/master/site-lisp/util--neotree.el
     (defun neotree-project-tree-open ()
       (interactive)
