@@ -9,6 +9,10 @@ require "modules/window"
 require "modules/layout"
 require "modules/react"
 
+hs.hotkey.bind(hyper, 'h', function()
+  hs.alert.show("Hello World!")
+end)
+
 hs.hotkey.bind(hyper, 'r', function()
   hs.reload()
 end)

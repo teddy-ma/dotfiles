@@ -4,6 +4,7 @@ left_half   = hs.layout.left50
 right_half  = hs.layout.right50
 maximized   = hs.layout.maximized
 
+
 local reading_layout= {
   {"Emacs",         nil, macbook_monitor, maximized, nil, nil},
   {"Google Chrome", nil, main_monitor,    right_half,   nil, nil},
@@ -53,3 +54,4 @@ hs.hotkey.bind(hyper, '3', function()
 
   hs.layout.apply(writing_layout)
 end)
+
