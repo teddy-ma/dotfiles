@@ -904,7 +904,18 @@ present from within Emacs.
   (use-package zpresent
     :ensure t)
 #+END_SRC
+** Plantuml
+#+BEGIN_SRC emacs-lisp
+;;https://www.onwebsecurity.com/configuration/use-emacs-to-create-oauth-2-0-uml-sequence-diagrams.html
+  ;; tell org-mode where to find the plantuml JAR file (specify the JAR file)
+  (setq org-plantuml-jar-path (expand-file-name "/usr/local/Cellar/plantuml/1.2019.1/libexec/plantuml.jar"))
 
+  ;; use plantuml as org-babel language
+  (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
+
+  ;; automatically show the resulting image
+  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
+#+END_SRC
 * Extras
 ** Writing
 =writegood-mode= highlights bad word choices and has functions for calculating readability.
