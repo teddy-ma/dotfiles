@@ -85,6 +85,7 @@ export PATH="$HOME/.bin:$PATH"
 alias vim='/usr/local/bin/nvim' # brew install neovim
 alias ls='/usr/local/bin/exa' # brew install exa
 alias cat='/usr/local/bin/bat' # brew install bat
+alias gita="python3 -m gita" # pip3 install -U gita
 
 # recommended by brew doctor
 export PATH="/usr/local/bin:$PATH"
