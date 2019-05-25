@@ -38,8 +38,8 @@ SPACESHIP_BATTERY_THRESHOLD=35
 SPACESHIP_EXIT_CODE_SHOW=true
 SPACESHIP_TIME_SHOW=true
 
-
-antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
+antigen theme denysdovhan/spaceship-prompt
+# antigen theme romkatv/powerlevel10k
 # zsh theme SPACESHIP config end
 
 # notify needs `brew install terminal-notifier`
