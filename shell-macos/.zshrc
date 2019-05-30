@@ -20,11 +20,8 @@ SPACESHIP_PROMPT_ORDER=(
   node          # Node.js section
   ruby          # Ruby section
   elixir        # Elixir section
-  xcode         # Xcode section
-  swift         # Swift section
   rust          # Rust section
   haskell       # Haskell Stack section
-  kubecontext   # Kubectl context section
   exec_time     # Execution time
   line_sep      # Line break
   battery       # Battery level and status
@@ -89,7 +86,9 @@ alias gita="python3 -m gita" # pip3 install -U gita
 
 # recommended by brew doctor
 export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.bin:$PATH"
+
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
 
