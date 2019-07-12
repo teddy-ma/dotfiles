@@ -36,7 +36,7 @@
   (package-initialize)
 #+END_SRC
 ** Bootstrap use-package
-a good guide about use-package https://phenix3443.github.io/notebook/emacs/use-package-manual.html
+guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-package-manual.html
 
 #+BEGIN_SRC emacs-lisp
   (unless (package-installed-p 'use-package)
@@ -44,14 +44,12 @@ a good guide about use-package https://phenix3443.github.io/notebook/emacs/use-p
     (package-install 'use-package))
 #+END_SRC
 ** Set custom settings to load in own file
-Set up the customize file to its own separate file, instead of saving
-customize settings in [[file:init.el][init.el]].
+Set up the customize file to its own separate file, instead of saving customize settings in [[file:init.el][init.el]].
 
 #+begin_src emacs-lisp
   (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
   (load custom-file)
 #+end_src
-
 ** Common Preferences
 *** Don't display the help screen on startup.
 #+BEGIN_SRC emacs-lisp
