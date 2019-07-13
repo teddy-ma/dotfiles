@@ -22,6 +22,12 @@
   (setq user-full-name "Teddy Ma"
         user-mail-address "mlc880926@gmail.com")
 #+end_src
+** Reducing the frequency of garbage
+#+BEGIN_SRC emacs-lisp
+  ;; Make startup faster by reducing the frequency of garbage
+  ;; collection.  The default is 800 kilobytes.  Measured in bytes.
+  (setq gc-cons-threshold (* 50 1000 1000))
+#+END_SRC
 ** Configure package sources
 #+BEGIN_SRC emacs-lisp
   (require 'package)
@@ -266,7 +272,6 @@ Add emoji support. This is useful when working with html.
 
 ** Theme
 #+BEGIN_SRC emacs-lisp
-
   (use-package moody
     :ensure t
     :config
@@ -286,7 +291,6 @@ Add emoji support. This is useful when working with html.
       (set-face-attribute 'mode-line          nil :box        nil)
       (set-face-attribute 'mode-line-inactive nil :box        nil)
       (set-face-attribute 'mode-line-inactive nil :background "#f9f2d9")))
-
 #+END_SRC
 ** Mode Line
 It's hard to customize mode line...
@@ -871,6 +875,7 @@ Add flycheck support.
 #+END_SRC
 ** Easy open common files
 use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-notes-efficiently-org-mode/
+
 #+BEGIN_SRC emacs-lisp
   (set-register ?b (cons 'file "~/Documents/org/blog.org"))
   (set-register ?t (cons 'file "~/Documents/org/todo.org"))
@@ -943,7 +948,6 @@ present from within Emacs.
     (add-to-list 'writegood-weasel-words "actionable"))
 
   (abbrev-mode t)
-
   ;; ~/.emacs.d/abbrev_defs
 #+END_SRC
 
@@ -1008,4 +1012,8 @@ SX is a full stack overflow client within Emacs.
      ("C-;" . pyim-delete-word-from-personal-buffer)))
 
 
+#+END_SRC
+** Decreasing the threshold.
+#+BEGIN_SRC emacs-lisp
+  (setq gc-cons-threshold (* 2 1000 1000))
 #+END_SRC
