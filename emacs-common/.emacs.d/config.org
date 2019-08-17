@@ -22,12 +22,6 @@
   (setq user-full-name "Teddy Ma"
         user-mail-address "mlc880926@gmail.com")
 #+end_src
-** Reducing the frequency of garbage
-#+BEGIN_SRC emacs-lisp
-  ;; Make startup faster by reducing the frequency of garbage
-  ;; collection.  The default is 800 kilobytes.  Measured in bytes.
-  (setq gc-cons-threshold (* 50 1000 1000))
-#+END_SRC
 ** Configure package sources
 #+BEGIN_SRC emacs-lisp
   (require 'package)
@@ -40,6 +34,7 @@
           ("MELPA Stable" . 5)
           ("MELPA"        . 0)))
   (package-initialize)
+  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 #+END_SRC
 ** Bootstrap use-package
 guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-package-manual.html
@@ -1012,8 +1007,4 @@ SX is a full stack overflow client within Emacs.
      ("C-;" . pyim-delete-word-from-personal-buffer)))
 
 
-#+END_SRC
-** Decreasing the threshold.
-#+BEGIN_SRC emacs-lisp
-  (setq gc-cons-threshold (* 2 1000 1000))
 #+END_SRC
