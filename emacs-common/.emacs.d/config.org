@@ -901,17 +901,15 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
     :config
     (custom-set-variables '(org-export-initial-scope 'subtree)
                           '(org-export-with-toc nil)
-                          '(org-export-headline-levels 4)
-                          ))
+                          '(org-export-headline-levels 4)))
 #+END_SRC
 
 ** Reveal.js
-disable reveal until update to org 9.2
 #+BEGIN_SRC emacs-lisp
-  ;; (use-package ox-reveal
-  ;;   :ensure t)
-  ;; (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
-  ;; (setq org-reveal-mathjax t)
+  (use-package ox-reveal
+    :ensure t)
+  (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
+  (setq org-reveal-mathjax t)
 #+END_SRC
 ** Zpresent
 present from within Emacs.
