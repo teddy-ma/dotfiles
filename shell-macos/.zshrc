@@ -92,8 +92,5 @@ export PATH="$HOME/.bin:$PATH"
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
 
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # added by travis gem
 [ -f /Users/teddy/.travis/travis.sh ] && source /Users/teddy/.travis/travis.sh
