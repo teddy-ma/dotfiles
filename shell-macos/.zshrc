@@ -50,7 +50,6 @@ antigen bundles <<EOBUNDLES
     gem
     git
     git-extras
-    wfxr/forgit
     history
     npm
     rsync
