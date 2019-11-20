@@ -29,8 +29,6 @@ SPACESHIP_PROMPT_ORDER=(
   char          # Prompt character
 )
 
-SPACESHIP_KUBECONTEXT_SHOW=false
-SPACESHIP_PACKAGE_SHOW=false
 SPACESHIP_BATTERY_THRESHOLD=35
 SPACESHIP_EXIT_CODE_SHOW=true
 SPACESHIP_TIME_SHOW=true
@@ -93,3 +91,5 @@ export PATH="$HOME/.bin:$PATH"
 
 # added by travis gem
 [ -f /Users/teddy/.travis/travis.sh ] && source /Users/teddy/.travis/travis.sh
+
+
