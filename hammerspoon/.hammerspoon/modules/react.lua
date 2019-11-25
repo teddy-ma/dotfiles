@@ -1,6 +1,6 @@
 function applicationWatcher(appName, eventType, appObject)
   if (eventType == hs.application.watcher.activated) then
-    if (appName == "iTerm") then
+    if (appName == "Terminal") then
       appObject:selectMenuItem({"Window", "Bring All to Front"})
     elseif (appName == "Finder") then
       appObject:selectMenuItem({"Window", "Bring All to Front"})
