@@ -367,7 +367,7 @@ lsp mode
 
   (require 'lsp-java)
   (add-hook 'java-mode-hook #'lsp)
-  (add-hook 'ruby-mode-hook #'lsp)
+  (add-hook 'ruby-mode-hook #'lsp) ;;gem install solargraph
 
   (use-package dap-java :after (lsp-java))
 #+END_SRC
@@ -839,6 +839,9 @@ Elixir highlighting is not built into emacs at present. Elixir-mode gives all th
     :ensure t
     :config
     (add-hook 'ruby-mode-hook 'rubocop-mode))
+
+  (use-package haml-mode
+    :ensure t)
 #+END_SRC
 ** C
 Emacs has a great built in C/C++ mode, but we can improve on it with =irony-mode= for code completion via =libclang=.
