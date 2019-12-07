@@ -4,7 +4,7 @@
 
 ## macOS
 
-macOS 主要依赖 [thoughtbot 的 laptop](https://github.com/thoughtbot/laptop) 脚本进行初始化，然后配合 dropbox 上储存的私有配置文件完成配置。
+macOS 主要依赖 [thoughtbot 的 laptop](https://github.com/thoughtbot/laptop) 脚本进行初始化，然后配合 [dropbox](https://www.dropbox.com/) 上储存的私有配置文件完成配置。
 
 ```shell
 curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/mac
@@ -65,7 +65,7 @@ sh install-linux.sh
 | i3           | i3 的配置文件                     |
 | vscode       | vscode 的配置文件                 |
 
-还有一个 `.vscode` 的文件夹，里面有 [recommendations](https://code.visualstudio.com/docs/editor/extension-gallery#_workspace-recommended-extensions), 所以使用 vscode 打开本仓库后，就可以一键安装所有的扩展。
+还有一个 `.vscode` 的文件夹，里面有 [recommendations](https://code.visualstudio.com/docs/editor/extension-gallery#_workspace-recommended-extensions), 所以使用 [vscode](https://code.visualstudio.com/) 打开本仓库后，就可以一键安装所有的扩展。
 
 ## private
 不在仓库中但是应该存在的文件夹, 用来存放私有的配置文件 (ssh key 等不方便放在公开仓库的信息).
