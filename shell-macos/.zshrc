@@ -86,6 +86,10 @@ export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.bin:$PATH"
 
+# bat colorful man page
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
 
