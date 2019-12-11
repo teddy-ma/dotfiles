@@ -224,6 +224,22 @@ Suggest next keys to me based on currently entered key combination.
   (global-set-key (kbd "C-S-j") 'move-line-down)
   (global-set-key (kbd "C-S-k") 'move-line-up)
 #+END_SRC
+** Folding
+#+BEGIN_SRC emacs-lisp
+  ;;https://github.com/Schnouki/dotfiles/blob/master/emacs/init-20-dev.el#L90
+  (use-package origami
+    :ensure t
+    :commands origami-mode
+    :bind (:map origami-mode-map
+                ("C-: :" . origami-recursively-toggle-node)
+                ("C-: a" . origami-toggle-all-nodes)
+                ("C-: t" . origami-toggle-node)
+                ("C-: o" . origami-show-only-node)
+                ("C-: u" . origami-undo)
+                ("C-: U" . origami-redo)
+                ("C-: C-r" . origami-reset)
+                ))
+#+END_SRC
 ** Multiple cursors
 Maybe I should consider https://github.com/victorhge/iedit
 #+BEGIN_SRC emacs-lisp
