@@ -11,10 +11,10 @@ spoon.WindowHalfsAndThirds:bindHotkeys({
   bottom_half = { hyper, "Down" },
 })
 
-hs.hotkey.bind(hyper, "m", function()
-  local win = hs.window.focusedWindow()
-  win:maximize()
-end)
+-- hs.hotkey.bind(hyper, "m", function()
+--   local win = hs.window.focusedWindow()
+--   win:maximize()
+-- end)
 
 -- hs.hotkey.bind(hyper, 'h', function()
 --   hs.alert('Hello World')
