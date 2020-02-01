@@ -6,6 +6,9 @@ export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 # 全部使用 utf-8
 
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+
 source ~/.antigen/antigen.zsh
 
 antigen use oh-my-zsh
