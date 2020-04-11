@@ -267,11 +267,33 @@ Maybe I should consider https://github.com/victorhge/iedit
 * Appearance
 ** Font
 #+BEGIN_SRC emacs-lisp
-  (set-face-attribute 'default nil
-                      :family "Cascadia Code"
-                      ;; :family "Hack Nerd Font"
-                      :height 160
-                      :weight 'normal)
+  ;;  (set-face-attribute 'default nil
+  ;;                    :family "Cascadia Code"
+  ;; :family "Hack Nerd Font"
+  ;;                      :height 160
+  ;;                    :weight 'normal)
+
+  (when (eq system-type 'darwin)
+    (setq fonts '("Monaco" "STKaiti"))
+    (set-face-attribute 'default nil :font
+                        (format "%s:pixelsize=%d" (car fonts) 15))
+    (setq face-font-rescale-alist '(("STKaiti". 1.2))))
+
+  (when (eq system-type 'windows-nt)
+    (setq fonts '("Inconsolata" "华文楷体"))
+    (set-face-attribute 'default nil :font
+                        (format "%s:pixelsize=%d" (car fonts) 20))
+    (setq face-font-rescale-alist '(("华文楷体". 1.0))))
+
+  (when (eq system-type 'gnu/linux)
+    (setq fonts '("Inconsolata" "STKaiti"))
+    (set-face-attribute 'default nil :font
+                        (format "%s:pixelsize=%d" (car fonts) 18))
+    (setq face-font-rescale-alist '(("STKaiti". 1.0))))
+
+  (dolist (charset '(kana han symbol cjk-misc bopomofo))
+    (set-fontset-font (frame-parameter nil 'font) charset
+                      (font-spec :family (car (cdr fonts)))))
 #+END_SRC
 
 Add emoji support. This is useful when working with html.
