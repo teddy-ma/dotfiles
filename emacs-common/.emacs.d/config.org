@@ -44,7 +44,7 @@ guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-pa
     (package-refresh-contents)
     (package-install 'use-package))
 #+END_SRC
-** Set custom settings to load in own file
+** Set custom settings to load its own file
 Set up the customize file to its own separate file, instead of saving customize settings in [[file:init.el][init.el]].
 
 #+begin_src emacs-lisp
@@ -452,6 +452,12 @@ Support editorconfig config file.
 Format all
 #+BEGIN_SRC emacs-lisp
   (use-package format-all
+    :ensure t)
+#+END_SRC
+
+underscore -> UPCASE -> CamelCase conversion of names
+#+BEGIN_SRC emacs-lisp
+  (use-package string-inflection
     :ensure t)
 #+END_SRC
 
