@@ -241,8 +241,9 @@ Suggest next keys to me based on currently entered key combination.
                 ))
 #+END_SRC
 ** Multiple cursors
-Maybe I should consider https://github.com/victorhge/iedit
 #+BEGIN_SRC emacs-lisp
+  (use-package iedit
+    :ensure t)
   (use-package multiple-cursors
     :ensure t
     :config
@@ -1082,7 +1083,5 @@ SX is a full stack overflow client within Emacs.
 
     :bind
     (("M-j" . pyim-convert-code-at-point) ;与 pyim-probe-dynamic-english 配合
-     ("C-;" . pyim-delete-word-from-personal-buffer)))
-
-
+     ("M-;" . pyim-delete-word-from-personal-buffer)))
 #+END_SRC
