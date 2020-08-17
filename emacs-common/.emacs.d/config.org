@@ -93,6 +93,11 @@ By default Emacs doesn't read from the same environment variables set in your te
 #+BEGIN_SRC emacs-lisp
   (global-auto-revert-mode t)
 #+END_SRC
+*** Restart emacs
+#+BEGIN_SRC emacs-lisp
+  (use-package restart-emacs
+    :ensure t)
+#+END_SRC
 * Interface
 ** Basics
 *** CRUX
@@ -259,7 +264,6 @@ Suggest next keys to me based on currently entered key combination.
     :ensure t
     :config
     (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-;;    (set-face-attribute 'aw-leading-char-face nil :height 400)
     (ace-window-display-mode 1)
     (winner-mode 1)
     :bind
@@ -395,19 +399,6 @@ lsp mode
   (use-package hydra :ensure t)
   (use-package company-lsp :ensure t)
   (use-package lsp-ui :ensure t)
-  (use-package lsp-java :ensure t :after lsp
-    :config (add-hook 'java-mode-hook 'lsp))
-
-  (use-package dap-mode
-    :ensure t :after lsp-mode
-    :config
-    (dap-mode t))
-
-  (require 'lsp-java)
-  (add-hook 'java-mode-hook #'lsp)
-  (add-hook 'ruby-mode-hook #'lsp) ;;gem install solargraph
-
-  (use-package dap-java :after (lsp-java))
 #+END_SRC
 ** Programming specific interface improvements
 When programming I like my editor to try to help me with keeping parentheses balanced.
@@ -820,11 +811,6 @@ Markdown support isn't built into Emacs, add it with =markdown-mode=.
     :init (setq markdown-command "multimarkdown"))
 #+END_SRC
 
-** Lua
-#+BEGIN_SRC emacs-lisp
-  (use-package lua-mode
-    :ensure t)
-#+END_SRC
 ** Lisp
 #+BEGIN_SRC emacs-lisp
   (use-package slime
@@ -933,11 +919,6 @@ Add flycheck support.
 ** Rust
 #+BEGIN_SRC emacs-lisp
   (use-package rust-mode
-    :ensure t )
-#+END_SRC
-** Php
-#+BEGIN_SRC emacs-lisp
-  (use-package php-mode
     :ensure t )
 #+END_SRC
 * Org
