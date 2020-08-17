@@ -909,13 +909,6 @@ Add flycheck support.
     :interpreter
     ("scala" . scala-mode))
 #+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-  (use-package ensime
-    :ensure t
-    :config
-    (add-hook 'scala-mode-hook 'ensime-scala-mode-hook))
-#+END_SRC
 ** Rust
 #+BEGIN_SRC emacs-lisp
   (use-package rust-mode
@@ -1006,23 +999,6 @@ present from within Emacs.
   ;; ~/.emacs.d/abbrev_defs
 #+END_SRC
 
-** Stack Overflow
-SX is a full stack overflow client within Emacs.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package sx
-    :ensure t
-    :config
-    (bind-keys :prefix "C-c s"
-               :prefix-map my-sx-map
-               :prefix-docstring "Global keymap for SX."
-               ("q" . sx-tab-all-questions)
-               ("i" . sx-inbox)
-               ("o" . sx-open-link)
-               ("u" . sx-tab-unanswered-my-tags)
-               ("a" . sx-ask)
-               ("s" . sx-search)))
-#+END_SRC
 ** Pinyin
 #+BEGIN_SRC emacs-lisp
   (use-package pyim
