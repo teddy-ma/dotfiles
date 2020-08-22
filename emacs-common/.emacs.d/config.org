@@ -959,6 +959,14 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
                           '(org-export-headline-levels 4)))
 #+end_src
 
+** Babel
+#+begin_src emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((ruby . t)
+     (js .t )
+     (plantuml . t)))
+#+end_src
 ** Reveal.js
 #+begin_src emacs-lisp
   (use-package ox-reveal
@@ -977,9 +985,6 @@ present from within Emacs.
 ;;https://www.onwebsecurity.com/configuration/use-emacs-to-create-oauth-2-0-uml-sequence-diagrams.html
   ;; tell org-mode where to find the plantuml JAR file (specify the JAR file)
   (setq org-plantuml-jar-path (expand-file-name "/usr/local/Cellar/plantuml/1.2019.1/libexec/plantuml.jar"))
-
-  ;; use plantuml as org-babel language
-  (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
 
   ;; automatically show the resulting image
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
