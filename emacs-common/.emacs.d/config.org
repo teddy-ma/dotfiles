@@ -12,6 +12,7 @@
   (defun reload-config()
     "Reload config.org"
     (interactive)
+    (delete-file "~/.emacs.d/config.el") ;; hotfix, manually delete old config.el file
     (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
 
   (global-set-key (kbd "C-c I") 'find-config)
@@ -264,6 +265,9 @@ Suggest next keys to me based on currently entered key combination.
     :ensure t
     :config
     (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+    (custom-set-faces
+     '(aw-leading-char-face
+       ((t (:inherit ace-jump-face-foreground :height 5.0)))))
     (ace-window-display-mode 1)
     (winner-mode 1)
     :bind
