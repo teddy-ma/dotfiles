@@ -8,7 +8,6 @@ export LC_ALL=en_US.UTF-8
 
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
-
 source ~/.antigen/antigen.zsh
 
 antigen use oh-my-zsh
