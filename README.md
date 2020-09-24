@@ -13,7 +13,6 @@ brew cask install dropbox
 brew install stow
 ln -s ~/Dropbox/Config/id_rsa ~/.ssh/id_rsa
 ln -s ~/Dropbox/Config/id_rsa.pub ~/.ssh/id_rsa.pub
-ln -s ~/Dropbox/code ~/code
 
 cd ~
 git clone git@github.com:teddy-ma/dotfiles.git
