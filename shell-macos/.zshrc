@@ -99,7 +99,6 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
-
 # added by travis gem
 [ -f /Users/teddy/.travis/travis.sh ] && source /Users/teddy/.travis/travis.sh
 

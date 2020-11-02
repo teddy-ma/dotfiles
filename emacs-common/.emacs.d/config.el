@@ -533,12 +533,6 @@
   :interpreter
   ("scala" . scala-mode))
 
-(use-package ensime
-  :ensure t
-  :config
-  (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-  (add-hook 'ruby-mode-hook 'robe-mode))
-
 (use-package rust-mode
   :ensure t )
 
