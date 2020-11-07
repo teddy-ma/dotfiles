@@ -75,8 +75,8 @@ export HISTCONTROL=erasedups:ignorespace
 # keep the last 20000 entries
 export HISTSIZE=20000
 
-if [ -d "$HOME/Dropbox/Config" ]; then
-  export HISTFILE="$HOME/Dropbox/Config/zsh_history"
+if [ -d "$HOME/ownCloud/Config" ]; then
+  export HISTFILE="$HOME/ownCloud/Config/zsh_history"
 fi
 
 

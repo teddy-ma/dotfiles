@@ -11,8 +11,8 @@ curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/ma
 sh mac 2>&1 | tee ~/laptop.log
 brew cask install dropbox
 brew install stow
-ln -s ~/Dropbox/Config/id_rsa ~/.ssh/id_rsa
-ln -s ~/Dropbox/Config/id_rsa.pub ~/.ssh/id_rsa.pub
+ln -s ~/ownCloud/Config/id_rsa ~/.ssh/id_rsa
+ln -s ~/ownCloud/Config/id_rsa.pub ~/.ssh/id_rsa.pub
 
 cd ~
 git clone git@github.com:teddy-ma/dotfiles.git
@@ -23,8 +23,8 @@ sh install-mac.sh
 cd homebrew
 brew bundle
 
-ln -s ~/Dropbox/Config/pyim ~/.emacs.d/pyim
-ln -s ~/Dropbox/Config/snippets ~/.emacs.d/snippets
+ln -s ~/ownCloud/Config/pyim ~/.emacs.d/pyim
+ln -s ~/ownCloud/Config/snippets ~/.emacs.d/snippets
 ```
 
 ## Linux
