@@ -4,12 +4,12 @@
 
 ## macOS
 
-macOS 主要依赖 [thoughtbot 的 laptop](https://github.com/thoughtbot/laptop) 脚本进行初始化，然后配合 [dropbox](https://www.dropbox.com/) 上储存的私有配置文件完成配置。
+macOS 主要依赖 [thoughtbot 的 laptop](https://github.com/thoughtbot/laptop) 脚本进行初始化，然后配合 ownCloud 上储存的私有配置文件完成配置。
 
 ```shell
 curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/mac
 sh mac 2>&1 | tee ~/laptop.log
-brew cask install dropbox
+brew cask install owncloud
 brew install stow
 ln -s ~/ownCloud/Config/id_rsa ~/.ssh/id_rsa
 ln -s ~/ownCloud/Config/id_rsa.pub ~/.ssh/id_rsa.pub
