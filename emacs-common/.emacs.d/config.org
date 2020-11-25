@@ -987,11 +987,12 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
   (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
   (setq org-reveal-mathjax t)
 #+end_src
-** Zpresent
-present from within Emacs.
+** Org Tree Slide
 #+begin_src emacs-lisp
-  (use-package zpresent
-    :ensure t)
+    (use-package org-tree-slide
+      :ensure t
+      :custom
+      (org-image-actual-width nil))
 #+end_src
 ** Plantuml
 #+begin_src emacs-lisp

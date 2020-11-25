@@ -79,7 +79,6 @@ if [ -d "$HOME/ownCloud/Config" ]; then
   export HISTFILE="$HOME/ownCloud/Config/zsh_history"
 fi
 
-
 export PATH="$HOME/.bin:$PATH"
 
 # alias
@@ -95,6 +94,9 @@ export PATH="$HOME/.bin:$PATH"
 
 # bat colorful man page
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# asdf
+. `brew --prefix asdf`/asdf.sh
 
 # added by travis gem
 [ -f /Users/teddy/.travis/travis.sh ] && source /Users/teddy/.travis/travis.sh
