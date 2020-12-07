@@ -7,3 +7,4 @@ stow neovim
 stow psql
 stow shell-macos
 stow tmux
+stow bat

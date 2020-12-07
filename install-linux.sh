@@ -8,3 +8,4 @@ stow psql
 stow shell-linux
 stow tmux
 stow xresources
+stow bat
