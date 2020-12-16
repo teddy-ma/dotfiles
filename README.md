@@ -31,8 +31,7 @@ Linux 下只需要安装几个最基础的包，就可以进入 stow 开始配�
 ```shell
 sudo pacman -Syu git fish ttf-inconsolata ttf-arphic-uming
 
-echo /usr/local/bin/fish | sudo tee -a /etc/shells
-chsh -s /usr/local/bin/fish
+chsh -s /usr/bin/fish
 
 ln -s ~/ownCloud/Config/id_rsa ~/.ssh/id_rsa
 ln -s ~/ownCloud/Config/id_rsa.pub ~/.ssh/id_rsa.pub
