@@ -925,65 +925,71 @@ float = ""
 shell 我用 zsh, 使用 antigen, 和 starship 配置
 
 #+begin_src conf :tangle ~/.zshrc
-export TERM='xterm-256color' # 设置256色
-export EDITOR='vim'
+  export TERM='xterm-256color' # 设置256色
+  export EDITOR='vim'
 
-export LANG=en_US.UTF-8
-export LANGUAGE=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-# 全部使用 utf-8
+  export LANG=en_US.UTF-8
+  export LANGUAGE=en_US.UTF-8
+  export LC_ALL=en_US.UTF-8
+  # 全部使用 utf-8
 
-source /usr/local/share/antigen/antigen.zsh
+  if [ -d "$HOME/.antigen" ]; then
+     source ~/.antigen/antigen.zsh
+  fi
 
-antigen use oh-my-zsh
+  if [ -d "/usr/local/share/antigen" ]; then
+     source /usr/local/share/antigen/antigen.zsh
+  fi
 
-# Command auto-correction.
-ENABLE_CORRECTION="true"
+  antigen use oh-my-zsh
 
-# Command execution time stamp shown in the history command output.
-HIST_STAMPS="mm/dd/yyyy"
+  # Command auto-correction.
+  ENABLE_CORRECTION="true"
 
-antigen bundle mafredri/zsh-async
+  # Command execution time stamp shown in the history command output.
+  HIST_STAMPS="mm/dd/yyyy"
 
-antigen bundles <<EOBUNDLES
-    command-not-found
-    extract
-    gem
-    git
-    git-extras
-    history
-    colored-man-pages
-    sudo
-    npm
-    vundle
-    zsh-users/zsh-syntax-highlighting
-    zsh-users/zsh-history-substring-search
-    zsh-users/zsh-completions
-    zsh-users/zsh-autosuggestions
-    t413/zsh-background-notify
-EOBUNDLES
+  antigen bundle mafredri/zsh-async
 
-# Tell antigen that you're done.
-antigen apply
-# ================= antigen config end ===================
+  antigen bundles <<EOBUNDLES
+      command-not-found
+      extract
+      gem
+      git
+      git-extras
+      history
+      colored-man-pages
+      sudo
+      npm
+      vundle
+      zsh-users/zsh-syntax-highlighting
+      zsh-users/zsh-history-substring-search
+      zsh-users/zsh-completions
+      zsh-users/zsh-autosuggestions
+      t413/zsh-background-notify
+  EOBUNDLES
 
-# start starship
-eval "$(starship init zsh)"
+  # Tell antigen that you're done.
+  antigen apply
+  # ================= antigen config end ===================
 
-# RPROMPT="[%D{%y/%m/%f}|%@]"
-# ignore duplicate commands, ignore commands starting with a space
-export HISTCONTROL=erasedups:ignorespace
-# keep the last 20000 entries
-export HISTSIZE=20000
+  # start starship
+  eval "$(starship init zsh)"
 
-if [ -d "$HOME/ownCloud/Config" ]; then
-  export HISTFILE="$HOME/ownCloud/Config/zsh_history"
-fi
+  # RPROMPT="[%D{%y/%m/%f}|%@]"
+  # ignore duplicate commands, ignore commands starting with a space
+  export HISTCONTROL=erasedups:ignorespace
+  # keep the last 20000 entries
+  export HISTSIZE=20000
 
-export PATH="$HOME/.cargo/bin:$PATH"
-export GEM_HOME=$(ruby -e 'print Gem.user_dir')
-export PATH="$GEM_HOME/bin:$PATH"
-export PATH="$(yarn global bin):$PATH"
+  if [ -d "$HOME/ownCloud/Config" ]; then
+    export HISTFILE="$HOME/ownCloud/Config/zsh_history"
+  fi
+
+  export PATH="$HOME/.cargo/bin:$PATH"
+  export GEM_HOME=$(ruby -e 'print Gem.user_dir')
+  export PATH="$GEM_HOME/bin:$PATH"
+  export PATH="$(yarn global bin):$PATH"
 #+end_src
 
 macOS 特有配置
