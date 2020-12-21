@@ -105,11 +105,11 @@ By default Emacs doesn't read from the same environment variables set in your te
 =crux= is a list of useful functions.
 
 #+begin_src emacs-lisp
-    (use-package crux
-      :ensure t
-      :bind (("C-a" . crux-move-beginning-of-line)
-             ("C-c r" . crux-rename-file-and-buffer)
-             ("C-c D" . crux-delete-file-and-buffer))
+  (use-package crux
+    :ensure t
+    :bind (("C-a" . crux-move-beginning-of-line)
+           ("C-c r" . crux-rename-file-and-buffer)
+           ("C-c D" . crux-delete-file-and-buffer))
     )
 #+end_src
 
@@ -195,17 +195,27 @@ Suggest next keys to me based on currently entered key combination.
 #+end_src
 ** Duplicate current line
 #+begin_src emacs-lisp
-  (defun duplicate-line ()
-    (interactive)
-    (let ((col (current-column)))
-      (move-beginning-of-line 1)
-      (kill-line)
-      (yank)
-      (newline)
-      (yank)
-      (move-to-column col)))
+  (defun duplicate-current-line-or-region (arg)
+    "Duplicates the current line or region ARG times.
+  If there's no region, the current line will be duplicated. However, if
+  there's a region, all lines that region covers will be duplicated."
+    (interactive "p")
+    (let (beg end (origin (point)))
+      (if (and mark-active (> (point) (mark)))
+          (exchange-point-and-mark))
+      (setq beg (line-beginning-position))
+      (if mark-active
+          (exchange-point-and-mark))
+      (setq end (line-end-position))
+      (let ((region (buffer-substring-no-properties beg end)))
+        (dotimes (i arg)
+          (goto-char end)
+          (newline)
+          (insert region)
+          (setq end (point)))
+        (goto-char (+ origin (* (length region) arg) arg)))))
 
-  (global-set-key (kbd "C-S-d") 'duplicate-line)
+  (global-set-key (kbd "C-S-d") 'duplicate-current-line-or-region)
 #+end_src
 ** Move line up and down
 #+begin_src emacs-lisp
@@ -261,18 +271,20 @@ Suggest next keys to me based on currently entered key combination.
 #+end_src
 ** Posframe
 #+begin_src emacs-lisp
-  (use-package ivy-posframe
-    :ensure t
-    :after ivy
-    :diminish
-    :custom-face
-    (ivy-posframe-border ((t (:background "#ffffff"))))
-    :config
-    (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center))
-          ivy-posframe-height-alist '((t . 20))
-          ivy-posframe-parameters '((internal-border-width . 10)))
-    (setq ivy-posframe-width 70)
-    (ivy-posframe-mode +1))
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; (use-package ivy-posframe                                                                      ;;
+  ;;   :ensure t                                                                                    ;;
+  ;;   :after ivy                                                                                   ;;
+  ;;   :diminish                                                                                    ;;
+  ;;   :custom-face                                                                                 ;;
+  ;;   (ivy-posframe-border ((t (:background "#ffffff"))))                                          ;;
+  ;;   :config                                                                                      ;;
+  ;;   (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)) ;;
+  ;;         ivy-posframe-height-alist '((t . 20))                                                  ;;
+  ;;         ivy-posframe-parameters '((internal-border-width . 10)))                               ;;
+  ;;   (setq ivy-posframe-width 70)                                                                 ;;
+  ;;   (ivy-posframe-mode +1))                                                                      ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 #+end_src
 ** Ace window
 #+begin_src emacs-lisp
@@ -334,6 +346,11 @@ Add emoji support. This is useful when working with html.
     (setq x-underline-at-descent-line t)
     (moody-replace-mode-line-buffer-identification)
     (moody-replace-vc-mode))
+
+  ;; (use-package tron-legacy-theme
+  ;;   :ensure t
+  ;;   :config
+  ;;   (load-theme 'tron-legacy t))
 
   (use-package solarized-theme
     :ensure t
@@ -403,7 +420,7 @@ It's hard to customize mode line...
 #+end_src
 *** Display battery
 #+begin_src emacs-lisp
-(setq battery-mode-line-format "[%b%p%% %t]")
+  (setq battery-mode-line-format "[%b%p%% %t]")
 #+end_src
 
 * Coding
@@ -411,7 +428,7 @@ It's hard to customize mode line...
 lsp mode
 
 #+begin_src emacs-lisp
-(use-package gnu-elpa-keyring-update :ensure t)
+  (use-package gnu-elpa-keyring-update :ensure t)
 #+end_src
 
 #+begin_src emacs-lisp
@@ -452,7 +469,7 @@ Highlight strings which represent colours. I only want this in programming modes
 Keep things indented correctly for me.
 #+begin_src emacs-lisp
   (use-package aggressive-indent
-      :ensure t)
+    :ensure t)
 #+end_src
 
 Support editorconfig config file.
@@ -536,7 +553,7 @@ Integration with neotree
   (use-package neotree
     :ensure t
     :config
-    ; modified version of https://github.com/hemmvm/dotemacs/blob/master/site-lisp/util--neotree.el
+                                          ; modified version of https://github.com/hemmvm/dotemacs/blob/master/site-lisp/util--neotree.el
     (defun neotree-project-tree-open ()
       (interactive)
       (let ((project-dir (ignore-errors (projectile-project-root)))
@@ -694,7 +711,7 @@ Setup is pretty simple - we just enable globally and turn on a custom eslint fun
       :overlay-category 'flycheck-info-overlay
       :fringe-bitmap 'flycheck-fringe-bitmap-ball
       :fringe-face 'flycheck-fringe-info))
-    #+end_src
+#+end_src
 
 Proselint is a syntax checker for English language. This defines a custom checker which will run in texty modes.
 
@@ -788,10 +805,10 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
     :ensure t
     :config
     (setq prettier-js-args '(
-                          "--trailing-comma" "es5"
-                          "--single-quote" "true"
-                          "--print-width" "100"
-                          ))
+                             "--trailing-comma" "es5"
+                             "--single-quote" "true"
+                             "--print-width" "100"
+                             ))
     (add-hook 'js2-mode-hook 'prettier-js-mode)
     (add-hook 'rjsx-mode-hook 'prettier-js-mode))
 #+end_src
@@ -813,9 +830,9 @@ Web beautify prettifies html / css / js using js-beautify - install with =npm in
   (use-package web-beautify
     :ensure t
     :bind (:map web-mode-map
-           ("C-c b" . web-beautify-html)
-           :map js2-mode-map
-           ("C-c b" . web-beautify-js)))
+                ("C-c b" . web-beautify-html)
+                :map js2-mode-map
+                ("C-c b" . web-beautify-js)))
 #+end_src
 ** Yaml
 #+begin_src emacs-lisp
@@ -996,14 +1013,14 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
 #+end_src
 ** Org Tree Slide
 #+begin_src emacs-lisp
-    (use-package org-tree-slide
-      :ensure t
-      :custom
-      (org-image-actual-width nil))
+  (use-package org-tree-slide
+    :ensure t
+    :custom
+    (org-image-actual-width nil))
 #+end_src
 ** Plantuml
 #+begin_src emacs-lisp
-;;https://www.onwebsecurity.com/configuration/use-emacs-to-create-oauth-2-0-uml-sequence-diagrams.html
+  ;;https://www.onwebsecurity.com/configuration/use-emacs-to-create-oauth-2-0-uml-sequence-diagrams.html
   ;; tell org-mode where to find the plantuml JAR file (specify the JAR file)
   (setq org-plantuml-jar-path (expand-file-name "/usr/local/Cellar/plantuml/1.2019.1/libexec/plantuml.jar"))
 
