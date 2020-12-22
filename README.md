@@ -23,8 +23,8 @@ sh install-mac.sh
 cd homebrew
 brew bundle
 
-ln -s ~/ownCloud/Config/pyim ~/.emacs.d/pyim
-ln -s ~/ownCloud/Config/snippets ~/.emacs.d/snippets
+ln -s ~/ownCloud/Config/pyim ~/.emacs.d
+ln -s ~/ownCloud/Config/snippets ~/.emacs.d
 ```
 
 ## Linux
@@ -34,12 +34,17 @@ Linux 下只需要安装几个最基础的包，就可以进入 stow 开始配�
 ```shell
 sudo pacman -S git stow zsh
 chsh -s /bin/zsh
+ln -s ~/ownCloud/Config/id_rsa ~/.ssh/id_rsa
+ln -s ~/ownCloud/Config/id_rsa.pub ~/.ssh/id_rsa.pub
 
 cd ~
 git clone git@github.com:teddy-ma/dotfiles.git
 git clone https://github.com/zsh-users/antigen.git .antigen
 cd dotfiles
 sh install-linux.sh
+
+ln -s ~/ownCloud/Config/pyim ~/.emacs.d
+ln -s ~/ownCloud/Config/snippets ~/.emacs.d
 ```
 
 ## 模块
