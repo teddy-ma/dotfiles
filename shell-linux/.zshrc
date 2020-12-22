@@ -47,4 +47,5 @@ export HISTSIZE=20000
 
 export PATH="$HOME/.cargo/bin:$PATH"
 export GEM_HOME=$(ruby -e 'print Gem.user_dir')
+export PATH="$GEM_HOME/bin:$PATH"
 export PATH="$(yarn global bin):$PATH"
