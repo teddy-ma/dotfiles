@@ -44,3 +44,7 @@ antigen apply
 export HISTCONTROL=erasedups:ignorespace
 # keep the last 20000 entries
 export HISTSIZE=20000
+
+export PATH="$HOME/.cargo/bin:$PATH"
+export GEM_HOME=$(ruby -e 'print Gem.user_dir')
+export PATH="$(yarn global bin):$PATH"
