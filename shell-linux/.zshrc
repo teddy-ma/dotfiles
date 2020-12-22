@@ -16,7 +16,8 @@ ENABLE_CORRECTION="true"
 # Command execution time stamp shown in the history command output.
 HIST_STAMPS="mm/dd/yyyy"
 
-antigen theme geometry-zsh/geometry
+antigen bundle mafredri/zsh-async
+antigen bundle sindresorhus/pure
 
 antigen bundles <<EOBUNDLES
     command-not-found
