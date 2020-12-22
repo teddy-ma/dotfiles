@@ -141,18 +141,16 @@ I *never* want whitespace at the end of lines. Remove it on save.
 #+begin_src emacs-lisp
   (use-package command-log-mode)
 #+end_src
-** Line number
-#+begin_src emacs-lisp
-  (global-display-line-numbers-mode t)
+*** Better undo
+=undo-tree= visualises undo history as a tree for easy navigation.
 
-  ;; Disable line numbers for some modes
-  (dolist (mode '(org-mode-hook
-                  term-mode-hook
-                  shell-mode-hook
-                  treemacs-mode-hook
-                  eshell-mode-hook))
-    (add-hook mode (lambda () (display-line-numbers-mode 0))))
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+    :ensure t
+    :diminish undo-tree-mode:
+    :config
+    (global-undo-tree-mode 1))
+#+END_SRC
 ** Command completion
 =ivy= is a generic completion framework which uses the minibuffer. Turning on =ivy-mode= with fuzzy support enables replacement of lots of built in =ido= functionality.
 
