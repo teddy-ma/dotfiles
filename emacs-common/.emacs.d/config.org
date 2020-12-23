@@ -321,6 +321,10 @@ Suggest next keys to me based on currently entered key combination.
     :bind
     ("M-o" . ace-window))
 #+end_src
+** Transpose frame
+#+begin_src emacs-lisp
+  (use-package transpose-frame)
+#+end_src
 ** Eshell
 #+begin_src emacs-lisp
   (use-package eshell-git-prompt)
@@ -740,7 +744,6 @@ Company mode provides good autocomplete options. Perhaps I should add company-qu
 It would also be good to improve integration with yasnippet as I don't feel I'm making the best use there.
 #+begin_src emacs-lisp
   (use-package company
-    :diminish
     :config
     (add-hook 'after-init-hook 'global-company-mode)
 
@@ -770,6 +773,7 @@ Type the shortcut and press =TAB= to complete, or =M-/= to autosuggest a snippet
   ;;http://ergoemacs.org/emacs/yasnippet_templates_howto.html
   (use-package yasnippet-snippets)
 #+end_src
+
 ** Javascript
 In JS indent to 2 spaces.
 #+begin_src emacs-lisp
