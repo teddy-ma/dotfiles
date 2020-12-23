@@ -240,26 +240,11 @@ Suggest next keys to me based on currently entered key combination.
 #+end_src
 ** Move line up and down
 #+begin_src emacs-lisp
-  (defun move-line-down ()
-    (interactive)
-    (let ((col (current-column)))
-      (save-excursion
-        (forward-line)
-        (transpose-lines 1))
-      (forward-line)
-      (move-to-column col)))
+  (use-package drag-stuff
+    :config
+    (drag-stuff-global-mode t)
+    (drag-stuff-define-keys))
 
-  (defun move-line-up ()
-    (interactive)
-    (let ((col (current-column)))
-      (save-excursion
-        (forward-line)
-        (transpose-lines -1))
-      (forward-line -1)
-      (move-to-column col)))
-
-  (global-set-key (kbd "C-S-j") 'move-line-down)
-  (global-set-key (kbd "C-S-k") 'move-line-up)
 #+end_src
 ** Folding
 #+begin_src emacs-lisp
