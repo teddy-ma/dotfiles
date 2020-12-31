@@ -1,10 +1,10 @@
 function focus_other_screen() -- focuses the other screen
-   local screen = hs.mouse.getCurrentScreen()
-   local nextScreen = screen:next()
+   local current_screen = hs.mouse.getCurrentScreen()
+   local nextScreen = current_screen:next()
    local rect = nextScreen:fullFrame()
    local center = hs.geometry.rectMidPoint(rect)
    hs.mouse.setAbsolutePosition(center)
-   return screen
+   return nextScreen
 end
 
 function get_window_under_mouse() -- from https://gist.github.com/kizzx2/e542fa74b80b7563045a
@@ -28,19 +28,18 @@ end)
 
 function redrawBorder()
    win = hs.window.focusedWindow()
-   if win ~= nil then
-      top_left = win:topLeft()
-      size = win:size()
-      if global_border ~= nil then
-         global_border:delete()
-      end
-      global_border = hs.drawing.rectangle(hs.geometry.rect(top_left['x'], top_left['y'], size['w'], size['h']))
-      global_border:setStrokeColor({["red"]=1,["blue"]=0,["green"]=0,["alpha"]=0.8})
-      global_border:setFill(false)
-      global_border:setStrokeWidth(8)
-      global_border:show()
-      hs.timer.doAfter(1, function() global_border:hide() end)
+   if not win then
+      return
    end
+   top_left = win:topLeft()
+   size = win:size()
+   if global_border ~= nil then global_border:delete() end
+   global_border = hs.drawing.rectangle(hs.geometry.rect(top_left['x'], top_left['y'], size['w'], size['h']))
+   global_border:setStrokeColor({ ["red"] = 1, ["blue"] = 0, ["green"] = 0, ["alpha"] = 0.8 })
+   global_border:setFill(false)
+   global_border:setStrokeWidth(8)
+   global_border:show()
+   hs.timer.doAfter(1, function() global_border:hide() end)
 end
 
 function mouseHighlight()
@@ -56,7 +55,7 @@ function mouseHighlight()
    hs.alert.show(mousepoint)
    -- Prepare a big red circle around the mouse pointer
    mouseCircle = hs.drawing.circle(hs.geometry.rect(mousepoint.x-40, mousepoint.y-40, 80, 80))
-   mouseCircle:setStrokeColor({["red"]=1,["blue"]=0,["green"]=0,["alpha"]=1})
+   mouseCircle:setStrokeColor({ ["red"] = 1, ["blue"] = 0, ["green"] = 0, ["alpha"] = 1 })
    mouseCircle:setFill(false)
    mouseCircle:setStrokeWidth(5)
    mouseCircle:show()
