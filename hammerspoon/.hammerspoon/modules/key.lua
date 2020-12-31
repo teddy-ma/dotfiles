@@ -3,8 +3,7 @@ function showKeyPress(tap_event)
    local modifiers = ""  -- key modifiers string representation
    local flags = tap_event:getFlags()
    local character = hs.keycodes.map[tap_event:getKeyCode()]
-   -- we only want to read special characters via getKeyCode, so we
-   -- use this subset of hs.keycodes.map
+   -- we only want to read special characters via getKeyCode, so we use this subset of hs.keycodes.map
    local special_chars = {
       ["f1"] = true, ["f2"] = true, ["f3"] = true, ["f4"] = true,
       ["f5"] = true, ["f6"] = true, ["f7"] = true, ["f8"] = true,
@@ -22,16 +21,13 @@ function showKeyPress(tap_event)
       ["left"] = true, ["right"] = true, ["down"] = true, ["up"] = true
    }
 
-   -- if we have a simple character (no modifiers), we want a shorter
-   -- popup duration.
-   if (not flags.shift and not flags.cmd and
-       not flags.alt and not flags.ctrl) then
+   -- if we have a simple character (no modifiers), we want a shorter popup duration.
+   if (not flags.shift and not flags.cmd and not flags.alt and not flags.ctrl) then
       duration = 0.3
    end
 
-   -- we want to get regular characters via getCharacters as it
-   -- "cleans" the key for us (e.g. for a "⇧-5" keypress we want
-   -- to show "⇧-%").
+   -- we want to get regular characters via getCharacters as it "cleans" the key for us 
+   -- (e.g. for a "⇧-5" keypress we want to show "⇧-%").
    if special_chars[character] == nil then
       character = tap_event:getCharacters(true)
       if flags.shift then
@@ -40,14 +36,14 @@ function showKeyPress(tap_event)
    end
 
    local pretty_characters = {
-      ["return"] = "⏎",
+      ["return"]  = "⏎",
       ["delete"]  = "⌫",
       ["escape"]  = "⎋",
-      ["space"]  = "SPC",
-      ["up"]  = "↑",
-      ["down"]  = "↓",
-      ["left"]  = "←",
-      ["right"]  = "→"
+      ["space"]   = "SPC",
+      ["up"]      = "↑",
+      ["down"]    = "↓",
+      ["left"]    = "←",
+      ["right"]   = "→"
    }
 
    character = pretty_characters[character] or character
