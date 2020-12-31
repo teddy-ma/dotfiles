@@ -94,7 +94,7 @@ function presenter(string)
 end
 
 function build_exist_key_string(string)
-   max_display_key_command_length = 2
+   max_display_key_command_length = 5
    if not key_array then
       key_array = {}
    else
@@ -116,8 +116,12 @@ end
 function create_draw(string)
    local mainRes = hs.screen.mainScreen():fullFrame()
    local styledString = hs.styledtext.new(string,{font={name="Impact",size=120},color=red, paragraphStyle={alignment="center"}})
-   local timeframe = hs.geometry.rect((mainRes.w-300)/2,(mainRes.h-200)/2,1000,150)
-   key_draw = hs.drawing.text(timeframe,styledString)
+   local w = 1500
+   local h = 150
+   local x = mainRes.w / 2 - w / 3
+   local y = mainRes.y + h + w / 2
+   local keyFrame = hs.geometry.rect(x, y, w, h)
+   key_draw = hs.drawing.text(keyFrame,styledString)
    key_draw:setLevel(hs.drawing.windowLevels.overlay)
 end
 
@@ -128,23 +132,12 @@ function destroy_draw(draw)
    end
 end
 
-function get_todo_draw_instance(string)
-   local mainScreen = hs.screen.mainScreen()
-   local mainRes = mainScreen:fullFrame()
-   local todo_str = string
-   local todo = hs.styledtext.new(todo_str,{font={name="Impact",size=120},color=red, paragraphStyle={alignment="center"}})
-   local timeframe = hs.geometry.rect((mainRes.w-300)/2,(mainRes.h-200)/2,900,150)
-   local todo_draw = hs.drawing.text(timeframe,todo)
-   todo_draw:setLevel(hs.drawing.windowLevels.overlay)
-   return todo_draw
-end
-
 local key_tap = hs.eventtap.new(
    {hs.eventtap.event.types.keyDown},
    showKeyPress
 )
 
--- Enable/Disable Keypress Show Mode with "C-⌘-⇧-p"
+-- Enable/Disable Keypress Show Mode with "hyper-p"
 k = hs.hotkey.modal.new(hyper, 'P')
 function k:entered()
    hs.alert.show("Enabling Keypress Show Mode", 1.5)
