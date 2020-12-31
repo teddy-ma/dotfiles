@@ -90,7 +90,7 @@ function print_key_name_on_screen(display_key_name)
 end
 
 function build_exist_key_string(string)
-   max_display_key_command_length = 5
+   local max_display_key_command_length = 8
    key_array = key_array or {}
 
    if #key_array > max_display_key_command_length then
@@ -110,7 +110,7 @@ end
 
 function create_draw(content)
    local mainRes = hs.mouse.getCurrentScreen():fullFrame() -- e.g w:1920 h:1080
-   local font_size = 120
+   local font_size = 40
    local styledString = hs.styledtext.new(
       content,
       {
