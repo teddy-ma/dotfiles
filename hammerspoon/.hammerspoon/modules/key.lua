@@ -110,7 +110,7 @@ function reset_key_display_timer()
    if key_display_timer then
       key_display_timer:stop()
    end
-   key_display_timer = hs.timer.doAfter(2, function() destroy_draw(key_draw) exist_key_string = nil end)
+   key_display_timer = hs.timer.doAfter(2, function() destroy_draw(key_draw) key_array = {} end)
 end
 
 function create_draw(string)
