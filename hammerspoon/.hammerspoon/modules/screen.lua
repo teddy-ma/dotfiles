@@ -43,7 +43,6 @@ function redrawBorder()
    end
 end
 
-
 function mouseHighlight()
    -- Delete an existing highlight if it exists
    if mouseCircle then
