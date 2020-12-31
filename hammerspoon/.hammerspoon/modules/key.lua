@@ -43,14 +43,15 @@ function showKeyPress(tap_event)
       ["up"]      = "↑",
       ["down"]    = "↓",
       ["left"]    = "←",
-      ["right"]   = "→"
+      ["right"]   = "→",
+      ["tab"]     = "⇥"
    }
-
+   
    character = pretty_characters[character] or character
 
    -- get modifiers' string representation
    if flags.ctrl then
-      modifiers = modifiers .. "C-"
+      modifiers = modifiers .. "⌃-"
    end
    if flags.cmd then
       modifiers = modifiers .. "⌘-"
@@ -62,12 +63,12 @@ function showKeyPress(tap_event)
       modifiers = modifiers .. "⌥-"
    end
 
-   display_key_name = modifiers .. character
-   print_key_name_on_screen(display_key_name)
+   key_char = modifiers .. character
+   display_key_char(key_char)
 end
 
-function print_key_name_on_screen(display_key_name)
-   build_exist_key_string(display_key_name)
+function display_key_char(key_char)
+   build_exist_key_string(key_char)
 
    if not key_draw then
       create_draw(exist_key_string)
