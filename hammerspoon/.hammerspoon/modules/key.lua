@@ -72,12 +72,12 @@ function showKeyPress(tap_event)
       modifiers = modifiers .. "⌥-"
    end
 
-   result = modifiers .. character
-   presenter(result)
+   display_key_name = modifiers .. character
+   print_key_name_on_screen(display_key_name)
 end
 
-function presenter(string)
-   build_exist_key_string(string)
+function print_key_name_on_screen(display_key_name)
+   build_exist_key_string(display_key_name)
 
    if not key_draw then  -- key_draw is nil shoud create new one
       print('create key draw')
