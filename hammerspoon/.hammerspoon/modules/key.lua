@@ -79,7 +79,7 @@ end
 function print_key_name_on_screen(display_key_name)
    build_exist_key_string(display_key_name)
 
-   if not key_draw then  -- key_draw is nil shoud create new one
+   if not key_draw then
       create_draw(exist_key_string)
    else
       destroy_draw(key_draw)
@@ -108,15 +108,23 @@ function reset_key_display_timer()
    key_display_timer = hs.timer.doAfter(2, function() destroy_draw(key_draw) key_array = {} end)
 end
 
-function create_draw(string)      
-   local mainRes = hs.mouse.getCurrentScreen():fullFrame()
-   local styledString = hs.styledtext.new(string,{font={name="Impact",size=120},color=red, paragraphStyle={alignment="center"}})
-   local w = mainRes.w * 2 / 3 -- 1500
-   local h = 150
+function create_draw(content)
+   local mainRes = hs.mouse.getCurrentScreen():fullFrame() -- e.g w:1920 h:1080
+   local font_size = 120
+   local styledString = hs.styledtext.new(
+      content,
+      {
+         font = { name = "Fira Mono", size = font_size },
+         color = hs.drawing.color.hammerspoon.osx_green, --hs.drawing.color.x11.silver,
+         paragraphStyle = { alignment = "center" }
+      }
+   )
+   local w = mainRes.w * 2 / 3
+   local h = font_size * 1.5
    local x = mainRes.w / 2 - w / 3
    local y = mainRes.y + h + w / 2
    local keyFrame = hs.geometry.rect(x, y, w, h)
-   key_draw = hs.drawing.text(keyFrame,styledString)
+   key_draw = hs.drawing.text(keyFrame, styledString)
    key_draw:setLevel(hs.drawing.windowLevels.overlay)
 end
 
@@ -144,8 +152,4 @@ end
 k:bind(hyper, 'P', function()
           key_tap:stop()
           k:exit()
-end)
-
-hs.hotkey.bind(hyper, 'y', function()
-                  presenter(math.randomseed(os.time()))
 end)
