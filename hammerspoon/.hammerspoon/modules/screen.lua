@@ -19,16 +19,14 @@ function activate_other_screen()
    local next_screen = focus_other_screen()
    local win = get_window_under_mouse()
    win:focus()
-   redrawBorder(next_screen)
-   -- hs.alert.show(next_screen:name)
+   redrawBorder()
 end
 
 hs.hotkey.bind(hyper, 'o', function()
                   activate_other_screen()
 end)
 
-function redrawBorder(screen)
-   -- hs.alert.show(screen)
+function redrawBorder()
    win = hs.window.focusedWindow()
    if win ~= nil then
       top_left = win:topLeft()
@@ -45,6 +43,25 @@ function redrawBorder(screen)
    end
 end
 
-hs.hotkey.bind(hyper, 'p', function()
-                  redrawBorder()
-end)
+
+function mouseHighlight()
+   -- Delete an existing highlight if it exists
+   if mouseCircle then
+      mouseCircle:delete()
+      if mouseCircleTimer then
+         mouseCircleTimer:stop()
+      end
+   end
+   -- Get the current co-ordinates of the mouse pointer
+   mousepoint = hs.mouse.getAbsolutePosition()
+   hs.alert.show(mousepoint)
+   -- Prepare a big red circle around the mouse pointer
+   mouseCircle = hs.drawing.circle(hs.geometry.rect(mousepoint.x-40, mousepoint.y-40, 80, 80))
+   mouseCircle:setStrokeColor({["red"]=1,["blue"]=0,["green"]=0,["alpha"]=1})
+   mouseCircle:setFill(false)
+   mouseCircle:setStrokeWidth(5)
+   mouseCircle:show()
+
+   -- Set a timer to delete the circle after 3 seconds
+   mouseCircleTimer = hs.timer.doAfter(3, function() mouseCircle:delete() end)
+end
