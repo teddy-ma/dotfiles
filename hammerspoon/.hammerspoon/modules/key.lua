@@ -39,24 +39,18 @@ function showKeyPress(tap_event)
       end
    end
 
-   -- make some known special characters look good
-   if character == "return" then
-      character = "⏎"
-   elseif character == "delete" then
-      character = "⌫"
-   elseif character == "escape" then
-      character = "⎋"
-   elseif character == "space" then
-      character = "SPC"
-   elseif character == "up" then
-      character = "↑"
-   elseif character == "down" then
-      character = "↓"
-   elseif character == "left" then
-      character = "←"
-   elseif character == "right" then
-      character = "→"
-   end
+   local pretty_characters = {
+      ["return"] = "⏎",
+      ["delete"]  = "⌫",
+      ["escape"]  = "⎋",
+      ["space"]  = "SPC",
+      ["up"]  = "↑",
+      ["down"]  = "↓",
+      ["left"]  = "←",
+      ["right"]  = "→"
+   }
+
+   character = pretty_characters[character] or character
 
    -- get modifiers' string representation
    if flags.ctrl then
