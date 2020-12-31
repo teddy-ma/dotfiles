@@ -80,28 +80,23 @@ function print_key_name_on_screen(display_key_name)
    build_exist_key_string(display_key_name)
 
    if not key_draw then  -- key_draw is nil shoud create new one
-      print('create key draw')
       create_draw(exist_key_string)
-      key_draw:show()
-      reset_key_display_timer()
    else
-      print('rebuild key draw')
       destroy_draw(key_draw)
       create_draw(exist_key_string)
-      key_draw:show()
-      reset_key_display_timer()
    end
+   key_draw:show()
+   reset_key_display_timer()
 end
 
 function build_exist_key_string(string)
    max_display_key_command_length = 5
-   if not key_array then
-      key_array = {}
-   else
-      if #key_array > max_display_key_command_length then
-         table.remove(key_array, 1)
-      end
+   key_array = key_array or {}
+
+   if #key_array > max_display_key_command_length then
+      table.remove(key_array, 1)
    end
+
    key_array[#key_array + 1] = string
    exist_key_string = table.concat(key_array, ' ')
 end
