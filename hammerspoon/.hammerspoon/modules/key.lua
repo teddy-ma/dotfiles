@@ -113,10 +113,10 @@ function reset_key_display_timer()
    key_display_timer = hs.timer.doAfter(2, function() destroy_draw(key_draw) key_array = {} end)
 end
 
-function create_draw(string)
-   local mainRes = hs.screen.mainScreen():fullFrame()
+function create_draw(string)      
+   local mainRes = hs.mouse.getCurrentScreen():fullFrame()
    local styledString = hs.styledtext.new(string,{font={name="Impact",size=120},color=red, paragraphStyle={alignment="center"}})
-   local w = 1500
+   local w = mainRes.w * 2 / 3 -- 1500
    local h = 150
    local x = mainRes.w / 2 - w / 3
    local y = mainRes.y + h + w / 2
