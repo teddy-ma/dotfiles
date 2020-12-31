@@ -4,6 +4,7 @@ function focus_other_screen() -- focuses the other screen
     local rect = nextScreen:fullFrame()
     local center = hs.geometry.rectMidPoint(rect)
     hs.mouse.setAbsolutePosition(center)
+    return screen
 end 
  
  function get_window_under_mouse() -- from https://gist.github.com/kizzx2/e542fa74b80b7563045a 
@@ -15,10 +16,10 @@ end
  end
  
  function activate_other_screen()
-    focus_other_screen() 
+    local next_screen = focus_other_screen() 
     local win = get_window_under_mouse() 
     win:focus() 
-    redrawBorder()
+    redrawBorder(next_screen)
     -- hs.alert.show(next_screen:name) 
  end 
  
@@ -26,7 +27,8 @@ end
     activate_other_screen()
  end)
 
- function redrawBorder()
+ function redrawBorder(screen)
+    hs.alert.show(screen)
     win = hs.window.focusedWindow()
     if win ~= nil then
         top_left = win:topLeft()
