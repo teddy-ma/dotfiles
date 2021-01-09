@@ -89,6 +89,15 @@ By default Emacs doesn't read from the same environment variables set in your te
 #+begin_src emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+end_src
+*** Garbage collection
+#+begin_src emacs-lisp
+  (setq gc-cons-threshold 20000000)
+#+end_src
+*** Always follow symlinks
+#+begin_src emacs-lisp
+(setq vc-follow-symlinks t)
+#+end_src
+
 *** Disable autosave and backup
 #+begin_src emacs-lisp
   (setq make-backup-file nil)
