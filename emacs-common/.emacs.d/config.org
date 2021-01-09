@@ -980,7 +980,6 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
-     (conf . t)
      (ruby . t)
      (js .t )
      (plantuml . t)))
@@ -1076,4 +1075,12 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
     :bind
     (("M-j" . pyim-convert-code-at-point) ;与 pyim-probe-dynamic-english 配合
      ("M-;" . pyim-delete-word-from-personal-buffer)))
+#+end_src
+** Pdf tools
+#+begin_src emacs-lisp
+  (use-package pdf-tools
+    :config
+    (pdf-tools-install))
+
+  (use-package org-noter)
 #+end_src
