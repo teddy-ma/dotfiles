@@ -931,7 +931,14 @@ Add flycheck support.
   (setq org-src-fontify-natively 't)
   (setq org-src-tab-acts-natively t)
   (setq org-src-window-setup 'current-window)
-  (use-package org)
+  (use-package org
+    :config
+    (add-hook 'org-mode-hook (lambda ()
+                               "Beautify Org Checkbox Symbol"
+                               (push '("[ ]" . "☐" ) prettify-symbols-alist)
+                               (push '("[X]" . "☑" ) prettify-symbols-alist)
+                               (push '("[-]" . "❍" ) prettify-symbols-alist)
+                               (prettify-symbols-mode))))
 #+end_src
 ** Easy open common files
 use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-notes-efficiently-org-mode/
