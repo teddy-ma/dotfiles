@@ -62,7 +62,7 @@ function showKeyPress(tap_event)
    if flags.alt then
       modifiers = modifiers .. "⌥-"
    end
-
+   
    key_char = modifiers .. character
    display_key_char(key_char)
 end
