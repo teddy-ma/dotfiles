@@ -339,7 +339,7 @@ Suggest next keys to me based on currently entered key combination.
     (setq fonts '("Monaco" "STKaiti"))
     (set-face-attribute 'default nil :font
                         (format "%s:pixelsize=%d" (car fonts) 15))
-    (setq face-font-rescale-alist '(("STKaiti". 1.2))))
+    (setq face-font-rescale-alist '(("STKaiti". 1.0))))
 
   (when (eq system-type 'windows-nt)
     (setq fonts '("Inconsolata" "华文楷体"))
@@ -933,7 +933,6 @@ Add flycheck support.
   (setq org-src-window-setup 'current-window)
   (use-package org
     :config
-    (setq org-ellipsis " ▾")
     (add-hook 'org-mode-hook (lambda ()
                                "Beautify Org Checkbox Symbol"
                                (push '("[ ]" . "☐" ) prettify-symbols-alist)
