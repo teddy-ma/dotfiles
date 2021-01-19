@@ -9,7 +9,7 @@ require "modules/app"
 require "modules/window"
 require "modules/screen"
 require "modules/key"
--- require "modules/dashboard"
+require "modules/dashboard"
 require "modules/layout"
 require "modules/react"
 
