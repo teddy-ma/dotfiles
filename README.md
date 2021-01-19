@@ -32,7 +32,7 @@ ln -s ~/ownCloud/Config/snippets ~/.emacs.d
 Linux 下只需要安装几个最基础的包，就可以进入 stow 开始配置了。
 
 ```shell
-sudo pacman -Syu git stow zsh ttf-inconsolata
+sudo pacman -Syu git stow zsh ttf-inconsolata ttf-arphic-uming
 
 chsh -s /bin/zsh
 ln -s ~/ownCloud/Config/id_rsa ~/.ssh/id_rsa
