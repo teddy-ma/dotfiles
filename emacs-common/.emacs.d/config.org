@@ -369,35 +369,38 @@ Add emoji support. This is useful when working with html.
     :ensure t)
 #+end_src
 
-** Theme
-#+begin_src emacs-lisp
-  (use-package moody
-    :ensure t
-    :config
-    (setq x-underline-at-descent-line t)
-    (moody-replace-mode-line-buffer-identification)
-    (moody-replace-vc-mode))
-
-  ;; (use-package tron-legacy-theme
-  ;;   :ensure t
-  ;;   :config
-  ;;   (load-theme 'tron-legacy t))
-
-  (use-package solarized-theme
-    :ensure t
-    :config
-    (load-theme 'solarized-light t)
-    ;; (load-theme 'solarized-dark t)
-    (let ((line (face-attribute 'mode-line :underline)))
-      (set-face-attribute 'mode-line          nil :overline   line)
-      (set-face-attribute 'mode-line-inactive nil :overline   line)
-      (set-face-attribute 'mode-line-inactive nil :underline  line)
-      (set-face-attribute 'mode-line          nil :box        nil)
-      (set-face-attribute 'mode-line-inactive nil :box        nil)
-      (set-face-attribute 'mode-line-inactive nil :background "#f9f2d9")))
-#+end_src
 ** Mode Line
 It's hard to customize mode line...
+
+#+begin_src emacs-lisp
+  ;; (use-package moody
+  ;;   :ensure t
+  ;;   :config
+  ;;   (setq x-underline-at-descent-line t)
+  ;;   (moody-replace-mode-line-buffer-identification)
+  ;;   (moody-replace-vc-mode))
+#+end_src
+** Theme
+#+begin_src emacs-lisp
+  (use-package tron-legacy-theme
+    :ensure t
+    :config
+    (load-theme 'tron-legacy t))
+
+  ;; has undersocre issus
+  ;; (use-package solarized-theme
+  ;;   :ensure t
+  ;;   :config
+  ;;   (load-theme 'solarized-light t)
+  ;;   ;; (load-theme 'solarized-dark t)
+  ;;   (let ((line (face-attribute 'mode-line :underline)))
+  ;;     (set-face-attribute 'mode-line          nil :overline   line)
+  ;;     (set-face-attribute 'mode-line-inactive nil :overline   line)
+  ;;     (set-face-attribute 'mode-line-inactive nil :underline  line)
+  ;;     (set-face-attribute 'mode-line          nil :box        nil)
+  ;;     (set-face-attribute 'mode-line-inactive nil :box        nil)
+  ;;     (set-face-attribute 'mode-line-inactive nil :background "#f9f2d9")))
+#+end_src
 ** Misc
 *** Highlight the current line.
 #+begin_src emacs-lisp
@@ -994,6 +997,7 @@ Add flycheck support.
   (use-package org
     :ensure t
     :config
+    (setq org-ellipsis " ▾")
     (add-hook 'org-mode-hook (lambda ()
                                "Beautify Org Checkbox Symbol"
                                (push '("[ ]" . "☐" ) prettify-symbols-alist)
@@ -1011,11 +1015,11 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
 #+end_src
 ** Org bullets
 #+begin_src emacs-lisp
-  (use-package org-bullets
-    :ensure t
-    :hook (org-mode . org-bullets-mode)
-    :config
-    (setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸")))
+   (use-package org-bullets
+     :ensure t
+     :hook (org-mode . org-bullets-mode)
+     :config
+     (setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸")))
 #+end_src
 ** Center org buffers
 #+begin_src emacs-lisp
