@@ -393,6 +393,12 @@ It's hard to customize mode line...
     :config
     (load-theme 'tron-legacy t))
 
+  ;; (use-package kaolin-themes
+  ;;   :ensure t
+  ;;   :config
+  ;;   (load-theme 'kaolin-light t))
+
+
   ;; has undersocre issus
   ;; (use-package solarized-theme
   ;;   :ensure t
@@ -1003,6 +1009,7 @@ Add flycheck support.
   (setq org-src-window-setup 'current-window)
   (use-package org
     :ensure t
+    :diminish org-indent-mode
     :config
     (setq org-ellipsis " ▾")
     (add-hook 'org-mode-hook (lambda ()
@@ -1101,6 +1108,7 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
 #+begin_src emacs-lisp
   (use-package org-roam
     :ensure t
+    :diminish org-roam-mode
     :hook
     (after-init . org-roam-mode)
     :custom
