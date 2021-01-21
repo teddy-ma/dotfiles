@@ -341,17 +341,28 @@ Suggest next keys to me based on currently entered key combination.
 中文与外文字体设置, 不同系统不同设置
 
 #+begin_src emacs-lisp
-  (setq fonts
-        (cond ((eq system-type 'darwin)     '("Monaco"    "STHeiti"))
-              ((eq system-type 'gnu/linux)  '("Menlo"     "WenQuanYi Zen Hei"))
-              ((eq system-type 'windows-nt) '("Consolas"  "Microsoft Yahei"))))
-  (set-face-attribute 'default nil :font
-                      (format "%s:pixelsize=%d" (car fonts) 14))
+  (when (eq system-type 'darwin)
+    (setq fonts '("Monaco" "STKaiti"))
+    (set-face-attribute 'default nil :font
+                        (format "%s:pixelsize=%d" (car fonts) 15))
+    (setq face-font-rescale-alist '(("STKaiti". 1.2))))
+
+  (when (eq system-type 'windows-nt)
+    (setq fonts '("Inconsolata" "华文楷体"))
+    (set-face-attribute 'default nil :font
+                        (format "%s:pixelsize=%d" (car fonts) 20))
+    (setq face-font-rescale-alist '(("华文楷体". 1.0))))
+
+  (when (eq system-type 'gnu/linux)
+    (setq fonts '("Inconsolata" "STKaiti"))
+    (set-face-attribute 'default nil :font
+                        (format "%s:pixelsize=%d" (car fonts) 18))
+    (setq face-font-rescale-alist '(("STKaiti". 1.0))))
+
   (dolist (charset '(kana han symbol cjk-misc bopomofo))
     (set-fontset-font (frame-parameter nil 'font) charset
                       (font-spec :family (car (cdr fonts)))))
-  ;; Fix chinese font width and rescale
-  (setq face-font-rescale-alist '(("Microsoft Yahei" . 1.2) ("WenQuanYi Micro Hei Mono" . 1.2) ("STHeiti". 1.2)))
+
 #+end_src
 
 Add emoji support. This is useful when working with html.
