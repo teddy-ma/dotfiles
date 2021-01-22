@@ -41,6 +41,10 @@ EOBUNDLES
 antigen apply
 # ================= antigen config end ===================
 
+# start starship
+eval "$(starship init zsh)"
+ 
+# RPROMPT="[%D{%y/%m/%f}|%@]"
 # ignore duplicate commands, ignore commands starting with a space
 export HISTCONTROL=erasedups:ignorespace
 # keep the last 20000 entries
