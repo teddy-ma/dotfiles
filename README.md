@@ -15,8 +15,9 @@ ln -s ~/ownCloud/Config/id_rsa ~/.ssh/id_rsa
 ln -s ~/ownCloud/Config/id_rsa.pub ~/.ssh/id_rsa.pub
 
 cd ~
-git clone git@github.com:teddy-ma/dotfiles.git
+git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d
 git clone https://github.com/zsh-users/antigen.git .antigen
+
 cd dotfiles
 sh install-mac.sh
 

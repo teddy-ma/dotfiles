@@ -72,6 +72,15 @@ By default Emacs doesn't read from the same environment variables set in your te
   (scroll-bar-mode -1)
   (menu-bar-mode -1)
 #+end_src
+
+#+begin_src emacs-lisp
+  (when (eq system-type 'darwin)
+    (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+    (add-to-list 'default-frame-alist '(ns-appearance . dark))
+    (setq ns-use-proxy-icon  nil)
+    (setq frame-title-format nil)
+    )
+#+end_src
 *** Helpful
 #+begin_src emacs-lisp
   (use-package helpful
@@ -336,6 +345,19 @@ Suggest next keys to me based on currently entered key combination.
     :config
     (eshell-git-prompt-use-theme 'powerline))
 #+end_src
+** meta key
+#+begin_src emacs-lisp
+  (when (eq system-type 'darwin)
+    (setq mac-command-modifier 'meta
+          mac-option-modifier 'meta)
+    )
+
+  (when (eq system-type 'gnu/linux)
+    ;; (setq  x-meta-keysym 'super
+    ;;       x-super-keysym 'meta)
+    )
+
+#+end_src
 * Appearance
 ** Font
 中文与外文字体设置, 不同系统不同设置
@@ -376,7 +398,6 @@ Add emoji support. This is useful when working with html.
 #+BEGIN_SRC emacs-lisp
   (use-package all-the-icons)
 #+END_SRC
-
 
 ** Mode Line
 It's hard to customize mode line...
@@ -894,6 +915,11 @@ Web beautify prettifies html / css / js using js-beautify - install with =npm in
   (use-package yaml-mode
     :ensure t)
 #+end_src
+** Toml
+#+begin_src emacs-lisp
+  (use-package toml-mode
+    :ensure t)
+#+end_src
 ** Markdown
 Markdown support isn't built into Emacs, add it with =markdown-mode=.
 #+begin_src emacs-lisp
@@ -1183,3 +1209,12 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
     (("M-j" . pyim-convert-code-at-point) ;与 pyim-probe-dynamic-english 配合
      ("M-;" . pyim-delete-word-from-personal-buffer)))
 #+end_src
+** PlantUML
+#+BEGIN_SRC emacs-lisp
+  (when (eq system-type 'darwin)
+    (use-package plantuml-mode)
+    (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+    ;; brew install plantuml
+    (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2018.8/libexec/plantuml.jar")
+    )
+#+END_SRC
