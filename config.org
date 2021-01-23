@@ -1203,10 +1203,10 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
 #+end_src
 ** PlantUML
 #+BEGIN_SRC emacs-lisp
-  (when (eq system-type 'darwin)
-    (use-package plantuml-mode)
-    (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
-    ;; brew install plantuml
-    (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2018.8/libexec/plantuml.jar")
-    )
+    (when (eq system-type 'darwin)
+      (use-package plantuml-mode
+        :ensure t)
+      (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+      ;; brew install plantuml
+      (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2021.0/libexec/plantuml.jar"))
 #+END_SRC
