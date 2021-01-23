@@ -1,6 +1,6 @@
 # dotfiles
 
-这是我的 `dotfiles`, 使用 Emacs 进行管理
+这是我的 `dotfiles`, 使用 [stow](https://www.gnu.org/software/stow/) 管理
 
 ## macOS
 
@@ -18,6 +18,12 @@ cd ~
 git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d
 git clone https://github.com/zsh-users/antigen.git .antigen
 
+cd dotfiles
+sh install-mac.sh
+
+cd homebrew
+brew bundle
+
 ln -s ~/ownCloud/Config/pyim ~/.emacs.d
 ln -s ~/ownCloud/Config/snippets ~/.emacs.d
 ```
@@ -34,22 +40,11 @@ ln -s ~/ownCloud/Config/id_rsa ~/.ssh/id_rsa
 ln -s ~/ownCloud/Config/id_rsa.pub ~/.ssh/id_rsa.pub
 
 cd ~
-git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d
+git clone git@github.com:teddy-ma/dotfiles.git
 git clone https://github.com/zsh-users/antigen.git .antigen
+cd dotfiles
+sh install-linux.sh
 
 ln -s ~/ownCloud/Config/pyim ~/.emacs.d
 ln -s ~/ownCloud/Config/snippets ~/.emacs.d
 ```
-
-## 生成配置
-
-启动 Emacs 并等待安装完成，使用 `C-c i` 打开 `dotfiles.org`, 使用 `C-c C-v t` 生成所有配置文件。
-
-macOS 用户可以执行
-
-```shell
-cd /tmp
-brew bundle
-```
-
-安装常用软件
