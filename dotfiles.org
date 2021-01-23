@@ -933,12 +933,12 @@ shell 我用 zsh, 使用 antigen, 和 starship 配置
   export LC_ALL=en_US.UTF-8
   # 全部使用 utf-8
 
-  if [ -d "$HOME/.antigen" ]; then
-     source ~/.antigen/antigen.zsh
+  if [ -f "$HOME/.antigen/antigen.zsh" ]; then
+  source ~/.antigen/antigen.zsh
   fi
 
-  if [ -d "/usr/local/share/antigen" ]; then
-     source /usr/local/share/antigen/antigen.zsh
+  if [ -f "/usr/local/share/antigen/antigen.zsh" ]; then
+  source /usr/local/share/antigen/antigen.zsh
   fi
 
   antigen use oh-my-zsh
@@ -949,25 +949,24 @@ shell 我用 zsh, 使用 antigen, 和 starship 配置
   # Command execution time stamp shown in the history command output.
   HIST_STAMPS="mm/dd/yyyy"
 
-  antigen bundle mafredri/zsh-async
+  antigen bundle command-not-found
+  antigen bundle extract
+  antigen bundle gem
+  antigen bundle git
+  antigen bundle git-extras
+  antigen bundle history
+  antigen bundle colored-man-pages
+  antigen bundle sudo
+  antigen bundle npm
+  antigen bundle vundle
 
-  antigen bundles <<EOBUNDLES
-      command-not-found
-      extract
-      gem
-      git
-      git-extras
-      history
-      colored-man-pages
-      sudo
-      npm
-      vundle
-      zsh-users/zsh-syntax-highlighting
-      zsh-users/zsh-history-substring-search
-      zsh-users/zsh-completions
-      zsh-users/zsh-autosuggestions
-      t413/zsh-background-notify
-  EOBUNDLES
+  antigen bundle zsh-users/zsh-syntax-highlighting
+  antigen bundle zsh-users/zsh-history-substring-search
+  antigen bundle zsh-users/zsh-completions
+  antigen bundle zsh-users/zsh-autosuggestions
+
+  antigen bundle mafredri/zsh-async
+  antigen bundle t413/zsh-background-notify
 
   # Tell antigen that you're done.
   antigen apply
@@ -983,7 +982,7 @@ shell 我用 zsh, 使用 antigen, 和 starship 配置
   export HISTSIZE=20000
 
   if [ -d "$HOME/ownCloud/Config" ]; then
-    export HISTFILE="$HOME/ownCloud/Config/zsh_history"
+  export HISTFILE="$HOME/ownCloud/Config/zsh_history"
   fi
 
   export PATH="$HOME/.cargo/bin:$PATH"
