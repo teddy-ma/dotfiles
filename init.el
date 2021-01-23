@@ -5,4 +5,4 @@
 ;; You may delete these explanatory comments.
 
 (org-babel-load-file "~/.emacs.d/config.org")
-(org-babel-load-file "~/.emacs.d/config-platform.org")
+;;(org-babel-load-file "~/.emacs.d/config-platform.org")

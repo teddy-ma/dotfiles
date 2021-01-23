@@ -9,12 +9,17 @@
     "Edit config.org"
     (interactive)
     (find-file "~/.emacs.d/config.org"))
+  (defun find-dotfiles ()
+    "Edit dotfiles.org"
+    (interactive)
+    (find-file "~/.emacs.d/dotfiles.org"))
   (defun reload-config()
     "Reload config.org"
     (interactive)
     (delete-file "~/.emacs.d/config.el") ;; hotfix, manually delete old config.el file
     (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
 
+  (global-set-key (kbd "C-c i") 'find-dotfiles)
   (global-set-key (kbd "C-c I") 'find-config)
   (global-set-key (kbd "C-c R") 'reload-config)
 #+end_src
@@ -71,6 +76,15 @@ By default Emacs doesn't read from the same environment variables set in your te
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (menu-bar-mode -1)
+#+end_src
+
+#+begin_src emacs-lisp
+  (when (eq system-type 'darwin)
+    (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+    (add-to-list 'default-frame-alist '(ns-appearance . dark))
+    (setq ns-use-proxy-icon  nil)
+    (setq frame-title-format nil)
+    )
 #+end_src
 *** Helpful
 #+begin_src emacs-lisp
@@ -291,23 +305,6 @@ Suggest next keys to me based on currently entered key combination.
     (global-set-key (kbd "C->") 'mc/mark-next-like-this)
     (global-set-key (kbd "C-<") 'mc/mark-previous-like-this))
 #+end_src
-** Posframe
-#+begin_src emacs-lisp
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; (use-package ivy-posframe                                                                      ;;
-  ;;   :ensure t                                                                                    ;;
-  ;;   :after ivy                                                                                   ;;
-  ;;   :diminish                                                                                    ;;
-  ;;   :custom-face                                                                                 ;;
-  ;;   (ivy-posframe-border ((t (:background "#ffffff"))))                                          ;;
-  ;;   :config                                                                                      ;;
-  ;;   (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)) ;;
-  ;;         ivy-posframe-height-alist '((t . 20))                                                  ;;
-  ;;         ivy-posframe-parameters '((internal-border-width . 10)))                               ;;
-  ;;   (setq ivy-posframe-width 70)                                                                 ;;
-  ;;   (ivy-posframe-mode +1))                                                                      ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-#+end_src
 ** Ace window
 #+begin_src emacs-lisp
   (use-package ace-window
@@ -335,6 +332,19 @@ Suggest next keys to me based on currently entered key combination.
     :ensure t
     :config
     (eshell-git-prompt-use-theme 'powerline))
+#+end_src
+** meta key
+#+begin_src emacs-lisp
+  (when (eq system-type 'darwin)
+    (setq mac-command-modifier 'meta
+          mac-option-modifier 'meta)
+    )
+
+  (when (eq system-type 'gnu/linux)
+    ;; (setq  x-meta-keysym 'super
+    ;;       x-super-keysym 'meta)
+    )
+
 #+end_src
 * Appearance
 ** Font
@@ -371,13 +381,19 @@ Add emoji support. This is useful when working with html.
     :ensure t)
 #+end_src
 
-** Pretty icons
+** Emoji and icons
 ;; MUST Run M-x all-the-icons-install-fonts
 #+BEGIN_SRC emacs-lisp
-  (use-package all-the-icons)
+  (use-package all-the-icons
+    :ensure t)
 #+END_SRC
 
-
+#+begin_src emacs-lisp
+  (set-fontset-font t 'symbol "Apple Color Emoji")
+  (set-fontset-font t 'symbol "Noto Color Emoji" nil 'append)
+  (set-fontset-font t 'symbol "Segoe UI Emoji" nil 'append)
+  (set-fontset-font t 'symbol "Symbola" nil 'append)
+#+end_src
 ** Mode Line
 It's hard to customize mode line...
 
@@ -894,6 +910,11 @@ Web beautify prettifies html / css / js using js-beautify - install with =npm in
   (use-package yaml-mode
     :ensure t)
 #+end_src
+** Toml
+#+begin_src emacs-lisp
+  (use-package toml-mode
+    :ensure t)
+#+end_src
 ** Markdown
 Markdown support isn't built into Emacs, add it with =markdown-mode=.
 #+begin_src emacs-lisp
@@ -933,7 +954,9 @@ Completion is via =ghc-mod= / =company=. Install the former separately with =cab
     :ensure t
     :config
     (add-hook 'haskell-mode-hook (lambda () (ghc-init))))
+
   (use-package company-ghc
+    :ensure t
     :config
     (add-to-list 'company-backends 'company-ghc))
 #+end_src
@@ -1183,3 +1206,12 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
     (("M-j" . pyim-convert-code-at-point) ;与 pyim-probe-dynamic-english 配合
      ("M-;" . pyim-delete-word-from-personal-buffer)))
 #+end_src
+** PlantUML
+#+BEGIN_SRC emacs-lisp
+    (when (eq system-type 'darwin)
+      (use-package plantuml-mode
+        :ensure t)
+      (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+      ;; brew install plantuml
+      (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2021.0/libexec/plantuml.jar"))
+#+END_SRC
