@@ -9,12 +9,17 @@
     "Edit config.org"
     (interactive)
     (find-file "~/.emacs.d/config.org"))
+  (defun find-dotfiles ()
+    "Edit dotfiles.org"
+    (interactive)
+    (find-file "~/.emacs.d/dotfiles.org"))
   (defun reload-config()
     "Reload config.org"
     (interactive)
     (delete-file "~/.emacs.d/config.el") ;; hotfix, manually delete old config.el file
     (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
 
+  (global-set-key (kbd "C-c i") 'find-dotfiles)
   (global-set-key (kbd "C-c I") 'find-config)
   (global-set-key (kbd "C-c R") 'reload-config)
 #+end_src

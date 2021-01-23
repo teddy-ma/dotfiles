@@ -1,0 +1,2602 @@
+#+title: dotfile
+我的 (Literate) Dotfiles
+
+* README
+生成 README.md
+
+#+begin_src markdown :tangle ~/.emacs.d/README.md :mkdirp "yes"
+# dotfiles
+
+这是我的 `dotfiles`, 使用 [stow](https://www.gnu.org/software/stow/) 管理
+
+## macOS
+
+macOS 主要依赖 [thoughtbot 的 laptop](https://github.com/thoughtbot/laptop) 脚本进行初始化，然后配合 ownCloud 上储存的私有配置文件完成配置。
+
+```shell
+curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/mac
+sh mac 2>&1 | tee ~/laptop.log
+brew cask install owncloud
+brew install stow
+ln -s ~/ownCloud/Config/id_rsa ~/.ssh/id_rsa
+ln -s ~/ownCloud/Config/id_rsa.pub ~/.ssh/id_rsa.pub
+
+cd ~
+git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d
+git clone https://github.com/zsh-users/antigen.git .antigen
+
+cd dotfiles
+sh install-mac.sh
+
+cd homebrew
+brew bundle
+
+ln -s ~/ownCloud/Config/pyim ~/.emacs.d
+ln -s ~/ownCloud/Config/snippets ~/.emacs.d
+```
+
+## Linux
+
+Linux 下只需要安装几个最基础的包，就可以进入 stow 开始配置了。
+
+```shell
+sudo pacman -Syu git zsh ttf-inconsolata ttf-arphic-uming
+
+chsh -s /bin/zsh
+ln -s ~/ownCloud/Config/id_rsa ~/.ssh/id_rsa
+ln -s ~/ownCloud/Config/id_rsa.pub ~/.ssh/id_rsa.pub
+
+cd ~
+git clone git@github.com:teddy-ma/dotfiles.git
+git clone https://github.com/zsh-users/antigen.git .antigen
+cd dotfiles
+sh install-linux.sh
+
+ln -s ~/ownCloud/Config/pyim ~/.emacs.d
+ln -s ~/ownCloud/Config/snippets ~/.emacs.d
+```
+
+#+end_src
+
+* Git
+** basic
+基础配置
+
+#+begin_src conf :tangle ~/.gitconfig
+  [include]
+          path = ~/.config/git/gitconfig
+  [push]
+          default = simple
+  [core]
+          excludesfile = ~/.gitignore_global
+  [commit]
+          template = ~/.gitmessage
+  [protocol]
+          version = 2
+  [pager]
+          branch = false
+  [user]
+          name = teddy
+          email = mlc880926@gmail.com
+#+end_src
+
+** global ignore
+全局的 ignore 配置
+
+#+begin_src conf :tangle ~/.gitignore_global
+#############################################################################
+# https://github.com/github/gitignore/blob/master/Global/Archives.gitignore #
+#############################################################################
+# It's better to unpack these files and commit the raw source because
+# git has its own built in compression methods.
+*.7z
+*.jar
+*.rar
+*.zip
+*.gz
+*.bzip
+*.bz2
+*.xz
+*.lzma
+*.cab
+
+#packing-only formats
+*.iso
+*.tar
+
+#package management formats
+*.dmg
+*.xpi
+*.gem
+*.egg
+*.deb
+*.rpm
+*.msi
+*.msm
+*.msp
+###########################################################################
+# https://github.com/github/gitignore/blob/master/Global/Cloud9.gitignore #
+###########################################################################
+# Cloud9 IDE - http://c9.io
+.c9revisions
+.c9
+############################################################################
+# https://github.com/github/gitignore/blob/master/Global/CodeKit.gitignore #
+############################################################################
+# General CodeKit files to ignore
+config.codekit
+/min
+##########################################################################
+# https://github.com/github/gitignore/blob/master/Global/Emacs.gitignore #
+##########################################################################
+# -*- mode: gitignore; -*-
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Org-mode
+.org-id-locations
+*_archive
+
+# flymake-mode
+*_flymake.*
+
+# eshell files
+/eshell/history
+/eshell/lastdir
+
+# elpa packages
+/elpa/
+
+# reftex files
+*.rel
+
+# AUCTeX auto folder
+/auto/
+
+# cask packages
+.cask/
+####################################################################################
+# https://github.com/github/gitignore/blob/master/Global/IPythonNotebook.gitignore #
+####################################################################################
+# Temporary data
+.ipynb_checkpoints/
+##############################################################################
+# https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore #
+##############################################################################
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
+
+*.iml
+
+## Directory-based project format:
+.idea/
+# if you remove the above rule, at least ignore the following:
+
+# User-specific stuff:
+# .idea/workspace.xml
+# .idea/tasks.xml
+# .idea/dictionaries
+
+# Sensitive or high-churn files:
+# .idea/dataSources.ids
+# .idea/dataSources.xml
+# .idea/sqlDataSources.xml
+# .idea/dynamic.xml
+# .idea/uiDesigner.xml
+
+# Gradle:
+# .idea/gradle.xml
+# .idea/libraries
+
+# Mongo Explorer plugin:
+# .idea/mongoSettings.xml
+
+## File-based project format:
+*.ipr
+*.iws
+
+## Plugin-specific files:
+
+# IntelliJ
+out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+################################################################################
+# https://github.com/github/gitignore/blob/master/Global/LibreOffice.gitignore #
+################################################################################
+# LibreOffice locks
+.~lock.*#
+##########################################################################
+# https://github.com/github/gitignore/blob/master/Global/Linux.gitignore #
+##########################################################################
+*~
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+####################################################################################
+# https://github.com/github/gitignore/blob/master/Global/MicrosoftOffice.gitignore #
+####################################################################################
+*.tmp
+
+# Word temporary
+~$*.doc*
+
+# Excel temporary
+~$*.xls*
+
+# Excel Backup File
+*.xlk
+##############################################################################
+# https://github.com/github/gitignore/blob/master/Global/NotepadPP.gitignore #
+##############################################################################
+# Notepad++ backups #
+*.bak
+########################################################################
+# https://github.com/github/gitignore/blob/master/Global/OSX.gitignore #
+########################################################################
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+##########################################################################
+# https://github.com/github/gitignore/blob/master/Global/Redis.gitignore #
+##########################################################################
+# Ignore redis binary dump (dump.rdb) files
+
+*.rdb
+################################################################################
+# https://github.com/github/gitignore/blob/master/Global/SublimeText.gitignore #
+################################################################################
+# cache files for sublime text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+
+# workspace files are user-specific
+*.sublime-workspace
+
+# project files should be checked into the repository, unless a significant
+# proportion of contributors will probably not be using SublimeText
+# *.sublime-project
+
+# sftp configuration file
+sftp-config.json
+#############################################################################
+# https://github.com/github/gitignore/blob/master/Global/TextMate.gitignore #
+#############################################################################
+*.tmproj
+*.tmproject
+tmtags
+########################################################################
+# https://github.com/github/gitignore/blob/master/Global/Vim.gitignore #
+########################################################################
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+############################################################################
+# https://github.com/github/gitignore/blob/master/Global/Windows.gitignore #
+############################################################################
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+##########################################################################
+# https://github.com/github/gitignore/blob/master/Global/Xcode.gitignore #
+##########################################################################
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.xcuserstate
+###################################################
+# EXCERPT https://gist.github.com/octocat/9257657 #
+###################################################
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Logs and databases #
+######################
+*.sql
+*.sqlite
+*.log
+############
+# PERSONAL #
+############
+tmp/
+temp/
+
+# Floobits
+.floo
+.flooignore
+
+#+end_src
+** git message
+git 提交信息的格式模板
+
+#+begin_src conf :tangle ~/.gitmessage
+Why:
+
+*
+
+This change addresses the need by:
+
+*
+
+# 50-character subject line
+#
+# 72-character wrapped longer description.
+#+end_src
+** custom
+macOS can use diff-so-fancy
+
+#+begin_src conf :tangle (when (eq system-type 'darwin) "~/.gitconfig")
+[pager]
+    diff = diff-so-fancy | less --tabs=1,5 -RFX
+    show = diff-so-fancy | less --tabs=1,5 -RFX<Paste>
+#+end_src
+
+* homebrew
+常用的软件都列在这里了
+
+#+begin_src conf
+tap "d12frosted/emacs-plus"
+tap "heroku/brew"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-drivers"
+tap "homebrew/cask-fonts"
+tap "homebrew/core"
+tap "homebrew/services"
+tap "thoughtbot/formulae"
+tap "universal-ctags/universal-ctags"
+brew "openssl@1.1"
+brew "asciinema"
+brew "autojump"
+brew "bat"
+brew "clisp"
+brew "cloc"
+brew "cmake"
+brew "coreutils"
+brew "ctags", link: false
+brew "diff-so-fancy"
+brew "erlang"
+brew "exa"
+brew "ffmpeg"
+brew "fswatch"
+brew "fx"
+brew "fzy"
+brew "geckodriver"
+brew "gh"
+brew "git"
+brew "git-delta"
+brew "git-quick-stats"
+brew "openjdk"
+brew "gradle"
+brew "graphviz"
+brew "gsl"
+brew "htop"
+brew "httpie"
+brew "hub"
+brew "iftop"
+brew "imagemagick"
+brew "jq"
+brew "memcached"
+brew "mysql", restart_service: true
+brew "ncdu"
+brew "neofetch"
+brew "neovim"
+brew "onefetch"
+brew "pandoc"
+brew "percol"
+brew "pfetch"
+brew "poppler"
+brew "postgresql", restart_service: true
+brew "prettyping"
+brew "pstree"
+brew "reattach-to-user-namespace"
+brew "redis", restart_service: true
+brew "ripgrep"
+brew "rustup-init"
+brew "sbcl"
+brew "speedtest-cli"
+brew "splint"
+brew "stow"
+brew "svn"
+brew "terminal-notifier"
+brew "the_silver_searcher"
+brew "tig"
+brew "tldr"
+brew "tmux"
+brew "tree"
+brew "typespeed"
+brew "vim"
+brew "w3m"
+brew "watchman"
+brew "wget"
+brew "wtfutil"
+brew "yarn"
+brew "you-get"
+brew "youtube-dl"
+brew "zsh"
+brew "heroku/brew/heroku"
+brew "thoughtbot/formulae/parity"
+brew "thoughtbot/formulae/rcm"
+brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
+cask "balenaetcher"
+cask "chromium"
+cask "clashx"
+cask "emacs"
+cask "firefox"
+cask "font-cascadia-code"
+cask "font-hack-nerd-font"
+cask "font-noto-sans-mono"
+cask "font-source-code-pro"
+cask "font-source-code-pro-for-powerline"
+cask "gitup"
+cask "google-chrome"
+cask "gpg-suite"
+cask "hammerspoon"
+cask "iina"
+cask "intellij-idea-ce"
+cask "owncloud"
+cask "slack"
+cask "steam"
+cask "tableplus"
+cask "telegram"
+cask "visual-studio-code"
+cask "zoomus"
+cask "feishu"
+#+end_src
+* Neovim
+不太用 vim, 只有最基本的配置
+
+#+begin_src conf :tangle ~/.config/nvim/init.vim :mkdirp "yes"
+" Douglas Black
+" Colors {{{
+syntax enable           " enable syntax processing
+" }}}
+" Misc {{{
+set ttyfast                     " faster redraw
+set backspace=indent,eol,start
+" }}}
+" Spaces & Tabs {{{
+set tabstop=4           " 4 space tab
+set expandtab           " use spaces for tabs
+set softtabstop=4       " 4 space tab
+set shiftwidth=4
+set modelines=1
+filetype indent on
+filetype plugin on
+set autoindent
+" }}}
+" UI Layout {{{
+set number              " show line numbers
+set showcmd             " show command in bottom bar
+set nocursorline          " highlight current line
+set wildmenu
+"set lazyredraw
+set showmatch           " higlight matching parenthesis
+" }}}
+" Searching {{{
+set ignorecase          " ignore case when searching
+set incsearch           " search as characters are entered
+set hlsearch            " highlight all matches
+" }}}
+" Folding {{{
+"=== folding ===
+set foldmethod=indent   " fold based on indent level
+set foldnestmax=10      " max 10 depth
+set foldenable          " don't fold files by default on open
+nnoremap <space> za
+set foldlevelstart=10    " start with fold level of 1
+" }}}
+" Line Shortcuts {{{
+nnoremap j gj
+nnoremap k gk
+nnoremap B ^
+nnoremap E $
+nnoremap $ <nop>
+nnoremap ^ <nop>
+nnoremap gV `[v`]
+onoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
+xnoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
+onoremap in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
+xnoremap in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
+
+onoremap al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
+xnoremap al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
+onoremap il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
+xnoremap il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
+" }}}
+" Leader Shortcuts {{{
+let mapleader=","
+nnoremap <leader>m :silent make\|redraw!\|cw<CR>
+nnoremap <leader>w :NERDTree<CR>
+nnoremap <leader>u :GundoToggle<CR>
+nnoremap <leader>h :A<CR>
+nnoremap <leader>ev :vsp $MYVIMRC<CR>
+nnoremap <leader>ez :vsp ~/.zshrc<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>l :call ToggleNumber()<CR>
+nnoremap <leader><space> :noh<CR>
+nnoremap <leader>s :mksession<CR>
+nnoremap <leader>a :Ag
+nnoremap <leader>c :SyntasticCheck<CR>:Errors<CR>
+nnoremap <leader>1 :set number!<CR>
+nnoremap <leader>d :Make!
+nnoremap <leader>r :call RunTestFile()<CR>
+nnoremap <leader>g :call RunGoFile()<CR>
+vnoremap <leader>y "+y
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+inoremap jk <esc>
+" }}}
+" Powerline {{{
+"set encoding=utf-8
+"python from powerline.vim import setup as powerline_setup
+"python powerline_setup()
+"python del powerline_setup
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+set laststatus=2
+" }}}
+" CtrlP {{{
+let g:ctrlp_match_window = 'bottom,order:ttb'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_custom_ignore = '\vbuild/|dist/|venv/|target/|\.(o|swp|pyc|egg)$'
+" }}}
+" NERDTree {{{
+let NERDTreeIgnore = ['\.pyc$', 'build', 'venv', 'egg', 'egg-info/', 'dist', 'docs']
+" }}}
+" Syntastic {{{
+let g:syntastic_python_flake8_args='--ignore=E501'
+let g:syntastic_ignore_files = ['.java$']
+" }}}
+" Launch Config {{{
+runtime! debian.vim
+set nocompatible
+" }}}
+"" Tmux {{{
+"if exists('$TMUX') " allows cursor change in tmux mode
+"    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+"    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+"else
+"    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+"    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+"endif
+"" }}}
+" MacVim {{{
+set guioptions-=r
+set guioptions-=L
+" }}}
+" AutoGroups {{{
+augroup configgroup
+    autocmd!
+    autocmd VimEnter * highlight clear SignColumn
+    autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.rb :call <SID>StripTrailingWhitespaces()
+    autocmd BufEnter *.cls setlocal filetype=java
+    autocmd BufEnter *.zsh-theme setlocal filetype=zsh
+    autocmd BufEnter Makefile setlocal noexpandtab
+    autocmd BufEnter *.sh setlocal tabstop=2
+    autocmd BufEnter *.sh setlocal shiftwidth=2
+    autocmd BufEnter *.sh setlocal softtabstop=2
+augroup END
+" }}}
+" Backups {{{
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupskip=/tmp/*,/private/tmp/*
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set writebackup
+" }}}
+" Custom Functions {{{
+function! ToggleNumber()
+    if(&relativenumber == 1)
+        set norelativenumber
+        set number
+    else
+        set relativenumber
+    endif
+endfunc
+
+function! RunTestFile()
+    if(&ft=='python')
+        exec ":!" . ". venv/bin/activate; nosetests " .bufname('%') . " --stop"
+    endif
+endfunction
+
+function! RunGoFile()
+    if(&ft=='go')
+        exec ":new|0read ! go run " . bufname('%')
+    endif
+endfunction
+
+function! RunTestsInFile()
+    if(&ft=='php')
+        :execute "!" . "/Users/dblack/pear/bin/phpunit -d memory_limit=512M -c /usr/local/twilio/src/php/tests/config.xml --bootstrap /usr/local/twilio/src/php/tests/bootstrap.php " . bufname('%') . ' \| grep -v Configuration \| egrep -v "^$" '
+    elseif(&ft=='go')
+        exec ":!gp test"
+    elseif(&ft=='python')
+        exec ":read !" . ". venv/bin/activate; nosetests " . bufname('%') . " --nocapture"
+    endif
+endfunction
+
+" strips trailing whitespace at the end of files. this
+" is called on buffer write in the autogroup above.
+function! <SID>StripTrailingWhitespaces()
+    " save last search & cursor position
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    let @/=_s
+    call cursor(l, c)
+endfunction
+
+function! <SID>CleanFile()
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %!git stripspace
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+
+function! s:NextTextObject(motion, dir)
+  let c = nr2char(getchar())
+
+  if c ==# "b"
+      let c = "("
+  elseif c ==# "B"
+      let c = "{"
+  elseif c ==# "r"
+      let c = "["
+  endif
+
+  exe "normal! ".a:dir.c."v".a:motion.c
+endfunction
+" }}}
+
+" vim:foldmethod=marker:foldlevel=0
+#+end_src
+
+* psql
+postgresql 数据库客户端的配置
+
+** cli
+#+begin_src conf :tangle ~/.config/pgcli/config :mkdirp "yes"
+# vi: ft=dosini
+[main]
+
+# Enables context sensitive auto-completion. If this is disabled the all
+# possible completions will be listed.
+smart_completion = True
+
+# Display the completions in several columns. (More completions will be
+# visible.)
+wider_completion_menu = False
+
+# Multi-line mode allows breaking up the sql statements into multiple lines. If
+# this is set to True, then the end of the statements must have a semi-colon.
+# If this is set to False then sql statements can't be split into multiple
+# lines. End of line (return) is considered as the end of the statement.
+multi_line = False
+
+# If multi_line_mode is set to "psql", in multi-line mode, [Enter] will execute
+# the current input if the input ends in a semicolon.
+# If multi_line_mode is set to "safe", in multi-line mode, [Enter] will always
+# insert a newline, and [Esc] [Enter] or [Alt]-[Enter] must be used to execute
+# a command.
+multi_line_mode = psql
+
+# Enables expand mode, which is similar to `\x` in psql.
+expand = False
+
+# Enables auto expand mode, which is similar to `\x auto` in psql.
+auto_expand = False
+
+# If set to True, table suggestions will include a table alias
+generate_aliases = False
+
+# log_file location.
+# In Unix/Linux: ~/.config/pgcli/log
+# In Windows: %USERPROFILE%\AppData\Local\dbcli\pgcli\log
+# %USERPROFILE% is typically C:\Users\{username}
+log_file = default
+
+# keyword casing preference. Possible values "lower", "upper", "auto"
+keyword_casing = auto
+
+# casing_file location.
+# In Unix/Linux: ~/.config/pgcli/casing
+# In Windows: %USERPROFILE%\AppData\Local\dbcli\pgcli\casing
+# %USERPROFILE% is typically C:\Users\{username}
+casing_file = default
+
+# If generate_casing_file is set to True and there is no file in the above
+# location, one will be generated based on usage in SQL/PLPGSQL functions.
+generate_casing_file = False
+
+# Casing of column headers based on the casing_file described above
+case_column_headers = True
+
+# history_file location.
+# In Unix/Linux: ~/.config/pgcli/history
+# In Windows: %USERPROFILE%\AppData\Local\dbcli\pgcli\history
+# %USERPROFILE% is typically C:\Users\{username}
+history_file = default
+
+# Default log level. Possible values: "CRITICAL", "ERROR", "WARNING", "INFO"
+# and "DEBUG". "NONE" disables logging.
+log_level = INFO
+
+# Order of columns when expanding * to column list
+# Possible values: "table_order" and "alphabetic"
+asterisk_column_order = table_order
+
+# Whether to qualify with table alias/name when suggesting columns
+# Possible values: "always", never" and "if_more_than_one_table"
+qualify_columns = if_more_than_one_table
+
+# When no schema is entered, only suggest objects in search_path
+search_path_filter = False
+
+# Default pager.
+# By default 'PAGER' environment variable is used
+# pager = less -SRXF
+
+# Timing of sql statments and table rendering.
+timing = True
+
+# Table format. Possible values: psql, plain, simple, grid, fancy_grid, pipe,
+# ascii, double, github, orgtbl, rst, mediawiki, html, latex, latex_booktabs,
+# textile, moinmoin, jira, vertical, tsv, csv.
+# Recommended: psql, fancy_grid and grid.
+table_format = psql
+
+# Syntax Style. Possible values: manni, igor, xcode, vim, autumn, vs, rrt,
+# native, perldoc, borland, tango, emacs, friendly, monokai, paraiso-dark,
+# colorful, murphy, bw, pastie, paraiso-light, trac, default, fruity
+syntax_style = default
+
+# Keybindings:
+# When Vi mode is enabled you can use modal editing features offered by Vi in the REPL.
+# When Vi mode is disabled emacs keybindings such as Ctrl-A for home and Ctrl-E
+# for end are available in the REPL.
+vi = False
+
+# Error handling
+# When one of multiple SQL statements causes an error, choose to either
+# continue executing the remaining statements, or stopping
+# Possible values "STOP" or "RESUME"
+on_error = STOP
+
+# Set threshold for row limit prompt. Use 0 to disable prompt.
+row_limit = 1000
+
+# Skip intro on startup and goodbye on exit
+less_chatty = False
+
+# Postgres prompt
+# \u - Username
+# \h - Hostname of the server
+# \d - Database name
+# \n - Newline
+prompt = '\u@\h:\d> '
+
+# Number of lines to reserve for the suggestion menu
+min_num_menu_lines = 4
+
+# Character used to left pad multi-line queries to match the prompt size.
+multiline_continuation_char = ''
+
+# The string used in place of a null value.
+null_string = '<null>'
+
+# Custom colors for the completion menu, toolbar, etc.
+[colors]
+Token.Menu.Completions.Completion.Current = 'bg:#ffffff #000000'
+Token.Menu.Completions.Completion = 'bg:#008888 #ffffff'
+Token.Menu.Completions.Meta.Current = 'bg:#44aaaa #000000'
+Token.Menu.Completions.Meta = 'bg:#448888 #ffffff'
+Token.Menu.Completions.MultiColumnMeta = 'bg:#aaffff #000000'
+Token.Menu.Completions.ProgressButton = 'bg:#003333'
+Token.Menu.Completions.ProgressBar = 'bg:#00aaaa'
+Token.SelectedText = '#ffffff bg:#6666aa'
+Token.SearchMatch = '#ffffff bg:#4444aa'
+Token.SearchMatch.Current = '#ffffff bg:#44aa44'
+Token.Toolbar = 'bg:#222222 #aaaaaa'
+Token.Toolbar.Off = 'bg:#222222 #888888'
+Token.Toolbar.On = 'bg:#222222 #ffffff'
+Token.Toolbar.Search = 'noinherit bold'
+Token.Toolbar.Search.Text = 'nobold'
+Token.Toolbar.System = 'noinherit bold'
+Token.Toolbar.Arg = 'noinherit bold'
+Token.Toolbar.Arg.Text = 'nobold'
+Token.Toolbar.Transaction.Valid = 'bg:#222222 #00ff5f bold'
+Token.Toolbar.Transaction.Failed = 'bg:#222222 #ff005f bold'
+
+# Named queries are queries you can execute by name.
+[named queries]
+
+# DNS to call by -D option
+[alias_dsn]
+# example_dsn = postgresql://[user[:password]@][netloc][:port][/dbname]
+
+# Format for number representation
+# for decimal "d" - 12345678, ",d" - 12,345,678
+# for float "g" - 123456.78, ",g" - 123,456.78
+[data_formats]
+decimal = ""
+float = ""
+#+end_src
+** rc
+#+begin_src conf :tangle ~/.psqlrc :mkdirp "yes"
+\set QUIET 1
+\timing
+\set ON_ERROR_ROLLBACK interactive
+\set VERBOSITY verbose
+\x auto
+\set PROMPT1 '%[%033[1m%]%M/%/%R%[%033[0m%]%# '
+\set PROMPT2 ''
+\set HISTFILE ~/.psql_history- :DBNAME
+\set HISTCONTROL ignoredups
+\pset null [null]
+\unset QUIET
+#+end_src
+
+* zsh
+** zshrc
+shell 我用 zsh, 使用 antigen, 和 starship 配置
+
+#+begin_src conf :tangle ~/.zshrc
+export TERM='xterm-256color' # 设置256色
+export EDITOR='vim'
+
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+# 全部使用 utf-8
+
+source ~/.antigen/antigen.zsh
+
+antigen use oh-my-zsh
+
+# Command auto-correction.
+ENABLE_CORRECTION="true"
+
+# Command execution time stamp shown in the history command output.
+HIST_STAMPS="mm/dd/yyyy"
+
+antigen bundle mafredri/zsh-async
+antigen bundle sindresorhus/pure
+
+antigen bundles <<EOBUNDLES
+    command-not-found
+    extract
+    gem
+    git
+    git-extras
+    history
+    colored-man-pages
+    sudo
+    npm
+    vundle
+    zsh-users/zsh-syntax-highlighting
+    zsh-users/zsh-history-substring-search
+    zsh-users/zsh-completions
+    zsh-users/zsh-autosuggestions
+    t413/zsh-background-notify
+EOBUNDLES
+
+# Tell antigen that you're done.
+antigen apply
+# ================= antigen config end ===================
+
+# start starship
+eval "$(starship init zsh)"
+
+# RPROMPT="[%D{%y/%m/%f}|%@]"
+# ignore duplicate commands, ignore commands starting with a space
+export HISTCONTROL=erasedups:ignorespace
+# keep the last 20000 entries
+export HISTSIZE=20000
+
+if [ -d "$HOME/ownCloud/Config" ]; then
+  export HISTFILE="$HOME/ownCloud/Config/zsh_history"
+fi
+
+export PATH="$HOME/.cargo/bin:$PATH"
+export GEM_HOME=$(ruby -e 'print Gem.user_dir')
+export PATH="$GEM_HOME/bin:$PATH"
+export PATH="$(yarn global bin):$PATH"
+#+end_src
+
+macOS 特有配置
+
+#+begin_src conf :tangle :tangle (when (eq system-type 'darwin) "~/.zshrc")
+# bat colorful man page
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# asdf
+. `brew --prefix asdf`/asdf.sh
+
+# alias
+alias vim='/usr/local/bin/nvim' # brew install neovim
+alias ls='/usr/local/bin/exa' # brew install exa
+alias cat='/usr/local/bin/bat' # brew install bat
+alias gita="python3 -m gita" # pip3 install -U gita
+#+end_src
+
+** starship
+#+begin_src toml :tangle ~/.config/starship.toml :mkdirp "yes"
+  # Wait 10 milliseconds for starship to check files under the current directory.
+  scan_timeout = 10
+
+  # Disable the newline at the start of the prompt
+  add_newline = true
+
+  # Replace the "❯" symbol in the prompt with "➜"
+  [character]                            # The name of the module we are configuring is "character"
+  success_symbol = "[➜](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+
+  [ruby]
+  symbol = "🔺 "
+  [git_status]
+  conflicted = "🏳"
+  ahead = "🏎💨"
+  behind = "😰"
+  diverged = "😵"
+  untracked = "🤷‍"
+  stashed = "📦"
+  modified = "📝"
+  staged = '[++\($count\)](green)'
+  renamed = "👅"
+  deleted = "🗑"
+#+end_src
+
+* Xresources
+** 屏幕设置
+#+begin_src conf :tangle :tangle (when (eq system-type 'gnu/linux) "~/.Xresources")
+Xft.dpi:       96
+Xft.antialias: true
+Xft.hinting:   true
+Xft.rgba:      rgb
+Xft.autohint:  false
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
+#+end_src
+
+** XTerm 设置
+
+#+begin_src conf :tangle :tangle (when (eq system-type 'gnu/linux) "~/.Xresources")
+XTerm*background:        #222D31
+XTerm*foreground:        #d8d8d8
+XTerm*pointerColor:      #1ABB9B
+XTerm*faceName:          Fixed
+XTerm*faceSize:          11
+XTerm*reverseVideo:      on
+XTerm*selectToClipboard: true
+#+end_src
+
+** 颜色设置
+#+begin_src conf :tangle :tangle (when (eq system-type 'gnu/linux) "~/.Xresources")
+*background:                      #222D31
+*foreground:                      #d8d8d8
+*fading:                          8
+*fadeColor:                       black
+*cursorColor:                     #1ABB9B
+*pointerColorBackground:          #2B2C2B
+*pointerColorForeground:          #16A085
+
+!! black dark/light
+*color0:                          #222D31
+*color8:                          #585858
+
+!! red dark/light
+*color1:                          #ab4642
+*color9:                          #ab4642
+
+!! green dark/light
+*color2:                          #7E807E
+*color10:                         #8D8F8D
+
+!! yellow dark/light
+*color3:                          #f7ca88
+*color11:                         #f7ca88
+
+!! blue dark/light
+*color4:                          #7cafc2
+*color12:                         #7cafc2
+
+!! magenta dark/light
+*color5:                          #ba8baf
+*color13:                         #ba8baf
+
+!! cyan dark/light
+*color6:                          #1ABB9B
+*color14:                         #1ABB9B
+
+!! white dark/light
+*color7:                          #d8d8d8
+*color15:                         #f8f8f8
+
+Xcursor.theme:                    xcursor-breeze
+Xcursor.size:                     0
+#+end_src
+
+** URxvt 设置
+#+begin_src conf :tangle :tangle (when (eq system-type 'gnu/linux) "~/.Xresources")
+URxvt*font:                       xft:SauceCodePro Nerd Font Mono:pixelsize=21:minspace=False, xft:DejaVu Sans:pixelsize=14, xft:Monaco:style=regular:pixelsize=13:antialias=true,hinting=true, xft:dejavu sans mono:pixelsize=13:antialias=true,hinting=true, xft:Twitter Color Emoji:pixelsize=14, xft:NotoEmoji Nerd Font Mono:pixelsize=14, xft:Symbola
+URxvt*boldFont:                   xft:SauceCodePro Nerd Font Mono:pixelsize=21:minspace=False, xft:DejaVu Sans:pixelsize=14, xft:Monaco:style=regular:pixelsize=13:antialias=true,hinting=true, xft:dejavu sans mono:pixelsize=13:antialias=true,hinting=true
+URxvt*letterSpace:                0
+! alternative font settings with 'terminus':
+! URxvt.font:      -xos4-terminus-medium-r-normal--16-160-72-72-c-80-iso10646-1
+! URxvt.bold.font: -xos4-terminus-bold-r-normal--16-160-72-72-c-80-iso10646-1
+!! terminus names see end of file!
+
+URxvt.depth:                      32
+URxvt.background:                 [100]#222D31
+URxvt*scrollBar:                  false
+URxvt*mouseWheelScrollPage:       false
+URxvt*cursorBlink:                true
+URxvt*background:                 black
+URxvt*foreground:                 grey
+URxvt*saveLines:                  5000
+
+! for 'fake' transparency (without Compton) uncomment the following three lines
+! URxvt*inheritPixmap:            true
+! URxvt*transparent:              true
+! URxvt*shading:                  138
+
+! Normal copy-paste keybindings without perls
+URxvt.iso14755:                   false
+URxvt.keysym.Mod4-v:                 eval:paste_clipboard
+URxvt.keysym.Mod4-c:                 eval:selection_to_clipboard
+URxvt.keysym.Mod4-l:              command:\033c
+URxvt.keysym.Mod4-k:                    echo -ne '\\033c'\n
+
+!Xterm escape codes, word by word movement
+URxvt.keysym.Control-Left:        \033[1;5D
+URxvt.keysym.Shift-Control-Left:  \033[1;6D
+URxvt.keysym.Control-Right:       \033[1;5C
+URxvt.keysym.Shift-Control-Right: \033[1;6C
+URxvt.keysym.Control-Up:          \033[1;5A
+URxvt.keysym.Shift-Control-Up:    \033[1;6A
+URxvt.keysym.Control-Down:        \033[1;5B
+URxvt.keysym.Shift-Control-Down:  \033[1;6B
+#+end_src
+
+* tmux
+** basic
+#+begin_src conf :tangle "~/.tmux.conf")
+# cat << ►_◄ > /dev/null
+# 上面这行可以用来检测特殊字符能否在当前环境被显示
+
+# -- general -------------------------------------------------------------------
+
+setw -g xterm-keys on
+
+set -sg repeat-time 600                   # increase repeat timeout
+
+set -g prefix2 C-a                        # GNU-Screen compatible prefix
+bind C-a send-prefix -2                   # 默认前缀是 c-a
+
+# edit configuration
+bind e new-window -n '~/.tmux.conf' '${EDITOR:-vim} ~/.tmux.conf && tmux source ~/.tmux.conf && tmux display "~/.tmux.conf sourced"'
+
+# see https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard
+if 'which -s reattach-to-user-namespace' 'set -g default-command "tmux rename-window initializing; tmux set -w automatic-rename; reattach-to-user-namespace $SHELL -l"'
+
+# -- display -------------------------------------------------------------------
+
+set -g base-index 1         # start windows numbering at 1
+setw -g pane-base-index 1   # make pane numbering consistent with windows
+
+setw -g automatic-rename on # rename window to reflect current program
+# renumber windows when a window is closed
+set -g renumber-windows on
+
+set -g set-titles on                        # set terminal title
+set -g set-titles-string '#h ❐ #S ● #I #W'  # 显示的title
+
+set -g display-panes-time 800 # slightly longer pane indicators display time
+
+# 24 hour clock
+setw -g clock-mode-style 24
+
+# clear both screen and history
+bind -n C-l send-keys C-l \; run 'tmux clear-history'
+
+# activity
+set -g monitor-activity on
+set -g visual-activity off
+
+# -- navigation ----------------------------------------------------------------
+
+# create new session
+bind C-c new-session # 创建新的 session
+
+# find session
+bind C-f command-prompt -p find-session 'switch-client -t %%' # 查找 session
+
+bind - splitw -v # 分割成上下两个窗口
+bind | splitw -h # 分割成左右两个窗口
+
+# pane navigation vim 键位的导航在 pane 之间
+bind -r h select-pane -L  # move left
+bind -r j select-pane -D  # move down
+bind -r k select-pane -U  # move up
+bind -r l select-pane -R  # move right
+bind > swap-pane -D       # swap current pane with the next one
+bind < swap-pane -U       # swap current pane with the previous one
+
+# maximize current pane 最大化当前 pane
+bind + run 'cut -c3- ~/.tmux.conf | sh -s maximize_pane'
+
+# pane resizing 大写的 vim 键位， 调整 pane 尺寸
+bind -r H resize-pane -L 2
+bind -r J resize-pane -D 2
+bind -r K resize-pane -U 2
+bind -r L resize-pane -R 2
+
+# window navigation
+bind -r C-h previous-window # select previous window
+bind -r C-l next-window     # select next window
+bind Space last-window      # move to last active window
+
+# toggle mouse
+bind m run "cut -c3- ~/.tmux.conf | sh -s toggle_mouse"
+
+
+# copy to Mac OSX pasteboard
+if 'which -s reattach-to-user-namespace' 'bind y run "tmux save-buffer - | reattach-to-user-namespace pbcopy"'
+
+# 用户自定义的模块
+if '[ -f ~/.tmux.conf.local ]' 'source ~/.tmux.conf.local'
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
+# Other examples:
+# set -g @plugin 'github_username/plugin_name'
+# set -g @plugin 'git@github.com/user/plugin'
+# set -g @plugin 'git@bitbucket.com/user/plugin'
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
+#+end_src
+
+** local
+#+begin_src conf :tangle "~/.tmux.conf.local")
+# tmux theme, colors and status line
+# available themes:
+#   - powerline (a powerline inspired theme)
+#   - powerline_patched_font (a powerline inspired theme using a patched font)
+#tmux_conf_theme=powerline # powerline 的主题
+set-option -g status-position top
+# set -g status-right ""
+set -g status-right '#{prefix_highlight} | %a %Y-%m-%d %H:%M'
+
+#### COLOUR (Solarized light)
+
+# default statusbar colors
+set-option -g status-bg white #base2
+set-option -g status-fg yellow #yellow
+set-option -g status-attr default
+
+# default window title colors
+set-window-option -g window-status-fg brightyellow #base00
+set-window-option -g window-status-bg default
+#set-window-option -g window-status-attr dim
+
+# active window title colors
+set-window-option -g window-status-current-fg brightred #orange
+set-window-option -g window-status-current-bg default
+#set-window-option -g window-status-current-attr bright
+
+# pane border
+set-option -g pane-border-fg white #base2
+set-option -g pane-active-border-fg brightcyan #base1
+
+# message text
+set-option -g message-bg white #base2
+set-option -g message-fg brightred #orange
+
+# pane number display
+set-option -g display-panes-active-colour blue #blue
+set-option -g display-panes-colour brightred #orange
+
+# clock
+set-window-option -g clock-mode-colour green #green
+
+# bell
+set-window-option -g window-status-bell-style fg=white,bg=red #base2, red
+#+end_src
+
+* i3
+** Mod key
+
+使用 Super 键为 mod key
+#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+
+# i3 config file (v4)
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+# Set mod key (Mod1=<Alt>, Mod4=<Super>)
+set $mod Mod4
+#+end_src
+
+** Window 配置
+边框 间距之类的配置
+#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+
+# set default desktop layout (default is tiling)
+# workspace_layout tabbed <stacking|tabbed>
+
+# Configure border style <normal|1pixel|pixel xx|none|pixel>
+new_window pixel 1
+new_float normal
+
+# Hide borders
+hide_edge_borders none
+
+# change borders
+bindsym $mod+u border none
+bindsym $mod+y border pixel 1
+bindsym $mod+n border normal
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font xft:URWGothic-Book 11
+
+# Use Mouse+$mod to drag floating windows
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec terminal
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# start program launcher
+bindsym $mod+d exec --no-startup-id dmenu_recency
+
+# launch categorized menu
+bindsym $mod+z exec --no-startup-id morc_menu
+#+end_src
+** 声音相关
+#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+################################################################################################
+## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
+################################################################################################
+
+exec --no-startup-id volumeicon
+bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
+#exec --no-startup-id pulseaudio
+#exec --no-startup-id pa-applet
+#bindsym $mod+Ctrl+m exec pavucontrol
+#exec xrandr --output HDMI-1 --auto --left-of DP-1 --auto --left-of DVI-D-1
+
+exec xrandr --output DP-1 --auto --output HDMI-1 --auto --left-of DP-1 --output DVI-D-1 --auto --right-of DP-1
+
+# Screen brightness controls
+# bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
+# bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+# Start Applications
+bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
+bindsym $mod+F2 exec palemoon
+bindsym $mod+F3 exec pcmanfm
+# bindsym $mod+F3 exec ranger
+bindsym $mod+Shift+F3 exec gksu pcmanfm
+bindsym $mod+F5 exec terminal -e 'mocp'
+bindsym $mod+t exec --no-startup-id pkill compton
+bindsym $mod+Ctrl+t exec --no-startup-id compton -b
+bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
+bindsym Print exec --no-startup-id i3-scrot
+bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
+bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
+bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
+bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
+#+end_src
+
+** 窗口移动
+
+#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+# focus_follows_mouse no
+
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# workspace back and forth (with/without active container)
+workspace_auto_back_and_forth yes
+bindsym $mod+b workspace back_and_forth
+bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
+
+# split orientation
+bindsym $mod+h split h;exec notify-send 'tile horizontally'
+bindsym $mod+v split v;exec notify-send 'tile vertically'
+bindsym $mod+q split toggle
+
+# toggle fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# toggle sticky
+bindsym $mod+Shift+s sticky toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
+
+#navigate workspaces next / previous
+bindsym $mod+Ctrl+Right workspace next
+bindsym $mod+Ctrl+Left workspace prev
+#+end_src
+
+** Workspace 相关
+#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+# Workspace names
+# to display names or symbols instead of plain workspace numbers you can use
+# something like: set $ws1 1:mail
+#                 set $ws2 2:
+# TODO use mode to handle move container tasks
+#  爵  
+
+set $ws1 1:
+set $ws2 2:
+set $ws3 3:
+set $ws4 4:
+set $ws5 5:
+set $ws6 6:
+
+set $ws7 7:
+set $ws8 8:
+set $ws9 9:
+set $ws10 10:
+set $ws11 11:
+set $ws12 12:
+set $ws13 13:
+set $ws14 14:
+
+set $ws15 15:
+set $ws16 16:
+set $ws17 17:
+set $ws18 18:
+set $ws19 19:
+set $ws20 20:
+
+# switch to workspace
+bindsym F1  workspace $ws1
+bindsym F2  workspace $ws2
+bindsym F3  workspace $ws3
+bindsym F4  workspace $ws4
+bindsym F5  workspace $ws5
+bindsym F6  workspace $ws6
+bindsym F7  workspace $ws7
+bindsym F8  workspace $ws8
+bindsym F9  workspace $ws9
+bindsym F10 workspace $ws10
+bindsym $mod+1   workspace $ws11
+bindsym $mod+2   workspace $ws12
+bindsym $mod+3   workspace $ws13
+bindsym $mod+4   workspace $ws14
+bindsym $mod+5   workspace $ws15
+bindsym $mod+6   workspace $ws16
+bindsym $mod+7   workspace $ws17
+bindsym $mod+8   workspace $ws18
+bindsym $mod+9   workspace $ws19
+bindsym $mod+0   workspace $ws20
+
+# Move focused container to workspace
+# bindsym $mod+Ctrl+1 move container to workspace $ws1
+# bindsym $mod+Ctrl+2 move container to workspace $ws2
+# bindsym $mod+Ctrl+3 move container to workspace $ws3
+# bindsym $mod+Ctrl+4 move container to workspace $ws4
+# bindsym $mod+Ctrl+5 move container to workspace $ws5
+# bindsym $mod+Ctrl+6 move container to workspace $ws6
+# bindsym $mod+Ctrl+7 move container to workspace $ws7
+# bindsym $mod+Ctrl+8 move container to workspace $ws8
+# bindsym $mod+Ctrl+9 move container to workspace $ws9
+
+# Move to workspace with focused container
+# bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
+# bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
+# bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
+# bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
+# bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
+# bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
+# bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
+# bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
+# bindsym $mod+Shift+9 move container to workspace $ws8; workspace $ws9
+
+# Open applications on specific workspaces
+# assign [class="Thunderbird"] $ws1
+# assign [class="Pale moon"] $ws2
+# assign [class="Pcmanfm"] $ws3
+# assign [class="Skype"] $ws5
+assign [class="Google-chrome"] $ws7
+assign [class="Chromium"] $ws15
+assign [class="code-oss"] $ws20
+
+workspace $ws1 output HDMI-1
+workspace $ws2 output HDMI-1
+workspace $ws3 output HDMI-1
+workspace $ws4 output HDMI-1
+workspace $ws5 output HDMI-1
+workspace $ws6 output HDMI-1
+workspace $ws7 output DP-1
+workspace $ws8 output DP-1
+workspace $ws9 output DP-1
+workspace $ws10 output DP-1
+workspace $ws11 output DP-1
+workspace $ws12 output DP-1
+workspace $ws13 output DP-1
+workspace $ws14 output DP-1
+workspace $ws15 output DVI-D-1
+workspace $ws16 output DVI-D-1
+workspace $ws17 output DVI-D-1
+workspace $ws18 output DVI-D-1
+workspace $ws19 output DVI-D-1
+workspace $ws20 output DVI-D-1
+#+end_src
+
+** 配置应用和显示器的位置
+#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+# Open specific applications in floating mode
+for_window [title="alsamixer"] floating enable border pixel 1
+for_window [class="calamares"] floating enable border normal
+for_window [class="Clipgrab"] floating enable
+for_window [title="File Transfer*"] floating enable
+for_window [class="Galculator"] floating enable border pixel 1
+for_window [class="GParted"] floating enable border normal
+for_window [title="i3_help"] floating enable sticky enable border normal
+for_window [class="Lightdm-settings"] floating enable
+for_window [class="Lxappearance"] floating enable sticky enable border normal
+for_window [class="Manjaro-hello"] floating enable
+for_window [class="Manjaro Settings Manager"] floating enable border normal
+for_window [title="MuseScore: Play Panel"] floating enable
+for_window [class="Nitrogen"] floating enable sticky enable border normal
+for_window [class="Oblogout"] fullscreen enable
+for_window [class="octopi"] floating enable
+for_window [title="About Pale Moon"] floating enable
+for_window [class="Pamac-manager"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="qt5ct"] floating enable sticky enable border normal
+for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
+for_window [class="Simple-scan"] floating enable border normal
+for_window [class="(?i)System-config-printer.py"] floating enable border normal
+for_window [class="Skype"] floating enable border normal
+for_window [class="Timeset-gui"] floating enable border normal
+for_window [class="(?i)virtualbox"] floating enable border normal
+for_window [class="Xfburn"] floating enable
+
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# Set shut down, restart and locking features
+bindsym $mod+shift+0 mode "$mode_system"
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
+    bindsym e exec --no-startup-id i3exit logout, mode "default"
+    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+
+    # exit system mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Resize window (you can also use the mouse for that)
+bindsym $mod+r mode "resize"
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 5 px or 5 ppt
+        bindsym k resize grow height 5 px or 5 ppt
+        bindsym l resize shrink height 5 px or 5 ppt
+        bindsym semicolon resize grow width 5 px or 5 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # exit resize mode: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+# Lock screen
+bindsym $mod+shift+9 exec --no-startup-id blurlock
+#+end_src
+
+** 自启动应用
+#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+# Autostart applications
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id nitrogen --restore; sleep 1; compton -b
+exec --no-startup-id manjaro-hello
+exec --no-startup-id nm-applet
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id pamac-tray
+exec --no-startup-id clipit
+exec --no-startup-id blueman-applet
+
+#exec --no-startup-id i3-msg 'workspace 5; exec "sleep 10;emacs"'
+
+#exec --no-startup-id i3-msg 'workspace 6; exec "sleep 10;emacs"'
+
+#exec --no-startup-id i3-msg 'workspace 7; exec "sleep 10;chromium"'
+
+#exec --no-startup-id i3-msg 'workspace 8; exec "sleep 10;urxvt"'
+
+#exec --no-startup-id i3-msg 'workspace 9; exec "sleep 10;urxvt"'
+
+# exec_always --no-startup-id sbxkb
+# exec --no-startup-id start_conky_maia
+# exec --no-startup-id start_conky_green
+exec --no-startup-id xautolock -time 10 -locker blurlock
+exec_always --no-startup-id ff-theme-util
+exec_always --no-startup-id fix_xcursor
+#+end_src
+
+** 颜色
+#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+
+# Color palette used for the terminal ( ~/.Xresources file )
+# Colors are gathered based on the documentation:
+# https://i3wm.org/docs/userguide.html#xresources
+# Change the variable name at the place you want to match the color
+# of your terminal like this:
+# [example]
+# If you want your bar to have the same background color as your
+# terminal background change the line 362 from:
+# background #14191D
+# to:
+# background $term_background
+# Same logic applied to everything else.
+set_from_resource $term_background background
+set_from_resource $term_foreground foreground
+set_from_resource $term_color0     color0
+set_from_resource $term_color1     color1
+set_from_resource $term_color2     color2
+set_from_resource $term_color3     color3
+set_from_resource $term_color4     color4
+set_from_resource $term_color5     color5
+set_from_resource $term_color6     color6
+set_from_resource $term_color7     color7
+set_from_resource $term_color8     color8
+set_from_resource $term_color9     color9
+set_from_resource $term_color10    color10
+set_from_resource $term_color11    color11
+set_from_resource $term_color12    color12
+set_from_resource $term_color13    color13
+set_from_resource $term_color14    color14
+set_from_resource $term_color15    color15
+
+# Start i3bar to display a workspace bar (plus the system information i3status if available)
+bar {
+	i3bar_command i3bar
+	status_command i3status
+	position bottom
+
+## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
+#	tray_output primary
+#	tray_output eDP1
+
+	bindsym button4 nop
+	bindsym button5 nop
+#   font xft:URWGothic-Book 11
+	strip_workspace_numbers yes
+
+    colors {
+        background #222D31
+        statusline #F9FAF9
+        separator  #454947
+
+#                      border  backgr. text
+        focused_workspace  #F9FAF9 #16a085 #292F34
+        active_workspace   #595B5B #353836 #FDF6E3
+        inactive_workspace #595B5B #222D31 #EEE8D5
+        binding_mode       #16a085 #2C2C2C #F9FAF9
+        urgent_workspace   #16a085 #FDF6E3 #E5201D
+    }
+}
+
+
+# hide/unhide i3status bar
+bindsym $mod+m bar mode toggle
+
+# Theme colors
+# class                   border  backgr. text    indic.   child_border
+  client.focused          #556064 #556064 #80FFF9 #FDF6E3
+  client.focused_inactive #2F3D44 #2F3D44 #1ABC9C #454948
+  client.unfocused        #2F3D44 #2F3D44 #1ABC9C #454948
+  client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
+  client.placeholder      #000000 #0c0c0c #ffffff #000000
+
+  client.background       #2B2C2B
+
+#+end_src
+
+** i3 gaps 配置
+
+#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+#############################
+### settings for i3-gaps: ###
+#############################
+
+# Set inner/outer gaps
+gaps inner 14
+gaps outer -2
+
+# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
+# gaps inner|outer current|all set|plus|minus <px>
+# gaps inner all set 10
+# gaps outer all plus 5
+
+# Smart gaps (gaps used if only more than one container on the workspace)
+smart_gaps on
+
+# Smart borders (draw borders around container only if it is not the only container on this workspace)
+# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
+smart_borders on
+
+# Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+#+end_src
+
+* hammerspoon
+** init
+#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/init.lua") :mkdirp "yes"
+  hs.loadSpoon("AClock")
+  hs.loadSpoon("WinWin")
+  hs.loadSpoon("WindowScreenLeftAndRight")
+  hs.loadSpoon("WindowHalfsAndThirds")
+
+  require "modules/config"
+  require "modules/app"
+  require "modules/window"
+  require "modules/screen"
+  require "modules/key"
+  -- require "modules/dashboard"
+  require "modules/layout"
+  require "modules/react"
+
+  hs.hotkey.bind(hyper, 'h', function()
+                    hs.alert.show("Hello World!")
+  end)
+
+  hs.hotkey.bind(hyper, 'r', function()
+                    hs.reload()
+  end)
+
+  hs.alert.show("Config loaded")
+
+#+end_src
+
+#+begin_src sh :exports results :results output
+  mkdir -p /tmp/a/b/c
+#+end_src
+** app
+#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/app.lua") :mkdirp "yes"
+hs.hotkey.bind(hyper, 'i', function()
+                  hs.application.launchOrFocus('Terminal')
+end)
+
+hs.hotkey.bind(hyper, 'f', function()
+                  hs.application.launchOrFocus('Finder')
+end)
+
+hs.hotkey.bind(hyper, 's', function()
+                  hs.application.launchOrFocus('Slack')
+end)
+
+hs.hotkey.bind(hyper, 'e', function()
+                  hs.application.launchOrFocus('Emacs')
+end)
+
+hs.hotkey.bind(hyper, 't', function()
+                  spoon.AClock:toggleShow()
+end)
+
+#+end_src
+** config
+#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/config.lua") :mkdirp "yes"
+hyper = {'cmd', 'alt', 'ctrl'}
+hyperShift = {'alt', 'cmd', 'shift'}
+macbook_monitor = "Color LCD"
+dostyle_monitor = "DM320QC"
+lg_4k_monitor = "LV273HUPR"
+portable_monitor = "CLUO FHD"
+lg_ultrawide_monitor = "LG ULTRAWIDE"
+#+end_src
+** key
+#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/key.lua")
+function showKeyPress(tap_event)
+   local duration = 1.5  -- popup duration
+   local modifiers = ""  -- key modifiers string representation
+   local flags = tap_event:getFlags()
+   local character = hs.keycodes.map[tap_event:getKeyCode()]
+   -- we only want to read special characters via getKeyCode, so we use this subset of hs.keycodes.map
+   local special_chars = {
+      ["f1"] = true, ["f2"] = true, ["f3"] = true, ["f4"] = true,
+      ["f5"] = true, ["f6"] = true, ["f7"] = true, ["f8"] = true,
+      ["f9"] = true, ["f10"] = true, ["f11"] = true, ["f12"] = true,
+      ["f13"] = true, ["f14"] = true, ["f15"] = true, ["f16"] = true,
+      ["f17"] = true, ["f18"] = true, ["f19"] = true, ["f20"] = true,
+      ["pad"] = true, ["pad*"] = true, ["pad+"] = true, ["pad/"] = true,
+      ["pad-"] = true, ["pad="] = true, ["pad0"] = true, ["pad1"] = true,
+      ["pad2"] = true, ["pad3"] = true, ["pad4"] = true, ["pad5"] = true,
+      ["pad6"] = true, ["pad7"] = true, ["pad8"] = true, ["pad9"] = true,
+      ["padclear"] = true, ["padenter"] = true, ["return"] = true,
+      ["tab"] = true, ["space"] = true, ["delete"] = true, ["escape"] = true,
+      ["help"] = true, ["home"] = true, ["pageup"] = true,
+      ["forwarddelete"] = true, ["end"] = true, ["pagedown"] = true,
+      ["left"] = true, ["right"] = true, ["down"] = true, ["up"] = true
+   }
+
+   -- if we have a simple character (no modifiers), we want a shorter popup duration.
+   if (not flags.shift and not flags.cmd and not flags.alt and not flags.ctrl) then
+      duration = 0.3
+   end
+
+   -- we want to get regular characters via getCharacters as it "cleans" the key for us
+   -- (e.g. for a "⇧-5" keypress we want to show "⇧-%").
+   if special_chars[character] == nil then
+      character = tap_event:getCharacters(true)
+      if flags.shift then
+         character = string.lower(character)
+      end
+   end
+
+   local pretty_characters = {
+      ["return"]  = "⏎",
+      ["delete"]  = "⌫",
+      ["escape"]  = "⎋",
+      ["space"]   = "SPC",
+      ["up"]      = "↑",
+      ["down"]    = "↓",
+      ["left"]    = "←",
+      ["right"]   = "→",
+      ["tab"]     = "⇥"
+   }
+
+   character = pretty_characters[character] or character
+
+   -- get modifiers' string representation
+   if flags.ctrl then
+      modifiers = modifiers .. "⌃-"
+   end
+   if flags.cmd then
+      modifiers = modifiers .. "⌘-"
+   end
+   if flags.shift then
+      modifiers = modifiers .. "⇧-"
+   end
+   if flags.alt then
+      modifiers = modifiers .. "⌥-"
+   end
+
+   key_char = modifiers .. character
+   display_key_char(key_char)
+end
+
+function display_key_char(key_char)
+   build_exist_key_string(key_char)
+
+   if not key_draw then
+      create_draw(exist_key_string)
+   else
+      destroy_draw(key_draw)
+      create_draw(exist_key_string)
+   end
+   key_draw:show()
+   reset_key_display_timer()
+end
+
+function build_exist_key_string(string)
+   local max_display_key_command_length = 8
+   key_array = key_array or {}
+
+   if #key_array > max_display_key_command_length then
+      table.remove(key_array, 1)
+   end
+
+   key_array[#key_array + 1] = string
+   exist_key_string = table.concat(key_array, ' ')
+end
+
+function reset_key_display_timer()
+   if key_display_timer then
+      key_display_timer:stop()
+   end
+   key_display_timer = hs.timer.doAfter(2, function() destroy_draw(key_draw) key_array = {} end)
+end
+
+function create_draw(content)
+   local mainRes = hs.mouse.getCurrentScreen():fullFrame() -- e.g w:1920 h:1080
+   local font_size = 40
+   local styledString = hs.styledtext.new(
+      content,
+      {
+         font = { name = "Fira Mono", size = font_size },
+         color = hs.drawing.color.hammerspoon.osx_green, --hs.drawing.color.x11.silver,
+         paragraphStyle = { alignment = "center" }
+      }
+   )
+   local w = mainRes.w * 2 / 3
+   local h = font_size * 1.5
+   local x = mainRes.w / 2 - w / 3
+   local y = mainRes.y + h + w / 2
+   local keyFrame = hs.geometry.rect(x, y, w, h)
+   key_draw = hs.drawing.text(keyFrame, styledString)
+   key_draw:setLevel(hs.drawing.windowLevels.overlay)
+end
+
+function destroy_draw(draw)
+   if draw then
+      key_draw:delete()
+      key_draw = nil
+   end
+end
+
+local key_tap = hs.eventtap.new(
+   {hs.eventtap.event.types.keyDown},
+   showKeyPress
+)
+
+-- Enable/Disable Keypress Show Mode with "hyper-p"
+k = hs.hotkey.modal.new(hyper, 'P')
+function k:entered()
+   hs.alert.show("Enabling Keypress Show Mode", 1.5)
+   key_tap:start()
+end
+function k:exited()
+   hs.alert.show("Disabling Keypress Show Mode", 1.5)
+end
+k:bind(hyper, 'P', function()
+          key_tap:stop()
+          k:exit()
+end)
+
+#+end_src :mkdirp "yes"
+** layout
+#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/layout.lua") :mkdirp "yes"
+top_half    = hs.geometry.unitrect(0,0,1,0.5)
+buttom_half = hs.geometry.unitrect(0,0.5,1,0.5)
+left_half   = hs.layout.left50
+right_half  = hs.layout.right50
+maximized   = hs.layout.maximized
+
+
+local reading_layout= {
+  {"Emacs",         nil, macbook_monitor, maximized, nil, nil},
+  {"Google Chrome", nil, main_monitor,    right_half,   nil, nil},
+  {"iBooks",        nil, main_monitor,    left_half,    nil, nil},
+  {"Telegram",      nil, second_monitor,  top_half,    nil, nil},
+  {"Mail",          nil, second_monitor,  buttom_half,   nil, nil},
+}
+
+local coding_layout= {
+  {"Terminal",      nil, macbook_monitor, maximized, nil, nil},
+  {"Google Chrome", nil, main_monitor,    left_half,    nil, nil},
+  {"Emacs",         nil, main_monitor,    right_half,   nil, nil},
+  {"Station",       nil, second_monitor,  top_half,    nil, nil},
+  {"TablePlus",     nil, second_monitor,  buttom_half,   nil, nil},
+}
+
+local writing_layout= {
+  {"Emacs",         nil, main_monitor,    maximized, nil, nil},
+  {"Google Chrome", nil, second_monitor,  maximized, nil, nil},
+  {"IINA",          nil, macbook_monitor, maximized, nil, nil},
+}
+
+hs.hotkey.bind(hyper, '1', function()
+  hs.application.launchOrFocus('Emacs')
+  hs.application.launchOrFocus('Google Chrome')
+  hs.application.launchOrFocus('iBooks')
+  hs.application.launchOrFocus('Telegram')
+  hs.application.launchOrFocus('Mail')
+
+  hs.layout.apply(reading_layout)
+end)
+
+hs.hotkey.bind(hyper, '2', function()
+  hs.application.launchOrFocus('Terminal')
+  hs.application.launchOrFocus('Google Chrome')
+  hs.application.launchOrFocus('Emacs')
+  hs.application.launchOrFocus('Station')
+  hs.application.launchOrFocus('TablePlus')
+
+  hs.layout.apply(coding_layout)
+end)
+
+hs.hotkey.bind(hyper, '3', function()
+  hs.application.launchOrFocus('Google Chrome')
+  hs.application.launchOrFocus('Emacs')
+  hs.application.launchOrFocus('IINA')
+
+  hs.layout.apply(writing_layout)
+end)
+
+
+#+end_src
+** react
+#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/react.lua")
+function applicationWatcher(appName, eventType, appObject)
+   if (eventType == hs.application.watcher.activated) then
+      if (appName == "Terminal") then
+         appObject:selectMenuItem({"Window", "Bring All to Front"})
+      elseif (appName == "Finder") then
+         appObject:selectMenuItem({"Window", "Bring All to Front"})
+      elseif (appName == "Google Chrome") then
+         appObject:selectMenuItem({"Window", "Bring All to Front"})
+      end
+   end
+end
+
+appWatcher = hs.application.watcher.new(applicationWatcher)
+appWatcher:start()
+
+caffeine = hs.menubar.new()
+function setCaffeineDisplay(state)
+   if state then
+      caffeine:setTitle("AWAKE")
+   else
+      caffeine:setTitle("SLEEPY")
+   end
+end
+
+function caffeineClicked()
+   setCaffeineDisplay(hs.caffeinate.toggle("displayIdle"))
+end
+
+if caffeine then
+   caffeine:setClickCallback(caffeineClicked)
+   setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
+end
+
+#+end_src :mkdirp "yes"
+** screen
+#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/screen.lua") :mkdirp "yes"
+function focus_other_screen() -- focuses the other screen
+   local current_screen = hs.mouse.getCurrentScreen()
+   local nextScreen = current_screen:next()
+   local rect = nextScreen:fullFrame()
+   local center = hs.geometry.rectMidPoint(rect)
+   hs.mouse.setAbsolutePosition(center)
+   return nextScreen
+end
+
+function get_window_under_mouse() -- from https://gist.github.com/kizzx2/e542fa74b80b7563045a
+   local my_pos = hs.geometry.new(hs.mouse.getAbsolutePosition())
+   local my_screen = hs.mouse.getCurrentScreen()
+   return hs.fnutils.find(hs.window.orderedWindows(), function(w)
+                             return my_screen == w:screen() and my_pos:inside(w:frame())
+   end)
+end
+
+function activate_other_screen()
+   local next_screen = focus_other_screen()
+   local win = get_window_under_mouse()
+   win:focus()
+   redrawBorder()
+end
+
+hs.hotkey.bind(hyper, 'o', function()
+                  activate_other_screen()
+end)
+
+function redrawBorder()
+   win = hs.window.focusedWindow()
+   if not win then
+      return
+   end
+   top_left = win:topLeft()
+   size = win:size()
+   if global_border ~= nil then global_border:delete() end
+   global_border = hs.drawing.rectangle(hs.geometry.rect(top_left['x'], top_left['y'], size['w'], size['h']))
+   global_border:setStrokeColor({ ["red"] = 1, ["blue"] = 0, ["green"] = 0, ["alpha"] = 0.8 })
+   global_border:setFill(false)
+   global_border:setStrokeWidth(8)
+   global_border:show()
+   hs.timer.doAfter(1, function() global_border:hide() end)
+end
+
+function mouseHighlight()
+   -- Delete an existing highlight if it exists
+   if mouseCircle then
+      mouseCircle:delete()
+      if mouseCircleTimer then
+         mouseCircleTimer:stop()
+      end
+   end
+   -- Get the current co-ordinates of the mouse pointer
+   mousepoint = hs.mouse.getAbsolutePosition()
+   hs.alert.show(mousepoint)
+   -- Prepare a big red circle around the mouse pointer
+   mouseCircle = hs.drawing.circle(hs.geometry.rect(mousepoint.x-40, mousepoint.y-40, 80, 80))
+   mouseCircle:setStrokeColor({ ["red"] = 1, ["blue"] = 0, ["green"] = 0, ["alpha"] = 1 })
+   mouseCircle:setFill(false)
+   mouseCircle:setStrokeWidth(5)
+   mouseCircle:show()
+
+   -- Set a timer to delete the circle after 3 seconds
+   mouseCircleTimer = hs.timer.doAfter(3, function() mouseCircle:delete() end)
+end
+
+#+end_src
+** window
+#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/window.lua")
+-- hs.window.animationDuration = 0
+spoon.WindowScreenLeftAndRight:bindHotkeys({
+      screen_left = { hyperShift, "Left" },
+      screen_right= { hyperShift, "Right" },
+})
+
+spoon.WindowHalfsAndThirds:bindHotkeys({
+      left_half   = { hyper, "Left" },
+      right_half  = { hyper, "Right" },
+      top_half    = { hyper, "Up" },
+      bottom_half = { hyper, "Down" },
+})
+
+-- hs.hotkey.bind(hyper, "m", function()
+--   local win = hs.window.focusedWindow()
+--   win:maximize()
+-- end)
+
+#+end_src :mkdirp "yes"
+** TODO drag terminal
+https://github.com/Braden1996/BradensPoon/blob/master/spoons/drag_terminals.lua
+#+begin_src lua
+local merge = pl.tablex.merge
+local fromHexAlpha = poon.utils.colors.fromHexAlpha
+
+local color = fromHexAlpha('#81ecec', 0.5)
+local endColor = fromHexAlpha('#00cec9', 0.5)
+local strokeColor = merge(color, { alpha=1 }, true)
+
+local rectanglePreview = hs.drawing.rectangle(hs.geometry.rect(0, 0, 0, 0))
+rectanglePreview:setStrokeWidth(2)
+rectanglePreview:setStrokeColor(strokeColor)
+rectanglePreview:setFillGradient(color, endColor, 45)
+rectanglePreview:setRoundedRectRadii(2, 2)
+rectanglePreview:setStroke(true):setFill(true)
+rectanglePreview:setLevel("floating")
+
+local function openIterm()
+  local frame = rectanglePreview:frame()
+  local createItermWithBounds = string.format([[
+    if application "iTerm" is not running then
+      launch application "iTerm"
+    end if
+    tell application "iTerm"
+      set newWindow to (create window with default profile)
+      set the bounds of newWindow to {%i, %i, %i, %i}
+    end tell
+  ]], frame.x, frame.y, frame.x + frame.w, frame.y + frame.h)
+  hs.osascript.applescript(createItermWithBounds)
+end
+
+local fromPoint = nil
+
+local drag_event = hs.eventtap.new(
+  { hs.eventtap.event.types.mouseMoved },
+  function(e)
+    local toPoint = hs.mouse.getAbsolutePosition()
+    local newFrame = hs.geometry.new({
+      x1 = fromPoint.x,
+      y1 = fromPoint.y,
+      x2 = toPoint.x,
+      y2 = toPoint.y,
+    })
+    rectanglePreview:setFrame(newFrame)
+
+    return nil
+  end
+)
+
+local flags_event = hs.eventtap.new(
+  { hs.eventtap.event.types.flagsChanged },
+  function(e)
+    local flags = e:getFlags()
+    if flags.ctrl and flags.shift then
+      fromPoint = hs.mouse.getAbsolutePosition()
+      local startFrame = hs.geometry.rect(fromPoint.x, fromPoint.y, 0, 0)
+      rectanglePreview:setFrame(startFrame)
+      drag_event:start()
+      rectanglePreview:show()
+    elseif fromPoint ~= nil then
+      fromPoint = nil
+      drag_event:stop()
+      rectanglePreview:hide()
+      openIterm()
+    end
+    return nil
+  end
+)
+flags_event:start()
+#+end_src
+** TODO dashboard
+#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/dashboard.lua")
+ hs.hotkey.bind(hyper, 'y', function()
+                  if not dashboardView then
+                     local command = "uptime"
+                     local handle = io.popen(command)
+                     local result = handle:read("*a")
+                     handle:close()
+                     generate_view()
+                     local webcontent = html_dashboard(result)
+                     dashboardView:html(webcontent)
+                     dashboardView:show()
+                  else
+                     dashboardView:delete()
+                     dashboardView:hide()
+                     dashboardView = nil
+                  end
+end)
+
+function generate_view()
+   local cscreen = hs.screen.mainScreen()
+   local cres = cscreen:fullFrame()
+
+   dashboardView = hs.webview.new({x=0, y=0, w=0, h=0})
+   dashboardView:windowTitle("Dashboard")
+   dashboardView:windowStyle("utility")
+   dashboardView:allowGestures(true)
+   dashboardView:allowNewWindows(false)
+   dashboardView:level(hs.drawing.windowLevels.modalPanel)
+   dashboardView:frame({
+         x = cres.x + cres.w * 0.15 / 2,
+         y = cres.y + cres.h * 0.25 / 2,
+         w = cres.w * 0.85,
+         h = cres.h * 0.75
+   })
+end
+
+function html_dashboard(content)
+   local html = [[
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <body>
+        <h1>hello</h1>
+        <div class="title"><strong>]] .. content .. [[</strong></div>
+
+        </body>
+        </html>
+        ]]
+
+        return html
+end
+
+#+end_src
+** Spoons
+just libraries
+TODO they are pure text, but should I copy them here?
+
+
++ AClock.spoon
++ WindowHalfsAndThirds.spoon
++ WinWin.spoon
++ KSheet.spoon
++ WindowScreenLeftAndRight.spoon
+* Misc
+** bat
+#+BEGIN_SRC conf :tangle ~/.config/bat/config :mkdirp "yes"
+  --theme="GitHub"
+#+END_SRC
+** wtfutil
+命令行的 dashboard 工具
+
+#+BEGIN_SRC conf :tangle ~/.config/wtf/config.yml :mkdirp "yes"
+wtf:
+  colors:
+    background: black
+    border:
+      focusable: darkslateblue
+      focused: orange
+      normal: gray
+    checked: yellow
+    highlight:
+      fore: black
+      back: gray
+    rows:
+      even: yellow
+      odd: white
+  grid:
+    columns: [50, 50, 50]
+    rows: [10, 10, 10]
+  navigation:
+    shortcuts: false
+
+  refreshInterval: 1
+  mods:
+    clocks_a:
+      colors:
+        rows:
+          even: "lightblue"
+          odd: "white"
+      enabled: true
+      locations:
+        Vancouver: "America/Vancouver"
+        Toronto: "America/Toronto"
+      position:
+        top: 0
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 15
+      sort: "alphabetical"
+      title: "Clocks A"
+      type: "clocks"
+    clocks_b:
+      colors:
+        rows:
+          even: "lightblue"
+          odd: "white"
+      enabled: true
+      locations:
+        Avignon: "Europe/Paris"
+        Barcelona: "Europe/Madrid"
+        Dubai: "Asia/Dubai"
+      position:
+        top: 0
+        left: 2
+        height: 1
+        width: 1
+      refreshInterval: 15
+      sort: "alphabetical"
+      title: "Clocks B"
+      type: "clocks"
+    feedreader:
+      enabled: true
+      feeds:
+      - https://news.ycombinator.com/rss
+      feedLimit: 10
+      position:
+        top: 1
+        left: 1
+        width: 2
+        height: 1
+      updateInterval: 14400
+    power:
+      enabled: true
+      position:
+        top: 2
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 15
+      title: "⚡️"
+    textfile:
+      enabled: true
+      filePath: "~/.config/wtf/config.yml"
+      format: true
+      position:
+        top: 0
+        left: 0
+        height: 4
+        width: 1
+      refreshInterval: 30
+      wrapText: false
+    uptime:
+      args: [""]
+      cmd: "uptime"
+      enabled: true
+      position:
+        top: 2
+        left: 3
+        height: 1
+        width: 1
+      refreshInterval: 30
+      type: cmdrunner
+
+    work_git:
+      commitCount: 5
+      commitFormat: "[forestgreen]%h [grey]%cd [white]%s [grey]%an[white]"
+      dateFormat: "%H:%M %d %b %y"
+      enabled: true
+      position:
+        top: 0
+        left: 3
+        height: 2
+        width: 1
+      refreshInterval: 8
+      repositories:
+      - "/Users/teddy/code/gfresh/fishclub"
+      type: git
+
+    personal_git:
+      commitCount: 5
+      commitFormat: "[forestgreen]%h [grey]%cd [white]%s [grey]%an[white]"
+      dateFormat: "%H:%M %d %b %y"
+      enabled: true
+      position:
+        top: 0
+        left: 4
+        height: 2
+        width: 1
+      refreshInterval: 8
+      repositories:
+      - "/Users/teddy/code/todo"
+      type: git
+
+    resourceusage:
+      cpuCombined: false
+      enabled: true
+      position:
+        top: 2
+        left: 2
+        height: 1
+        width: 1
+        refreshInterval: 1
+      showCPU: true
+      showMem: true
+      showSwp: true
+#+END_SRC
+** Xmodmap
+swap control and capslock
+
+#+begin_src conf :tangle :tangle (when (eq system-type 'gnu/linux) "~/.Xmodmap")
+clear lock
+clear control
+keycode 66 = Control_L
+add control = Control_L
+add Lock = Control_R
+#+end_src
+* Server
+** ownCloud
+使用 docker 起一个网盘
+
+只要 sudo docker-compose up
+
+#+begin_src conf
+version: '2.1'
+
+volumes:
+  files:
+    driver: local
+  mysql:
+    driver: local
+  backup:
+    driver: local
+  redis:
+    driver: local
+
+services:
+  owncloud:
+    image: owncloud/server:${OWNCLOUD_VERSION}
+    restart: always
+    ports:
+      - ${HTTP_PORT}:8080
+    depends_on:
+      - db
+      - redis
+    environment:
+      - OWNCLOUD_DOMAIN=${OWNCLOUD_DOMAIN}
+      - OWNCLOUD_DB_TYPE=mysql
+      - OWNCLOUD_DB_NAME=owncloud
+      - OWNCLOUD_DB_USERNAME=owncloud
+      - OWNCLOUD_DB_PASSWORD=owncloud
+      - OWNCLOUD_DB_HOST=db
+      - OWNCLOUD_ADMIN_USERNAME=${ADMIN_USERNAME}
+      - OWNCLOUD_ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - OWNCLOUD_MYSQL_UTF8MB4=true
+      - OWNCLOUD_REDIS_ENABLED=true
+      - OWNCLOUD_REDIS_HOST=redis
+    healthcheck:
+      test: ["CMD", "/usr/bin/healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - /home/teddy/Public:/mnt/data
+
+  db:
+    image: webhippie/mariadb:latest
+    restart: always
+    environment:
+      - MARIADB_ROOT_PASSWORD=owncloud
+      - MARIADB_USERNAME=owncloud
+      - MARIADB_PASSWORD=owncloud
+      - MARIADB_DATABASE=owncloud
+      - MARIADB_MAX_ALLOWED_PACKET=128M
+      - MARIADB_INNODB_LOG_FILE_SIZE=64M
+    healthcheck:
+      test: ["CMD", "/usr/bin/healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - mysql:/var/lib/mysql
+      - backup:/var/lib/backup
+
+  redis:
+    image: webhippie/redis:latest
+    restart: always
+    environment:
+      - REDIS_DATABASES=1
+    healthcheck:
+      test: ["CMD", "/usr/bin/healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - redis:/var/lib/redis
+
+#+end_src
+** gogs
+self host 的 git server
+
+window 下要把 C:\Program Files\Git\usr\bin 加入到 path, 主要是里面的 ssh-keygen
+
+然后下载 gogs, 在命令行中执行 gogs.exe web, 设置界面选择独立 ssh
+** openwrt
+直接使用镜像
