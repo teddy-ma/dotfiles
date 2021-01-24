@@ -21,10 +21,9 @@ brew install fish
 echo /usr/local/bin/fish | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/fish
 curl -sL https://git.io/fisher | source
-fisher install joseluisq/gitnow@2.6.0
 fisher install jethrokuan/fzf
 fisher install jethrokuan/z
-
+fisher install franciscolourenco/done
 
 ln -s ~/ownCloud/Config/pyim ~/.emacs.d
 ln -s ~/ownCloud/Config/snippets ~/.emacs.d
@@ -39,9 +38,9 @@ sudo pacman -Syu git fish ttf-inconsolata ttf-arphic-uming
 
 chsh -s /usr/bin/fish
 curl -sL https://git.io/fisher | source
-fisher install joseluisq/gitnow@2.6.0
 fisher install jethrokuan/fzf
 fisher install jethrokuan/z
+fisher install franciscolourenco/done
 
 git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d/
 
