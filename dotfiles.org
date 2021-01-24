@@ -1046,6 +1046,17 @@ source /usr/local/opt/asdf/asdf.fish
   renamed = "👅"
   deleted = "🗑"
 #+end_src
+** welcome memssage
+remove last login message by touch this dot file
+#+begin_src conf :tangle ~/.hushlogin
+
+#+end_src
+
+#+begin_src shell :tangle ~/.config/fish/functions/fish_greeting.fish :mkdirp "yes"
+function fish_greeting
+neofetch
+end
+#+end_src
 ** alias
 fish shell 使用函数来实现 alias
 #+begin_src shell :tangle ~/.config/fish/functions/cat.fish :mkdirp "yes"
