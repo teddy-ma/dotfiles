@@ -10,19 +10,15 @@ macOS 主要依赖 [thoughtbot 的 laptop](https://github.com/thoughtbot/laptop)
 curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/mac
 sh mac 2>&1 | tee ~/laptop.log
 brew cask install owncloud
-brew install stow
 ln -s ~/ownCloud/Config/id_rsa ~/.ssh/id_rsa
 ln -s ~/ownCloud/Config/id_rsa.pub ~/.ssh/id_rsa.pub
 
 cd ~
 git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d
-git clone https://github.com/zsh-users/antigen.git .antigen
 
-cd dotfiles
-sh install-mac.sh
-
-cd homebrew
-brew bundle
+brew install fish
+echo /usr/local/bin/fish | sudo tee -a /etc/shells
+chsh -s /usr/local/bin/fish
 
 ln -s ~/ownCloud/Config/pyim ~/.emacs.d
 ln -s ~/ownCloud/Config/snippets ~/.emacs.d
@@ -33,17 +29,16 @@ ln -s ~/ownCloud/Config/snippets ~/.emacs.d
 Linux 下只需要安装几个最基础的包，就可以进入 stow 开始配置了。
 
 ```shell
-sudo pacman -Syu git zsh ttf-inconsolata ttf-arphic-uming
+sudo pacman -Syu git fish ttf-inconsolata ttf-arphic-uming
 
-chsh -s /bin/zsh
+echo /usr/local/bin/fish | sudo tee -a /etc/shells
+chsh -s /usr/local/bin/fish
+
 ln -s ~/ownCloud/Config/id_rsa ~/.ssh/id_rsa
 ln -s ~/ownCloud/Config/id_rsa.pub ~/.ssh/id_rsa.pub
 
 cd ~
-git clone git@github.com:teddy-ma/dotfiles.git
-git clone https://github.com/zsh-users/antigen.git .antigen
-cd dotfiles
-sh install-linux.sh
+git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d/
 
 ln -s ~/ownCloud/Config/pyim ~/.emacs.d
 ln -s ~/ownCloud/Config/snippets ~/.emacs.d
