@@ -428,9 +428,11 @@ brew "diff-so-fancy"
 brew "erlang"
 brew "exa"
 brew "ffmpeg"
+brew "fish"
 brew "fswatch"
 brew "fx"
 brew "fzy"
+brew "fzf"
 brew "geckodriver"
 brew "gh"
 brew "git"
@@ -1043,6 +1045,25 @@ source /usr/local/opt/asdf/asdf.fish
   staged = '[++\($count\)](green)'
   renamed = "👅"
   deleted = "🗑"
+#+end_src
+** alias
+fish shell 使用函数来实现 alias
+#+begin_src shell :tangle ~/.config/fish/functions/cat.fish :mkdirp "yes"
+  function cat
+    bat $argv
+  end
+#+end_src
+
+#+begin_src shell :tangle ~/.config/fish/functions/vim.fish :mkdirp "yes"
+  function vim
+    nvim $argv
+  end
+#+end_src
+
+#+begin_src shell :tangle ~/.config/fish/functions/ls.fish :mkdirp "yes"
+  function ls
+    exa $argv
+  end
 #+end_src
 
 * Xresources
@@ -2610,8 +2631,8 @@ services:
 ** gogs
 self host 的 git server
 
-window 下要把 C:\Program Files\Git\usr\bin 加入到 path, 主要是里面的 ssh-keygen
+window 下要把 C:\Program Files\Git\usr\bin 加入到 path, 主要需要里面的 ssh-keygen
 
-然后下载 gogs, 在命令行中执行 gogs.exe web, 设置界面选择独立 ssh
+然后下载 gogs, 在命令行中执行 gogs.exe web, 设置界面要选择独立 ssh
 ** openwrt
-直接使用镜像
+直接使用镜像， 镜像转换需要以管理员身份执行
