@@ -19,6 +19,10 @@ git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d
 brew install fish
 echo /usr/local/bin/fish | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/fish
+curl -sL https://git.io/fisher | source
+fisher install joseluisq/gitnow@2.6.0
+fisher install jethrokuan/fzf
+fisher install jethrokuan/z
 
 ln -s ~/ownCloud/Config/pyim ~/.emacs.d
 ln -s ~/ownCloud/Config/snippets ~/.emacs.d
@@ -32,6 +36,10 @@ Linux 下只需要安装几个最基础的包，就可以进入 stow 开始配�
 sudo pacman -Syu git fish ttf-inconsolata ttf-arphic-uming
 
 chsh -s /usr/bin/fish
+curl -sL https://git.io/fisher | source
+fisher install joseluisq/gitnow@2.6.0
+fisher install jethrokuan/fzf
+fisher install jethrokuan/z
 
 ln -s ~/ownCloud/Config/id_rsa ~/.ssh/id_rsa
 ln -s ~/ownCloud/Config/id_rsa.pub ~/.ssh/id_rsa.pub
