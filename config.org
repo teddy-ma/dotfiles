@@ -981,8 +981,7 @@ Elixir highlighting is not built into emacs at present. Elixir-mode gives all th
 #+begin_src emacs-lisp
   (use-package rake
     :ensure t)
-  (use-package ruby-test-mode
-    :ensure t)
+
   (use-package robe
     :ensure t
     :config
@@ -1001,19 +1000,13 @@ Elixir highlighting is not built into emacs at present. Elixir-mode gives all th
 #+end_src
 ** Rails
 #+begin_src emacs-lisp
- (defun run-rails-test-file ()
-    (interactive)
-    (let ((filename (ruby-test-find-file)))
-      (compile (format "bundle exec rails test %s" filename))))
-
   (defun run-rails-test-at-point ()
     (interactive)
-    (let* ((filename (ruby-test-find-file))
-           (buffername (get-file-buffer filename)))
-      (with-current-buffer buffername
-        (let ((line (line-number-at-pos (point))))
-          (compile (format "bundle exec rails test %s:%s" filename line))))
-      ))
+    (compile (format "bundle exec rails test %s:%s" (expand-file-name (buffer-file-name))  (line-number-at-pos))))
+
+  (defun run-rails-test-file ()
+    (interactive)
+    (compile (format "bundle exec rails test %s" (expand-file-name (buffer-file-name)))))
 #+end_src
 ** C
 Emacs has a great built in C/C++ mode, but we can improve on it with =irony-mode= for code completion via =libclang=.
