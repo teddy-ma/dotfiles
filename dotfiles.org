@@ -1883,14 +1883,10 @@ mode "$mode_gaps_outer" {
   end)
 
   hs.alert.show("Config loaded")
-
 #+end_src
 
-#+begin_src sh :exports results :results output
-  mkdir -p /tmp/a/b/c
-#+end_src
 ** app
-#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/app.lua") :mkdirp "yes"
+#+begin_src lua :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/app.lua") :mkdirp "yes"
 hs.hotkey.bind(hyper, 'i', function()
                   hs.application.launchOrFocus('Terminal')
 end)
@@ -1913,7 +1909,7 @@ end)
 
 #+end_src
 ** config
-#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/config.lua") :mkdirp "yes"
+#+begin_src lua :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/config.lua") :mkdirp "yes"
 hyper = {'cmd', 'alt', 'ctrl'}
 hyperShift = {'alt', 'cmd', 'shift'}
 macbook_monitor = "Color LCD"
@@ -1923,7 +1919,7 @@ portable_monitor = "CLUO FHD"
 lg_ultrawide_monitor = "LG ULTRAWIDE"
 #+end_src
 ** key
-#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/key.lua")
+#+begin_src lua :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/key.lua")  :mkdirp "yes"
 function showKeyPress(tap_event)
    local duration = 1.5  -- popup duration
    local modifiers = ""  -- key modifiers string representation
@@ -2071,9 +2067,9 @@ k:bind(hyper, 'P', function()
           k:exit()
 end)
 
-#+end_src :mkdirp "yes"
+#+end_src
 ** layout
-#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/layout.lua") :mkdirp "yes"
+#+begin_src lua :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/layout.lua") :mkdirp "yes"
 top_half    = hs.geometry.unitrect(0,0,1,0.5)
 buttom_half = hs.geometry.unitrect(0,0.5,1,0.5)
 left_half   = hs.layout.left50
@@ -2130,11 +2126,9 @@ hs.hotkey.bind(hyper, '3', function()
 
   hs.layout.apply(writing_layout)
 end)
-
-
 #+end_src
 ** react
-#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/react.lua")
+#+begin_src lua :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/react.lua")  :mkdirp "yes"
 function applicationWatcher(appName, eventType, appObject)
    if (eventType == hs.application.watcher.activated) then
       if (appName == "Terminal") then
@@ -2168,9 +2162,9 @@ if caffeine then
    setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
 end
 
-#+end_src :mkdirp "yes"
+#+end_src
 ** screen
-#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/screen.lua") :mkdirp "yes"
+#+begin_src lua :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/screen.lua") :mkdirp "yes"
 function focus_other_screen() -- focuses the other screen
    local current_screen = hs.mouse.getCurrentScreen()
    local nextScreen = current_screen:next()
@@ -2239,7 +2233,7 @@ end
 
 #+end_src
 ** window
-#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/window.lua")
+#+begin_src lua :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/window.lua")  :mkdirp "yes"
 -- hs.window.animationDuration = 0
 spoon.WindowScreenLeftAndRight:bindHotkeys({
       screen_left = { hyperShift, "Left" },
@@ -2257,8 +2251,7 @@ spoon.WindowHalfsAndThirds:bindHotkeys({
 --   local win = hs.window.focusedWindow()
 --   win:maximize()
 -- end)
-
-#+end_src :mkdirp "yes"
+#+end_src
 ** TODO drag terminal
 https://github.com/Braden1996/BradensPoon/blob/master/spoons/drag_terminals.lua
 #+begin_src lua
