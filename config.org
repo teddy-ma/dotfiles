@@ -268,6 +268,32 @@ Suggest next keys to me based on currently entered key combination.
 
   (global-set-key (kbd "C-S-d") 'duplicate-current-line-or-region)
 #+end_src
+** Toggle quotes
+#+begin_src emacs-lisp
+  (defun toggle-quotes ()
+    "Toggle single quoted string to double or vice versa, and
+    flip the internal quotes as well.  Best to run on the first
+    character of the string."
+    (interactive)
+    (save-excursion
+      (re-search-backward "[\"']")
+      (let* ((start (point))
+             (old-c (char-after start))
+             new-c)
+        (setq new-c
+              (case old-c
+                (?\" "'")
+                (?\' "\"")))
+        (setq old-c (char-to-string old-c))
+        (delete-char 1)
+        (insert new-c)
+        (re-search-forward old-c)
+        (backward-char 1)
+        (let ((end (point)))
+          (delete-char 1)
+          (insert new-c)
+          (replace-string new-c old-c nil (1+ start) end)))))
+#+end_src
 ** Move line up and down
 #+begin_src emacs-lisp
   (use-package drag-stuff
@@ -999,6 +1025,15 @@ Elixir highlighting is not built into emacs at present. Elixir-mode gives all th
 
   (use-package minitest
     :ensure t)
+
+  ;; (use-package emr
+  ;;   :ensure t
+  ;;   :config
+  ;;   (define-key prog-mode-map (kbd "M-RET") 'emr-show-refactor-menu))
+
+  ;; (use-package ruby-refactor
+  ;;   :ensure t)
+
 #+end_src
 ** Rails
 #+begin_src emacs-lisp
