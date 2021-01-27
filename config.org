@@ -515,7 +515,7 @@ It's hard to customize mode line...
   (setq battery-mode-line-format "[%b%p%% %t]")
 #+end_src
 
-* Coding
+* Programming
 ** LSP
 lsp mode
 
@@ -539,7 +539,7 @@ lsp mode
   (use-package lsp-ui
     :ensure t)
 #+end_src
-** Programming specific interface improvements
+** Interface improvements
 When programming I like my editor to try to help me with keeping parentheses balanced.
 #+begin_src emacs-lisp
   (use-package smartparens
@@ -731,7 +731,8 @@ Integration with neotree
           (forward-line (1- line-number))))))
 #+end_src
 ** Jump to source
-Individual language packages often support IDE features like jump to source, but =dumb-jump= attempts to support many languages by simple searching. It's quite effective even with dynamic libraries like JS and Python.
+Individual language packages often support IDE features like jump to source, but =dumb-jump= attempts to support many languages by simple searching.
+It's quite effective even with dynamic libraries like JS and Python.
 
 #+begin_src emacs-lisp
   (use-package dumb-jump
@@ -867,6 +868,28 @@ Type the shortcut and press =TAB= to complete, or =M-/= to autosuggest a snippet
     :ensure t)
 #+end_src
 
+** Web mode
+Web mode handles html/css/js.
+#+begin_src emacs-lisp
+  (use-package web-mode
+    :ensure t
+    :mode (("\\.html\\'" . web-mode)
+           ("\\.erb\\'" . web-mode))
+    :config
+    (setq web-mode-markup-indent-offset 2))
+#+end_src
+** Web Beautify
+Web beautify prettifies html / css / js using js-beautify - install with =npm install -g js-beautify=.
+
+#+begin_src emacs-lisp
+  (use-package web-beautify
+    :ensure t
+    :bind (:map web-mode-map
+                ("C-c b" . web-beautify-html)
+                :map js2-mode-map
+                ("C-c b" . web-beautify-js)))
+#+end_src
+* Language
 ** Javascript
 In JS indent to 2 spaces.
 #+begin_src emacs-lisp
@@ -909,27 +932,6 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
                              ))
     (add-hook 'js2-mode-hook 'prettier-js-mode)
     (add-hook 'rjsx-mode-hook 'prettier-js-mode))
-#+end_src
-** Web mode
-Web mode handles html/css/js.
-#+begin_src emacs-lisp
-  (use-package web-mode
-    :ensure t
-    :mode (("\\.html\\'" . web-mode)
-           ("\\.erb\\'" . web-mode))
-    :config
-    (setq web-mode-markup-indent-offset 2))
-#+end_src
-** Web Beautify
-Web beautify prettifies html / css / js using js-beautify - install with =npm install -g js-beautify=.
-
-#+begin_src emacs-lisp
-  (use-package web-beautify
-    :ensure t
-    :bind (:map web-mode-map
-                ("C-c b" . web-beautify-html)
-                :map js2-mode-map
-                ("C-c b" . web-beautify-js)))
 #+end_src
 ** Yaml
 #+begin_src emacs-lisp
