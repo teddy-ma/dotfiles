@@ -935,9 +935,14 @@ set TERM "xterm-256color"
 starship init fish | source
 #+end_src
 
-#+begin_src conf :tangle (when (eq system-type 'darwin) "~/.config/fish/config.fish")
+#+begin_src conf :tangle (when (eq system-type 'darwin) "~/.config/fish/config.fish") :mkdirp "yes"
 source /usr/local/opt/asdf/asdf.fish
 #+end_src
+
+#+begin_src conf :tangle (when (eq system-type 'gnu/linux)  "~/.config/fish/config.fish") :mkdirp "yes"
+xmodmap ~/.Xmodmap
+#+end_src
+
 ** starship
 #+begin_src toml :tangle ~/.config/starship.toml :mkdirp "yes"
   # Wait 10 milliseconds for starship to check files under the current directory.
