@@ -922,93 +922,10 @@ float = ""
 #+end_src
 
 * shell
-** zshrc
-shell 我用 zsh, 使用 antigen, 和 starship 配置
-
-#+begin_src conf :tangle ~/.zshrc
-  export TERM='xterm-256color' # 设置256色
-  export EDITOR='vim'
-
-  export LANG=en_US.UTF-8
-  export LANGUAGE=en_US.UTF-8
-  export LC_ALL=en_US.UTF-8
-  # 全部使用 utf-8
-
-  if [ -f "$HOME/.antigen/antigen.zsh" ]; then
-  source ~/.antigen/antigen.zsh
-  fi
-
-  if [ -f "/usr/local/share/antigen/antigen.zsh" ]; then
-  source /usr/local/share/antigen/antigen.zsh
-  fi
-
-  antigen use oh-my-zsh
-
-  # Command auto-correction.
-  ENABLE_CORRECTION="true"
-
-  # Command execution time stamp shown in the history command output.
-  HIST_STAMPS="mm/dd/yyyy"
-
-  antigen bundle command-not-found
-  antigen bundle extract
-  antigen bundle gem
-  antigen bundle git
-  antigen bundle git-extras
-  antigen bundle history
-  antigen bundle colored-man-pages
-  antigen bundle sudo
-  antigen bundle npm
-  antigen bundle vundle
-
-  antigen bundle zsh-users/zsh-syntax-highlighting
-  antigen bundle zsh-users/zsh-history-substring-search
-  antigen bundle zsh-users/zsh-completions
-  antigen bundle zsh-users/zsh-autosuggestions
-
-  antigen bundle mafredri/zsh-async
-  antigen bundle t413/zsh-background-notify
-
-  # Tell antigen that you're done.
-  antigen apply
-  # ================= antigen config end ===================
-
-  # start starship
-  eval "$(starship init zsh)"
-
-  # RPROMPT="[%D{%y/%m/%f}|%@]"
-  # ignore duplicate commands, ignore commands starting with a space
-  export HISTCONTROL=erasedups:ignorespace
-  # keep the last 20000 entries
-  export HISTSIZE=20000
-
-  if [ -d "$HOME/ownCloud/Config" ]; then
-  export HISTFILE="$HOME/ownCloud/Config/zsh_history"
-  fi
-
-  export PATH="$HOME/.cargo/bin:$PATH"
-  export GEM_HOME=$(ruby -e 'print Gem.user_dir')
-  export PATH="$GEM_HOME/bin:$PATH"
-  export PATH="$(yarn global bin):$PATH"
-#+end_src
-
-macOS 特有配置
-
-#+begin_src conf :tangle :tangle (when (eq system-type 'darwin) "~/.zshrc")
-# bat colorful man page
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
-# asdf
-. `brew --prefix asdf`/asdf.sh
-
-# alias
-alias vim='/usr/local/bin/nvim' # brew install neovim
-alias ls='/usr/local/bin/exa' # brew install exa
-alias cat='/usr/local/bin/bat' # brew install bat
-alias gita="python3 -m gita" # pip3 install -U gita
-#+end_src
 ** fish
 #+begin_src conf :tangle  ~/.config/fish/config.fish :mkdirp "yes"
+set TERM "xterm-256color"
+
 starship init fish | source
 #+end_src
 
