@@ -7,7 +7,7 @@
  '(org-export-initial-scope 'subtree)
  '(org-export-with-toc nil)
  '(package-selected-packages
-   '(lua-mode lua ruby-refactor emr ruby-test-mode plantuml-mode company-anaconda ace-window expand-region which-key ivy-hydra counsel ivy undo-tree pyim company-irony alchemist intero company-ghc rjsx-mode js2-refactor js2-mode yasnippet-snippets company counsel-projectile aggressive-indent rainbow-mode lsp-ui company-lsp lsp-mode yasnippet gnu-elpa-keyring-update beacon use-package)))
+   '(impatient-mode lua-mode lua ruby-refactor emr ruby-test-mode plantuml-mode company-anaconda ace-window expand-region which-key ivy-hydra counsel ivy undo-tree pyim company-irony alchemist intero company-ghc rjsx-mode js2-refactor js2-mode yasnippet-snippets company counsel-projectile aggressive-indent rainbow-mode lsp-ui company-lsp lsp-mode yasnippet gnu-elpa-keyring-update beacon use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
