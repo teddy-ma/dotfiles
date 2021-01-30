@@ -1798,7 +1798,7 @@ mode "$mode_gaps_outer" {
   require "modules/window"
   require "modules/screen"
   require "modules/key"
-  -- require "modules/dashboard"
+  require "modules/dashboard"
   require "modules/layout"
   require "modules/react"
 
@@ -2252,57 +2252,69 @@ local flags_event = hs.eventtap.new(
 flags_event:start()
 #+end_src
 ** TODO dashboard
-#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/dashboard.lua")
- hs.hotkey.bind(hyper, 'y', function()
-                  if not dashboardView then
-                     local command = "uptime"
-                     local handle = io.popen(command)
-                     local result = handle:read("*a")
-                     handle:close()
-                     generate_view()
-                     local webcontent = html_dashboard(result)
-                     dashboardView:html(webcontent)
-                     dashboardView:show()
-                  else
-                     dashboardView:delete()
-                     dashboardView:hide()
-                     dashboardView = nil
-                  end
-end)
+#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/dashboard.lua")
+  hs.hotkey.bind(hyper, 'y', function()
+                    if not dashboardView then
+                       local command = "cd ~/Documents/org && git status"
+                       local handle = io.popen(command)
+                       local result = handle:read("*a")
+                       handle:close()
+                       generate_view()
+                       local webcontent = html_dashboard(result)
+                       dashboardView:html(generate_result())
+                       dashboardView:show()
+                    else
+                       dashboardView:delete()
+                       dashboardView:hide()
+                       dashboardView = nil
+                    end
+  end)
 
-function generate_view()
-   local cscreen = hs.screen.mainScreen()
-   local cres = cscreen:fullFrame()
+  function generate_result()
+     local ret = ""
+     local commands = {
+        "a", "b", "c"
+     }
 
-   dashboardView = hs.webview.new({x=0, y=0, w=0, h=0})
-   dashboardView:windowTitle("Dashboard")
-   dashboardView:windowStyle("utility")
-   dashboardView:allowGestures(true)
-   dashboardView:allowNewWindows(false)
-   dashboardView:level(hs.drawing.windowLevels.modalPanel)
-   dashboardView:frame({
-         x = cres.x + cres.w * 0.15 / 2,
-         y = cres.y + cres.h * 0.25 / 2,
-         w = cres.w * 0.85,
-         h = cres.h * 0.75
-   })
-end
+     for i = 1, #commands do
+        ret = ret .. commands[i]
+     end
+     return ret
+  end
 
-function html_dashboard(content)
-   local html = [[
-        <!DOCTYPE html>
-        <html>
-        <head>
-        <body>
-        <h1>hello</h1>
-        <div class="title"><strong>]] .. content .. [[</strong></div>
+  function generate_view()
+     local cscreen = hs.screen.mainScreen()
+     local cres = cscreen:fullFrame()
 
-        </body>
-        </html>
-        ]]
+     dashboardView = hs.webview.new({x=0, y=0, w=0, h=0})
+     dashboardView:windowTitle("Dashboard")
+     dashboardView:windowStyle("utility")
+     dashboardView:allowGestures(true)
+     dashboardView:allowNewWindows(false)
+     dashboardView:level(hs.drawing.windowLevels.modalPanel)
+     dashboardView:frame({
+           x = cres.x + cres.w * 0.15 / 2,
+           y = cres.y + cres.h * 0.25 / 2,
+           w = cres.w * 0.85,
+           h = cres.h * 0.75
+     })
+  end
 
-        return html
-end
+  function html_dashboard(content)
+     local html = [[
+          <!DOCTYPE html>
+          <html>
+          <head>
+          <body>
+          <h1>hello</h1>
+          <div class="title"><strong>]] .. content .. [[</strong></div>
+
+          </body>
+          </html>
+          ]]
+
+     return html
+  end
 
 #+end_src
 ** Spoons
