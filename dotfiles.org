@@ -2270,24 +2270,32 @@ flags_event:start()
   end)
 
   function generate_result()
-     local ret = ""
-     local commands = {
-        "cd ~/Documents/org && git status",
-        "cd ~/Documents/roam && git status",
-        "cd ~/.emacs.d/ && git status"
+     local row_git_status = {
+        org = { 'cd ~/Documents/org && git status  --porcelain', "four columns", 5 },
+        roam = { "cd ~/Documents/roam && git status  --porcelain", "four columns", 12 },
+        dotfiles = { "cd ~/.emacs.d/ && git status  --porcelain", "four columns", 7 }
      }
 
-     for i = 1, #commands do
-        c = commands[i]
-        local handle = io.popen(c)
-        local result = handle:read("*a")
-        handle:close()
-        -- hs.alert.show(result)
-        local r = string.gsub(result, "\n", "<br/>")
-        local item_html = generate_row(c .. "<br/>" .. r .. "<br/>")
-        ret = ret .. item_html
+     local result = generate_html_row_div(row_git_status)
+     return result
+  end
+
+
+  function generate_html_row_div(tb)
+     result = '<div class="row">'
+     for k, v in pairs(tb) do
+        result = result .. '<div style="height: 300px" class="' .. v[2] .. '">'
+        result = result .. get_command_result(v[1]) .. '</div>'
      end
-     return ret
+     result = result .. '</div>'
+     return result
+  end
+
+  function get_command_result(c)
+     local handle = io.popen(c)
+     local result = handle:read("*a")
+     handle:close()
+     return result.gsub(result, "\n", "<br/>")
   end
 
   function generate_view()
@@ -2308,36 +2316,31 @@ flags_event:start()
      })
   end
 
-  function generate_row(item)
-     local html = [[
-     <div class="row">
-     ]] .. item ..  [[
-     </div>
-     ]]
-
-     return html
-  end
-
   function html_dashboard(content)
      local html = [[
       <!DOCTYPE html>
       <html>
-      <head>
-      <link rel="stylesheet" href="http://getskeleton.com/dist/css/skeleton.css">
-      </haed>
-      <body>
-      <h1>Dashboard</h1>
-      <div class="container">
-      ]] .. content .. [[
-      </strong></div>
-      </body>
+        <head>
+          <link rel="stylesheet" href="http://getskeleton.com/dist/css/normalize.css" />
+          <link rel="stylesheet" href="http://getskeleton.com/dist/css/skeleton.css" />
+          <link rel="stylesheet" href="http://getskeleton.com/css/custom.css" />
+        </haed>
+        <body>
+          <h1>Dashboard</h1>
+          <div class="container example-grid docs-example">
+            ]] .. content .. [[
+          </div>
+        </body>
       </html>
-      ]]
+            ]]
 
      return html
   end
 
 #+end_src
+
+** Spoons
+in ownCloud config folder
 
 * Misc
 ** bat

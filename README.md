@@ -31,6 +31,8 @@ fisher install jethrokuan/fzf
 fisher install jethrokuan/z
 fisher install franciscolourenco/done
 
+ln -s ~/ownCloud/Config/Spoons ~/.hammerspoon
+
 ln -s ~/ownCloud/Config/pyim ~/.emacs.d
 ln -s ~/ownCloud/Config/snippets ~/.emacs.d
 ```
