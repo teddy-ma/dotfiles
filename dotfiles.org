@@ -2255,13 +2255,9 @@ flags_event:start()
 #+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/dashboard.lua")
   hs.hotkey.bind(hyper, 'y', function()
                     if not dashboardView then
-                       local command = "cd ~/Documents/org && git status"
-                       local handle = io.popen(command)
-                       local result = handle:read("*a")
-                       handle:close()
                        generate_view()
-                       local webcontent = html_dashboard(result)
-                       dashboardView:html(generate_result())
+                       local webcontent = html_dashboard(generate_result())
+                       dashboardView:html(webcontent)
                        dashboardView:show()
                     else
                        dashboardView:delete()
@@ -2273,11 +2269,20 @@ flags_event:start()
   function generate_result()
      local ret = ""
      local commands = {
-        "a", "b", "c"
+        "cd ~/Documents/org && git status",
+        "cd ~/Documents/roam && git status",
+        "cd ~/.emacs.d/ && git status"
      }
 
      for i = 1, #commands do
-        ret = ret .. commands[i]
+        c = commands[i]
+        local handle = io.popen(c)
+        local result = handle:read("*a")
+        handle:close()
+        -- hs.alert.show(result)
+        local r = string.gsub(result, "\n", "<br/>")
+        local item_html = generate_row(c .. "<br/>" .. r .. "<br/>")
+        ret = ret .. item_html
      end
      return ret
   end
@@ -2300,18 +2305,31 @@ flags_event:start()
      })
   end
 
+  function generate_row(item)
+     local html = [[
+     <div class="row">
+     ]] .. item ..  [[
+     </div>
+     ]]
+
+     return html
+  end
+
   function html_dashboard(content)
      local html = [[
-          <!DOCTYPE html>
-          <html>
-          <head>
-          <body>
-          <h1>hello</h1>
-          <div class="title"><strong>]] .. content .. [[</strong></div>
-
-          </body>
-          </html>
-          ]]
+      <!DOCTYPE html>
+      <html>
+      <head>
+      <link rel="stylesheet" href="http://getskeleton.com/dist/css/skeleton.css">
+      </haed>
+      <body>
+      <h1>Dashboard</h1>
+      <div class="container">
+      ]] .. content .. [[
+      </strong></div>
+      </body>
+      </html>
+      ]]
 
      return html
   end
