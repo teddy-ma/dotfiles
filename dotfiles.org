@@ -2256,86 +2256,93 @@ flags_event:start()
 #+end_src
 ** DOING dashboard
 #+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/dashboard.lua")
-  hs.hotkey.bind(hyper, 'y', function()
-                    if not dashboardView then
-                       generate_view()
-                       local webcontent = html_dashboard(generate_result())
-                       dashboardView:html(webcontent)
-                       dashboardView:show()
-                    else
-                       dashboardView:delete()
-                       dashboardView:hide()
-                       dashboardView = nil
-                    end
-  end)
+    hs.hotkey.bind(hyper, 'y', function()
+                      if not dashboardView then
+                         generate_view()
+                         local webcontent = html_dashboard(generate_result())
+                         dashboardView:html(webcontent)
+                         dashboardView:show()
+                      else
+                         dashboardView:delete()
+                         dashboardView:hide()
+                         dashboardView = nil
+                      end
+    end)
 
-  function generate_result()
-     local row_git_status = {
-        org = { 'cd ~/Documents/org && git status  --porcelain', "four columns", 5 },
-        roam = { "cd ~/Documents/roam && git status  --porcelain", "four columns", 12 },
-        dotfiles = { "cd ~/.emacs.d/ && git status  --porcelain", "four columns", 7 }
-     }
+    function generate_result()
+       local row_git_status = {
+          org = { 'cd ~/Documents/org && git status  --porcelain', "col-sm", 5 },
+          roam = { "cd ~/Documents/roam && git status  --porcelain", "col-sm", 12 },
+          dotfiles = { "cd ~/.emacs.d/ && git status  --porcelain", "col-sm", 7 }
+       }
 
-     local result = generate_html_row_div(row_git_status)
-     return result
-  end
+       local result = generate_html_row_div(row_git_status)
+       return result
+    end
 
 
-  function generate_html_row_div(tb)
-     result = '<div class="row">'
-     for k, v in pairs(tb) do
-        result = result .. '<div style="height: 300px" class="' .. v[2] .. '">'
-        result = result .. get_command_result(v[1]) .. '</div>'
-     end
-     result = result .. '</div>'
-     return result
-  end
+    function generate_html_row_div(tb)
+       result = '<div class="row">'
+       for k, v in pairs(tb) do
+          result = result .. '<div class="col-sm" style="text-align: center">'
+          result = result .. '<h4>' .. k .. '</h4>'
+          result = result .. get_command_result(v[1]) .. '</div>'
+       end
+       result = result .. '</div>'
+       return result
+    end
 
-  function get_command_result(c)
-     local handle = io.popen(c)
-     local result = handle:read("*a")
-     handle:close()
-     return result.gsub(result, "\n", "<br/>")
-  end
+    function get_command_result(c)
+       local handle = io.popen(c)
+       local result = handle:read("*a")
+       handle:close()
+       return result.gsub(result, "\n", "<br/>")
+    end
 
-  function generate_view()
-     local cscreen = hs.screen.mainScreen()
-     local cres = cscreen:fullFrame()
+    function generate_view()
+       local cscreen = hs.screen.mainScreen()
+       local cres = cscreen:fullFrame()
 
-     dashboardView = hs.webview.new({x=0, y=0, w=0, h=0})
-     dashboardView:windowTitle("Dashboard")
-     dashboardView:windowStyle("utility")
-     dashboardView:allowGestures(true)
-     dashboardView:allowNewWindows(false)
-     dashboardView:level(hs.drawing.windowLevels.modalPanel)
-     dashboardView:frame({
-           x = cres.x + cres.w * 0.15 / 2,
-           y = cres.y + cres.h * 0.25 / 2,
-           w = cres.w * 0.85,
-           h = cres.h * 0.75
-     })
-  end
+       dashboardView = hs.webview.new({x=0, y=0, w=0, h=0})
+       dashboardView:windowTitle("Dashboard")
+       dashboardView:windowStyle("utility")
+       dashboardView:allowGestures(true)
+       dashboardView:allowNewWindows(false)
+       dashboardView:level(hs.drawing.windowLevels.modalPanel)
+       dashboardView:frame({
+             x = cres.x + cres.w * 0.15 / 2,
+             y = cres.y + cres.h * 0.25 / 2,
+             w = cres.w * 0.85,
+             h = cres.h * 0.75
+       })
+    end
 
-  function html_dashboard(content)
-     local html = [[
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <link rel="stylesheet" href="http://getskeleton.com/dist/css/normalize.css" />
-          <link rel="stylesheet" href="http://getskeleton.com/dist/css/skeleton.css" />
-          <link rel="stylesheet" href="http://getskeleton.com/css/custom.css" />
-        </haed>
-        <body>
-          <h1>Dashboard</h1>
-          <div class="container example-grid docs-example">
-            ]] .. content .. [[
-          </div>
-        </body>
-      </html>
-            ]]
+    function html_dashboard(content)
+       local html = [[
 
-     return html
-  end
+    <!doctype html>
+    <html lang="en">
+      <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+      </head>
+      <body>
+        <h1 style="text-align: center">Dashboard</h1>
+    <div class="container">
+                ]] .. content .. [[
+
+  </div>
+      </body>
+    </html>
+                ]]
+
+       return html
+    end
 
 #+end_src
 
