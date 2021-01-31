@@ -2271,13 +2271,13 @@ flags_event:start()
 
     function generate_result()
        local git_status = {
-          org = { 'cd ~/Documents/org && git status  --porcelain', "col-sm", 5 },
-          roam = { "cd ~/Documents/roam && git status  --porcelain", "col-sm", 12 },
-          dotfiles = { "cd ~/.emacs.d/ && git status  --porcelain", "col-sm", 7 }
+          org = { 'cd ~/Documents/org && git status  --porcelain', "col-git-status", 5 },
+          roam = { "cd ~/Documents/roam && git status  --porcelain", "col-git-status", 12 },
+          dotfiles = { "cd ~/.emacs.d/ && git status  --porcelain", "col-git-status", 7 }
        }
 
        local todos = {
-          todolist = {'cat ~/Documents/org/todo.org  | grep "* TODO" | sed "s/TODO/""/g"'}
+          todolist = {'cat ~/Documents/org/todo.org  | grep "* TODO" | sed "s/TODO/""/g"', "col-todo-list"}
        }
 
        local result = generate_html_row_div(git_status)
@@ -2289,7 +2289,7 @@ flags_event:start()
     function generate_html_row_div(tb)
        result = '<div class="row" style="min-height:100px">'
        for k, v in pairs(tb) do
-          result = result .. '<div class="col-sm" style="text-align: center">'
+          result = result .. '<div class="col-sm ' .. v[2] .. '">'
           result = result .. '<h4>' .. k .. '</h4>'
           result = result .. get_command_result(v[1]) .. '</div>'
        end
