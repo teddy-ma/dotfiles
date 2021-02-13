@@ -1214,6 +1214,22 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
                 (("C-c n i" . org-roam-insert))
                 (("C-c n I" . org-roam-insert-immediate))))
 #+end_src
+** Org Capture
+#+begin_src emacs-lisp
+  (use-package org-capture
+    :ensure t
+    :bind ("C-c c" . org-capture)
+    :config
+    (add-to-list 'org-capture-templates
+                 '("t" "Tips"  entry
+                   (file "~/Documents/org/tips.org")
+                   "* %?" :empty-lines 0))
+
+    (add-to-list 'org-capture-templates
+                 '("j" "Daily" entry
+                   (file "~/Documents/org/daily.org")
+                   "* %?" :empty-lines 0)))
+#+end_src
 * Extras
 ** Writing
 =writegood-mode= highlights bad word choices and has functions for calculating readability.
