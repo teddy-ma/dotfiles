@@ -360,21 +360,20 @@ Suggest next keys to me based on currently entered key combination.
     (eshell-git-prompt-use-theme 'powerline))
 #+end_src
 ** meta key
+make both command and option key to be meta key
 #+begin_src emacs-lisp
   (when (eq system-type 'darwin)
     (setq mac-command-modifier 'meta
-          mac-option-modifier 'meta)
-    )
+          mac-option-modifier 'meta))
 
-  (when (eq system-type 'gnu/linux)
-    ;; (setq  x-meta-keysym 'super
-    ;;       x-super-keysym 'meta)
-    )
+  ;; (when (eq system-type 'gnu/linux)
+  ;; (setq  x-meta-keysym 'super
+  ;;       x-super-keysym 'meta))
 
 #+end_src
 * Appearance
 ** Font
-中文与外文字体设置, 不同系统不同设置
+It works fine with windows and org table
 
 #+begin_src emacs-lisp
   (when (eq system-type 'darwin)
@@ -408,8 +407,9 @@ Add emoji support. This is useful when working with html.
 #+end_src
 
 ** Emoji and icons
-;; MUST Run M-x all-the-icons-install-fonts
+
 #+BEGIN_SRC emacs-lisp
+  ;; MUST Run M-x all-the-icons-install-fonts
   (use-package all-the-icons
     :ensure t)
 #+END_SRC
@@ -433,7 +433,6 @@ It's hard to customize mode line...
 #+end_src
 ** Theme
 #+begin_src emacs-lisp
-
   (use-package tron-legacy-theme
     :ensure t
     :config
@@ -512,6 +511,7 @@ It's hard to customize mode line...
 #+end_src
 *** Display battery
 #+begin_src emacs-lisp
+  ;; (display-battery-mode 1)
   (setq battery-mode-line-format "[%b%p%% %t]")
 #+end_src
 
@@ -991,13 +991,6 @@ Code formatting is easier with =hindent=.
     :ensure t)
 #+end_src
 
-Complete interactive development program for Haskell
-#+begin_src emacs-lisp
-  (use-package intero
-    :ensure t
-    :config
-    (add-hook 'haskell-mode-hook 'intero-mode))
-#+end_src
 ** Elixir
 Elixir highlighting is not built into emacs at present. Elixir-mode gives all the usual niceties, and alchemist improves interaction with tools like =iex=, =mix= and =elixir-format=.
 
