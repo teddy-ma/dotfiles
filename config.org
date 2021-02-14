@@ -140,6 +140,16 @@ By default Emacs doesn't read from the same environment variables set in your te
 #+end_src
 * Interface
 ** Basics
+*** Welcome dashboard
+#+begin_src emacs-lisp
+  (use-package dashboard
+    :ensure t
+    :config
+    (dashboard-setup-startup-hook)
+    (setq dashboard-items '((recents  . 5)
+                            (bookmarks . 5)
+                            (registers . 5))))
+#+end_src
 *** CRUX
 =crux= is a list of useful functions.
 
