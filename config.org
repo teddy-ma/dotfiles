@@ -1083,15 +1083,15 @@ Add flycheck support.
 * Org
 ** General settings.
 #+begin_src emacs-lisp
-  (setq org-startup-indented 'f)
-  (setq org-special-ctrl-a/e 't)
-  (setq org-src-fontify-natively 't)
-  (setq org-src-tab-acts-natively t)
-  (setq org-src-window-setup 'current-window)
   (use-package org
     :ensure t
     :diminish org-indent-mode
     :config
+    (setq org-startup-indented 'f)
+    (setq org-special-ctrl-a/e 't)
+    (setq org-src-fontify-natively 't)
+    (setq org-src-tab-acts-natively t)
+    (setq org-src-window-setup 'current-window)
     (setq org-ellipsis " ▾")
     (add-hook 'org-mode-hook (lambda ()
                                "Beautify Org Checkbox Symbol"
@@ -1167,9 +1167,10 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
 ** Reveal.js
 #+begin_src emacs-lisp
   (use-package ox-reveal
-    :ensure t)
-  (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
-  (setq org-reveal-mathjax t)
+    :ensure t
+    :config
+    (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
+    (setq org-reveal-mathjax t))
 #+end_src
 ** Org Tree Slide
 #+begin_src emacs-lisp
@@ -1219,6 +1220,18 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
                  '("j" "Daily" entry
                    (file "~/Documents/org/daily.org")
                    "* %?" :empty-lines 0)))
+#+end_src
+** Org Agenda
+#+begin_src emacs-lisp
+  (defun teddy-ma/agenda-icon-material (name)
+    "Returns an all-the-icons-material icon"
+    (list (all-the-icons-material name)))
+
+  (use-package org-agenda
+    :bind ("C-c a" . org-agenda)
+    :config
+    (add-to-list 'org-agenda-files "~/Documents/org/todo.org")
+    )
 #+end_src
 * Extras
 ** Writing
