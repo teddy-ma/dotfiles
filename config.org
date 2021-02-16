@@ -1223,14 +1223,14 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
 #+end_src
 ** Org Agenda
 #+begin_src emacs-lisp
-  (defun teddy-ma/agenda-icon-material (name)
-    "Returns an all-the-icons-material icon"
-    (list (all-the-icons-material name)))
+  (use-package org-indent
+    :after org)
 
   (use-package org-agenda
     :bind ("C-c a" . org-agenda)
-    :config
+    :custom
     (add-to-list 'org-agenda-files "~/Documents/org/todo.org")
+    (org-agenda-include-diary t)
     )
 #+end_src
 * Extras
