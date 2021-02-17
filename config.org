@@ -4,6 +4,7 @@
 
 * Setup
 ** Make it easy to edit and reload this file
+
 #+begin_src emacs-lisp
   (defun find-config ()
     "Edit config.org"
@@ -23,11 +24,14 @@
   (global-set-key (kbd "C-c I") 'find-config)
   (global-set-key (kbd "C-c R") 'reload-config)
 #+end_src
+
 ** Personal Information
+
 #+begin_src emacs-lisp
   (setq user-full-name "Teddy Ma"
         user-mail-address "mlc880926@gmail.com")
 #+end_src
+
 ** Configure use-package
 guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-package-manual.html
 
@@ -446,30 +450,30 @@ It's hard to customize mode line...
 #+end_src
 ** Theme
 #+begin_src emacs-lisp
-  (use-package tron-legacy-theme
-    :ensure t
-    :config
-    (load-theme 'tron-legacy t))
-
-  ;; (use-package kaolin-themes
+  ;; (use-package leuven-theme
   ;;   :ensure t
   ;;   :config
-  ;;   (load-theme 'kaolin-light t))
+  ;;   (load-theme 'leuven-dark t))
+
+   (use-package kaolin-themes
+     :ensure t
+     :config
+     (load-theme 'kaolin-light t))
 
 
-  ;; has undersocre issus
-  ;; (use-package solarized-theme
-  ;;   :ensure t
-  ;;   :config
-  ;;   (load-theme 'solarized-light t)
-  ;;   ;; (load-theme 'solarized-dark t)
-  ;;   (let ((line (face-attribute 'mode-line :underline)))
-  ;;     (set-face-attribute 'mode-line          nil :overline   line)
-  ;;     (set-face-attribute 'mode-line-inactive nil :overline   line)
-  ;;     (set-face-attribute 'mode-line-inactive nil :underline  line)
-  ;;     (set-face-attribute 'mode-line          nil :box        nil)
-  ;;     (set-face-attribute 'mode-line-inactive nil :box        nil)
-  ;;     (set-face-attribute 'mode-line-inactive nil :background "#f9f2d9")))
+    ;; has undersocre issus
+    ;; (use-package solarized-theme
+    ;;   :ensure t
+    ;;   :config
+    ;;   (load-theme 'solarized-light t)
+    ;;   ;; (load-theme 'solarized-dark t)
+    ;;   (let ((line (face-attribute 'mode-line :underline)))
+    ;;     (set-face-attribute 'mode-line          nil :overline   line)
+    ;;     (set-face-attribute 'mode-line-inactive nil :overline   line)
+    ;;     (set-face-attribute 'mode-line-inactive nil :underline  line)
+    ;;     (set-face-attribute 'mode-line          nil :box        nil)
+    ;;     (set-face-attribute 'mode-line-inactive nil :box        nil)
+    ;;     (set-face-attribute 'mode-line-inactive nil :background "#f9f2d9")))
 #+end_src
 ** Misc
 *** Highlight the current line.
