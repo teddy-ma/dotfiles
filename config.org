@@ -449,32 +449,37 @@ It's hard to customize mode line...
   ;;   (moody-replace-vc-mode))
 #+end_src
 ** Theme
+https://github.com/ogdenwebb/emacs-kaolin-themes
+kaolin-dark - a dark jade variant inspired by Sierra.vim
+kaolin-aurora - Kaolin meets polar lights.
+kaolin-bubblegum - Kaolin colorful theme with dark blue background.
+kaolin-light - light variant of the original kaolin-dark.
+kaolin-eclipse - a dark purple variant
+kaolin-ocean - a dark blue variant.
+kaolin-galaxy - bright theme based on one of the Sebastian Andaur arts.
+kaolin-valley-dark - colorful Kaolin theme with brown background.
+kaolin-temple - dark background with syntax highlighting focus on blue, green and pink shades
+
 #+begin_src emacs-lisp
-  ;; (use-package leuven-theme
-  ;;   :ensure t
-  ;;   :config
-  ;;   (load-theme 'leuven-dark t))
-
-   (use-package kaolin-themes
-     :ensure t
-     :config
-     (load-theme 'kaolin-light t))
-
-
-    ;; has undersocre issus
-    ;; (use-package solarized-theme
-    ;;   :ensure t
-    ;;   :config
-    ;;   (load-theme 'solarized-light t)
-    ;;   ;; (load-theme 'solarized-dark t)
-    ;;   (let ((line (face-attribute 'mode-line :underline)))
-    ;;     (set-face-attribute 'mode-line          nil :overline   line)
-    ;;     (set-face-attribute 'mode-line-inactive nil :overline   line)
-    ;;     (set-face-attribute 'mode-line-inactive nil :underline  line)
-    ;;     (set-face-attribute 'mode-line          nil :box        nil)
-    ;;     (set-face-attribute 'mode-line-inactive nil :box        nil)
-    ;;     (set-face-attribute 'mode-line-inactive nil :background "#f9f2d9")))
+  (use-package kaolin-themes
+    :ensure t
+    :config
+    (load-theme 'kaolin-light t))
 #+end_src
+
+must manually set org block style, most theme not have a good one
+https://stackoverflow.com/questions/44811679/orgmode-change-code-block-background-color
+#+begin_src emacs-lisp
+  (custom-set-faces
+   '(org-block-begin-line
+     ((t (:underline nil :foreground "#60a83d" :background nil))))
+   '(org-block
+     ((t (:background nil))))
+   '(org-block-end-line
+     ((t (:overline nil :foreground nil :background nil))))
+   )
+#+end_src
+
 ** Misc
 *** Highlight the current line.
 #+begin_src emacs-lisp
@@ -1117,8 +1122,8 @@ Add flycheck support.
     :config
     (setq org-startup-indented 'f)
     (setq org-special-ctrl-a/e 't)
-    (setq org-src-fontify-natively 't)
     (setq org-src-tab-acts-natively t)
+    (setq org-src-fontify-natively t)
     (setq org-src-window-setup 'current-window)
     (setq org-ellipsis " ▾")
     (add-hook 'org-mode-hook (lambda ()
