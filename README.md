@@ -25,14 +25,8 @@ git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d
 brew install fish
 echo /usr/local/bin/fish | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/fish
-curl -sL https://git.io/fisher | source
-
-fisher install jethrokuan/fzf
-fisher install jethrokuan/z
-fisher install franciscolourenco/done
 
 ln -s ~/ownCloud/Config/Spoons ~/.hammerspoon
-
 ln -s ~/ownCloud/Config/pyim ~/.emacs.d
 ln -s ~/ownCloud/Config/snippets ~/.emacs.d
 ```
@@ -42,13 +36,8 @@ ln -s ~/ownCloud/Config/snippets ~/.emacs.d
 Linux 下只需要安装几个最基础的包
 
 ```shell
-sudo pacman -Syu git fish ttf-inconsolata ttf-arphic-uming
-
+sudo pacman -Syu git fish ttf-inconsolata ttf-arphic-uming fzf owncloud-client
 chsh -s /usr/bin/fish
-curl -sL https://git.io/fisher | source
-fisher install jethrokuan/fzf
-fisher install jethrokuan/z
-fisher install franciscolourenco/done
 
 git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d/
 
