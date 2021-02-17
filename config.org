@@ -929,7 +929,10 @@ JS2 mode improves on the built in JS mode.
     :ensure t
     :config
     (js2r-add-keybindings-with-prefix "C-c C-m")
-    (add-hook 'js2-mode-hook 'js2-refactor-mode))
+    :hook
+    (after-js-mode . js-refactor-mode))
+
+
 #+end_src
 
 RJSX mode makes JSX work well.
@@ -948,8 +951,9 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
                              "--single-quote" "true"
                              "--print-width" "100"
                              ))
-    (add-hook 'js2-mode-hook 'prettier-js-mode)
-    (add-hook 'rjsx-mode-hook 'prettier-js-mode))
+    :hook
+    (after-js2-mode . prettier-js-mode)
+    (after-rjsx-mode . prettier-js-mode))
 #+end_src
 ** Yaml
 #+begin_src emacs-lisp
@@ -1016,14 +1020,14 @@ Elixir highlighting is not built into emacs at present. Elixir-mode gives all th
   (use-package robe
     :ensure t
     :diminish
-    :config
-    (add-hook 'ruby-mode-hook 'robe-mode))
+    :hook
+    (after-ruby-mode . robe-mode))
 
   (use-package rubocop
     :ensure t
     :diminish
-    :config
-    (add-hook 'ruby-mode-hook 'rubocop-mode))
+    :hook
+    (after-ruby-mode . rubocop-mode))
 
   (use-package haml-mode
     :ensure t)
@@ -1223,10 +1227,8 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
 #+begin_src emacs-lisp
   (use-package org-agenda
     :bind ("C-c a" . org-agenda)
-    :custom
-    (add-to-list 'org-agenda-files "~/Documents/org/todo.org")
-    (org-agenda-include-diary t)
-    )
+    :config
+    (add-to-list 'org-agenda-files "~/Documents/org/todo.org"))
 #+end_src
 * Extras
 ** Writing
