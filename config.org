@@ -192,6 +192,11 @@ I *never* want whitespace at the end of lines. Remove it on save.
     :config
     (global-undo-tree-mode 1))
 #+END_SRC
+*** Capslock
+#+begin_src emacs-lisp
+  (use-package caps-lock
+    :ensure t)
+#+end_src
 ** Command completion
 =ivy= is a generic completion framework which uses the minibuffer. Turning on =ivy-mode= with fuzzy support enables replacement of lots of built in =ido= functionality.
 
@@ -516,11 +521,28 @@ It's hard to customize mode line...
 
   ;; Don't beep at me
   (setq visible-bell nil)
-#+end_src
+
+  (use-package indent-guide
+    :ensure t)
+ #+end_src
 *** Display battery
 #+begin_src emacs-lisp
   ;; (display-battery-mode 1)
   (setq battery-mode-line-format "[%b%p%% %t]")
+#+end_src
+*** Dired icons
+#+begin_src emacs-lisp
+  (use-package all-the-icons-dired
+    :ensure t
+    :config
+    (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+#+end_src
+*** Info colors
+#+begin_src emacs-lisp
+  (use-package info-colors
+    :ensure t
+    :config
+    (add-hook 'Info-selection-hook 'info-colors-fontify-node))
 #+end_src
 
 * Programming
