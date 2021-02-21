@@ -2355,6 +2355,15 @@ in ownCloud config folder
 pip3 install -U gita
 #+end_src
 
+#+begin_src yaml
+  repos:
+    - name: socss
+      url: git@github.com:teddy-ma/socss.gi
+
+    - name: songofcode
+      url: git@bitbucket.org:songofcode/songofcode.git
+#+end_src
+
 #+BEGIN_SRC conf :tangle ~/.config/gita/repo_path :mkdirp "yes"
   /Users/teddy/.emacs.d,.emacs.d
   /Users/teddy/Documents/org,org
@@ -2608,3 +2617,33 @@ window 下要把 C:\Program Files\Git\usr\bin 加入到 path, 主要需要里面
 然后下载 gogs, 在命令行中执行 gogs.exe web, 设置界面要选择独立 ssh
 ** openwrt
 直接使用镜像， 镜像转换需要以管理员身份执行
+** simple file server
+#+begin_src go
+/*
+Serve is a very simple static file server in go
+Usage:
+	-p="8100": port to serve on
+	-d=".":    the directory of static files to host
+Navigating to http://localhost:8100 will display the index.html or directory
+listing file.
+*/
+package main
+
+import (
+	"flag"
+	"log"
+	"net/http"
+)
+
+func main() {
+	port := flag.String("p", "8100", "port to serve on")
+	directory := flag.String("d", ".", "the directory of static file to host")
+	flag.Parse()
+
+	http.Handle("/", http.FileServer(http.Dir(*directory)))
+
+	log.Printf("Serving %s on HTTP port: %s\n", *directory, *port)
+	log.Fatal(http.ListenAndServe(":"+*port, nil))
+}
+
+#+end_src
