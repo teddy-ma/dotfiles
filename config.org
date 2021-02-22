@@ -223,9 +223,13 @@ I *never* want whitespace at the end of lines. Remove it on save.
     :bind
     (("M-x" . counsel-M-x))
     :config
-    (setq ivy-re-builders-alist
-          '((ivy-switch-buffer . ivy--regex-plus)
-            (t . ivy--regex-fuzzy)))
+     (setq ivy-re-builders-alist
+           '(
+             ;; no need to support fuzzy when use swiper and ivy-switch-buffer
+             (ivy-switch-buffer . ivy--regex-plus)
+             (swiper . ivy--regex-plus)
+             (t . ivy--regex-fuzzy)
+             ))
     (setq ivy-initial-inputs-alist nil))
 #+end_src
 
@@ -312,6 +316,18 @@ Suggest next keys to me based on currently entered key combination.
           (delete-char 1)
           (insert new-c)
           (replace-string new-c old-c nil (1+ start) end)))))
+#+end_src
+** Wrap region
+#+begin_src emacs-lisp
+  (use-package wrap-region
+    :ensure t
+    :config
+    (wrap-region-global-mode t)
+    (wrap-region-add-wrapper "~" "~" nil 'org-mode)  ; code
+    (wrap-region-add-wrapper "*" "*" nil 'org-mode)  ; bold
+    (wrap-region-add-wrapper "/" "/" nil 'org-mode)  ; italic
+    (wrap-region-add-wrapper "+" "+" nil 'org-mode)  ; strikethrough
+    (wrap-region-add-wrapper "=" "=" nil 'org-mode)) ; verbatim
 #+end_src
 ** Move line up and down
 #+begin_src emacs-lisp
@@ -698,11 +714,11 @@ Integration with Helm
 #+end_src
 
 Integration with neotree
+ modified version of https://github.com/hemmvm/dotemacs/blob/master/site-lisp/util--neotree.el
 #+begin_src emacs-lisp
   (use-package neotree
     :ensure t
     :config
-                                          ; modified version of https://github.com/hemmvm/dotemacs/blob/master/site-lisp/util--neotree.el
     (defun neotree-project-tree-open ()
       (interactive)
       (let ((project-dir (ignore-errors (projectile-project-root)))
@@ -970,8 +986,6 @@ JS2 mode improves on the built in JS mode.
     (js2r-add-keybindings-with-prefix "C-c C-m")
     :hook
     (after-js-mode . js-refactor-mode))
-
-
 #+end_src
 
 RJSX mode makes JSX work well.
@@ -1073,15 +1087,6 @@ Elixir highlighting is not built into emacs at present. Elixir-mode gives all th
 
   (use-package minitest
     :ensure t)
-
-  ;; (use-package emr
-  ;;   :ensure t
-  ;;   :config
-  ;;   (define-key prog-mode-map (kbd "M-RET") 'emr-show-refactor-menu))
-
-  ;; (use-package ruby-refactor
-  ;;   :ensure t)
-
 #+end_src
 ** Rails
 #+begin_src emacs-lisp
@@ -1123,6 +1128,7 @@ Add flycheck support.
 #+end_src
 * Org
 ** General settings.
+https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf
 #+begin_src emacs-lisp
   (use-package org
     :ensure t
