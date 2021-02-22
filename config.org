@@ -462,15 +462,17 @@ Add emoji support. This is useful when working with html.
     (set-fontset-font t 'symbol "Symbola" nil 'append))
 #+end_src
 ** Mode Line
-It's hard to customize mode line...
-
 #+begin_src emacs-lisp
-  ;; (use-package moody
-  ;;   :ensure t
-  ;;   :config
-  ;;   (setq x-underline-at-descent-line t)
-  ;;   (moody-replace-mode-line-buffer-identification)
-  ;;   (moody-replace-vc-mode))
+  (use-package telephone-line
+    :ensure t
+    :config
+    (setq telephone-line-primary-left-separator 'telephone-line-gradient
+          telephone-line-secondary-left-separator 'telephone-line-nil
+          telephone-line-primary-right-separator 'telephone-line-gradient
+          telephone-line-secondary-right-separator 'telephone-line-nil)
+    (setq telephone-line-height 24
+          telephone-line-evil-use-short-tag t)
+    (telephone-line-mode 1))
 #+end_src
 ** Theme
 https://github.com/ogdenwebb/emacs-kaolin-themes
