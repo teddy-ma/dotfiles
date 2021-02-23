@@ -357,9 +357,15 @@ Suggest next keys to me based on currently entered key combination.
 #+begin_src emacs-lisp
   (use-package centaur-tabs
     :ensure t
-    :demand
+    :init
+    (setq centaur-tabs-set-icons t)
+    (setq ccentaur-tabs-set-modified-marker t
+          centaur-tabs-modified-marker "M"
+          centaur-tabs-cycle-scope 'tabs)
+    (setq centaur-tabs-set-close-button nil)
     :config
-    (setq centaur-tabs-set-icons t))
+    (centaur-tabs-group-by-projectile-project)
+    )
 #+end_src
 ** Multiple cursors
 #+begin_src emacs-lisp
@@ -380,7 +386,17 @@ Suggest next keys to me based on currently entered key combination.
   :ensure nil
   :hook (after-init . winner-mode))
 #+end_src
-** Ace window
+** Window Navigation
+#+begin_src emacs-lisp
+  (use-package winum
+    :ensure
+    :config
+    (winum-set-keymap-prefix (kbd "C-c"))
+    (setq winum-format             " win%s "
+          winum-mode-line-position 10))
+
+#+end_src
+
 #+begin_src emacs-lisp
   (use-package ace-window
     :ensure t
@@ -396,6 +412,11 @@ Suggest next keys to me based on currently entered key combination.
 ** Transpose frame
 #+begin_src emacs-lisp
   (use-package transpose-frame
+    :ensure t)
+#+end_src
+** Downplay
+#+begin_src emacs-lisp
+  (use-package downplay-mode
     :ensure t)
 #+end_src
 ** Eshell
@@ -467,10 +488,12 @@ Add emoji support. This is useful when working with html.
     (set-fontset-font t 'symbol "Symbola" nil 'append))
 #+end_src
 ** Mode Line
+It's hard to config mode line, but it's easy to hide it.
 
 #+begin_src emacs-lisp
-
-
+  (use-package hide-mode-line
+    :ensure t
+    :commands (hide-mode-line-mode))
 #+end_src
 ** Theme
 https://github.com/ogdenwebb/emacs-kaolin-themes
@@ -1129,6 +1152,7 @@ Add flycheck support.
 * Org
 ** General settings.
 https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf
+
 #+begin_src emacs-lisp
   (use-package org
     :ensure t
@@ -1140,13 +1164,25 @@ https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf
     (setq org-src-fontify-natively t)
     (setq org-src-window-setup 'current-window)
     (setq org-ellipsis " ▾")
+    ;; org-ellipsis not shown in heading when git-gutter-fringe-mode is active
+    ;; https://lccambiaghi.github.io/vanilla-emacs/readme.html#org948c5b0
+    ;; org-ellipsis "⤵"
+    ;; org-ellipsis "▼"
+    ;; org-ellipsis "..."
+    ;;  org-ellipsis " ↴
     (add-hook 'org-mode-hook (lambda ()
                                "Beautify Org Checkbox Symbol"
                                (push '("[ ]" . "☐" ) prettify-symbols-alist)
                                (push '("[X]" . "☑" ) prettify-symbols-alist)
                                (push '("[-]" . "❍" ) prettify-symbols-alist)
                                (prettify-symbols-mode))))
+
+  ;; (setq-default prettify-symbols-alist '(("#+BEGIN_SRC" . "»") ("#+END_SRC" . "«")("#+begin_src" . "»") ("#+end_src" . "«") ("lambda"  . "λ") ("->" . "→") ("->>" . "↠")))
 #+end_src
+
+#+RESULTS:
+: t
+
 ** Easy open common files
 use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-notes-efficiently-org-mode/
 
@@ -1172,10 +1208,23 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
     :ensure t
     :hook (org-mode . teddy-ma/org-mode-visual-fill))
 #+end_src
-** Task stages
+** Task todo stages
 #+begin_src emacs-lisp
   (setq org-todo-keywords
         '((sequence "TODO" "DOING" "|" "DONE" "BLOCKED")))
+
+  (use-package hl-todo
+    :ensure t
+    :hook ((prog-mode org-mode) . teddy-ma/hl-todo-init)
+    :init
+    (defun teddy-ma/hl-todo-init ()
+      (setq-local hl-todo-keyword-faces '(("TODO" . "#ff9977")
+                                          ("DOING" . "#ffcc0c")
+                                          ("DONE" . "#44bc44")
+                                          ("BLOCKED" . "#003366")
+                                          ))
+      (hl-todo-mode))
+    )
 #+end_src
 
 ** Drag and drop images
