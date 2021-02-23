@@ -255,8 +255,8 @@ Suggest next keys to me based on currently entered key combination.
   (use-package which-key
     :ensure t
     :diminish which-key-mode
-    :config
-    (add-hook 'after-init-hook 'which-key-mode))
+    :hook
+    (after-init . which-key-mode))
 #+end_src
 
 ** Easier selection
@@ -374,6 +374,12 @@ Suggest next keys to me based on currently entered key combination.
     (global-set-key (kbd "C->") 'mc/mark-next-like-this)
     (global-set-key (kbd "C-<") 'mc/mark-previous-like-this))
 #+end_src
+** Winner mode
+#+begin_src emacs-lisp
+(use-package winner-mode
+  :ensure nil
+  :hook (after-init . winner-mode))
+#+end_src
 ** Ace window
 #+begin_src emacs-lisp
   (use-package ace-window
@@ -384,7 +390,6 @@ Suggest next keys to me based on currently entered key combination.
      '(aw-leading-char-face
        ((t (:inherit ace-jump-face-foreground :height 5.0)))))
     (ace-window-display-mode 1)
-    (winner-mode 1)
     :bind
     ("M-o" . ace-window))
 #+end_src
@@ -462,17 +467,10 @@ Add emoji support. This is useful when working with html.
     (set-fontset-font t 'symbol "Symbola" nil 'append))
 #+end_src
 ** Mode Line
+
 #+begin_src emacs-lisp
-  (use-package telephone-line
-    :ensure t
-    :config
-    (setq telephone-line-primary-left-separator 'telephone-line-gradient
-          telephone-line-secondary-left-separator 'telephone-line-nil
-          telephone-line-primary-right-separator 'telephone-line-gradient
-          telephone-line-secondary-right-separator 'telephone-line-nil)
-    (setq telephone-line-height 24
-          telephone-line-evil-use-short-tag t)
-    (telephone-line-mode 1))
+
+
 #+end_src
 ** Theme
 https://github.com/ogdenwebb/emacs-kaolin-themes

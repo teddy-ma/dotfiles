@@ -11,9 +11,10 @@
  '(org-export-initial-scope 'subtree)
  '(org-export-with-toc nil)
  '(package-selected-packages
-   '(telephone-line wrap-region centaur-tabs leuven-theme nimbus-theme indent-guide caps-lock info-colors all-the-icons-dired flx smex command-log-mode smart-hungry-delete crux diminish restart-emacs helpful exec-path-from-shell ghc deadgrep writegood-mode org-roam org-tree-slide ox-reveal ox-gfm org-download visual-fill-column org-bullets rust-mode flycheck-irony minitest haml-mode rubocop robe rake hindent slime toml-mode yaml-mode prettier-js web-beautify web-mode git-timemachine git-gutter magit dumb-jump fzf neotree helm-projectile helm-ag helm highlight-indent-guides smart-dash string-inflection format-all editorconfig rainbow-delimiters smartparens impatient-mode lua-mode lua ruby-refactor emr ruby-test-mode plantuml-mode company-anaconda ace-window expand-region which-key ivy-hydra counsel ivy undo-tree pyim company-irony alchemist intero company-ghc rjsx-mode js2-refactor js2-mode yasnippet-snippets company counsel-projectile aggressive-indent rainbow-mode lsp-ui company-lsp lsp-mode yasnippet gnu-elpa-keyring-update beacon use-package))
+   '(simple-modeline telephone-line wrap-region centaur-tabs leuven-theme nimbus-theme indent-guide caps-lock info-colors all-the-icons-dired flx smex command-log-mode smart-hungry-delete crux diminish restart-emacs helpful exec-path-from-shell ghc deadgrep writegood-mode org-roam org-tree-slide ox-reveal ox-gfm org-download visual-fill-column org-bullets rust-mode flycheck-irony minitest haml-mode rubocop robe rake hindent slime toml-mode yaml-mode prettier-js web-beautify web-mode git-timemachine git-gutter magit dumb-jump fzf neotree helm-projectile helm-ag helm highlight-indent-guides smart-dash string-inflection format-all editorconfig rainbow-delimiters smartparens impatient-mode lua-mode lua ruby-refactor emr ruby-test-mode plantuml-mode company-anaconda ace-window expand-region which-key ivy-hydra counsel ivy undo-tree pyim company-irony alchemist intero company-ghc rjsx-mode js2-refactor js2-mode yasnippet-snippets company counsel-projectile aggressive-indent rainbow-mode lsp-ui company-lsp lsp-mode yasnippet gnu-elpa-keyring-update beacon use-package))
  '(pos-tip-background-color "#DFE1DC")
- '(pos-tip-foreground-color "#4b5254"))
+ '(pos-tip-foreground-color "#4b5254")
+ '(telephone-line-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
