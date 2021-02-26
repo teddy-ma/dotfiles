@@ -213,6 +213,14 @@ I *never* want whitespace at the end of lines. Remove it on save.
     :ensure t
     :config
     (ivy-mode t))
+
+  (use-package ivy-rich
+    :ensure t
+    :after (ivy)
+    :init
+    (setq ivy-rich-path-style 'abbrev
+          ivy-virtual-abbreviate 'full)
+    :config (ivy-rich-mode 1))
 #+end_src
 
 =counsel= is a collection of =ivy= enhanced versions of common Emacs commands. I haven't bound much as =ivy-mode= takes care of most things.
@@ -414,11 +422,11 @@ Suggest next keys to me based on currently entered key combination.
   (use-package transpose-frame
     :ensure t)
 #+end_src
-** Downplay
+** Magnifying line
 #+begin_src emacs-lisp
-  (use-package downplay-mode
-    :ensure t)
+
 #+end_src
+
 ** Eshell
 #+begin_src emacs-lisp
   (use-package eshell-git-prompt
@@ -1160,6 +1168,7 @@ https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf
     :config
     (setq org-startup-indented 'f)
     (setq org-special-ctrl-a/e 't)
+    (setq org-hide-emphasis-markers t)
     (setq org-src-tab-acts-natively t)
     (setq org-src-fontify-natively t)
     (setq org-src-window-setup 'current-window)
