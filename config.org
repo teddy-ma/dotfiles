@@ -205,22 +205,14 @@ I *never* want whitespace at the end of lines. Remove it on save.
 =ivy= is a generic completion framework which uses the minibuffer. Turning on =ivy-mode= with fuzzy support enables replacement of lots of built in =ido= functionality.
 
 #+begin_src emacs-lisp
-  (use-package smex
-    :ensure t)
-  (use-package flx
-    :ensure t)
-  (use-package ivy
-    :ensure t
-    :config
-    (ivy-mode t))
-
-  (use-package ivy-rich
-    :ensure t
-    :after (ivy)
-    :init
-    (setq ivy-rich-path-style 'abbrev
-          ivy-virtual-abbreviate 'full)
-    :config (ivy-rich-mode 1))
+    (use-package smex
+      :ensure t)
+    (use-package flx
+      :ensure t)
+    (use-package ivy
+      :ensure t
+      :config
+      (ivy-mode t))
 #+end_src
 
 =counsel= is a collection of =ivy= enhanced versions of common Emacs commands. I haven't bound much as =ivy-mode= takes care of most things.
@@ -424,7 +416,19 @@ Suggest next keys to me based on currently entered key combination.
 #+end_src
 ** Magnifying line
 #+begin_src emacs-lisp
+  (defun magnifying-line ()
+    (interactive)
+    (setq magnifying-overlay (make-overlay (line-beginning-position) (line-end-position)))
+    (overlay-put magnifying-overlay 'font-lock-face '(:height 2.5)))
 
+  (define-minor-mode magnifying-glass-mode
+    "use magnifying glass like pro"
+    :lighter " magnifying"
+    :keymap (let ((map (make-sparse-keymap)))
+              (define-key map (kbd "C-c z") 'magnifying-line)
+              map))
+
+  (provide 'magnifying-glass-mode)
 #+end_src
 
 ** Eshell
