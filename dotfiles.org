@@ -2264,11 +2264,12 @@ flags_event:start()
   end)
 
   function generate_result()
-     local todos = {
-        todolist = {'cat ~/Documents/org/todo.org  | grep "* TODO" | sed "s/TODO/""/g"', "col-todo-list"}
+     local items = {
+        todolist = {'cat ~/Documents/org/todo.org  | grep "* TODO" | sed "s/TODO/""/g"', "col-todo-list"},
+        roamlist = {'ls ~/Documents/roam', "col-roam-list"}
      }
 
-     result = generate_html_row_div(todos)
+     result = generate_html_row_div(items)
      return result
   end
 
