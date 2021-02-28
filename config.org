@@ -428,15 +428,26 @@ Suggest next keys to me based on currently entered key combination.
     (setq magnifying-overlay (make-overlay (line-beginning-position) (line-end-position)))
     (overlay-put magnifying-overlay 'font-lock-face '(:height 2.5)))
 
+  (defun clean-magnifying-line()
+    (interactive)
+    (setq magnifying-overlay (make-overlay (line-beginning-position) (line-end-position)))
+    (delete-overlay magnifying-overlay))
+
   (define-minor-mode magnifying-glass-mode
     "use magnifying glass like pro"
     :lighter " magnifying"
     :keymap (let ((map (make-sparse-keymap)))
               (define-key map (kbd "C-c z") 'magnifying-line)
-              map))
+              map)
+
+    (if magnifying-glass-mode
+        (magnifying-line)
+      (clean-magnifying-line)))
 
   (provide 'magnifying-glass-mode)
+
 #+end_src
+
 
 ** Eshell
 #+begin_src emacs-lisp
