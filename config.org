@@ -162,6 +162,7 @@ By default Emacs doesn't read from the same environment variables set in your te
   (use-package crux
     :ensure t
     :bind (("C-a" . crux-move-beginning-of-line)
+           ("C-S-d" . crux-duplicate-current-line-or-region)
            ("C-c r" . crux-rename-file-and-buffer)
            ("C-c D" . crux-delete-file-and-buffer)))
 #+end_src
@@ -276,30 +277,7 @@ Suggest next keys to me based on currently entered key combination.
     :ensure t
     :bind ("C-=" . er/expand-region))
 #+end_src
-** Duplicate current line
-#+begin_src emacs-lisp
-  (defun duplicate-current-line-or-region (arg)
-    "Duplicates the current line or region ARG times.
-  If there's no region, the current line will be duplicated. However, if
-  there's a region, all lines that region covers will be duplicated."
-    (interactive "p")
-    (let (beg end (origin (point)))
-      (if (and mark-active (> (point) (mark)))
-          (exchange-point-and-mark))
-      (setq beg (line-beginning-position))
-      (if mark-active
-          (exchange-point-and-mark))
-      (setq end (line-end-position))
-      (let ((region (buffer-substring-no-properties beg end)))
-        (dotimes (i arg)
-          (goto-char end)
-          (newline)
-          (insert region)
-          (setq end (point)))
-        (goto-char (+ origin (* (length region) arg) arg)))))
 
-  (global-set-key (kbd "C-S-d") 'duplicate-current-line-or-region)
-#+end_src
 ** Toggle quotes
 #+begin_src emacs-lisp
   (defun toggle-quotes ()
