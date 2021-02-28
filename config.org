@@ -47,6 +47,7 @@ guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-pa
           ("MELPA"        . 0)))
   (package-initialize)
   (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+  ;;(setq package-check-signature nil)
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
@@ -253,6 +254,7 @@ Suggest next keys to me based on currently entered key combination.
 
 #+begin_src emacs-lisp
   (use-package which-key
+    :ensure t
     :init
     (which-key-mode 1)
     :config
@@ -1083,14 +1085,6 @@ Markdown support isn't built into Emacs, add it with =markdown-mode=.
     :init (setq markdown-command "multimarkdown"))
 #+end_src
 
-** Lisp
-#+begin_src emacs-lisp
-  (use-package slime
-    :ensure t
-    :config
-    (setq inferior-lisp-program "/usr/local/bin/sbcl")
-    (setq slime-contribs '(slime-fancy)))
-#+end_src
 ** Lua
 #+begin_src emacs-lisp
   (use-package lua-mode
