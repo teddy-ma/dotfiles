@@ -378,7 +378,7 @@ Suggest next keys to me based on currently entered key combination.
 ** Window Navigation
 #+begin_src emacs-lisp
   (use-package winum
-    :ensure
+    :ensure t
     :config
     (winum-set-keymap-prefix (kbd "C-c"))
     (setq winum-format             " win%s "
@@ -430,7 +430,16 @@ Suggest next keys to me based on currently entered key combination.
 
 #+end_src
 
-
+** Uniquify
+#+begin_src emacs-lisp
+  (use-package uniquify
+    :config
+    (setq uniquify-buffer-name-style 'reverse)
+    (setq uniquify-separator " • ")
+    (setq uniquify-after-kill-buffer-p t)
+    (setq uniquify-ignore-buffers-re "^\\*")
+    )
+#+end_src
 ** Eshell
 #+begin_src emacs-lisp
   (use-package eshell-git-prompt
