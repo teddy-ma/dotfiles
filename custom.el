@@ -6,7 +6,7 @@
  '(ansi-color-names-vector
    ["#383e3f" "#e84c58" "#1D6B69" "#E36B3F" "#3B84CC" "#a9779c" "#6facb3" "#C8CCC3"])
  '(custom-safe-themes
-   '("5291f0f582034afcc93ba4ff66a1c3d598c2c8d67279acf0f03834cb50760f3f" "e93f5dd31f755a6d8a845efca6eee237ccaeb9a4dc58d60a6c6e832b7ac1bfaa" default))
+   '("d9a28a009cda74d1d53b1fbd050f31af7a1a105aa2d53738e9aa2515908cac4c" "5291f0f582034afcc93ba4ff66a1c3d598c2c8d67279acf0f03834cb50760f3f" "e93f5dd31f755a6d8a845efca6eee237ccaeb9a4dc58d60a6c6e832b7ac1bfaa" default))
  '(org-export-headline-levels 4)
  '(org-export-initial-scope 'subtree)
  '(org-export-with-toc nil)

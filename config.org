@@ -516,6 +516,33 @@ https://github.com/ogdenwebb/emacs-kaolin-themes
     (load-theme 'kaolin-light t))
 #+end_src
 
+change theme
+
+#+begin_src emacs-lisp
+  (setq-default custom-enabled-themes '(kaolin-light))
+
+  (defun reapply-themes ()
+    "Forcibly load the themes listed in `custom-enabled-themes'."
+    (dolist (theme custom-enabled-themes)
+      (unless (custom-theme-p theme)
+        (load-theme theme)))
+    (custom-set-variables `(custom-enabled-themes (quote ,custom-enabled-themes))))
+
+  (add-hook 'after-init-hook 'reapply-themes)
+
+  (defun light ()
+    "Activate a light color theme."
+    (interactive)
+    (setq custom-enabled-themes '(kaolin-light))
+    (reapply-themes))
+
+  (defun dark ()
+    "Activate a dark color theme."
+    (interactive)
+    (setq custom-enabled-themes '(kaolin-dark))
+    (reapply-themes))
+#+end_src
+
 must manually set org block style, most theme not have a good one
 https://stackoverflow.com/questions/44811679/orgmode-change-code-block-background-color
 #+begin_src emacs-lisp
