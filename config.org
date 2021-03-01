@@ -206,6 +206,8 @@ I *never* want whitespace at the end of lines. Remove it on save.
 ** Command completion
 =ivy= is a generic completion framework which uses the minibuffer. Turning on =ivy-mode= with fuzzy support enables replacement of lots of built in =ido= functionality.
 
+TODO try to use selectrum
+
 #+begin_src emacs-lisp
   (use-package smex
     :ensure t)
@@ -1153,6 +1155,12 @@ Elixir highlighting is not built into emacs at present. Elixir-mode gives all th
     :diminish
     :hook
     (after-ruby-mode . robe-mode))
+
+  (use-package ruby-hash-syntax
+    :ensure t
+    :diminish
+    :hook
+    (after-ruby-mode . ruby-hash-syntax))
 
   (use-package rubocop
     :ensure t
