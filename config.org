@@ -558,6 +558,27 @@ https://stackoverflow.com/questions/44811679/orgmode-change-code-block-backgroun
    )
 #+end_src
 
+** Transparency
+#+begin_src emacs-lisp
+  (defun increase-transparency ()
+    "Increase Transparency"
+    (interactive)
+    (seethru-relative 10))
+
+  (defun decrease-transparency ()
+    "Decrease Transparency"
+    (interactive)
+    (seethru-relative -10))
+
+  (use-package seethru
+    :ensure t
+    :bind
+    (("C-c 9" . increase-transparency)
+     ("C-c 8" . decrease-transparency))
+    :config
+    (seethru 95))
+#+end_src
+
 ** Misc
 *** Highlight the current line.
 #+begin_src emacs-lisp
