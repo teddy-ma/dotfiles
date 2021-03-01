@@ -308,6 +308,7 @@ Suggest next keys to me based on currently entered key combination.
 #+begin_src emacs-lisp
   (use-package wrap-region
     :ensure t
+    :diminish wrap-region-mode
     :config
     (wrap-region-global-mode t)
     (wrap-region-add-wrapper "~" "~" nil 'org-mode)  ; code
@@ -320,6 +321,7 @@ Suggest next keys to me based on currently entered key combination.
 #+begin_src emacs-lisp
   (use-package drag-stuff
     :ensure t
+    :diminish drag-stuff-mode
     :config
     (drag-stuff-global-mode t)
     (drag-stuff-define-keys))
@@ -642,7 +644,9 @@ lsp mode
 #+begin_src emacs-lisp
   (require 'cc-mode)
   (use-package projectile
-    :ensure t)
+    :ensure t
+    :config
+    (setq projectile-mode-line-function '(lambda () (format " Proj[%s]" (projectile-project-name)))))
   (use-package yasnippet
     :ensure t)
   (use-package lsp-mode
