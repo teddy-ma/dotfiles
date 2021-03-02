@@ -443,6 +443,18 @@ Suggest next keys to me based on currently entered key combination.
     (setq uniquify-ignore-buffers-re "^\\*")
     )
 #+end_src
+** Find file in cursor
+#+begin_src emacs-lisp
+  (defun teddy-ma/find-file-under-cursor ()
+    "Check it the filepath under cursor is an absolute path otherwise open helm and insert the filepath."
+    (interactive)
+    (let ((file-path (thing-at-point 'filename t)))
+      (if (file-name-absolute-p file-path)
+          (find-file-at-point file-path)
+        (minibuffer-with-setup-hook (lambda ()
+                                      (insert file-path))
+          (helm-ls-git-ls)))))
+#+end_src
 ** Eshell
 #+begin_src emacs-lisp
   (use-package eshell-git-prompt
