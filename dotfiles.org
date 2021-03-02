@@ -912,8 +912,7 @@ float = ""
 
 * shell
 ** fish
-
-#+begin_src shell
+#+begin_src shell :tangle /tmp/dotfile-script.sh
   echo /usr/local/bin/fish | sudo tee -a /etc/shells # macOS
   chsh -s /usr/bin/fish # Linux
 
@@ -2351,11 +2350,11 @@ in ownCloud config folder
 
 * Misc
 ** pyim
-#+begin_src shell
+#+begin_src shell :tangle /tmp/dotfile-script.sh
   ln -s ~/ownCloud/Config/pyim ~/.emacs.d
 #+end_src
 ** Snippets
-#+begin_src shell
+#+begin_src shell :tangle /tmp/dotfile-script.sh
   ln -s ~/ownCloud/Config/snippets ~/.emacs.d
 #+end_src
 ** bat
@@ -2363,11 +2362,11 @@ in ownCloud config folder
   --theme="GitHub"
 #+END_SRC
 ** gita
-#+begin_src shell
-pip3 install -U gita
+#+begin_src shell :tangle /tmp/dotfile-script.sh
+  pip3 install -U gita
 #+end_src
 
-#+begin_src yaml
+#+begin_src yaml :tangle /tmp/dotfile-yaml.yml
   repos:
     - name: socss
       url: git@github.com:teddy-ma/socss.gi
@@ -2533,7 +2532,7 @@ wtf:
 ** Xmodmap
 swap control and capslock
 
-#+begin_src conf :tangle :tangle (when (eq system-type 'gnu/linux) "~/.Xmodmap")
+#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.Xmodmap")
 clear lock
 clear control
 keycode 66 = Control_L
