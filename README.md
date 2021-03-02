@@ -14,17 +14,12 @@ macOS 主要依赖 [thoughtbot 的 laptop](https://github.com/thoughtbot/laptop)
 ```shell
 curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/mac
 sh mac 2>&1 | tee ~/laptop.log
+
 brew install fish owncloud
 
-ln -s ~/ownCloud/Config/id_rsa ~/.ssh/id_rsa
-ln -s ~/ownCloud/Config/id_rsa.pub ~/.ssh/id_rsa.pub
-
-git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d
-
-echo /usr/local/bin/fish | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/fish
 
-ln -s ~/ownCloud/Config/Spoons ~/.hammerspoon
+git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d
 ```
 
 ## Linux prepare
@@ -33,7 +28,6 @@ Linux 下只需要安装几个最基础的包
 
 ```shell
 sudo pacman -Syu git fish ttf-inconsolata ttf-arphic-uming fzf owncloud-client
-chsh -s /usr/bin/fish
 
 git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d/
 ```

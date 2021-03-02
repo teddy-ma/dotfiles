@@ -21,17 +21,12 @@
   ```shell
   curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/mac
   sh mac 2>&1 | tee ~/laptop.log
+
   brew install fish owncloud
 
-  ln -s ~/ownCloud/Config/id_rsa ~/.ssh/id_rsa
-  ln -s ~/ownCloud/Config/id_rsa.pub ~/.ssh/id_rsa.pub
-
-  git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d
-
-  echo /usr/local/bin/fish | sudo tee -a /etc/shells
   chsh -s /usr/local/bin/fish
 
-  ln -s ~/ownCloud/Config/Spoons ~/.hammerspoon
+  git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d
   ```
 
   ## Linux prepare
@@ -40,7 +35,6 @@
 
   ```shell
   sudo pacman -Syu git fish ttf-inconsolata ttf-arphic-uming fzf owncloud-client
-  chsh -s /usr/bin/fish
 
   git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d/
   ```
@@ -50,6 +44,11 @@
 * Git
 ** basic
 基础配置
+
+#+begin_src shell
+  ln -s ~/ownCloud/Config/id_rsa ~/.ssh/id_rsa
+  ln -s ~/ownCloud/Config/id_rsa.pub ~/.ssh/id_rsa.pub
+#+end_src
 
 #+begin_src conf :tangle ~/.gitconfig
   [include]
@@ -913,6 +912,9 @@ float = ""
 ** fish
 
 #+begin_src shell
+  echo /usr/local/bin/fish | sudo tee -a /etc/shells # macOS
+  chsh -s /usr/bin/fish # Linux
+
   curl -sL https://git.io/fisher | source
   fisher install jethrokuan/fzf
   fisher install jethrokuan/z
@@ -1784,6 +1786,10 @@ mode "$mode_gaps_outer" {
 
 * hammerspoon
 ** init
+#+begin_src sh
+  ln -s ~/ownCloud/Config/Spoons ~/.hammerspoon
+#+end_src
+
 #+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/init.lua") :mkdirp "yes"
   hs.loadSpoon("AClock")
   hs.loadSpoon("WinWin")
