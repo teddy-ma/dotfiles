@@ -903,8 +903,16 @@ It's quite effective even with dynamic libraries like JS and Python.
 ** Git
 Magit is an awesome interface to git. Summon it with `C-x g`.
 #+begin_src emacs-lisp
+  (defun magit-display-buffer-same-window (buffer)
+    "Display BUFFER in the selected window like God intended."
+    (display-buffer
+     buffer '(display-buffer-same-window)))
+
   (use-package magit
     :ensure t
+    :config
+    (setq magit-display-buffer-function 'magit-display-buffer-same-window)
+    (setq magit-popup-display-buffer-action '((display-buffer-same-window)))
     :bind ("C-x g" . magit-status))
 #+end_src
 
