@@ -1007,7 +1007,7 @@ fish shell 使用函数来实现 alias
 
 * Xresources
 ** 屏幕设置
-#+begin_src conf :tangle :tangle (when (eq system-type 'gnu/linux) "~/.Xresources")
+#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.Xresources")
 Xft.dpi:       96
 Xft.antialias: true
 Xft.hinting:   true
@@ -1019,7 +1019,7 @@ Xft.lcdfilter: lcddefault
 
 ** XTerm 设置
 
-#+begin_src conf :tangle :tangle (when (eq system-type 'gnu/linux) "~/.Xresources")
+#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.Xresources")
 XTerm*background:        #222D31
 XTerm*foreground:        #d8d8d8
 XTerm*pointerColor:      #1ABB9B
@@ -1030,7 +1030,7 @@ XTerm*selectToClipboard: true
 #+end_src
 
 ** 颜色设置
-#+begin_src conf :tangle :tangle (when (eq system-type 'gnu/linux) "~/.Xresources")
+#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.Xresources")
 *background:                      #222D31
 *foreground:                      #d8d8d8
 *fading:                          8
@@ -1076,7 +1076,7 @@ Xcursor.size:                     0
 #+end_src
 
 ** URxvt 设置
-#+begin_src conf :tangle :tangle (when (eq system-type 'gnu/linux) "~/.Xresources")
+#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.Xresources")
 URxvt*font:                       xft:SauceCodePro Nerd Font Mono:pixelsize=21:minspace=False, xft:DejaVu Sans:pixelsize=14, xft:Monaco:style=regular:pixelsize=13:antialias=true,hinting=true, xft:dejavu sans mono:pixelsize=13:antialias=true,hinting=true, xft:Twitter Color Emoji:pixelsize=14, xft:NotoEmoji Nerd Font Mono:pixelsize=14, xft:Symbola
 URxvt*boldFont:                   xft:SauceCodePro Nerd Font Mono:pixelsize=21:minspace=False, xft:DejaVu Sans:pixelsize=14, xft:Monaco:style=regular:pixelsize=13:antialias=true,hinting=true, xft:dejavu sans mono:pixelsize=13:antialias=true,hinting=true
 URxvt*letterSpace:                0
@@ -1791,7 +1791,7 @@ mode "$mode_gaps_outer" {
   ln -s ~/ownCloud/Config/Spoons ~/.hammerspoon
 #+end_src
 
-#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/init.lua") :mkdirp "yes"
+#+begin_src lua :tangle (when (eq system-type 'darwin) "~/.hammerspoon/init.lua") :mkdirp "yes"
   hs.loadSpoon("AClock")
   hs.loadSpoon("WinWin")
   hs.loadSpoon("WindowScreenLeftAndRight")
@@ -2256,7 +2256,7 @@ local flags_event = hs.eventtap.new(
 flags_event:start()
 #+end_src
 ** Dashboard
-#+begin_src lua :tangle :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/dashboard.lua")
+#+begin_src lua :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/dashboard.lua")
   hs.hotkey.bind(hyper, 'y', function()
                     if not dashboardView then
                        generate_view()
@@ -2532,7 +2532,7 @@ wtf:
 ** Xmodmap
 swap control and capslock
 
-#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.Xmodmap")
+#+begin_src conf :tangle (if (eq system-type 'gnu/linux) "~/.Xmodmap" : "no")
 clear lock
 clear control
 keycode 66 = Control_L
