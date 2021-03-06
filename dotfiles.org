@@ -386,7 +386,7 @@ This change addresses the need by:
 ** custom
 macOS can use diff-so-fancy
 
-#+begin_src conf :tangle (when (eq system-type 'darwin) "~/.gitconfig")
+#+begin_src conf :tangle (if (eq system-type 'darwin) "~/.gitconfig" "no")
 [pager]
     diff = diff-so-fancy | less --tabs=1,5 -RFX
     show = diff-so-fancy | less --tabs=1,5 -RFX<Paste>
@@ -928,11 +928,11 @@ set TERM "xterm-256color"
 starship init fish | source
 #+end_src
 
-#+begin_src conf :tangle (when (eq system-type 'darwin) "~/.config/fish/config.fish") :mkdirp "yes"
+#+begin_src conf :tangle (if (eq system-type 'darwin) "~/.config/fish/config.fish" "no") :mkdirp "yes"
 source /usr/local/opt/asdf/asdf.fish
 #+end_src
 
-#+begin_src conf :tangle (when (eq system-type 'gnu/linux)  "~/.config/fish/config.fish") :mkdirp "yes"
+#+begin_src conf :tangle (if (eq system-type 'gnu/linux)  "~/.config/fish/config.fish" "no") :mkdirp "yes"
 source ~/.asdf/asdf.fish
 xmodmap ~/.Xmodmap
 #+end_src
@@ -1007,7 +1007,7 @@ fish shell 使用函数来实现 alias
 
 * Xresources
 ** 屏幕设置
-#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.Xresources")
+#+begin_src conf :tangle (if (eq system-type 'gnu/linux) "~/.Xresources" "no")
 Xft.dpi:       96
 Xft.antialias: true
 Xft.hinting:   true
@@ -1019,7 +1019,7 @@ Xft.lcdfilter: lcddefault
 
 ** XTerm 设置
 
-#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.Xresources")
+#+begin_src conf :tangle (if (eq system-type 'gnu/linux) "~/.Xresources" "no")
 XTerm*background:        #222D31
 XTerm*foreground:        #d8d8d8
 XTerm*pointerColor:      #1ABB9B
@@ -1030,7 +1030,7 @@ XTerm*selectToClipboard: true
 #+end_src
 
 ** 颜色设置
-#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.Xresources")
+#+begin_src conf :tangle (if (eq system-type 'gnu/linux) "~/.Xresources" "no")
 *background:                      #222D31
 *foreground:                      #d8d8d8
 *fading:                          8
@@ -1076,7 +1076,7 @@ Xcursor.size:                     0
 #+end_src
 
 ** URxvt 设置
-#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.Xresources")
+#+begin_src conf :tangle (if (eq system-type 'gnu/linux) "~/.Xresources" "no")
 URxvt*font:                       xft:SauceCodePro Nerd Font Mono:pixelsize=21:minspace=False, xft:DejaVu Sans:pixelsize=14, xft:Monaco:style=regular:pixelsize=13:antialias=true,hinting=true, xft:dejavu sans mono:pixelsize=13:antialias=true,hinting=true, xft:Twitter Color Emoji:pixelsize=14, xft:NotoEmoji Nerd Font Mono:pixelsize=14, xft:Symbola
 URxvt*boldFont:                   xft:SauceCodePro Nerd Font Mono:pixelsize=21:minspace=False, xft:DejaVu Sans:pixelsize=14, xft:Monaco:style=regular:pixelsize=13:antialias=true,hinting=true, xft:dejavu sans mono:pixelsize=13:antialias=true,hinting=true
 URxvt*letterSpace:                0
@@ -1267,7 +1267,7 @@ set-window-option -g window-status-bell-style fg=white,bg=red #base2, red
 ** Mod key
 
 使用 Super 键为 mod key
-#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+#+begin_src conf :tangle (if (eq system-type 'gnu/linux) "~/.i3/config" "no") :mkdirp "yes"
 
 # i3 config file (v4)
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
@@ -1278,7 +1278,7 @@ set $mod Mod4
 
 ** Window 配置
 边框 间距之类的配置
-#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+#+begin_src conf :tangle (if (eq system-type 'gnu/linux) "~/.i3/config" "no") :mkdirp "yes"
 
 # set default desktop layout (default is tiling)
 # workspace_layout tabbed <stacking|tabbed>
@@ -1315,7 +1315,7 @@ bindsym $mod+d exec --no-startup-id dmenu_recency
 bindsym $mod+z exec --no-startup-id morc_menu
 #+end_src
 ** 声音相关
-#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+#+begin_src conf :tangle (if (eq system-type 'gnu/linux) "~/.i3/config" "no") :mkdirp "yes"
 ################################################################################################
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
 ################################################################################################
@@ -1332,7 +1332,7 @@ exec xrandr --output DP-1 --auto --output HDMI-1 --auto --left-of DP-1 --output 
 # Screen brightness controls
 # bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
 # bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
-#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+#+begin_src conf :tangle (if (eq system-type 'gnu/linux) "~/.i3/config" "no") :mkdirp "yes"
 # Start Applications
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 bindsym $mod+F2 exec palemoon
@@ -1352,7 +1352,7 @@ bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
 ** 窗口移动
 
-#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+#+begin_src conf :tangle (if (eq system-type 'gnu/linux) "~/.i3/config" "no") :mkdirp "yes"
 # focus_follows_mouse no
 
 # change focus
@@ -1422,7 +1422,7 @@ bindsym $mod+Ctrl+Left workspace prev
 #+end_src
 
 ** Workspace 相关
-#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+#+begin_src conf :tangle (if (eq system-type 'gnu/linux) "~/.i3/config" "no") :mkdirp "yes"
 # Workspace names
 # to display names or symbols instead of plain workspace numbers you can use
 # something like: set $ws1 1:mail
@@ -1529,7 +1529,7 @@ workspace $ws20 output DVI-D-1
 #+end_src
 
 ** 配置应用和显示器的位置
-#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+#+begin_src conf :tangle (if (eq system-type 'gnu/linux) "~/.i3/config" "no") :mkdirp "yes"
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="calamares"] floating enable border normal
@@ -1616,7 +1616,7 @@ bindsym $mod+shift+9 exec --no-startup-id blurlock
 #+end_src
 
 ** 自启动应用
-#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+#+begin_src conf :tangle (if (eq system-type 'gnu/linux) "~/.i3/config" "no") :mkdirp "yes"
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nitrogen --restore; sleep 1; compton -b
@@ -1646,7 +1646,7 @@ exec_always --no-startup-id fix_xcursor
 #+end_src
 
 ** 颜色
-#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+#+begin_src conf :tangle (if (eq system-type 'gnu/linux) "~/.i3/config" "no") :mkdirp "yes"
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
@@ -1726,7 +1726,7 @@ bindsym $mod+m bar mode toggle
 
 ** i3 gaps 配置
 
-#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.i3/config") :mkdirp "yes"
+#+begin_src conf :tangle (if (eq system-type 'gnu/linux) "~/.i3/config" "no") :mkdirp "yes"
 #############################
 ### settings for i3-gaps: ###
 #############################
@@ -1791,7 +1791,7 @@ mode "$mode_gaps_outer" {
   ln -s ~/ownCloud/Config/Spoons ~/.hammerspoon
 #+end_src
 
-#+begin_src lua :tangle (when (eq system-type 'darwin) "~/.hammerspoon/init.lua") :mkdirp "yes"
+#+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/init.lua" "no") :mkdirp "yes"
   hs.loadSpoon("AClock")
   hs.loadSpoon("WinWin")
   hs.loadSpoon("WindowScreenLeftAndRight")
@@ -1818,7 +1818,7 @@ mode "$mode_gaps_outer" {
 #+end_src
 
 ** app
-#+begin_src lua :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/app.lua") :mkdirp "yes"
+#+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/app.lua" "no") :mkdirp "yes"
 hs.hotkey.bind(hyper, 'i', function()
                   hs.application.launchOrFocus('Terminal')
 end)
@@ -1841,7 +1841,7 @@ end)
 
 #+end_src
 ** config
-#+begin_src lua :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/config.lua") :mkdirp "yes"
+#+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/config.lua" "no") :mkdirp "yes"
 hyper = {'cmd', 'alt', 'ctrl'}
 hyperShift = {'alt', 'cmd', 'shift'}
 macbook_monitor = "Color LCD"
@@ -1851,7 +1851,7 @@ portable_monitor = "CLUO FHD"
 lg_ultrawide_monitor = "LG ULTRAWIDE"
 #+end_src
 ** key
-#+begin_src lua :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/key.lua")  :mkdirp "yes"
+#+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/key.lua" "no")  :mkdirp "yes"
 function showKeyPress(tap_event)
    local duration = 1.5  -- popup duration
    local modifiers = ""  -- key modifiers string representation
@@ -2001,7 +2001,7 @@ end)
 
 #+end_src
 ** layout
-#+begin_src lua :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/layout.lua") :mkdirp "yes"
+#+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/layout.lua" "no") :mkdirp "yes"
 top_half    = hs.geometry.unitrect(0,0,1,0.5)
 buttom_half = hs.geometry.unitrect(0,0.5,1,0.5)
 left_half   = hs.layout.left50
@@ -2060,7 +2060,7 @@ hs.hotkey.bind(hyper, '3', function()
 end)
 #+end_src
 ** react
-#+begin_src lua :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/react.lua")  :mkdirp "yes"
+#+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/react.lua" "no")  :mkdirp "yes"
 function applicationWatcher(appName, eventType, appObject)
    if (eventType == hs.application.watcher.activated) then
       if (appName == "Terminal") then
@@ -2096,7 +2096,7 @@ end
 
 #+end_src
 ** screen
-#+begin_src lua :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/screen.lua") :mkdirp "yes"
+#+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/screen.lua" "no") :mkdirp "yes"
 function focus_other_screen() -- focuses the other screen
    local current_screen = hs.mouse.getCurrentScreen()
    local nextScreen = current_screen:next()
@@ -2165,7 +2165,7 @@ end
 
 #+end_src
 ** window
-#+begin_src lua :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/window.lua")  :mkdirp "yes"
+#+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/window.lua" "no")  :mkdirp "yes"
 -- hs.window.animationDuration = 0
 spoon.WindowScreenLeftAndRight:bindHotkeys({
       screen_left = { hyperShift, "Left" },
@@ -2256,7 +2256,7 @@ local flags_event = hs.eventtap.new(
 flags_event:start()
 #+end_src
 ** Dashboard
-#+begin_src lua :tangle (when (eq system-type 'darwin) "~/.hammerspoon/modules/dashboard.lua")
+#+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/dashboard.lua" "no")
   hs.hotkey.bind(hyper, 'y', function()
                     if not dashboardView then
                        generate_view()
