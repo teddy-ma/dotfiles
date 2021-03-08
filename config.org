@@ -444,9 +444,23 @@ Suggest next keys to me based on currently entered key combination.
     )
 #+end_src
 ** wgrep
+wgrep allows you to edit a grep buffer and apply those changes to the file buffer like sed interactively.
+No need to learn sed script, just learn Emacs.
 #+begin_src emacs-lisp
   (use-package wgrep
     :ensure t)
+#+end_src
+** mini frame
+Place minibuffer at the top of the current frame
+#+begin_src emacs-lisp
+  (use-package mini-frame
+    :ensure t
+    :config
+    (custom-set-variables
+     '(mini-frame-show-parameters
+       '((top . 10)
+         (width . 0.7)
+         (left . 0.5)))))
 #+end_src
 ** Find file in cursor
 #+begin_src emacs-lisp
