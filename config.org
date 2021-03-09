@@ -432,7 +432,6 @@ Suggest next keys to me based on currently entered key combination.
   (provide 'magnifying-glass-mode)
 
 #+end_src
-
 ** Uniquify
 #+begin_src emacs-lisp
   (use-package uniquify
@@ -461,6 +460,13 @@ Place minibuffer at the top of the current frame
        '((top . 10)
          (width . 0.7)
          (left . 0.5)))))
+#+end_src
+** Pop win
+#+begin_src emacs-lisp
+  (use-package popwin
+    :ensure t
+    :config
+    (global-set-key (kbd "M-p") popwin:keymap))
 #+end_src
 ** Find file in cursor
 #+begin_src emacs-lisp
