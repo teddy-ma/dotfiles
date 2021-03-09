@@ -562,13 +562,10 @@ https://github.com/ogdenwebb/emacs-kaolin-themes
 
 #+begin_src emacs-lisp
   (use-package kaolin-themes
-    :ensure t
-    :config
-    (load-theme 'kaolin-light t))
+    :ensure t)
 #+end_src
 
-change theme
-
+toggle theme (dark and light)
 #+begin_src emacs-lisp
   (setq-default custom-enabled-themes '(kaolin-light))
 
@@ -594,16 +591,16 @@ change theme
     (reapply-themes))
 #+end_src
 
-must manually set org block style, most theme not have a good one
+manually set org block style
 https://stackoverflow.com/questions/44811679/orgmode-change-code-block-background-color
 #+begin_src emacs-lisp
   (custom-set-faces
    '(org-block-begin-line
      ((t (:underline nil :foreground "#60a83d" :background nil))))
-   '(org-block
-     ((t (:background nil))))
    '(org-block-end-line
      ((t (:overline nil :foreground nil :background nil))))
+
+   '(org-block ((t (:background nil))))
    )
 #+end_src
 
