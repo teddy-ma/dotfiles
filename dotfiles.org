@@ -939,8 +939,7 @@ xmodmap ~/.Xmodmap
 
 ** starship
 #+begin_src toml :tangle ~/.config/starship.toml :mkdirp "yes"
-  # Wait 100 milliseconds for starship to check files under the current directory.
-  scan_timeout = 100
+  scan_timeout = 1000
 
   # Disable the newline at the start of the prompt
   add_newline = true
@@ -956,6 +955,7 @@ xmodmap ~/.Xmodmap
 
   [ruby]
   symbol = "🔺 "
+
   [git_status]
   conflicted = "🏳"
   ahead = "🏎💨"
@@ -967,6 +967,9 @@ xmodmap ~/.Xmodmap
   staged = '[++\($count\)](green)'
   renamed = "👅"
   deleted = "🗑"
+
+  [git_branch]
+  symbol = "🌱 "
 #+end_src
 ** welcome memssage
 remove last login message by touch this dot file
