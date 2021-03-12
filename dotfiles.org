@@ -912,6 +912,8 @@ float = ""
 
 * shell
 ** fish
+
+Setup scripts
 #+begin_src shell :tangle /tmp/dotfile-script.sh
   echo /usr/local/bin/fish | sudo tee -a /etc/shells # macOS
   chsh -s /usr/bin/fish # Linux
@@ -922,6 +924,7 @@ float = ""
   fisher install franciscolourenco/done
 #+end_src
 
+color setting
 #+begin_src conf :tangle  ~/.config/fish/config.fish :mkdirp "yes"
 set TERM "xterm-256color"
 
@@ -950,10 +953,9 @@ set fish_pager_color_completion normal
 set fish_pager_color_description B3A06D yellow
 set fish_pager_color_prefix white --bold --underline
 set fish_pager_color_progress brwhite --background=cyan
-
-starship init fish | source
 #+end_src
 
+asdf setup
 #+begin_src conf :tangle (if (eq system-type 'darwin) "~/.config/fish/config.fish" "no") :mkdirp "yes"
 source /usr/local/opt/asdf/asdf.fish
 #+end_src
@@ -961,6 +963,11 @@ source /usr/local/opt/asdf/asdf.fish
 #+begin_src conf :tangle (if (eq system-type 'gnu/linux)  "~/.config/fish/config.fish" "no") :mkdirp "yes"
 source ~/.asdf/asdf.fish
 xmodmap ~/.Xmodmap
+#+end_src
+
+starship setup
+#+begin_src conf :tangle  ~/.config/fish/config.fish :mkdirp "yes"
+starship init fish | source
 #+end_src
 
 ** starship
