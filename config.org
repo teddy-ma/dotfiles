@@ -1397,7 +1397,12 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
                 (("C-c n i" . org-roam-insert))
                 (("C-c n I" . org-roam-insert-immediate))))
 #+end_src
-** Org Capture
+** Org tree slide
+#+begin_src emacs-lisp
+  (use-package org-tree-slide
+    :ensure t)
+#+end_src
+** Capture
 #+begin_src emacs-lisp
   (use-package org-capture
     :bind ("C-c c" . org-capture)
@@ -1413,7 +1418,7 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
                    (file "~/Documents/org/refile.org")
                    "* %?" :empty-lines 0)))
 #+end_src
-** Org Agenda
+** Agenda
 #+begin_src emacs-lisp
   (use-package org-agenda
     :bind ("C-c a" . org-agenda)
@@ -1490,8 +1495,3 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
       ;; brew install plantuml
       (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2021.0/libexec/plantuml.jar"))
 #+END_SRC
-** Org tree slide
-#+begin_src emacs-lisp
-  (use-package org-tree-slide
-    :ensure t)
-#+end_src
