@@ -359,6 +359,18 @@ Suggest next keys to me based on currently entered key combination.
     (centaur-tabs-group-by-projectile-project)
     )
 #+end_src
+** Dired
+#+begin_src emacs-lisp
+  (define-minor-mode dired-follow-mode
+    "Diplay file at point in dired after a move."
+    :lighter " dired-f"
+    :global t
+    (if dired-follow-mode (advice-add 'dired-next-line
+                                      :after (lambda (arg)
+                                               (dired-display-file)))
+      (advice-remove 'dired-next-line (lambda (arg)
+                                        (dired-display-file)))))
+#+end_src
 ** Multiple cursors
 #+begin_src emacs-lisp
   (use-package iedit
@@ -1501,4 +1513,9 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
     :ensure t
     :config
     (setq url-automatic-caching t))
+#+end_src
+** Disk Usage
+#+begin_src emacs-lisp
+  (use-package disk-usage
+    :ensure t)
 #+end_src
