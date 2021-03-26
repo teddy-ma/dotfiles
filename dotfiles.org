@@ -383,13 +383,24 @@ This change addresses the need by:
 #
 # 72-character wrapped longer description.
 #+end_src
-** custom
-macOS can use diff-so-fancy
+** git diff
+https://github.com/dandavison/delta
 
-#+begin_src conf :tangle (if (eq system-type 'darwin) "~/.gitconfig" "no")
-[pager]
-    diff = diff-so-fancy | less --tabs=1,5 -RFX
-    show = diff-so-fancy | less --tabs=1,5 -RFX<Paste>
+#+begin_src conf :tangle ~/.gitconfig
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    features = side-by-side line-numbers decorations
+    whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
 #+end_src
 
 * homebrew
