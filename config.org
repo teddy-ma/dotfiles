@@ -52,6 +52,7 @@ guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-pa
     (package-refresh-contents)
     (package-install 'use-package))
 #+end_src
+
 ** Set custom settings to load its own file
 Set up the customize file to its own separate file, instead of saving customize settings in [[file:init.el][init.el]].
 
@@ -68,6 +69,7 @@ Set up the customize file to its own separate file, instead of saving customize 
 By default Emacs doesn't read from the same environment variables set in your terminal. This package fixes that.
 #+begin_src emacs-lisp
   (use-package exec-path-from-shell
+    :if (memq window-system '(mac ns))
     :ensure t
     :config
     (exec-path-from-shell-initialize))
@@ -253,8 +255,11 @@ TODO try to use selectrum
 =hydra= presents menus for =ivy= commands.
 
 #+begin_src emacs-lisp
-  (use-package ivy-hydra
+  (use-package hydra
     :ensure t)
+
+  (use-package ivy-hydra
+    :after (ivy hydra))
 #+end_src
 
 ** Suggest next key
