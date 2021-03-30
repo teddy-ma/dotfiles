@@ -213,12 +213,8 @@ I *never* want whitespace at the end of lines. Remove it on save.
 ** Command completion
 =ivy= is a generic completion framework which uses the minibuffer. Turning on =ivy-mode= with fuzzy support enables replacement of lots of built in =ido= functionality.
 
-TODO try to use selectrum
-
 #+begin_src emacs-lisp
   (use-package smex
-    :ensure t)
-  (use-package flx
     :ensure t)
   (use-package ivy
     :ensure t
@@ -330,6 +326,7 @@ Suggest next keys to me based on currently entered key combination.
     (wrap-region-add-wrapper "_" "_" nil 'org-mode)) ; verbatim
 #+end_src
 ** Move line up and down
+M-<up> M-down
 #+begin_src emacs-lisp
   (use-package drag-stuff
     :ensure t
@@ -407,16 +404,6 @@ Suggest next keys to me based on currently entered key combination.
   :hook (after-init . winner-mode))
 #+end_src
 ** Window Navigation
-#+begin_src emacs-lisp
-  (use-package winum
-    :ensure t
-    :config
-    (winum-set-keymap-prefix (kbd "C-c"))
-    (setq winum-format             " win%s "
-          winum-mode-line-position 10))
-
-#+end_src
-
 #+begin_src emacs-lisp
   (use-package ace-window
     :ensure t
