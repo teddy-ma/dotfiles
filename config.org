@@ -1302,6 +1302,7 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
   (set-register ?b (cons 'file "~/Documents/org/blog.org"))
   (set-register ?t (cons 'file "~/Documents/org/todo.org"))
   (set-register ?n (cons 'file "~/Documents/org/note.org"))
+  (set-register ?r (cons 'file "~/Documents/org/roam/index.org"))
 #+end_src
 ** Org bullets
 #+begin_src emacs-lisp
@@ -1404,7 +1405,7 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
     :hook
     (after-init . org-roam-mode)
     :custom
-    (org-roam-directory "~/Documents/roam/")
+    (org-roam-directory "~/Documents/org/roam/")
     :bind (:map org-roam-mode-map
                 (("C-c n l" . org-roam)
                  ("C-c n f" . org-roam-find-file)
