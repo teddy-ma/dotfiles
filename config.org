@@ -487,14 +487,14 @@ dired hacks
     (setq uniquify-ignore-buffers-re "^\\*")
     )
 #+end_src
-** wgrep
+** Wgrep
 wgrep allows you to edit a grep buffer and apply those changes to the file buffer like sed interactively.
 No need to learn sed script, just learn Emacs.
 #+begin_src emacs-lisp
   (use-package wgrep
     :ensure t)
 #+end_src
-** mini frame
+** Mini frame
 Place minibuffer at the top of the current frame
 #+begin_src emacs-lisp
   (use-package mini-frame
@@ -534,7 +534,7 @@ Place minibuffer at the top of the current frame
     :config
     (eshell-git-prompt-use-theme 'powerline))
 #+end_src
-** meta key
+** Meta Key
 make both command and option key to be meta key
 #+begin_src emacs-lisp
   (when (eq system-type 'darwin)
@@ -545,6 +545,18 @@ make both command and option key to be meta key
   ;; (setq  x-meta-keysym 'super
   ;;       x-super-keysym 'meta))
 
+#+end_src
+** Git Repos
+#+begin_src emacs-lisp
+(setq magit-repository-directories '(("\~/code" . 4)))
+
+(defun magit-status-with-prefix-arg ()
+  "Call `magit-status` with a prefix."
+  (interactive)
+  (let ((current-prefix-arg '(4)))
+    (call-interactively #'magit-status)))
+
+(global-set-key (kbd "M-p p") 'magit-status-with-prefix-arg)
 #+end_src
 * Appearance
 ** Font
@@ -1418,6 +1430,8 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
     :custom
     (org-image-actual-width nil))
 #+end_src
+
+C-x-n-s and C-x-n-w can narrow to subtree
 ** Plantuml
 #+begin_src emacs-lisp
   ;;https://www.onwebsecurity.com/configuration/use-emacs-to-create-oauth-2-0-uml-sequence-diagrams.html
@@ -1465,11 +1479,6 @@ server
           org-roam-server-network-label-truncate t
           org-roam-server-network-label-truncate-length 60
           org-roam-server-network-label-wrap-length 20))
-#+end_src
-** Org tree slide
-#+begin_src emacs-lisp
-  (use-package org-tree-slide
-    :ensure t)
 #+end_src
 ** Capture
 #+begin_src emacs-lisp
