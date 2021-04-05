@@ -1415,13 +1415,13 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
 
 ** Export
 #+begin_src emacs-lisp
-  (use-package ox-gfm
-    :ensure t
-    :after ox
-    :config
-    (custom-set-variables '(org-export-initial-scope 'subtree)
-                          '(org-export-with-toc nil)
-                          '(org-export-headline-levels 4)))
+  ;; (use-package ox-gfm
+  ;;   :ensure t
+  ;;   :after ox
+  ;;   :config
+  ;;   (custom-set-variables '(org-export-initial-scope 'subtree)
+  ;;                         '(org-export-with-toc nil)
+  ;;                         '(org-export-headline-levels 4)))
 #+end_src
 
 ** Babel
@@ -1456,7 +1456,7 @@ C-x-n-s and C-x-n-w can narrow to subtree
 #+begin_src emacs-lisp
   ;;https://www.onwebsecurity.com/configuration/use-emacs-to-create-oauth-2-0-uml-sequence-diagrams.html
   ;; tell org-mode where to find the plantuml JAR file (specify the JAR file)
-  (setq org-plantuml-jar-path (expand-file-name "/usr/local/Cellar/plantuml/1.2019.1/libexec/plantuml.jar"))
+  (setq org-plantuml-jar-path (expand-file-name "/usr/local/Cellar/plantuml/1.2021.4/libexec/plantuml.jar"))
 
   ;; automatically show the resulting image
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
