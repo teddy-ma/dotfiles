@@ -558,6 +558,20 @@ make both command and option key to be meta key
 
 (global-set-key (kbd "M-p p") 'magit-status-with-prefix-arg)
 #+end_src
+** Goto line
+Temporarily display line number when call go to line function
+#+begin_src emacs-lisp
+  (global-set-key [remap goto-line] 'goto-line-with-feedback)
+
+  (defun goto-line-with-feedback ()
+    "Show line numbers temporarily, while prompting for the line number input"
+    (interactive)
+    (unwind-protect
+        (progn
+          (display-line-numbers-mode 1)
+          (goto-line (read-number "Goto line: ")))
+      (display-line-numbers-mode -1)))
+#+end_src
 * Appearance
 ** Font
 It works fine with windows and org table
