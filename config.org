@@ -572,6 +572,12 @@ Temporarily display line number when call go to line function
           (goto-line (read-number "Goto line: ")))
       (display-line-numbers-mode -1)))
 #+end_src
+but avy-goto-line is awesome too
+** Edit indirect
+#+begin_src emacs-lisp
+  (use-package edit-indirect
+    :ensure t)
+#+end_src
 * Appearance
 ** Font
 It works fine with windows and org table
@@ -1532,6 +1538,11 @@ Interactive agenda in the console https://github.com/rougier/agenda
 
   (abbrev-mode t)
   ;; ~/.emacs.d/abbrev_defs
+#+end_src
+
+use aspell to ispell
+#+begin_src emacs-lisp
+  (setq ispell-program-name "aspell")
 #+end_src
 
 ** Pinyin
