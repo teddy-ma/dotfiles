@@ -72,8 +72,9 @@ By default Emacs doesn't read from the same environment variables set in your te
   (use-package exec-path-from-shell
     :if (memq window-system '(mac ns))
     :ensure t
-    :config
-    (exec-path-from-shell-initialize))
+    :hook (emacs-startup . (lambda ()
+                             (setq exec-path-from-shell-arguments '("-l")) ; removed the -i for faster startup
+                             (exec-path-from-shell-initialize))))
 #+end_src
 *** Alway use visual line
 #+begin_src emacs-lisp
@@ -106,6 +107,16 @@ By default Emacs doesn't read from the same environment variables set in your te
     ([remap describe-command] . helpful-command)
     ([remap describe-variable] . counsel-describe-variable)
     ([remap describe-key] . helpful-key))
+#+end_src
+*** Popup managment
+Taken from https://emacs.stackexchange.com/questions/46210/reuse-help-window
+
+#+begin_src emacs-lisp
+  (setq display-buffer-alist
+        `((,(rx bos (or "*Apropos*" "*Help*" "*helpful" "*info*" "*Summary*") (0+ not-newline))
+           (display-buffer-reuse-mode-window display-buffer-below-selected)
+           (window-height . 0.33)
+           (mode apropos-mode help-mode helpful-mode Info-mode Man-mode))))
 #+end_src
 *** Y or N
 #+begin_src emacs-lisp
@@ -526,7 +537,9 @@ Place minibuffer at the top of the current frame
                                       (insert file-path))
           (helm-ls-git-ls)))))
 #+end_src
-** Eshell
+** Shell
+
+eshell with git
 #+begin_src emacs-lisp
   (use-package eshell-git-prompt
     :ensure t)
@@ -534,6 +547,18 @@ Place minibuffer at the top of the current frame
     :ensure t
     :config
     (eshell-git-prompt-use-theme 'powerline))
+#+end_src
+
+vterm
+#+begin_src emacs-lisp
+  (use-package vterm
+    :ensure t
+    :config
+    (setq vterm-shell (executable-find "fish")
+          vterm-max-scrollback 10000))
+
+  (use-package vterm-toggle
+    :ensure t)
 #+end_src
 ** Meta Key
 make both command and option key to be meta key
@@ -578,6 +603,22 @@ but avy-goto-line is awesome too
 #+begin_src emacs-lisp
   (use-package edit-indirect
     :ensure t)
+#+end_src
+** Diff hl
+#+begin_src emacs-lisp
+  (use-package diff-hl
+    :ensure t
+    :hook
+    ((magit-pre-refresh . diff-hl-magit-pre-refresh)
+     (magit-post-refresh . diff-hl-magit-post-refresh))
+    :init
+    (setq diff-hl-draw-borders nil)
+    ;; (setq diff-hl-global-modes '(not org-mode))
+    ;; (setq diff-hl-fringe-bmp-function 'diff-hl-fringe-bmp-from-type)
+    ;; (setq diff-hl-global-modes (not '(image-mode org-mode)))
+    :config
+    (global-diff-hl-mode)
+    )
 #+end_src
 * Appearance
 ** Font
@@ -708,9 +749,30 @@ https://stackoverflow.com/questions/44811679/orgmode-change-code-block-backgroun
 #+end_src
 
 ** Misc
-*** Highlight the current line.
+*** Highlight
+the current line.
 #+begin_src emacs-lisp
   (global-hl-line-mode 1)
+#+end_src
+
+indent guides
+#+begin_src emacs-lisp
+  (use-package highlight-indent-guides
+    :ensure t
+    :hook (prog-mode . highlight-indent-guides-mode)
+    :init
+    ;; (setq highlight-indent-guides-method 'column)
+    (setq highlight-indent-guides-method 'character)
+    ;; (setq highlight-indent-guides-character ?|)
+    ;; (setq highlight-indent-guides-character ?❚)
+    (setq highlight-indent-guides-character ?‖)
+    ;; (setq highlight-indent-guides-responsive 'stack)
+    (setq highlight-indent-guides-responsive 'top)
+    ;; (setq highlight-indent-guides-auto-enabled nil)
+    ;; (set-face-background 'highlight-indent-guides-odd-face "darkgray")
+    ;; (set-face-background 'highlight-indent-guides-even-face "dimgray")
+    ;; (set-face-foreground 'highlight-indent-guides-character-face "dimgray")
+    )
 #+end_src
 *** Global UTF8
 #+begin_src emacs-lisp
