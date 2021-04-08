@@ -1402,6 +1402,11 @@ https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf
     (setq org-src-tab-acts-natively t)
     (setq org-src-fontify-natively t)
     (setq org-src-window-setup 'current-window)
+    (setq browse-url-browser-function 'browse-url-generic
+          browse-url-generic-program "Chromium")
+    (setq org-file-apps
+          '((auto-mode . emacs)
+            ("\\.x?html?\\'" . "Chromium %s")))
     (setq org-ellipsis " ▾")
     ;; org-ellipsis not shown in heading when git-gutter-fringe-mode is active
     ;; https://lccambiaghi.github.io/vanilla-emacs/readme.html#org948c5b0
