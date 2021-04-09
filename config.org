@@ -1398,7 +1398,7 @@ https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf
     (setq org-startup-indented 'f)
     (setq org-special-ctrl-a/e 't)
     (setq org-startup-folded t)
-    (setq org-hide-emphasis-markers t)
+    (setq org-hide-emphasis-markers nil)
     (setq org-src-tab-acts-natively t)
     (setq org-src-fontify-natively t)
     (setq org-src-window-setup 'current-window)
@@ -1482,6 +1482,7 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
 
 ** Export
 #+begin_src emacs-lisp
+  (setq org-html-head-include-default-style nil)
   ;; (use-package ox-gfm
   ;;   :ensure t
   ;;   :after ox
