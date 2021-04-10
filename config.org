@@ -10,10 +10,16 @@ function swapStyle(css){
   document.getElementById('pagestyle').setAttribute('href', css);
 }
 </script>
-<div style="margin: 1em auto; position: fixed; left: 10px; top: 10px">
-  <button onclick="swapStyle('mini.css')">mini</button>
-  <button onclick="swapStyle('bootstrap.css')">Bootstrap</button>
-  <button onclick="swapStyle('org.css')">Org</button>
+<div style="margin: 1em auto; position: fixed; left: 10px; top: 0; font-size:10px; font: initial; width:100px; height: 20px; !important">
+  <button style="width:100px; height: 20px; font-size:10px; font: initial; !import " onclick="swapStyle('mini.css')">
+  mini
+  </button>
+  <button style="width:100px; height: 20px; font-size:10px; font: initial; !import" onclick="swapStyle('bootstrap.css')">
+  Bootstrap
+  </button>
+  <button style="width:100px; height: 20px; font-size:10px; font: initial; !import" onclick="swapStyle('org.css')">
+  Org
+  </button>
 </div>
 #+END_EXPORT
 
@@ -90,7 +96,8 @@ By default Emacs doesn't read from the same environment variables set in your te
     :if (memq window-system '(mac ns))
     :ensure t
     :hook (emacs-startup . (lambda ()
-                             (setq exec-path-from-shell-arguments '("-l")) ; removed the -i for faster startup
+                             (setq exec-path-from-shell-arguments '("-l"))
+                                          ; removed the -i for faster startup
                              (exec-path-from-shell-initialize))))
 #+end_src
 
