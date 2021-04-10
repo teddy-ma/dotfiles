@@ -4,7 +4,7 @@
 (add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
 ;;;### (autoloads nil "use-package-bind-key" "use-package-bind-key.el"
-;;;;;;  (24689 49253 200813 879000))
+;;;;;;  (24689 49532 865095 412000))
 ;;; Generated autoloads from use-package-bind-key.el
 
 (autoload 'use-package-autoload-keymap "use-package-bind-key" "\
@@ -56,7 +56,7 @@ deferred until the prefix key sequence is pressed.
 ;;;***
 
 ;;;### (autoloads nil "use-package-core" "use-package-core.el" (24689
-;;;;;;  49253 200813 879000))
+;;;;;;  49532 865095 412000))
 ;;; Generated autoloads from use-package-core.el
 
 (autoload 'use-package "use-package-core" "\
@@ -126,7 +126,7 @@ this file.  Usage:
 ;;;***
 
 ;;;### (autoloads nil "use-package-delight" "use-package-delight.el"
-;;;;;;  (24689 49253 200813 879000))
+;;;;;;  (24689 49532 861095 412000))
 ;;; Generated autoloads from use-package-delight.el
 
 (autoload 'use-package-normalize/:delight "use-package-delight" "\
@@ -142,7 +142,7 @@ Normalize arguments to delight.
 ;;;***
 
 ;;;### (autoloads nil "use-package-diminish" "use-package-diminish.el"
-;;;;;;  (24689 49253 200813 879000))
+;;;;;;  (24689 49532 865095 412000))
 ;;; Generated autoloads from use-package-diminish.el
 
 (autoload 'use-package-normalize/:diminish "use-package-diminish" "\
@@ -158,7 +158,7 @@ Normalize arguments to delight.
 ;;;***
 
 ;;;### (autoloads nil "use-package-ensure" "use-package-ensure.el"
-;;;;;;  (24689 49253 200813 879000))
+;;;;;;  (24689 49532 861095 412000))
 ;;; Generated autoloads from use-package-ensure.el
 
 (autoload 'use-package-normalize/:ensure "use-package-ensure" "\
@@ -174,7 +174,7 @@ Normalize arguments to delight.
 ;;;***
 
 ;;;### (autoloads nil "use-package-jump" "use-package-jump.el" (24689
-;;;;;;  49253 200813 879000))
+;;;;;;  49532 865095 412000))
 ;;; Generated autoloads from use-package-jump.el
 
 (autoload 'use-package-jump-to-package-form "use-package-jump" "\
@@ -189,7 +189,7 @@ instead.
 ;;;***
 
 ;;;### (autoloads nil "use-package-lint" "use-package-lint.el" (24689
-;;;;;;  49253 200813 879000))
+;;;;;;  49532 861095 412000))
 ;;; Generated autoloads from use-package-lint.el
 
 (autoload 'use-package-lint "use-package-lint" "\
@@ -202,7 +202,7 @@ with the specified `:load-path' the module cannot be found.
 ;;;***
 
 ;;;### (autoloads nil nil ("use-package-pkg.el" "use-package.el")
-;;;;;;  (24689 49253 206751 109000))
+;;;;;;  (24689 49532 869858 344000))
 
 ;;;***
 
