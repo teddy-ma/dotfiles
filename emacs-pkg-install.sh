@@ -20,16 +20,11 @@ elisp_code="
 ;;   $ emacs --batch --expr \"(define pkg-to-install 'smex)\" -l emacs-pkg-install.el
 ;;
 (require 'package)
-(setq package-archives
-      '(("GNU ELPA"     . "https://elpa.gnu.org/packages/")
-        ("MELPA Stable" . "https://stable.melpa.org/packages/")
-        ("MELPA"        . "https://melpa.org/packages/"))
-      package-archive-priorities
-      '(("GNU ELPA"     . 10)
-        ("MELPA Stable" . 5)
-        ("MELPA"        . 0)))
 (package-initialize)
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+(add-to-list 'package-archives
+             '(\"melpa\" . \"https://stable.melpa.org/packages/\") t)
+(add-to-list 'package-archives
+             '(\"marmalade\" . \"https://melpa.org/packages/\") t)
 (setq package-check-signature nil) 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
