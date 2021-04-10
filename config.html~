@@ -1,0 +1,2887 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-04-10 Sat 21:27 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Emacs Config</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Teddy Ma" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Emacs Config</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org3cac698">Setup</a>
+<ul>
+<li><a href="#orgb741602">Make it easy to edit and reload this file</a></li>
+<li><a href="#org6b6d018">Personal Information</a></li>
+<li><a href="#orgee730b9">Bootstrap use-package</a></li>
+<li><a href="#org2a65dc2">Load custom settings</a></li>
+</ul>
+</li>
+<li><a href="#org2ff66cf">UI</a>
+<ul>
+<li><a href="#org37cb92a">Reasonable default settings</a>
+<ul>
+<li><a href="#orgacb0cf0">Y or N</a></li>
+<li><a href="#org96bb56d">Terminal env</a></li>
+<li><a href="#org96b88ad">Always follow symlinks</a></li>
+<li><a href="#orgb718b98">Alway use visual line</a></li>
+<li><a href="#org833c1d0">Garbage collection</a></li>
+<li><a href="#org567f054">No Visible Bell</a></li>
+<li><a href="#orga122df8">Hide UI bar</a></li>
+<li><a href="#org3158926">Hide the help screen on startup</a></li>
+<li><a href="#org1a4598e">Highlight current line.</a></li>
+<li><a href="#orge50d011">Popup managment</a></li>
+<li><a href="#org55ae89e">Disable autosave and backup</a></li>
+<li><a href="#org2091708">Auto refresh</a></li>
+<li><a href="#org8c06148">Minibuffer recursive</a></li>
+<li><a href="#org65bee17">Meta Key</a></li>
+<li><a href="#org5f937ae">Global UTF8</a></li>
+<li><a href="#org7d860d1">Cursor</a></li>
+<li><a href="#orgb651126">Display column</a></li>
+</ul>
+</li>
+<li><a href="#org540051b">Common packages</a>
+<ul>
+<li><a href="#orgfced97c">Helpful</a></li>
+<li><a href="#org6cd3d6c">Restart emacs</a></li>
+<li><a href="#org4792eb2">Diminish</a></li>
+<li><a href="#org4f44378">Show command log</a></li>
+<li><a href="#orgc9a2cf2">Suggest next key</a></li>
+</ul>
+</li>
+<li><a href="#orgf7ffa15">Welcome dashboard</a></li>
+<li><a href="#orga907965">Winner mode</a></li>
+<li><a href="#org516d11a">Pop win</a></li>
+<li><a href="#orgb72af3b">Mini frame</a></li>
+<li><a href="#orgfc98f9e">Transpose frame</a></li>
+<li><a href="#orge5c4ac6">Uniquify</a></li>
+</ul>
+</li>
+<li><a href="#org3aedde1">Edit</a>
+<ul>
+<li><a href="#org794bf6e">Basics</a>
+<ul>
+<li><a href="#orgcd26c87">CRUX</a></li>
+<li><a href="#org6ae7f40">Hungry Delete</a></li>
+<li><a href="#org088cd6c">Trailing Whitespace</a></li>
+<li><a href="#org1abd031">Better undo</a></li>
+<li><a href="#orgeb9ffb9">Capslock</a></li>
+<li><a href="#org813b7e1">Delete region when typing</a></li>
+<li><a href="#orgebb0085">Tabs and indent</a></li>
+</ul>
+</li>
+<li><a href="#org1c77c5e">Command completion</a></li>
+<li><a href="#orga5c6f8a">Easier selection</a></li>
+<li><a href="#org404529b">Toggle quotes</a></li>
+<li><a href="#orgd254f83">Wrap region</a></li>
+<li><a href="#orgba9bf21">Move line up and down</a></li>
+<li><a href="#orgca2ef2a">Folding</a></li>
+<li><a href="#org3e98674">Align</a></li>
+<li><a href="#org0c94a4a">Tab bar</a></li>
+<li><a href="#org93285f3">Dired</a></li>
+<li><a href="#org9d8725a">Multiple cursors</a></li>
+<li><a href="#org2714036">Window Navigation</a></li>
+<li><a href="#orge223c47">Wgrep</a></li>
+<li><a href="#org5415425">Find file in cursor</a></li>
+<li><a href="#org314503c">Goto line</a></li>
+<li><a href="#orgaef5c3f">Edit indirect</a></li>
+<li><a href="#org29b3051">Diff hl</a></li>
+<li><a href="#orgb6a81ee">Praise the sun</a></li>
+</ul>
+</li>
+<li><a href="#orgc14c911">Appearance</a>
+<ul>
+<li><a href="#orgd02f66a">Font</a></li>
+<li><a href="#orgee0dee3">Emoji and icons</a></li>
+<li><a href="#org6704c20">Mode Line</a></li>
+<li><a href="#org5efb927">Theme</a></li>
+<li><a href="#orga0ed7e3">Transparency</a></li>
+<li><a href="#org7a5859f">Misc</a>
+<ul>
+<li><a href="#org01fac95">Highlight Indent guides</a></li>
+<li><a href="#org6add575">Light follow cursor</a></li>
+<li><a href="#org86b0ea5">Display battery</a></li>
+<li><a href="#org004d058">Dired icons</a></li>
+<li><a href="#org07d54aa">Info colors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgc952cd8">Programming</a>
+<ul>
+<li><a href="#org690ca33">LSP</a></li>
+<li><a href="#org25ecbfe">Interface improvements</a></li>
+<li><a href="#org3bf4039">Project management</a></li>
+<li><a href="#org9c2bc0d">Fuzzy search</a></li>
+<li><a href="#org89cdc8e">Deadgrep</a></li>
+<li><a href="#orgde30ddd">Open File with Line Number</a></li>
+<li><a href="#org323efa7">Jump to source</a></li>
+<li><a href="#org453d6d6">Git</a></li>
+<li><a href="#org22d3aff">Syntax checking</a></li>
+<li><a href="#orge5511ba">Autocomplete</a></li>
+<li><a href="#orgde548aa">Snippets</a></li>
+</ul>
+</li>
+<li><a href="#orgdc77ef8">Language</a>
+<ul>
+<li><a href="#orgbaf3889">Javascript</a></li>
+<li><a href="#org86f0c15">Yaml</a></li>
+<li><a href="#org8db274a">Toml</a></li>
+<li><a href="#org98d3389">Markdown</a></li>
+<li><a href="#org1b8ba23">Lua</a></li>
+<li><a href="#orge3169cc">Haskell</a></li>
+<li><a href="#orge84cdd7">Elixir</a></li>
+<li><a href="#org9410c3b">Ruby</a></li>
+<li><a href="#org97cb799">Rails</a></li>
+<li><a href="#org5afde19">C</a></li>
+<li><a href="#org0e4aea0">Rust</a></li>
+<li><a href="#org917b037">Web mode</a></li>
+</ul>
+</li>
+<li><a href="#org784bb30">Org</a>
+<ul>
+<li><a href="#orge161a3e">General settings.</a></li>
+<li><a href="#orgd0231e6">Easy open common files</a></li>
+<li><a href="#org787bff4">Org bullets</a></li>
+<li><a href="#org93f1731">Center org buffers</a></li>
+<li><a href="#org16b6192">Task todo stages</a></li>
+<li><a href="#org86496e7">Drag and drop images</a></li>
+<li><a href="#org1e49f2f">Export</a></li>
+<li><a href="#orgc7296b3">Babel</a></li>
+<li><a href="#org80b9acc">Reveal.js</a></li>
+<li><a href="#org747329d">Org Tree Slide</a></li>
+<li><a href="#org891ed4a">Plantuml</a></li>
+<li><a href="#org1a3942c">Org Roam</a></li>
+<li><a href="#org05db2ff">Capture</a></li>
+<li><a href="#orgc9a07f2">Agenda</a></li>
+</ul>
+</li>
+<li><a href="#org7326fd7">Extras</a>
+<ul>
+<li><a href="#orgc22c335">Writing</a></li>
+<li><a href="#org9733946">Pinyin</a></li>
+<li><a href="#org4348913">PlantUML</a></li>
+<li><a href="#org6c9f4d2">Dictionary</a></li>
+<li><a href="#org801a2b1">Disk Usage</a></li>
+<li><a href="#org6118e7b">Shell</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<link id="pagestyle" rel="stylesheet" type="text/css" href="">
+<script>
+function swapStyle(css){
+  document.getElementById('pagestyle').setAttribute('href', css);
+}
+</script>
+<div style="margin: 1em auto; position: fixed; left: 10px; top: 0; font-size:10px; font: initial; width:100px; height: 20px; !important">
+  <button style="width:100px; height: 20px; font-size:10px; font: initial; !import " onclick="swapStyle('mini.css')">
+  mini
+  </button>
+  <button style="width:100px; height: 20px; font-size:10px; font: initial; !import" onclick="swapStyle('bootstrap.css')">
+  Bootstrap
+  </button>
+  <button style="width:100px; height: 20px; font-size:10px; font: initial; !import" onclick="swapStyle('org.css')">
+  Org
+  </button>
+</div>
+
+<div id="outline-container-org3cac698" class="outline-2">
+<h2 id="org3cac698">Setup</h2>
+<div class="outline-text-2" id="text-org3cac698">
+</div>
+<div id="outline-container-orgb741602" class="outline-3">
+<h3 id="orgb741602">Make it easy to edit and reload this file</h3>
+<div class="outline-text-3" id="text-orgb741602">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun find-config ()
+  "Edit config.org"
+  (interactive)
+  (find-file "~/.emacs.d/config.org"))
+(defun find-dotfiles ()
+  "Edit dotfiles.org"
+  (interactive)
+  (find-file "~/.emacs.d/dotfiles.org"))
+(defun reload-config()
+  "Reload config.org"
+  (interactive)
+  (delete-file "~/.emacs.d/config.el") ;; hotfix, manually delete old config.el file
+  (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
+
+(global-set-key (kbd "C-c i") 'find-dotfiles)
+(global-set-key (kbd "C-c I") 'find-config)
+(global-set-key (kbd "C-c R") 'reload-config)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6b6d018" class="outline-3">
+<h3 id="org6b6d018">Personal Information</h3>
+<div class="outline-text-3" id="text-org6b6d018">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq user-full-name "Teddy Ma"
+      user-mail-address "mlc880926@gmail.com")
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgee730b9" class="outline-3">
+<h3 id="orgee730b9">Bootstrap use-package</h3>
+<div class="outline-text-3" id="text-orgee730b9">
+<p>
+Guide about use-package <a href="https://phenix3443.github.io/notebook/emacs/modes/use-package-manual.html">https://phenix3443.github.io/notebook/emacs/modes/use-package-manual.html</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(require 'package)
+(setq package-archives
+      '(("GNU ELPA"     . "https://elpa.gnu.org/packages/")
+	("MELPA Stable" . "https://stable.melpa.org/packages/")
+	("MELPA"        . "https://melpa.org/packages/"))
+      package-archive-priorities
+      '(("GNU ELPA"     . 10)
+	("MELPA Stable" . 5)
+	("MELPA"        . 0)))
+(package-initialize)
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+;;(setq package-check-signature nil) ;; if ssl error occour, uncomment this line
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2a65dc2" class="outline-3">
+<h3 id="org2a65dc2">Load custom settings</h3>
+<div class="outline-text-3" id="text-org2a65dc2">
+<p>
+Set up the customize file to its own separate file, instead of saving customize settings in <a href="init.el">init.el</a>.
+Warning: edit config.org file will <b>not</b> affect custom.el file!
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2ff66cf" class="outline-2">
+<h2 id="org2ff66cf">UI</h2>
+<div class="outline-text-2" id="text-org2ff66cf">
+</div>
+<div id="outline-container-org37cb92a" class="outline-3">
+<h3 id="org37cb92a">Reasonable default settings</h3>
+<div class="outline-text-3" id="text-org37cb92a">
+</div>
+<div id="outline-container-orgacb0cf0" class="outline-4">
+<h4 id="orgacb0cf0">Y or N</h4>
+<div class="outline-text-4" id="text-orgacb0cf0">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defalias 'yes-or-no-p 'y-or-n-p)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org96bb56d" class="outline-4">
+<h4 id="org96bb56d">Terminal env</h4>
+<div class="outline-text-4" id="text-org96bb56d">
+<p>
+By default Emacs doesn't read from the same environment variables set in your terminal. This package fixes that.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns))
+  :ensure t
+  :hook (emacs-startup . (lambda ()
+			   (setq exec-path-from-shell-arguments '("-l"))
+					; removed the -i for faster startup
+			   (exec-path-from-shell-initialize))))
+</pre>
+</div>
+
+<p>
+-i gets alias definitions from .bash<sub>profile</sub>
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq shell-command-switch "-ic")
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org96b88ad" class="outline-4">
+<h4 id="org96b88ad">Always follow symlinks</h4>
+<div class="outline-text-4" id="text-org96b88ad">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq vc-follow-symlinks t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb718b98" class="outline-4">
+<h4 id="orgb718b98">Alway use visual line</h4>
+<div class="outline-text-4" id="text-orgb718b98">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(global-visual-line-mode 1)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org833c1d0" class="outline-4">
+<h4 id="org833c1d0">Garbage collection</h4>
+<div class="outline-text-4" id="text-org833c1d0">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq gc-cons-threshold 20000000)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org567f054" class="outline-4">
+<h4 id="org567f054">No Visible Bell</h4>
+<div class="outline-text-4" id="text-org567f054">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq visible-bell nil)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orga122df8" class="outline-4">
+<h4 id="orga122df8">Hide UI bar</h4>
+<div class="outline-text-4" id="text-orga122df8">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(menu-bar-mode -1)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(when (eq system-type 'darwin)
+  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+  (add-to-list 'default-frame-alist '(ns-appearance . dark))
+  (setq ns-use-proxy-icon  nil)
+  (setq frame-title-format nil)
+  )
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org3158926" class="outline-4">
+<h4 id="org3158926">Hide the help screen on startup</h4>
+<div class="outline-text-4" id="text-org3158926">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq inhibit-startup-screen t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org1a4598e" class="outline-4">
+<h4 id="org1a4598e">Highlight current line.</h4>
+<div class="outline-text-4" id="text-org1a4598e">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(global-hl-line-mode 1)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge50d011" class="outline-4">
+<h4 id="orge50d011">Popup managment</h4>
+<div class="outline-text-4" id="text-orge50d011">
+<p>
+Taken from <a href="https://emacs.stackexchange.com/questions/46210/reuse-help-window">https://emacs.stackexchange.com/questions/46210/reuse-help-window</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq display-buffer-alist
+      `((,(rx bos (or "*Apropos*" "*Help*" "*helpful" "*info*" "*Summary*") (0+ not-newline))
+	 (display-buffer-reuse-mode-window display-buffer-below-selected)
+	 (window-height . 0.33)
+	 (mode apropos-mode help-mode helpful-mode Info-mode Man-mode))))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org55ae89e" class="outline-4">
+<h4 id="org55ae89e">Disable autosave and backup</h4>
+<div class="outline-text-4" id="text-org55ae89e">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq make-backup-file nil)
+(setq auto-save-default nil)
+(setq backup-inhibited t)
+(setq backup-directory-alist `(("." . "~/.saves")))
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">;; Move file to trash instead of removing.
+(setq-default delete-by-moving-to-trash t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org2091708" class="outline-4">
+<h4 id="org2091708">Auto refresh</h4>
+<div class="outline-text-4" id="text-org2091708">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(global-auto-revert-mode t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org8c06148" class="outline-4">
+<h4 id="org8c06148">Minibuffer recursive</h4>
+<div class="outline-text-4" id="text-org8c06148">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq enable-recursive-minibuffers t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org65bee17" class="outline-4">
+<h4 id="org65bee17">Meta Key</h4>
+<div class="outline-text-4" id="text-org65bee17">
+<p>
+make both command and option key to be meta key
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(when (eq system-type 'darwin)
+  (setq mac-command-modifier 'meta
+	mac-option-modifier 'meta))
+
+;; (when (eq system-type 'gnu/linux)
+;; (setq  x-meta-keysym 'super
+;;       x-super-keysym 'meta))
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org5f937ae" class="outline-4">
+<h4 id="org5f937ae">Global UTF8</h4>
+<div class="outline-text-4" id="text-org5f937ae">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org7d860d1" class="outline-4">
+<h4 id="org7d860d1">Cursor</h4>
+<div class="outline-text-4" id="text-org7d860d1">
+<p>
+Turn off the blinking cursor
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(blink-cursor-mode -1)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb651126" class="outline-4">
+<h4 id="orgb651126">Display column</h4>
+<div class="outline-text-4" id="text-orgb651126">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(column-number-mode t)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org540051b" class="outline-3">
+<h3 id="org540051b">Common packages</h3>
+<div class="outline-text-3" id="text-org540051b">
+</div>
+<div id="outline-container-orgfced97c" class="outline-4">
+<h4 id="orgfced97c">Helpful</h4>
+<div class="outline-text-4" id="text-orgfced97c">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package helpful
+  :ensure t
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6cd3d6c" class="outline-4">
+<h4 id="org6cd3d6c">Restart emacs</h4>
+<div class="outline-text-4" id="text-org6cd3d6c">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package restart-emacs
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4792eb2" class="outline-4">
+<h4 id="org4792eb2">Diminish</h4>
+<div class="outline-text-4" id="text-org4792eb2">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package diminish
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4f44378" class="outline-4">
+<h4 id="org4f44378">Show command log</h4>
+<div class="outline-text-4" id="text-org4f44378">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package command-log-mode
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc9a2cf2" class="outline-4">
+<h4 id="orgc9a2cf2">Suggest next key</h4>
+<div class="outline-text-4" id="text-orgc9a2cf2">
+<p>
+Suggest next keys to me based on currently entered key combination.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package which-key
+  :ensure t
+  :init
+  (which-key-mode 1)
+  :config
+  (which-key-setup-side-window-right-bottom)
+  (setq which-key-sort-order 'which-key-key-order-alpha
+	which-key-side-window-max-width 0.33
+	which-key-idle-delay 2
+	which-key-show-early-on-C-h t
+	which-key-idle-secondary-delay 0.05)
+  :diminish
+  which-key-mode)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf7ffa15" class="outline-3">
+<h3 id="orgf7ffa15">Welcome dashboard</h3>
+<div class="outline-text-3" id="text-orgf7ffa15">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook)
+  (setq dashboard-startup-banner "~/ownCloud/Photos/emacs-banner.png")
+  (setq dashboard-items '((recents  . 5)
+			  (bookmarks . 5)
+			  (registers . 5))))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orga907965" class="outline-3">
+<h3 id="orga907965">Winner mode</h3>
+<div class="outline-text-3" id="text-orga907965">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package winner-mode
+  :ensure nil
+  :hook (after-init . winner-mode))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org516d11a" class="outline-3">
+<h3 id="org516d11a">Pop win</h3>
+<div class="outline-text-3" id="text-org516d11a">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package popwin
+  :ensure t
+  :config
+  (global-set-key (kbd "M-p") popwin:keymap))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb72af3b" class="outline-3">
+<h3 id="orgb72af3b">Mini frame</h3>
+<div class="outline-text-3" id="text-orgb72af3b">
+<p>
+Place minibuffer at the top of the current frame
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package mini-frame
+  :ensure t
+  :config
+  (custom-set-variables
+   '(mini-frame-show-parameters
+     '((top . 10)
+       (width . 0.7)
+       (left . 0.5)))))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgfc98f9e" class="outline-3">
+<h3 id="orgfc98f9e">Transpose frame</h3>
+<div class="outline-text-3" id="text-orgfc98f9e">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package transpose-frame
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge5c4ac6" class="outline-3">
+<h3 id="orge5c4ac6">Uniquify</h3>
+<div class="outline-text-3" id="text-orge5c4ac6">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package uniquify
+  :config
+  (setq uniquify-buffer-name-style 'reverse)
+  (setq uniquify-separator " • ")
+  (setq uniquify-after-kill-buffer-p t)
+  (setq uniquify-ignore-buffers-re "^\\*")
+  )
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org3aedde1" class="outline-2">
+<h2 id="org3aedde1">Edit</h2>
+<div class="outline-text-2" id="text-org3aedde1">
+</div>
+<div id="outline-container-org794bf6e" class="outline-3">
+<h3 id="org794bf6e">Basics</h3>
+<div class="outline-text-3" id="text-org794bf6e">
+</div>
+<div id="outline-container-orgcd26c87" class="outline-4">
+<h4 id="orgcd26c87">CRUX</h4>
+<div class="outline-text-4" id="text-orgcd26c87">
+<p>
+<code>crux</code> is a list of useful functions.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package crux
+  :ensure t
+  :bind (("C-a" . crux-move-beginning-of-line)
+	 ("C-S-d" . crux-duplicate-current-line-or-region)
+	 ("C-c r" . crux-rename-file-and-buffer)
+	 ("C-c D" . crux-delete-file-and-buffer)))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6ae7f40" class="outline-4">
+<h4 id="org6ae7f40">Hungry Delete</h4>
+<div class="outline-text-4" id="text-org6ae7f40">
+<p>
+hungry delete can make life easier, but emacs-smart-hungry-delete is more powerful
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package smart-hungry-delete
+  :ensure t
+  :bind (("&lt;backspace&gt;" . smart-hungry-delete-backward-char)
+	 ("C-d" . smart-hungry-delete-forward-char))
+  :defer nil ;; dont defer so we can add our functions to hooks
+  :config (smart-hungry-delete-add-default-hooks))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org088cd6c" class="outline-4">
+<h4 id="org088cd6c">Trailing Whitespace</h4>
+<div class="outline-text-4" id="text-org088cd6c">
+<p>
+I <b>never</b> want whitespace at the end of lines. Remove it on save.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(add-hook 'before-save-hook 'delete-trailing-whitespace)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1abd031" class="outline-4">
+<h4 id="org1abd031">Better undo</h4>
+<div class="outline-text-4" id="text-org1abd031">
+<p>
+<code>undo-tree</code> visualises undo history as a tree for easy navigation.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package undo-tree
+  :ensure t
+  :diminish undo-tree-mode
+  :config
+  (global-undo-tree-mode 1))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgeb9ffb9" class="outline-4">
+<h4 id="orgeb9ffb9">Capslock</h4>
+<div class="outline-text-4" id="text-orgeb9ffb9">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package caps-lock
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org813b7e1" class="outline-4">
+<h4 id="org813b7e1">Delete region when typing</h4>
+<div class="outline-text-4" id="text-org813b7e1">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(delete-selection-mode t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgebb0085" class="outline-4">
+<h4 id="orgebb0085">Tabs and indent</h4>
+<div class="outline-text-4" id="text-orgebb0085">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq-default indent-tabs-mode nil)
+(setq-default indicate-empty-lines t)
+;; Don't count two spaces after a period as the end of a sentence.
+;; Just one space is needed.
+(setq sentence-end-double-space nil)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org1c77c5e" class="outline-3">
+<h3 id="org1c77c5e">Command completion</h3>
+<div class="outline-text-3" id="text-org1c77c5e">
+<p>
+<code>ivy</code> is a generic completion framework which uses the minibuffer. Turning on <code>ivy-mode</code> with fuzzy support enables replacement of lots of built in <code>ido</code> functionality.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package smex
+  :ensure t)
+(use-package ivy
+  :ensure t
+  :config
+  (ivy-mode t))
+</pre>
+</div>
+
+<p>
+<code>counsel</code> is a collection of <code>ivy</code> enhanced versions of common Emacs commands. I haven't bound much as <code>ivy-mode</code> takes care of most things.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package counsel
+  :ensure t
+  :bind
+  (("M-x" . counsel-M-x))
+  :config
+   (setq ivy-re-builders-alist
+	 '(
+	   ;; no need to support fuzzy when use swiper and ivy-switch-buffer
+	   (ivy-switch-buffer . ivy--regex-plus)
+	   (swiper . ivy--regex-plus)
+	   (t . ivy--regex-fuzzy)
+	   ))
+  (setq ivy-initial-inputs-alist nil))
+</pre>
+</div>
+
+<p>
+<code>swiper</code> is an <code>ivy</code> enhanced version of isearch.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package swiper
+  :ensure t
+  :bind (("M-s" . swiper)))
+</pre>
+</div>
+
+<p>
+<code>hydra</code> presents menus for <code>ivy</code> commands.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package hydra
+  :ensure t)
+
+(use-package ivy-hydra
+  :after (ivy hydra))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga5c6f8a" class="outline-3">
+<h3 id="orga5c6f8a">Easier selection</h3>
+<div class="outline-text-3" id="text-orga5c6f8a">
+<p>
+<code>expand-region</code> expands the region around the cursor semantically depending on mode. Hard to describe but a killer feature.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package expand-region
+  :ensure t
+  :bind ("C-=" . er/expand-region))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org404529b" class="outline-3">
+<h3 id="org404529b">Toggle quotes</h3>
+<div class="outline-text-3" id="text-org404529b">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun toggle-quotes ()
+  "Toggle single quoted string to double or vice versa, and
+  flip the internal quotes as well.  Best to run on the first
+  character of the string."
+  (interactive)
+  (save-excursion
+    (re-search-backward "[\"']")
+    (let* ((start (point))
+	   (old-c (char-after start))
+	   new-c)
+      (setq new-c
+	    (case old-c
+	      (?\" "'")
+	      (?\' "\"")))
+      (setq old-c (char-to-string old-c))
+      (delete-char 1)
+      (insert new-c)
+      (re-search-forward old-c)
+      (backward-char 1)
+      (let ((end (point)))
+	(delete-char 1)
+	(insert new-c)
+	(replace-string new-c old-c nil (1+ start) end)))))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd254f83" class="outline-3">
+<h3 id="orgd254f83">Wrap region</h3>
+<div class="outline-text-3" id="text-orgd254f83">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package wrap-region
+  :ensure t
+  :diminish wrap-region-mode
+  :config
+  (wrap-region-global-mode t)
+  (wrap-region-add-wrapper "~" "~" nil 'org-mode)  ; code
+  (wrap-region-add-wrapper "*" "*" nil 'org-mode)  ; bold
+  (wrap-region-add-wrapper "/" "/" nil 'org-mode)  ; italic
+  (wrap-region-add-wrapper "+" "+" nil 'org-mode)  ; strikethrough
+  (wrap-region-add-wrapper "_" "_" nil 'org-mode)) ; verbatim
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgba9bf21" class="outline-3">
+<h3 id="orgba9bf21">Move line up and down</h3>
+<div class="outline-text-3" id="text-orgba9bf21">
+<p>
+M-&lt;up&gt; M-&lt;down&gt;
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package drag-stuff
+  :ensure t
+  :diminish drag-stuff-mode
+  :config
+  (drag-stuff-global-mode t)
+  (drag-stuff-define-keys))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgca2ef2a" class="outline-3">
+<h3 id="orgca2ef2a">Folding</h3>
+<div class="outline-text-3" id="text-orgca2ef2a">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">;;https://github.com/Schnouki/dotfiles/blob/master/emacs/init-20-dev.el#L90
+(use-package origami
+  :ensure t
+  :commands origami-mode
+  :bind (:map origami-mode-map
+	      ("C-: :" . origami-recursively-toggle-node)
+	      ("C-: a" . origami-toggle-all-nodes)
+	      ("C-: t" . origami-toggle-node)
+	      ("C-: o" . origami-show-only-node)
+	      ("C-: u" . origami-undo)
+	      ("C-: U" . origami-redo)
+	      ("C-: C-r" . origami-reset)
+	      ))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org3e98674" class="outline-3">
+<h3 id="org3e98674">Align</h3>
+<div class="outline-text-3" id="text-org3e98674">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun align-non-space (BEG END)
+  "Align non-space columns in region BEG END."
+  (interactive "r")
+  (align-regexp BEG END "\\(\\s-*\\)\\S-+" 1 1 t))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0c94a4a" class="outline-3">
+<h3 id="org0c94a4a">Tab bar</h3>
+<div class="outline-text-3" id="text-org0c94a4a">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package centaur-tabs
+  :ensure t
+  :init
+  (setq centaur-tabs-set-icons t)
+  (setq ccentaur-tabs-set-modified-marker t
+	centaur-tabs-modified-marker "M"
+	centaur-tabs-cycle-scope 'tabs)
+  (setq centaur-tabs-set-close-button nil)
+  :config
+  (centaur-tabs-group-by-projectile-project)
+  )
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org93285f3" class="outline-3">
+<h3 id="org93285f3">Dired</h3>
+<div class="outline-text-3" id="text-org93285f3">
+<p>
+preview file
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(define-minor-mode dired-follow-mode
+  "Diplay file at point in dired after a move."
+  :lighter " dired-f"
+  :global t
+  (if dired-follow-mode (advice-add 'dired-next-line
+				    :after (lambda (arg)
+					     (dired-display-file)))
+    (advice-remove 'dired-next-line (lambda (arg)
+				      (dired-display-file)))))
+</pre>
+</div>
+
+<p>
+dired hacks
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package dired-rainbow
+  :ensure t
+  :config
+  (progn
+    (dired-rainbow-define-chmod directory "#6cb2eb" "d.*")
+    (dired-rainbow-define html "#eb5286" ("css" "less" "sass" "scss" "htm" "html" "jhtm" "mht" "eml" "mustache" "xhtml"))
+    (dired-rainbow-define xml "#f2d024" ("xml" "xsd" "xsl" "xslt" "wsdl" "bib" "json" "msg" "pgn" "rss" "yaml" "yml" "rdata"))
+    (dired-rainbow-define document "#9561e2" ("docm" "doc" "docx" "odb" "odt" "pdb" "pdf" "ps" "rtf" "djvu" "epub" "odp" "ppt" "pptx"))
+    (dired-rainbow-define markdown "#ffed4a" ("org" "etx" "info" "markdown" "md" "mkd" "nfo" "pod" "rst" "tex" "textfile" "txt"))
+    (dired-rainbow-define database "#6574cd" ("xlsx" "xls" "csv" "accdb" "db" "mdb" "sqlite" "nc"))
+    (dired-rainbow-define media "#de751f" ("mp3" "mp4" "MP3" "MP4" "avi" "mpeg" "mpg" "flv" "ogg" "mov" "mid" "midi" "wav" "aiff" "flac"))
+    (dired-rainbow-define image "#f66d9b" ("tiff" "tif" "cdr" "gif" "ico" "jpeg" "jpg" "png" "psd" "eps" "svg"))
+    (dired-rainbow-define log "#c17d11" ("log"))
+    (dired-rainbow-define shell "#f6993f" ("awk" "bash" "bat" "sed" "sh" "zsh" "vim"))
+    (dired-rainbow-define interpreted "#38c172" ("py" "ipynb" "rb" "pl" "t" "msql" "mysql" "pgsql" "sql" "r" "clj" "cljs" "scala" "js"))
+    (dired-rainbow-define compiled "#4dc0b5" ("asm" "cl" "lisp" "el" "c" "h" "c++" "h++" "hpp" "hxx" "m" "cc" "cs" "cp" "cpp" "go" "f" "for" "ftn" "f90" "f95" "f03" "f08" "s" "rs" "hi" "hs" "pyc" ".java"))
+    (dired-rainbow-define executable "#8cc4ff" ("exe" "msi"))
+    (dired-rainbow-define compressed "#51d88a" ("7z" "zip" "bz2" "tgz" "txz" "gz" "xz" "z" "Z" "jar" "war" "ear" "rar" "sar" "xpi" "apk" "xz" "tar"))
+    (dired-rainbow-define packaged "#faad63" ("deb" "rpm" "apk" "jad" "jar" "cab" "pak" "pk3" "vdf" "vpk" "bsp"))
+    (dired-rainbow-define encrypted "#ffed4a" ("gpg" "pgp" "asc" "bfe" "enc" "signature" "sig" "p12" "pem"))
+    (dired-rainbow-define fonts "#6cb2eb" ("afm" "fon" "fnt" "pfb" "pfm" "ttf" "otf"))
+    (dired-rainbow-define partition "#e3342f" ("dmg" "iso" "bin" "nrg" "qcow" "toast" "vcd" "vmdk" "bak"))
+    (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules"))
+    (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*")
+    ))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org9d8725a" class="outline-3">
+<h3 id="org9d8725a">Multiple cursors</h3>
+<div class="outline-text-3" id="text-org9d8725a">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package iedit
+  :ensure t)
+(use-package multiple-cursors
+  :ensure t
+  :config
+  (global-unset-key (kbd "M-&lt;down-mouse-1&gt;"))
+  (global-set-key (kbd "M-&lt;mouse-1&gt;") 'mc/add-cursor-on-click)
+  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+  (global-set-key (kbd "C-&gt;") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-&lt;") 'mc/mark-previous-like-this))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org2714036" class="outline-3">
+<h3 id="org2714036">Window Navigation</h3>
+<div class="outline-text-3" id="text-org2714036">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package ace-window
+  :ensure t
+  :config
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  (custom-set-faces
+   '(aw-leading-char-face
+     ((t (:inherit ace-jump-face-foreground :height 5.0)))))
+  :bind
+  ("M-o" . ace-window))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge223c47" class="outline-3">
+<h3 id="orge223c47">Wgrep</h3>
+<div class="outline-text-3" id="text-orge223c47">
+<p>
+wgrep allows you to edit a grep buffer and apply those changes to the file buffer like sed interactively.
+No need to learn sed script, just learn Emacs.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package wgrep
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org5415425" class="outline-3">
+<h3 id="org5415425">Find file in cursor</h3>
+<div class="outline-text-3" id="text-org5415425">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun teddy-ma/find-file-under-cursor ()
+  "Check it the filepath under cursor is an absolute path otherwise open helm and insert the filepath."
+  (interactive)
+  (let ((file-path (thing-at-point 'filename t)))
+    (if (file-name-absolute-p file-path)
+	(find-file-at-point file-path)
+      (minibuffer-with-setup-hook (lambda ()
+				    (insert file-path))
+	(helm-ls-git-ls)))))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org314503c" class="outline-3">
+<h3 id="org314503c">Goto line</h3>
+<div class="outline-text-3" id="text-org314503c">
+<p>
+Temporarily display line number when call go to line function
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(global-set-key [remap goto-line] 'goto-line-with-feedback)
+
+(defun goto-line-with-feedback ()
+  "Show line numbers temporarily, while prompting for the line number input"
+  (interactive)
+  (unwind-protect
+      (progn
+	(display-line-numbers-mode 1)
+	(goto-line (read-number "Goto line: ")))
+    (display-line-numbers-mode -1)))
+</pre>
+</div>
+<p>
+but avy-goto-line is awesome too
+</p>
+</div>
+</div>
+<div id="outline-container-orgaef5c3f" class="outline-3">
+<h3 id="orgaef5c3f">Edit indirect</h3>
+<div class="outline-text-3" id="text-orgaef5c3f">
+<p>
+like buffer narrow but in other buffer
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package edit-indirect
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org29b3051" class="outline-3">
+<h3 id="org29b3051">Diff hl</h3>
+<div class="outline-text-3" id="text-org29b3051">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package diff-hl
+  :ensure t
+  :hook
+  ((magit-pre-refresh . diff-hl-magit-pre-refresh)
+   (magit-post-refresh . diff-hl-magit-post-refresh))
+  :init
+  (setq diff-hl-draw-borders nil)
+  ;; (setq diff-hl-global-modes '(not org-mode))
+  ;; (setq diff-hl-fringe-bmp-function 'diff-hl-fringe-bmp-from-type)
+  ;; (setq diff-hl-global-modes (not '(image-mode org-mode)))
+  :config
+  (global-diff-hl-mode)
+  )
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb6a81ee" class="outline-3">
+<h3 id="orgb6a81ee">Praise the sun</h3>
+<div class="outline-text-3" id="text-orgb6a81ee">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package solaire-mode
+  :ensure t
+  :hook (after-init . solaire-global-mode))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc14c911" class="outline-2">
+<h2 id="orgc14c911">Appearance</h2>
+<div class="outline-text-2" id="text-orgc14c911">
+</div>
+<div id="outline-container-orgd02f66a" class="outline-3">
+<h3 id="orgd02f66a">Font</h3>
+<div class="outline-text-3" id="text-orgd02f66a">
+<p>
+It works fine with windows and org table in Chinese
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(when (eq system-type 'darwin)
+  (setq fonts '("Monaco" "STKaiti"))
+  (set-face-attribute 'default nil :font
+		      (format "%s:pixelsize=%d" (car fonts) 15))
+  (setq face-font-rescale-alist '(("STKaiti". 1.2))))
+
+(when (eq system-type 'windows-nt)
+  (setq fonts '("Inconsolata" "华文楷体"))
+  (set-face-attribute 'default nil :font
+		      (format "%s:pixelsize=%d" (car fonts) 20))
+  (setq face-font-rescale-alist '(("华文楷体". 1.0))))
+
+(when (eq system-type 'gnu/linux)
+  (setq fonts '("Inconsolata" "STKaiti"))
+  (set-face-attribute 'default nil :font
+		      (format "%s:pixelsize=%d" (car fonts) 18))
+  (setq face-font-rescale-alist '(("STKaiti". 1.0))))
+
+(dolist (charset '(kana han symbol cjk-misc bopomofo))
+  (set-fontset-font (frame-parameter nil 'font) charset
+		    (font-spec :family (car (cdr fonts)))))
+
+</pre>
+</div>
+
+<p>
+Add emoji support. This is useful when working with html.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package emojify
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgee0dee3" class="outline-3">
+<h3 id="orgee0dee3">Emoji and icons</h3>
+<div class="outline-text-3" id="text-orgee0dee3">
+<p>
+Run M-x all-the-icons-install-fonts for the first time
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package all-the-icons
+  :ensure t
+  :config
+  (set-fontset-font t 'symbol "Apple Color Emoji")
+  (set-fontset-font t 'symbol "Noto Color Emoji" nil 'append)
+  (set-fontset-font t 'symbol "Segoe UI Emoji" nil 'append)
+  (set-fontset-font t 'symbol "Symbola" nil 'append))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6704c20" class="outline-3">
+<h3 id="org6704c20">Mode Line</h3>
+<div class="outline-text-3" id="text-org6704c20">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package telephone-line
+  :ensure t
+  :config
+  (setq telephone-line-primary-left-separator 'telephone-line-gradient
+	telephone-line-secondary-left-separator 'telephone-line-nil
+	telephone-line-primary-right-separator 'telephone-line-gradient
+	telephone-line-secondary-right-separator 'telephone-line-nil)
+  (setq telephone-line-height 24
+	telephone-line-evil-use-short-tag t)
+  (telephone-line-mode 1))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org5efb927" class="outline-3">
+<h3 id="org5efb927">Theme</h3>
+<div class="outline-text-3" id="text-org5efb927">
+<p>
+<a href="https://github.com/ogdenwebb/emacs-kaolin-themes">https://github.com/ogdenwebb/emacs-kaolin-themes</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package kaolin-themes
+  :ensure t)
+</pre>
+</div>
+
+<p>
+toggle theme (dark and light)
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq-default custom-enabled-themes '(kaolin-light))
+
+(defun reapply-themes ()
+  "Forcibly load the themes listed in `custom-enabled-themes'."
+  (dolist (theme custom-enabled-themes)
+    (unless (custom-theme-p theme)
+      (load-theme theme)))
+  (custom-set-variables `(custom-enabled-themes (quote ,custom-enabled-themes))))
+
+(add-hook 'after-init-hook 'reapply-themes)
+
+(defun light ()
+  "Activate a light color theme."
+  (interactive)
+  (setq custom-enabled-themes '(kaolin-light))
+  (reapply-themes))
+
+(defun dark ()
+  "Activate a dark color theme."
+  (interactive)
+  (setq custom-enabled-themes '(kaolin-dark))
+  (reapply-themes))
+</pre>
+</div>
+
+<p>
+fix org block style <a href="https://stackoverflow.com/questions/44811679/orgmode-change-code-block-background-color">https://stackoverflow.com/questions/44811679/orgmode-change-code-block-background-color</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(custom-set-faces
+ '(org-block-begin-line
+   ((t (:underline nil :foreground "#60a83d" :background nil))))
+ '(org-block-end-line
+   ((t (:overline nil :foreground nil :background nil))))
+
+ '(org-block ((t (:background nil))))
+ )
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga0ed7e3" class="outline-3">
+<h3 id="orga0ed7e3">Transparency</h3>
+<div class="outline-text-3" id="text-orga0ed7e3">
+<p>
+Not work when macOS FullScreen
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun increase-transparency ()
+  "Increase Transparency"
+  (interactive)
+  (seethru-relative 10))
+
+(defun decrease-transparency ()
+  "Decrease Transparency"
+  (interactive)
+  (seethru-relative -10))
+
+(use-package seethru
+  :ensure t
+  :bind
+  (("C-c 9" . increase-transparency)
+   ("C-c 8" . decrease-transparency))
+  :config
+  (seethru 95))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7a5859f" class="outline-3">
+<h3 id="org7a5859f">Misc</h3>
+<div class="outline-text-3" id="text-org7a5859f">
+</div>
+<div id="outline-container-org01fac95" class="outline-4">
+<h4 id="org01fac95">Highlight Indent guides</h4>
+<div class="outline-text-4" id="text-org01fac95">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package indent-guide
+  :ensure t)
+(use-package highlight-indent-guides
+  :ensure t
+  :hook (prog-mode . highlight-indent-guides-mode)
+  :init
+  ;; (setq highlight-indent-guides-method 'column)
+  (setq highlight-indent-guides-method 'bitmap)
+  ;; (setq highlight-indent-guides-character ?|)
+  ;; (setq highlight-indent-guides-character ?❚)
+  ;;(setq highlight-indent-guides-character ?‖)
+  ;; (setq highlight-indent-guides-responsive 'stack)
+  ;;(setq highlight-indent-guides-responsive 'top)
+  ;; (setq highlight-indent-guides-auto-enabled nil)
+  ;; (set-face-background 'highlight-indent-guides-odd-face "darkgray")
+  ;; (set-face-background 'highlight-indent-guides-even-face "dimgray")
+  ;; (set-face-foreground 'highlight-indent-guides-character-face "dimgray")
+  )
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6add575" class="outline-4">
+<h4 id="org6add575">Light follow cursor</h4>
+<div class="outline-text-4" id="text-org6add575">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package beacon
+  :ensure t
+  :init
+  (beacon-mode 1))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org86b0ea5" class="outline-4">
+<h4 id="org86b0ea5">Display battery</h4>
+<div class="outline-text-4" id="text-org86b0ea5">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">;; (display-battery-mode 1)
+(setq battery-mode-line-format "[%b%p%% %t]")
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org004d058" class="outline-4">
+<h4 id="org004d058">Dired icons</h4>
+<div class="outline-text-4" id="text-org004d058">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package all-the-icons-dired
+  :ensure t
+  :config
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org07d54aa" class="outline-4">
+<h4 id="org07d54aa">Info colors</h4>
+<div class="outline-text-4" id="text-org07d54aa">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package info-colors
+  :ensure t
+  :config
+  (add-hook 'Info-selection-hook 'info-colors-fontify-node))
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc952cd8" class="outline-2">
+<h2 id="orgc952cd8">Programming</h2>
+<div class="outline-text-2" id="text-orgc952cd8">
+</div>
+<div id="outline-container-org690ca33" class="outline-3">
+<h3 id="org690ca33">LSP</h3>
+<div class="outline-text-3" id="text-org690ca33">
+<p>
+lsp mode
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package gnu-elpa-keyring-update
+  :ensure t)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(require 'cc-mode)
+(use-package projectile
+  :ensure t
+  :config
+  (setq projectile-mode-line-function '(lambda () (format " Proj[%s]" (projectile-project-name)))))
+(use-package yasnippet
+  :ensure t)
+(use-package lsp-mode
+  :ensure t)
+(use-package hydra
+  :ensure t)
+(use-package lsp-ui
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org25ecbfe" class="outline-3">
+<h3 id="org25ecbfe">Interface improvements</h3>
+<div class="outline-text-3" id="text-org25ecbfe">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(show-paren-mode 1)
+</pre>
+</div>
+
+<p>
+When programming I like my editor to try to help me with keeping parentheses balanced.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package smartparens
+  :ensure t
+  :diminish
+  smartparens-mode
+  :hook
+  (after-prog-mode . smartparens-mode))
+</pre>
+</div>
+
+<p>
+Highlight parens etc. for improved readability.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+</pre>
+</div>
+
+<p>
+Highlight strings which represent colours. I only want this in programming modes, and I don't want colour names to be highlighted (<code>x-colors</code>).
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package rainbow-mode
+  :ensure t
+  :config
+  (setq rainbow-x-colors nil))
+</pre>
+</div>
+
+<p>
+Keep things indented correctly for me.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package aggressive-indent
+  :ensure t)
+</pre>
+</div>
+
+<p>
+Support editorconfig config file.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package editorconfig
+  :ensure t
+  :diminish editorconfig-mode
+  :config
+  (editorconfig-mode 1))
+</pre>
+</div>
+
+<p>
+Format all
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package format-all
+  :ensure t)
+</pre>
+</div>
+
+<p>
+underscore -&gt; UPCASE -&gt; CamelCase conversion of names
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package string-inflection
+  :ensure t)
+</pre>
+</div>
+
+<p>
+Expand parentheses for me.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(add-hook 'prog-mode-hook 'electric-pair-mode)
+</pre>
+</div>
+
+<p>
+Smart dash guesses _ vs - depending on context.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package smart-dash
+  :ensure t
+  :config
+  (add-hook 'python-mode-hook 'smart-dash-mode))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3bf4039" class="outline-3">
+<h3 id="org3bf4039">Project management</h3>
+<div class="outline-text-3" id="text-org3bf4039">
+<p>
+Projectile handles folders which are in version control.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package projectile
+  :ensure t
+  :config
+  (projectile-mode +1)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (setq projectile-enable-caching t)
+  (projectile-mode))
+</pre>
+</div>
+
+<p>
+Add some extra completion options via integration with <code>counsel</code>. In particular this enables <code>C-c p SPC</code> for smart buffer / file search, and <code>C-c p s s</code> for search via <code>ag</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package counsel-projectile
+  :ensure t
+  :config
+  (add-hook 'after-init-hook 'counsel-projectile-mode)
+  (global-set-key (kbd "C-c p f") 'counsel-git))
+</pre>
+</div>
+
+<p>
+Integration with Helm
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package helm
+  :ensure t)
+
+(use-package helm-ag
+  :ensure t)
+
+(use-package helm-projectile
+  :ensure t
+  :config
+  (global-set-key (kbd "C-S-f") 'helm-projectile-ag))
+</pre>
+</div>
+
+<p>
+Integration with neotree
+ modified version of <a href="https://github.com/hemmvm/dotemacs/blob/master/site-lisp/util--neotree.el">https://github.com/hemmvm/dotemacs/blob/master/site-lisp/util--neotree.el</a>
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package neotree
+  :ensure t
+  :config
+  (defun neotree-project-tree-open ()
+    (interactive)
+    (let ((project-dir (ignore-errors (projectile-project-root)))
+	  (file-name (buffer-file-name)))
+      (if project-dir
+	  (progn
+	    (neotree-dir project-dir)
+	    (neotree-find file-name))
+	(neotree-find)))
+    (neo-global--select-window))
+
+  (defun neotree-project-tree-toggle ()
+    (interactive)
+    (if (neo-global--window-exists-p)
+	(neotree-hide)
+      (neotree-project-tree-open)))
+
+  (global-set-key (kbd "C-&lt;tab&gt;") 'neotree-project-tree-toggle)
+
+  (setq neo-show-hidden-files t)
+  (setq neo-theme 'arrow)
+  (setq neo-window-width 35)
+
+  (defun custom-neotree-enter-hide ()
+    (interactive)
+    (neotree-enter)
+    (let ((current (neo-buffer--get-filename-current-line)))
+      (if (not (and current (file-accessible-directory-p current)))
+	  (neotree-hide))))
+
+  (defun custom-neotree-peek ()
+    (interactive)
+    (let ((neo-window (neo-global--get-window)))
+      (neotree-enter)
+      (select-window neo-window)))
+
+  (add-hook
+   'neotree-mode-hook
+   (lambda ()
+     (define-key neotree-mode-map (kbd "RET") 'custom-neotree-enter-hide)))
+
+  (add-hook
+   'neotree-mode-hook
+   (lambda ()
+     (define-key neotree-mode-map (kbd "TAB") 'custom-neotree-peek))))
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org9c2bc0d" class="outline-3">
+<h3 id="org9c2bc0d">Fuzzy search</h3>
+<div class="outline-text-3" id="text-org9c2bc0d">
+<p>
+<code>fzf</code> is a fuzzy file finder which is very quick.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package fzf
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org89cdc8e" class="outline-3">
+<h3 id="org89cdc8e">Deadgrep</h3>
+<div class="outline-text-3" id="text-org89cdc8e">
+<p>
+You can now edit files directly from results buffers with M-x deadgrep-edit-mode.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package deadgrep
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgde30ddd" class="outline-3">
+<h3 id="orgde30ddd">Open File with Line Number</h3>
+<div class="outline-text-3" id="text-orgde30ddd">
+<p>
+Open files and goto lines like we see from g++ etc. i.e. Gemfile:12
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defadvice find-file (around find-file-line-number
+			     (filename &amp;optional wildcards)
+			     activate)
+  "Turn files like file.cpp:14 into file.cpp and going to the 14-th line."
+  (save-match-data
+    (let* ((matched (string-match "^\\(.*\\):\\([0-9]+\\):?$" filename))
+	   (line-number (and matched
+			     (match-string 2 filename)
+			     (string-to-number (match-string 2 filename))))
+	   (filename (if matched (match-string 1 filename) filename)))
+      ad-do-it
+      (when line-number
+	;; goto-line is for interactive use
+	(goto-char (point-min))
+	(forward-line (1- line-number))))))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org323efa7" class="outline-3">
+<h3 id="org323efa7">Jump to source</h3>
+<div class="outline-text-3" id="text-org323efa7">
+<p>
+Individual language packages often support IDE features like jump to source, but <code>dumb-jump</code> attempts to support many languages by simple searching.
+It's quite effective even with dynamic libraries like JS and Python.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package dumb-jump
+  :ensure t
+  :diminish dumb-jump-mode
+  :bind (("C-M-g" . dumb-jump-go)
+	 ("C-M-p" . dumb-jump-back)
+	 ("C-M-q" . dumb-jump-quick-look)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org453d6d6" class="outline-3">
+<h3 id="org453d6d6">Git</h3>
+<div class="outline-text-3" id="text-org453d6d6">
+<p>
+Magit is an awesome interface to git. Summon it with `C-x g`.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package magit
+  :ensure t
+  :config
+  (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1)))
+  :bind ("C-x g" . magit-status))
+</pre>
+</div>
+
+<p>
+Display line changes in gutter based on git history. Enable it everywhere.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package git-gutter
+  :ensure t
+  :diminish git-gutter-mode
+  :config
+  (global-git-gutter-mode 't))
+</pre>
+</div>
+
+<p>
+Magit Delta
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package magit-delta
+  :ensure t)
+</pre>
+</div>
+
+<p>
+TimeMachine lets us step through the history of a file as recorded in git.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package git-timemachine
+  :ensure t)
+</pre>
+</div>
+
+<p>
+bind <code>M-p -</code> to list all git repos in some folder
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq magit-repository-directories '(("\~/code" . 4)))
+
+(defun magit-status-with-prefix-arg ()
+  "Call `magit-status` with a prefix."
+  (interactive)
+  (let ((current-prefix-arg '(4)))
+    (call-interactively #'magit-status)))
+
+(global-set-key (kbd "M-p p") 'magit-status-with-prefix-arg)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org22d3aff" class="outline-3">
+<h3 id="org22d3aff">Syntax checking</h3>
+<div class="outline-text-3" id="text-org22d3aff">
+<p>
+<code>Flycheck</code> is a general syntax highlighting framework which other packages hook into. It's an improvment on the built in <code>flymake</code>.
+</p>
+
+<p>
+Setup is pretty simple - we just enable globally and turn on a custom eslint function, and also add a custom checker for proselint.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package flycheck
+  :ensure t
+  :config
+  (add-hook 'after-init-hook 'global-flycheck-mode)
+  (add-to-list 'flycheck-checkers 'proselint)
+  (setq-default flycheck-highlighting-mode 'lines)
+  ;; Define fringe indicator / warning levels
+  (define-fringe-bitmap 'flycheck-fringe-bitmap-ball
+    (vector #b00000000
+	    #b00000000
+	    #b00000000
+	    #b00000000
+	    #b00000000
+	    #b00000000
+	    #b00000000
+	    #b00011100
+	    #b00111110
+	    #b00111110
+	    #b00111110
+	    #b00011100
+	    #b00000000
+	    #b00000000
+	    #b00000000
+	    #b00000000
+	    #b00000000))
+  (flycheck-define-error-level 'error
+    :severity 2
+    :overlay-category 'flycheck-error-overlay
+    :fringe-bitmap 'flycheck-fringe-bitmap-ball
+    :fringe-face 'flycheck-fringe-error)
+  (flycheck-define-error-level 'warning
+    :severity 1
+    :overlay-category 'flycheck-warning-overlay
+    :fringe-bitmap 'flycheck-fringe-bitmap-ball
+    :fringe-face 'flycheck-fringe-warning)
+  (flycheck-define-error-level 'info
+    :severity 0
+    :overlay-category 'flycheck-info-overlay
+    :fringe-bitmap 'flycheck-fringe-bitmap-ball
+    :fringe-face 'flycheck-fringe-info))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge5511ba" class="outline-3">
+<h3 id="orge5511ba">Autocomplete</h3>
+<div class="outline-text-3" id="text-orge5511ba">
+<p>
+Company mode provides good autocomplete options. Perhaps I should add company-quickhelp for documentation (<a href="https://github.com/expez/company-quickhelp">https://github.com/expez/company-quickhelp</a>)?
+It would also be good to improve integration with yasnippet as I don't feel I'm making the best use there.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package company
+  :ensure t
+  :config
+  (add-hook 'after-init-hook 'global-company-mode)
+
+  (setq company-idle-delay t)
+
+  (use-package company-anaconda
+    :ensure t
+    :config
+    (add-to-list 'company-backends 'company-anaconda)))
+</pre>
+</div>
+
+<p>
+I don't want suggestions from open files / buffers to be automatically lowercased as these are often camelcase function names.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq company-dabbrev-downcase nil)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgde548aa" class="outline-3">
+<h3 id="orgde548aa">Snippets</h3>
+<div class="outline-text-3" id="text-orgde548aa">
+<p>
+Type the shortcut and press <code>TAB</code> to complete, or <code>M-/</code> to autosuggest a snippet.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package yasnippet
+  :ensure t
+  :diminish yas-minor-mode
+  :config
+  (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
+  (yas-global-mode 1)
+  (global-set-key (kbd "M-/") 'company-yasnippet))
+
+;;http://ergoemacs.org/emacs/yasnippet_templates_howto.html
+(use-package yasnippet-snippets
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdc77ef8" class="outline-2">
+<h2 id="orgdc77ef8">Language</h2>
+<div class="outline-text-2" id="text-orgdc77ef8">
+</div>
+<div id="outline-container-orgbaf3889" class="outline-3">
+<h3 id="orgbaf3889">Javascript</h3>
+<div class="outline-text-3" id="text-orgbaf3889">
+<p>
+In JS indent to 2 spaces.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq-default js-indent-level 2)
+</pre>
+</div>
+
+<p>
+JS2 mode improves on the built in JS mode.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package js2-mode
+  :ensure t
+  :mode "\\.js\\'"
+  :config
+  (setq-default js2-ignored-warnings '("msg.extra.trailing.comma")))
+</pre>
+</div>
+
+<p>
+<code>js2-refactor</code> supports some useful refactoring options and builds on top of <code>js2-mode</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package js2-refactor
+  :ensure t
+  :config
+  (js2r-add-keybindings-with-prefix "C-c C-m")
+  :hook
+  (after-js-mode . js-refactor-mode))
+</pre>
+</div>
+
+<p>
+RJSX mode makes JSX work well.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package rjsx-mode
+  :ensure t)
+</pre>
+</div>
+
+<p>
+Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 and RJSX modes.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package prettier-js
+  :ensure t
+  :config
+  (setq prettier-js-args '(
+			   "--trailing-comma" "es5"
+			   "--single-quote" "true"
+			   "--print-width" "100"
+			   ))
+  :hook
+  (after-js2-mode . prettier-js-mode)
+  (after-rjsx-mode . prettier-js-mode))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org86f0c15" class="outline-3">
+<h3 id="org86f0c15">Yaml</h3>
+<div class="outline-text-3" id="text-org86f0c15">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package yaml-mode
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org8db274a" class="outline-3">
+<h3 id="org8db274a">Toml</h3>
+<div class="outline-text-3" id="text-org8db274a">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package toml-mode
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org98d3389" class="outline-3">
+<h3 id="org98d3389">Markdown</h3>
+<div class="outline-text-3" id="text-org98d3389">
+<p>
+Markdown support isn't built into Emacs, add it with <code>markdown-mode</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+	 ("\\.md\\'" . markdown-mode)
+	 ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1b8ba23" class="outline-3">
+<h3 id="org1b8ba23">Lua</h3>
+<div class="outline-text-3" id="text-org1b8ba23">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package lua-mode
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge3169cc" class="outline-3">
+<h3 id="orge3169cc">Haskell</h3>
+<div class="outline-text-3" id="text-orge3169cc">
+<p>
+Install haskell mode.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package haskell-mode
+  :ensure t)
+</pre>
+</div>
+
+<p>
+Code formatting is easier with <code>hindent</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package hindent
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge84cdd7" class="outline-3">
+<h3 id="orge84cdd7">Elixir</h3>
+<div class="outline-text-3" id="text-orge84cdd7">
+<p>
+Elixir highlighting is not built into emacs at present. Elixir-mode gives all the usual niceties, and alchemist improves interaction with tools like <code>iex</code>, <code>mix</code> and <code>elixir-format</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package elixir-mode
+  :ensure t)
+(use-package alchemist
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org9410c3b" class="outline-3">
+<h3 id="org9410c3b">Ruby</h3>
+<div class="outline-text-3" id="text-org9410c3b">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package rake
+  :ensure t)
+
+(use-package robe
+  :ensure t
+  :diminish
+  :hook
+  (after-ruby-mode . robe-mode))
+
+(use-package ruby-hash-syntax
+  :ensure t
+  :diminish
+  :hook
+  (after-ruby-mode . ruby-hash-syntax))
+
+(use-package rubocop
+  :ensure t
+  :diminish
+  :hook
+  (after-ruby-mode . rubocop-mode))
+
+(use-package haml-mode
+  :ensure t)
+
+(use-package minitest
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org97cb799" class="outline-3">
+<h3 id="org97cb799">Rails</h3>
+<div class="outline-text-3" id="text-org97cb799">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun run-rails-test-at-point ()
+  (interactive)
+  (compile (format "bundle exec rails test %s:%s" (expand-file-name (buffer-file-name))  (line-number-at-pos))))
+
+(defun run-rails-test-file ()
+  (interactive)
+  (compile (format "bundle exec rails test %s" (expand-file-name (buffer-file-name)))))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org5afde19" class="outline-3">
+<h3 id="org5afde19">C</h3>
+<div class="outline-text-3" id="text-org5afde19">
+<p>
+Emacs has a great built in C/C++ mode, but we can improve on it with <code>irony-mode</code> for code completion via <code>libclang</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package irony
+  :ensure t
+  :hook (c-mode . irony-mode))
+</pre>
+</div>
+
+<p>
+Add company mode support.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package company-irony
+  :ensure t
+  :config
+  (add-to-list 'company-backends 'company-irony))
+</pre>
+</div>
+
+<p>
+Add flycheck support.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package flycheck-irony
+  :ensure t
+  :hook (flycheck-mode . flycheck-irony-setup))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0e4aea0" class="outline-3">
+<h3 id="org0e4aea0">Rust</h3>
+<div class="outline-text-3" id="text-org0e4aea0">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package rust-mode
+  :ensure t )
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org917b037" class="outline-3">
+<h3 id="org917b037">Web mode</h3>
+<div class="outline-text-3" id="text-org917b037">
+<p>
+Web mode handles html/css/js.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package web-mode
+  :ensure t
+  :mode (("\\.html\\'" . web-mode)
+	 ("\\.erb\\'" . web-mode))
+  :config
+  (setq web-mode-markup-indent-offset 2))
+</pre>
+</div>
+
+<p>
+Web beautify prettifies html / css / js using js-beautify - install with <code>npm install -g js-beautify</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package web-beautify
+  :ensure t
+  :bind (:map web-mode-map
+	      ("C-c b" . web-beautify-html)
+	      :map js2-mode-map
+	      ("C-c b" . web-beautify-js)))
+</pre>
+</div>
+
+<p>
+HTML preview
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package impatient-mode
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org784bb30" class="outline-2">
+<h2 id="org784bb30">Org</h2>
+<div class="outline-text-2" id="text-org784bb30">
+</div>
+<div id="outline-container-orge161a3e" class="outline-3">
+<h3 id="orge161a3e">General settings.</h3>
+<div class="outline-text-3" id="text-orge161a3e">
+<p>
+<a href="https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf">https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package org
+  :ensure t
+  :diminish org-indent-mode
+  :config
+  (setq org-startup-indented 'f)
+  (setq org-special-ctrl-a/e 't)
+  (setq org-startup-folded t)
+  (setq org-hide-emphasis-markers nil)
+  (setq org-src-tab-acts-natively t)
+  (setq org-src-fontify-natively t)
+  (setq org-src-window-setup 'current-window)
+  (setq browse-url-browser-function 'browse-url-generic
+	browse-url-generic-program "Chromium")
+  (setq org-file-apps
+	'((auto-mode . emacs)
+	  ("\\.x?html?\\'" . "Chromium %s")))
+  (setq org-ellipsis " ▾")
+  ;; org-ellipsis not shown in heading when git-gutter-fringe-mode is active
+  ;; https://lccambiaghi.github.io/vanilla-emacs/readme.html#org948c5b0
+  ;; org-ellipsis "⤵"
+  ;; org-ellipsis "▼"
+  ;; org-ellipsis "..."
+  ;;  org-ellipsis " ↴
+  (add-hook 'org-mode-hook (lambda ()
+			     "Beautify Org Checkbox Symbol"
+			     (push '("[ ]" . "☐" ) prettify-symbols-alist)
+			     (push '("[X]" . "☑" ) prettify-symbols-alist)
+			     (push '("[-]" . "❍" ) prettify-symbols-alist)
+			     (prettify-symbols-mode))))
+
+;; (setq-default prettify-symbols-alist '(("#+BEGIN_SRC" . "»") ("#+END_SRC" . "«")("#+begin_src" . "»") ("#+end_src" . "«") ("lambda"  . "λ") ("-&gt;" . "→") ("-&gt;&gt;" . "↠")))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd0231e6" class="outline-3">
+<h3 id="orgd0231e6">Easy open common files</h3>
+<div class="outline-text-3" id="text-orgd0231e6">
+<p>
+use <code>C+x r j</code> to jump to register, <a href="http://sachachua.com/blog/2015/02/learn-take-notes-efficiently-org-mode/">http://sachachua.com/blog/2015/02/learn-take-notes-efficiently-org-mode/</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(set-register ?b (cons 'file "~/Documents/org/blog.org"))
+(set-register ?t (cons 'file "~/Documents/org/todo.org"))
+(set-register ?n (cons 'file "~/Documents/org/note.org"))
+(set-register ?r (cons 'file "~/Documents/org/roam/index.org"))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org787bff4" class="outline-3">
+<h3 id="org787bff4">Org bullets</h3>
+<div class="outline-text-3" id="text-org787bff4">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package org-bullets
+  :ensure t
+  :hook (org-mode . org-bullets-mode))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org93f1731" class="outline-3">
+<h3 id="org93f1731">Center org buffers</h3>
+<div class="outline-text-3" id="text-org93f1731">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun teddy-ma/org-mode-visual-fill ()
+  (setq visual-fill-column-width 120
+	visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+
+(use-package visual-fill-column
+  :ensure t
+  :hook (org-mode . teddy-ma/org-mode-visual-fill))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org16b6192" class="outline-3">
+<h3 id="org16b6192">Task todo stages</h3>
+<div class="outline-text-3" id="text-org16b6192">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq org-todo-keywords
+      '((sequence "TODO" "DOING" "|" "DONE" "BLOCKED")))
+
+(use-package hl-todo
+  :ensure t
+  :hook ((prog-mode org-mode) . teddy-ma/hl-todo-init)
+  :init
+  (defun teddy-ma/hl-todo-init ()
+    (setq-local hl-todo-keyword-faces '(("TODO" . "#ff9977")
+					("DOING" . "#ffcc0c")
+					("DONE" . "#44bc44")
+					("BLOCKED" . "#003366")
+					))
+    (hl-todo-mode))
+  )
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org86496e7" class="outline-3">
+<h3 id="org86496e7">Drag and drop images</h3>
+<div class="outline-text-3" id="text-org86496e7">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package org-download
+  :ensure t
+  :config
+  (setq-default org-download-image-dir "~/Documents/org/assets/images")
+  (setq-default org-download-timestamp "")
+  (setq-default org-download-heading-lvl nil)
+  (add-hook 'dired-mode-hook 'org-download-enable))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1e49f2f" class="outline-3">
+<h3 id="org1e49f2f">Export</h3>
+<div class="outline-text-3" id="text-org1e49f2f">
+<p>
+Do not inlclude default style since custom css will handle it
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq org-html-head-include-default-style nil)
+;; (use-package ox-gfm
+;;   :ensure t
+;;   :after ox
+;;   :config
+;;   (custom-set-variables '(org-export-initial-scope 'subtree)
+;;                         '(org-export-with-toc nil)
+;;                         '(org-export-headline-levels 4)))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc7296b3" class="outline-3">
+<h3 id="orgc7296b3">Babel</h3>
+<div class="outline-text-3" id="text-orgc7296b3">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (ruby . t)
+   (js .t )
+   (lua .t )
+   (shell . t)
+   (plantuml . t)))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org80b9acc" class="outline-3">
+<h3 id="org80b9acc">Reveal.js</h3>
+<div class="outline-text-3" id="text-org80b9acc">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package ox-reveal
+  :ensure t
+  :config
+  (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
+  (setq org-reveal-mathjax t))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org747329d" class="outline-3">
+<h3 id="org747329d">Org Tree Slide</h3>
+<div class="outline-text-3" id="text-org747329d">
+<p>
+C-x-n-s and C-x-n-w can narrow to subtree
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package org-tree-slide
+  :ensure t
+  :custom
+  (org-image-actual-width nil))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org891ed4a" class="outline-3">
+<h3 id="org891ed4a">Plantuml</h3>
+<div class="outline-text-3" id="text-org891ed4a">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">;;https://www.onwebsecurity.com/configuration/use-emacs-to-create-oauth-2-0-uml-sequence-diagrams.html
+;; tell org-mode where to find the plantuml JAR file (specify the JAR file)
+(setq org-plantuml-jar-path (expand-file-name "/usr/local/Cellar/plantuml/1.2021.4/libexec/plantuml.jar"))
+
+;; automatically show the resulting image
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org1a3942c" class="outline-3">
+<h3 id="org1a3942c">Org Roam</h3>
+<div class="outline-text-3" id="text-org1a3942c">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package org-roam
+  :ensure t
+  :diminish org-roam-mode
+  :hook
+  (after-init . org-roam-mode)
+  :custom
+  (org-roam-directory "~/Documents/org/roam/")
+  (org-roam-db-update-method 'immediate)
+  (org-roam-completion-system 'ivy)
+  :bind
+  (:map org-roam-mode-map
+	(("C-c n l" . org-roam)
+	 ("C-c n f" . org-roam-find-file)
+	 ("C-c n g" . org-roam-graph))
+	:map org-mode-map
+	(("C-c n i" . org-roam-insert))
+	(("C-c n I" . org-roam-insert-immediate))))
+</pre>
+</div>
+
+<p>
+server
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package org-roam-server
+  :ensure t
+  :config
+  (setq org-roam-server-host "127.0.0.1"
+	org-roam-server-port 8686
+	org-roam-server-authenticate nil
+	org-roam-server-export-inline-images t
+	org-roam-server-serve-files nil
+	org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
+	org-roam-server-network-poll t
+	org-roam-server-network-arrows nil
+	org-roam-server-network-label-truncate t
+	org-roam-server-network-label-truncate-length 60
+	org-roam-server-network-label-wrap-length 20))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org05db2ff" class="outline-3">
+<h3 id="org05db2ff">Capture</h3>
+<div class="outline-text-3" id="text-org05db2ff">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package org-capture
+  :bind ("C-c c" . org-capture)
+  :after org
+  :config
+  (add-to-list 'org-capture-templates
+	       '("t" "Todo"  entry
+		 (file "~/Documents/org/refile.org")
+		 "* TODO %?" :empty-lines 0))
+
+  (add-to-list 'org-capture-templates
+	       '("n" "Note" entry
+		 (file "~/Documents/org/refile.org")
+		 "* %?" :empty-lines 0)))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc9a07f2" class="outline-3">
+<h3 id="orgc9a07f2">Agenda</h3>
+<div class="outline-text-3" id="text-orgc9a07f2">
+<p>
+Interactive agenda in the console <a href="https://github.com/rougier/agenda">https://github.com/rougier/agenda</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package org-agenda
+  :bind ("C-c a" . org-agenda)
+  :config
+  (add-to-list 'org-agenda-files "~/Documents/org/todo.org"))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org7326fd7" class="outline-2">
+<h2 id="org7326fd7">Extras</h2>
+<div class="outline-text-2" id="text-org7326fd7">
+</div>
+<div id="outline-container-orgc22c335" class="outline-3">
+<h3 id="orgc22c335">Writing</h3>
+<div class="outline-text-3" id="text-orgc22c335">
+<p>
+<code>writegood-mode</code> highlights bad word choices and has functions for calculating readability.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package writegood-mode
+  :ensure t
+  :bind ("C-c g" . writegood-mode)
+  :config
+  (add-to-list 'writegood-weasel-words "actionable"))
+
+(abbrev-mode t)
+;; ~/.emacs.d/abbrev_defs
+</pre>
+</div>
+
+<p>
+need aspell to ispell (brew install aspell)
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq ispell-program-name "aspell")
+</pre>
+</div>
+
+<p>
+Proselint is a syntax checker for English language. This defines a custom checker which will run in texty modes.
+Proselint is an external program, install it with <code>pip install proselint</code> for this to work.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(flycheck-define-checker proselint
+  "A linter for prose."
+  :command ("proselint" source-inplace)
+  :error-patterns
+  ((warning line-start (file-name) ":" line ":" column ": "
+	    (id (one-or-more (not (any " "))))
+	    (message (one-or-more not-newline)
+		     (zero-or-more "\n" (any " ") (one-or-more not-newline)))
+	    line-end))
+  :modes (text-mode markdown-mode gfm-mode org-mode))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9733946" class="outline-3">
+<h3 id="org9733946">Pinyin</h3>
+<div class="outline-text-3" id="text-org9733946">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package posframe
+  :ensure t)
+
+(use-package pyim
+  :ensure t
+  :demand t
+  :config
+  ;; 激活 basedict 拼音词库，五笔用户请继续阅读 README
+  (use-package pyim-basedict
+    :ensure t
+    :config (pyim-basedict-enable))
+
+  (setq default-input-method "pyim")
+
+  ;; 设置 pyim 探针设置，这是 pyim 高级功能设置，可以实现 *无痛* 中英文切换 :-)
+  ;; 我自己使用的中英文动态切换规则是：
+  ;; 1. 光标只有在注释里面时，才可以输入中文。
+  ;; 2. 光标前是汉字字符时，才能输入中文。
+  ;; 3. 使用 M-j 快捷键，强制将光标前的拼音字符串转换为中文。
+  (setq-default pyim-english-input-switch-functions
+		'(pyim-probe-dynamic-english
+		  pyim-probe-isearch-mode
+		  pyim-probe-program-mode
+		  pyim-probe-org-structure-template))
+
+  (setq-default pyim-punctuation-half-width-functions
+		'(pyim-probe-punctuation-line-beginning
+		  pyim-probe-punctuation-after-punctuation))
+
+  ;; 开启拼音搜索功能
+  ;;(pyim-isearch-mode 1)
+
+  ;; 使用 pupup-el 来绘制选词框, 如果用 emacs26, 建议设置
+  ;; 为 'posframe, 速度很快并且菜单不会变形，不过需要用户
+  ;; 手动安装 posframe 包。
+  (setq pyim-page-tooltip 'posframe)
+
+  ;; 选词框显示5个候选词
+  (setq pyim-page-length 5)
+
+  :bind
+  (("M-j" . pyim-convert-code-at-point) ;与 pyim-probe-dynamic-english 配合
+   ("M-;" . pyim-delete-word-from-personal-buffer)))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4348913" class="outline-3">
+<h3 id="org4348913">PlantUML</h3>
+<div class="outline-text-3" id="text-org4348913">
+<p>
+need plantuml (brew install plantuml)
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(when (eq system-type 'darwin)
+  (use-package plantuml-mode
+    :ensure t)
+  (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+  (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2021.0/libexec/plantuml.jar"))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6c9f4d2" class="outline-3">
+<h3 id="org6c9f4d2">Dictionary</h3>
+<div class="outline-text-3" id="text-org6c9f4d2">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package youdao-dictionary
+  :ensure t
+  :config
+  (setq url-automatic-caching t))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org801a2b1" class="outline-3">
+<h3 id="org801a2b1">Disk Usage</h3>
+<div class="outline-text-3" id="text-org801a2b1">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package disk-usage
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6118e7b" class="outline-3">
+<h3 id="org6118e7b">Shell</h3>
+<div class="outline-text-3" id="text-org6118e7b">
+<p>
+eshell with git
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package eshell-git-prompt
+  :ensure t)
+(use-package eshell
+  :ensure t
+  :config
+  (eshell-git-prompt-use-theme 'powerline))
+</pre>
+</div>
+
+<p>
+vterm
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package vterm
+  :ensure t
+  :config
+  (setq vterm-shell (executable-find "fish")
+	vterm-max-scrollback 10000))
+
+(use-package vterm-toggle
+  :ensure t)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Teddy Ma</p>
+<p class="date">Created: 2021-04-10 Sat 21:27</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
