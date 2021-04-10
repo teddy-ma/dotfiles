@@ -1046,15 +1046,15 @@ Integration with neotree
     :ensure t)
 #+end_src
 ** Deadgrep
+TODO what's it?
 #+begin_src emacs-lisp
   (use-package deadgrep
     :ensure t)
 #+end_src
-** Find File with Line Number
+** Open File with Line Number
+Open files and goto lines like we see from g++ etc. i.e. Gemfile:12
+
 #+begin_src emacs-lisp
-  ;; Open files and goto lines like we see from g++ etc. i.e. file:line#
-  ;; (to-do "make `find-file-line-number' work for emacsclient as well")
-  ;; (to-do "make `find-file-line-number' check if the file exists")
   (defadvice find-file (around find-file-line-number
                                (filename &optional wildcards)
                                activate)
@@ -1162,22 +1162,6 @@ Setup is pretty simple - we just enable globally and turn on a custom eslint fun
       :fringe-face 'flycheck-fringe-info))
 #+end_src
 
-Proselint is a syntax checker for English language. This defines a custom checker which will run in texty modes.
-Proselint is an external program, install it with =pip install proselint= for this to work.
-
-#+begin_src emacs-lisp
-  (flycheck-define-checker proselint
-    "A linter for prose."
-    :command ("proselint" source-inplace)
-    :error-patterns
-    ((warning line-start (file-name) ":" line ":" column ": "
-              (id (one-or-more (not (any " "))))
-              (message (one-or-more not-newline)
-                       (zero-or-more "\n" (any " ") (one-or-more not-newline)))
-              line-end))
-    :modes (text-mode markdown-mode gfm-mode org-mode))
-#+end_src
-
 ** Autocomplete
 Company mode provides good autocomplete options. Perhaps I should add company-quickhelp for documentation (https://github.com/expez/company-quickhelp)?
 It would also be good to improve integration with yasnippet as I don't feel I'm making the best use there.
@@ -1217,32 +1201,7 @@ Type the shortcut and press =TAB= to complete, or =M-/= to autosuggest a snippet
     :ensure t)
 #+end_src
 
-** Web mode
-Web mode handles html/css/js.
-#+begin_src emacs-lisp
-  (use-package web-mode
-    :ensure t
-    :mode (("\\.html\\'" . web-mode)
-           ("\\.erb\\'" . web-mode))
-    :config
-    (setq web-mode-markup-indent-offset 2))
-#+end_src
-** Web Beautify
-Web beautify prettifies html / css / js using js-beautify - install with =npm install -g js-beautify=.
 
-#+begin_src emacs-lisp
-  (use-package web-beautify
-    :ensure t
-    :bind (:map web-mode-map
-                ("C-c b" . web-beautify-html)
-                :map js2-mode-map
-                ("C-c b" . web-beautify-js)))
-#+end_src
-** Html preview
-#+begin_src emacs-lisp
-  (use-package impatient-mode
-    :ensure t)
-#+end_src
 * Language
 ** Javascript
 In JS indent to 2 spaces.
@@ -1405,6 +1364,32 @@ Add flycheck support.
   (use-package rust-mode
     :ensure t )
 #+end_src
+** Web mode
+Web mode handles html/css/js.
+#+begin_src emacs-lisp
+  (use-package web-mode
+    :ensure t
+    :mode (("\\.html\\'" . web-mode)
+           ("\\.erb\\'" . web-mode))
+    :config
+    (setq web-mode-markup-indent-offset 2))
+#+end_src
+
+Web beautify prettifies html / css / js using js-beautify - install with =npm install -g js-beautify=.
+#+begin_src emacs-lisp
+  (use-package web-beautify
+    :ensure t
+    :bind (:map web-mode-map
+                ("C-c b" . web-beautify-html)
+                :map js2-mode-map
+                ("C-c b" . web-beautify-js)))
+#+end_src
+
+HTML preview
+#+begin_src emacs-lisp
+  (use-package impatient-mode
+    :ensure t)
+#+end_src
 * Org
 ** General settings.
 https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf
@@ -1500,6 +1485,8 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
 #+end_src
 
 ** Export
+Do not inlclude default style since custom css will handle it
+
 #+begin_src emacs-lisp
   (setq org-html-head-include-default-style nil)
   ;; (use-package ox-gfm
@@ -1531,6 +1518,8 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
     (setq org-reveal-mathjax t))
 #+end_src
 ** Org Tree Slide
+C-x-n-s and C-x-n-w can narrow to subtree
+
 #+begin_src emacs-lisp
   (use-package org-tree-slide
     :ensure t
@@ -1538,7 +1527,6 @@ use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-
     (org-image-actual-width nil))
 #+end_src
 
-C-x-n-s and C-x-n-w can narrow to subtree
 ** Plantuml
 #+begin_src emacs-lisp
   ;;https://www.onwebsecurity.com/configuration/use-emacs-to-create-oauth-2-0-uml-sequence-diagrams.html
@@ -1630,6 +1618,22 @@ Interactive agenda in the console https://github.com/rougier/agenda
 use aspell to ispell
 #+begin_src emacs-lisp
   (setq ispell-program-name "aspell")
+#+end_src
+
+Proselint is a syntax checker for English language. This defines a custom checker which will run in texty modes.
+Proselint is an external program, install it with =pip install proselint= for this to work.
+
+#+begin_src emacs-lisp
+  (flycheck-define-checker proselint
+    "A linter for prose."
+    :command ("proselint" source-inplace)
+    :error-patterns
+    ((warning line-start (file-name) ":" line ":" column ": "
+              (id (one-or-more (not (any " "))))
+              (message (one-or-more not-newline)
+                       (zero-or-more "\n" (any " ") (one-or-more not-newline)))
+              line-end))
+    :modes (text-mode markdown-mode gfm-mode org-mode))
 #+end_src
 
 ** Pinyin
