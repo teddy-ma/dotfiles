@@ -2,20 +2,12 @@ sudo: true
 dist: xenial
 language: generic
 
-env:
-  global:
-    - CURL="wget"
-  matrix:
-    - EMACS_VERSION=27.1
-    - EMACS_VERSION=master
-
-matrix:
-  allow_failures:
-    - env: EMACS_VERSION=master
-
 install:
   - sudo apt-get update
-  - sudo apt-get install emacs
+  - wget https://github.com/npostavs/emacs-travis/releases/download/bins/emacs-bin-27.1.tar.gz
+  - tar -xaf emacs-bin-27.1.tar.gz -C /
+  - export EMACS=/tmp/emacs/bin/emacs
+  - $EMACS --version
   - sudo apt-get install emacs-goodies-el
 
 script:
