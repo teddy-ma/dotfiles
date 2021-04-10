@@ -90,6 +90,10 @@ By default Emacs doesn't read from the same environment variables set in your te
 #+begin_src emacs-lisp
   (setq gc-cons-threshold 20000000)
 #+end_src
+*** No Visible Bell
+#+begin_src emacs-lisp
+  (setq visible-bell nil)
+#+end_src
 *** Hide UI bar
 #+begin_src emacs-lisp
   (tool-bar-mode -1)
@@ -188,7 +192,6 @@ Turn off the blinking cursor
     :ensure t)
 #+end_src
 *** Diminish
-TODO move to appearance
 #+begin_src emacs-lisp
   (use-package diminish
     :ensure t)
@@ -258,6 +261,16 @@ Place minibuffer at the top of the current frame
   (use-package transpose-frame
     :ensure t)
 #+end_src
+** Uniquify
+#+begin_src emacs-lisp
+  (use-package uniquify
+    :config
+    (setq uniquify-buffer-name-style 'reverse)
+    (setq uniquify-separator " • ")
+    (setq uniquify-after-kill-buffer-p t)
+    (setq uniquify-ignore-buffers-re "^\\*")
+    )
+#+end_src
 * Edit
 ** Basics
 *** CRUX
@@ -308,33 +321,28 @@ I *never* want whitespace at the end of lines. Remove it on save.
 *** Tabs and indent
 TODO check every attribute and move indent-guide to Hightlight Indent guides
 #+begin_src emacs-lisp
-  (setq-default indent-tabs-mode nil)
-  (setq-default indent-tabs-mode nil)
-  (setq-default indicate-empty-lines t)
+    (setq-default indent-tabs-mode nil)
+    (setq-default indent-tabs-mode nil)
+    (setq-default indicate-empty-lines t)
 
-  ;; Don't count two spaces after a period as the end of a sentence.
-  ;; Just one space is needed.
-  (setq sentence-end-double-space nil)
+    ;; Don't count two spaces after a period as the end of a sentence.
+    ;; Just one space is needed.
+    (setq sentence-end-double-space nil)
 
-  ;; delete the region when typing, just like as we expect nowadays.
-  (delete-selection-mode t)
+    ;; delete the region when typing, just like as we expect nowadays.
+    (delete-selection-mode t)
 
-  (show-paren-mode t)
+    (show-paren-mode t)
 
-  (column-number-mode t)
+    (column-number-mode t)
 
-  (global-visual-line-mode)
+  TODO link to uniqufiy package?
+    (setq uniquify-buffer-name-style 'forward)
 
-  (setq uniquify-buffer-name-style 'forward)
+TODO I use fish, should I delete it?
+    ;; -i gets alias definitions from .bash_profile
+    (setq shell-command-switch "-ic")
 
-  ;; -i gets alias definitions from .bash_profile
-  (setq shell-command-switch "-ic")
-
-  ;; Don't beep at me
-  (setq visible-bell nil)
-
-  (use-package indent-guide
-    :ensure t)
  #+end_src
 ** Command completion
 =ivy= is a generic completion framework which uses the minibuffer. Turning on =ivy-mode= with fuzzy support enables replacement of lots of built in =ido= functionality.
@@ -546,43 +554,6 @@ dired hacks
     :bind
     ("M-o" . ace-window))
 #+end_src
-** Magnifying line
-TODO remove
-#+begin_src emacs-lisp
-  (defun magnifying-line ()
-    (interactive)
-    (setq magnifying-overlay (make-overlay (line-beginning-position) (line-end-position)))
-    (overlay-put magnifying-overlay 'font-lock-face '(:height 2.5)))
-
-  (defun clean-magnifying-line()
-    (interactive)
-    (setq magnifying-overlay (make-overlay (line-beginning-position) (line-end-position)))
-    (delete-overlay magnifying-overlay))
-
-  (define-minor-mode magnifying-glass-mode
-    "use magnifying glass like pro"
-    :lighter " magnifying"
-    :keymap (let ((map (make-sparse-keymap)))
-              (define-key map (kbd "C-c z") 'magnifying-line)
-              map)
-
-    (if magnifying-glass-mode
-        (magnifying-line)
-      (clean-magnifying-line)))
-
-  (provide 'magnifying-glass-mode)
-
-#+end_src
-** Uniquify
-#+begin_src emacs-lisp
-  (use-package uniquify
-    :config
-    (setq uniquify-buffer-name-style 'reverse)
-    (setq uniquify-separator " • ")
-    (setq uniquify-after-kill-buffer-p t)
-    (setq uniquify-ignore-buffers-re "^\\*")
-    )
-#+end_src
 ** Wgrep
 wgrep allows you to edit a grep buffer and apply those changes to the file buffer like sed interactively.
 No need to learn sed script, just learn Emacs.
@@ -601,43 +572,6 @@ No need to learn sed script, just learn Emacs.
         (minibuffer-with-setup-hook (lambda ()
                                       (insert file-path))
           (helm-ls-git-ls)))))
-#+end_src
-** Shell
-TODO move to somewhere
-eshell with git
-#+begin_src emacs-lisp
-  (use-package eshell-git-prompt
-    :ensure t)
-  (use-package eshell
-    :ensure t
-    :config
-    (eshell-git-prompt-use-theme 'powerline))
-#+end_src
-
-vterm
-#+begin_src emacs-lisp
-  (use-package vterm
-    :ensure t
-    :config
-    (setq vterm-shell (executable-find "fish")
-          vterm-max-scrollback 10000))
-
-  (use-package vterm-toggle
-    :ensure t)
-#+end_src
-
-** Git Repos
-TODO move somewhere
-#+begin_src emacs-lisp
-(setq magit-repository-directories '(("\~/code" . 4)))
-
-(defun magit-status-with-prefix-arg ()
-  "Call `magit-status` with a prefix."
-  (interactive)
-  (let ((current-prefix-arg '(4)))
-    (call-interactively #'magit-status)))
-
-(global-set-key (kbd "M-p p") 'magit-status-with-prefix-arg)
 #+end_src
 ** Goto line
 Temporarily display line number when call go to line function
@@ -813,9 +747,11 @@ Not work when macOS FullScreen
 #+end_src
 
 ** Misc
-*** Hightlight Indent guides
+*** Highlight Indent guides
 
 #+begin_src emacs-lisp
+  (use-package indent-guide
+    :ensure t)
   (use-package highlight-indent-guides
     :ensure t
     :hook (prog-mode . highlight-indent-guides-mode)
@@ -1114,6 +1050,19 @@ TimeMachine lets us step through the history of a file as recorded in git.
   (use-package git-timemachine
     :ensure t)
 #+end_src
+
+bind =M-p -= to list all git repos in some folder
+#+begin_src emacs-lisp
+(setq magit-repository-directories '(("\~/code" . 4)))
+
+(defun magit-status-with-prefix-arg ()
+  "Call `magit-status` with a prefix."
+  (interactive)
+  (let ((current-prefix-arg '(4)))
+    (call-interactively #'magit-status)))
+
+(global-set-key (kbd "M-p p") 'magit-status-with-prefix-arg)
+#+end_src
 ** Syntax checking
 =Flycheck= is a general syntax highlighting framework which other packages hook into. It's an improvment on the built in =flymake=.
 
@@ -1200,7 +1149,6 @@ Type the shortcut and press =TAB= to complete, or =M-/= to autosuggest a snippet
   (use-package yasnippet-snippets
     :ensure t)
 #+end_src
-
 
 * Language
 ** Javascript
@@ -1701,5 +1649,28 @@ Proselint is an external program, install it with =pip install proselint= for th
 ** Disk Usage
 #+begin_src emacs-lisp
   (use-package disk-usage
+    :ensure t)
+#+end_src
+
+** Shell
+eshell with git
+#+begin_src emacs-lisp
+  (use-package eshell-git-prompt
+    :ensure t)
+  (use-package eshell
+    :ensure t
+    :config
+    (eshell-git-prompt-use-theme 'powerline))
+#+end_src
+
+vterm
+#+begin_src emacs-lisp
+  (use-package vterm
+    :ensure t
+    :config
+    (setq vterm-shell (executable-find "fish")
+          vterm-max-scrollback 10000))
+
+  (use-package vterm-toggle
     :ensure t)
 #+end_src
