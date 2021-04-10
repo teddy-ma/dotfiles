@@ -31,6 +31,7 @@ elisp_code="
   (package-install 'use-package))
 
 (package-refresh-contents)
+(setq org-export-htmlize-output-type 'css)
 
 (package-install pkg-to-install)"
 
@@ -43,6 +44,4 @@ then
 fi
 
 emacs --batch --eval "(defconst pkg-to-install '$pkg_name)" -l $elisp_script_name
-
-# Remove tmp file
-rm "$elisp_script_name"
+emacs config.org --batch -f org-html-export-to-html

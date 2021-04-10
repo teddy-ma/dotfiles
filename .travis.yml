@@ -18,8 +18,7 @@ install:
   - $EMACS --version
 
 script:
-  - sh emacs-pkg-install.sh htmlize
-  - emacs config.org --batch -f org-html-export-to-html
+  - sh emacs-pkg-install.sh htmlize  
   - mv config.html index.html
   
 deploy:
