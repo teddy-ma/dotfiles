@@ -1,6 +1,28 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Teddy Ma
 #+TOC: true
+#+OPTIONS: num:nil
+#+TAGS: OS DEP CUSTOM
+
+#+BEGIN_EXPORT html
+<link id="pagestyle" rel="stylesheet" type="text/css" href="">
+<script>
+function swapStyle(css){
+  document.getElementById('pagestyle').setAttribute('href', css);
+}
+</script>
+<div style="margin: 1em auto; position: fixed; left: 10px; top: 0; font-size:10px; font: initial; width:100px; height: 20px; !important">
+  <button style="width:100px; height: 20px; font-size:10px; font: initial; !import " onclick="swapStyle('mini.css')">
+  mini
+  </button>
+  <button style="width:100px; height: 20px; font-size:10px; font: initial; !import" onclick="swapStyle('bootstrap.css')">
+  Bootstrap
+  </button>
+  <button style="width:100px; height: 20px; font-size:10px; font: initial; !import" onclick="swapStyle('org.css')">
+  Org
+  </button>
+</div>
+#+END_EXPORT
 
 * Setup
 ** Make it easy to edit and reload this file
@@ -75,7 +97,8 @@ By default Emacs doesn't read from the same environment variables set in your te
     :if (memq window-system '(mac ns))
     :ensure t
     :hook (emacs-startup . (lambda ()
-                             (setq exec-path-from-shell-arguments '("-l")) ; removed the -i for faster startup
+                             (setq exec-path-from-shell-arguments '("-l"))
+                                          ; removed the -i for faster startup
                              (exec-path-from-shell-initialize))))
 #+end_src
 
@@ -817,14 +840,18 @@ lsp mode
     :ensure t)
 #+end_src
 ** Interface improvements
+#+begin_src emacs-lisp
+  (show-paren-mode 1)
+#+end_src
 
 When programming I like my editor to try to help me with keeping parentheses balanced.
 #+begin_src emacs-lisp
   (use-package smartparens
     :ensure t
-    :diminish smartparens-mode
-    :config
-    (add-hook 'prog-mode-hook 'smartparens-mode))
+    :diminish
+    smartparens-mode
+    :hook
+    (after-prog-mode . smartparens-mode))
 #+end_src
 
 Highlight parens etc. for improved readability.
@@ -1106,7 +1133,6 @@ Setup is pretty simple - we just enable globally and turn on a custom eslint fun
       :fringe-bitmap 'flycheck-fringe-bitmap-ball
       :fringe-face 'flycheck-fringe-info))
 #+end_src
-
 ** Autocomplete
 Company mode provides good autocomplete options. Perhaps I should add company-quickhelp for documentation (https://github.com/expez/company-quickhelp)?
 It would also be good to improve integration with yasnippet as I don't feel I'm making the best use there.
@@ -1441,7 +1467,6 @@ Do not inlclude default style since custom css will handle it
   ;;                         '(org-export-with-toc nil)
   ;;                         '(org-export-headline-levels 4)))
 #+end_src
-
 ** Babel
 #+begin_src emacs-lisp
   (org-babel-do-load-languages
