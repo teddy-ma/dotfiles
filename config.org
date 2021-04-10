@@ -32,8 +32,8 @@
         user-mail-address "mlc880926@gmail.com")
 #+end_src
 
-** Configure use-package
-guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-package-manual.html
+** Bootstrap use-package
+Guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-package-manual.html
 
 #+begin_src emacs-lisp
   (require 'package)
@@ -47,7 +47,7 @@ guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-pa
           ("MELPA"        . 0)))
   (package-initialize)
   (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-  ;;(setq package-check-signature nil)
+  ;;(setq package-check-signature nil) ;; if ssl error occour, uncomment this line
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
@@ -55,16 +55,18 @@ guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-pa
 
 ** Load custom settings
 Set up the customize file to its own separate file, instead of saving customize settings in [[file:init.el][init.el]].
-Warning: edit config.org file will not affect custom.el file!
+Warning: edit config.org file will *not* affect custom.el file!
 
 #+begin_src emacs-lisp
   (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
   (load custom-file)
 #+end_src
-** Common Preferences
-*** Don't display the help screen on startup.
+
+* UI
+** Reasonable default settings
+*** Y or N
 #+begin_src emacs-lisp
-  (setq inhibit-startup-screen t)
+  (defalias 'yes-or-no-p 'y-or-n-p)
 #+end_src
 *** Environment management
 By default Emacs doesn't read from the same environment variables set in your terminal. This package fixes that.
@@ -76,9 +78,17 @@ By default Emacs doesn't read from the same environment variables set in your te
                              (setq exec-path-from-shell-arguments '("-l")) ; removed the -i for faster startup
                              (exec-path-from-shell-initialize))))
 #+end_src
+*** Always follow symlinks
+#+begin_src emacs-lisp
+(setq vc-follow-symlinks t)
+#+end_src
 *** Alway use visual line
 #+begin_src emacs-lisp
   (global-visual-line-mode 1)
+#+end_src
+*** Garbage collection
+#+begin_src emacs-lisp
+  (setq gc-cons-threshold 20000000)
 #+end_src
 *** Hide UI bar
 #+begin_src emacs-lisp
@@ -95,18 +105,13 @@ By default Emacs doesn't read from the same environment variables set in your te
     (setq frame-title-format nil)
     )
 #+end_src
-*** Helpful
+*** Hide the help screen on startup
 #+begin_src emacs-lisp
-  (use-package helpful
-    :ensure t
-    :custom
-    (counsel-describe-function-function #'helpful-callable)
-    (counsel-describe-variable-function #'helpful-variable)
-    :bind
-    ([remap describe-function] . counsel-describe-function)
-    ([remap describe-command] . helpful-command)
-    ([remap describe-variable] . counsel-describe-variable)
-    ([remap describe-key] . helpful-key))
+  (setq inhibit-startup-screen t)
+#+end_src
+*** Highlight current line.
+#+begin_src emacs-lisp
+  (global-hl-line-mode 1)
 #+end_src
 *** Popup managment
 Taken from https://emacs.stackexchange.com/questions/46210/reuse-help-window
@@ -118,19 +123,6 @@ Taken from https://emacs.stackexchange.com/questions/46210/reuse-help-window
            (window-height . 0.33)
            (mode apropos-mode help-mode helpful-mode Info-mode Man-mode))))
 #+end_src
-*** Y or N
-#+begin_src emacs-lisp
-  (defalias 'yes-or-no-p 'y-or-n-p)
-#+end_src
-*** Garbage collection
-#+begin_src emacs-lisp
-  (setq gc-cons-threshold 20000000)
-#+end_src
-*** Always follow symlinks
-#+begin_src emacs-lisp
-(setq vc-follow-symlinks t)
-#+end_src
-
 *** Disable autosave and backup
 #+begin_src emacs-lisp
   (setq make-backup-file nil)
@@ -147,19 +139,85 @@ Taken from https://emacs.stackexchange.com/questions/46210/reuse-help-window
 #+begin_src emacs-lisp
   (global-auto-revert-mode t)
 #+end_src
+*** Minibuffer recursive
+#+begin_src emacs-lisp
+  (setq enable-recursive-minibuffers t)
+#+end_src
+*** Meta Key
+make both command and option key to be meta key
+#+begin_src emacs-lisp
+  (when (eq system-type 'darwin)
+    (setq mac-command-modifier 'meta
+          mac-option-modifier 'meta))
+
+  ;; (when (eq system-type 'gnu/linux)
+  ;; (setq  x-meta-keysym 'super
+  ;;       x-super-keysym 'meta))
+
+#+end_src
+*** Global UTF8
+#+begin_src emacs-lisp
+  (setq locale-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
+#+end_src
+*** Cursor
+Turn off the blinking cursor
+#+begin_src emacs-lisp
+  (blink-cursor-mode -1)
+#+end_src
+** Common packages
+*** Helpful
+#+begin_src emacs-lisp
+  (use-package helpful
+    :ensure t
+    :custom
+    (counsel-describe-function-function #'helpful-callable)
+    (counsel-describe-variable-function #'helpful-variable)
+    :bind
+    ([remap describe-function] . counsel-describe-function)
+    ([remap describe-command] . helpful-command)
+    ([remap describe-variable] . counsel-describe-variable)
+    ([remap describe-key] . helpful-key))
+#+end_src
 *** Restart emacs
 #+begin_src emacs-lisp
   (use-package restart-emacs
     :ensure t)
 #+end_src
-*** Use diminish
+*** Diminish
+TODO move to appearance
 #+begin_src emacs-lisp
   (use-package diminish
     :ensure t)
 #+end_src
-* Interface
-** Basics
-*** Welcome dashboard
+*** Show command log
+#+begin_src emacs-lisp
+  (use-package command-log-mode
+    :ensure t)
+#+end_src
+*** Suggest next key
+Suggest next keys to me based on currently entered key combination.
+
+#+begin_src emacs-lisp
+  (use-package which-key
+    :ensure t
+    :init
+    (which-key-mode 1)
+    :config
+    (which-key-setup-side-window-right-bottom)
+    (setq which-key-sort-order 'which-key-key-order-alpha
+          which-key-side-window-max-width 0.33
+          which-key-idle-delay 2
+          which-key-show-early-on-C-h t
+          which-key-idle-secondary-delay 0.05)
+    :diminish
+    which-key-mode)
+#+end_src
+
+** Welcome dashboard
 #+begin_src emacs-lisp
   (use-package dashboard
     :ensure t
@@ -170,6 +228,38 @@ Taken from https://emacs.stackexchange.com/questions/46210/reuse-help-window
                             (bookmarks . 5)
                             (registers . 5))))
 #+end_src
+** Winner mode
+#+begin_src emacs-lisp
+(use-package winner-mode
+  :ensure nil
+  :hook (after-init . winner-mode))
+#+end_src
+** Pop win
+#+begin_src emacs-lisp
+  (use-package popwin
+    :ensure t
+    :config
+    (global-set-key (kbd "M-p") popwin:keymap))
+#+end_src
+** Mini frame
+Place minibuffer at the top of the current frame
+#+begin_src emacs-lisp
+  (use-package mini-frame
+    :ensure t
+    :config
+    (custom-set-variables
+     '(mini-frame-show-parameters
+       '((top . 10)
+         (width . 0.7)
+         (left . 0.5)))))
+#+end_src
+** Transpose frame
+#+begin_src emacs-lisp
+  (use-package transpose-frame
+    :ensure t)
+#+end_src
+* Edit
+** Basics
 *** CRUX
 =crux= is a list of useful functions.
 
@@ -198,11 +288,7 @@ I *never* want whitespace at the end of lines. Remove it on save.
 #+begin_src emacs-lisp
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+end_src
-*** Show command log
-#+begin_src emacs-lisp
-  (use-package command-log-mode
-    :ensure t)
-#+end_src
+
 *** Better undo
 =undo-tree= visualises undo history as a tree for easy navigation.
 
@@ -218,10 +304,38 @@ I *never* want whitespace at the end of lines. Remove it on save.
   (use-package caps-lock
     :ensure t)
 #+end_src
-*** Minibuffer
+
+*** Tabs and indent
+TODO check every attribute and move indent-guide to Hightlight Indent guides
 #+begin_src emacs-lisp
-  (setq enable-recursive-minibuffers t)
-#+end_src
+  (setq-default indent-tabs-mode nil)
+  (setq-default indent-tabs-mode nil)
+  (setq-default indicate-empty-lines t)
+
+  ;; Don't count two spaces after a period as the end of a sentence.
+  ;; Just one space is needed.
+  (setq sentence-end-double-space nil)
+
+  ;; delete the region when typing, just like as we expect nowadays.
+  (delete-selection-mode t)
+
+  (show-paren-mode t)
+
+  (column-number-mode t)
+
+  (global-visual-line-mode)
+
+  (setq uniquify-buffer-name-style 'forward)
+
+  ;; -i gets alias definitions from .bash_profile
+  (setq shell-command-switch "-ic")
+
+  ;; Don't beep at me
+  (setq visible-bell nil)
+
+  (use-package indent-guide
+    :ensure t)
+ #+end_src
 ** Command completion
 =ivy= is a generic completion framework which uses the minibuffer. Turning on =ivy-mode= with fuzzy support enables replacement of lots of built in =ido= functionality.
 
@@ -268,25 +382,6 @@ I *never* want whitespace at the end of lines. Remove it on save.
 
   (use-package ivy-hydra
     :after (ivy hydra))
-#+end_src
-
-** Suggest next key
-Suggest next keys to me based on currently entered key combination.
-
-#+begin_src emacs-lisp
-  (use-package which-key
-    :ensure t
-    :init
-    (which-key-mode 1)
-    :config
-    (which-key-setup-side-window-right-bottom)
-    (setq which-key-sort-order 'which-key-key-order-alpha
-          which-key-side-window-max-width 0.33
-          which-key-idle-delay 2
-          which-key-show-early-on-C-h t
-          which-key-idle-secondary-delay 0.05)
-    :diminish
-    which-key-mode)
 #+end_src
 
 ** Easier selection
@@ -338,7 +433,7 @@ Suggest next keys to me based on currently entered key combination.
     (wrap-region-add-wrapper "_" "_" nil 'org-mode)) ; verbatim
 #+end_src
 ** Move line up and down
-M-<up> M-down
+M-<up> M-<down>
 #+begin_src emacs-lisp
   (use-package drag-stuff
     :ensure t
@@ -439,12 +534,6 @@ dired hacks
     (global-set-key (kbd "C->") 'mc/mark-next-like-this)
     (global-set-key (kbd "C-<") 'mc/mark-previous-like-this))
 #+end_src
-** Winner mode
-#+begin_src emacs-lisp
-(use-package winner-mode
-  :ensure nil
-  :hook (after-init . winner-mode))
-#+end_src
 ** Window Navigation
 #+begin_src emacs-lisp
   (use-package ace-window
@@ -457,12 +546,8 @@ dired hacks
     :bind
     ("M-o" . ace-window))
 #+end_src
-** Transpose frame
-#+begin_src emacs-lisp
-  (use-package transpose-frame
-    :ensure t)
-#+end_src
 ** Magnifying line
+TODO remove
 #+begin_src emacs-lisp
   (defun magnifying-line ()
     (interactive)
@@ -505,25 +590,6 @@ No need to learn sed script, just learn Emacs.
   (use-package wgrep
     :ensure t)
 #+end_src
-** Mini frame
-Place minibuffer at the top of the current frame
-#+begin_src emacs-lisp
-  (use-package mini-frame
-    :ensure t
-    :config
-    (custom-set-variables
-     '(mini-frame-show-parameters
-       '((top . 10)
-         (width . 0.7)
-         (left . 0.5)))))
-#+end_src
-** Pop win
-#+begin_src emacs-lisp
-  (use-package popwin
-    :ensure t
-    :config
-    (global-set-key (kbd "M-p") popwin:keymap))
-#+end_src
 ** Find file in cursor
 #+begin_src emacs-lisp
   (defun teddy-ma/find-file-under-cursor ()
@@ -537,7 +603,7 @@ Place minibuffer at the top of the current frame
           (helm-ls-git-ls)))))
 #+end_src
 ** Shell
-
+TODO move to somewhere
 eshell with git
 #+begin_src emacs-lisp
   (use-package eshell-git-prompt
@@ -559,19 +625,9 @@ vterm
   (use-package vterm-toggle
     :ensure t)
 #+end_src
-** Meta Key
-make both command and option key to be meta key
-#+begin_src emacs-lisp
-  (when (eq system-type 'darwin)
-    (setq mac-command-modifier 'meta
-          mac-option-modifier 'meta))
 
-  ;; (when (eq system-type 'gnu/linux)
-  ;; (setq  x-meta-keysym 'super
-  ;;       x-super-keysym 'meta))
-
-#+end_src
 ** Git Repos
+TODO move somewhere
 #+begin_src emacs-lisp
 (setq magit-repository-directories '(("\~/code" . 4)))
 
@@ -599,6 +655,7 @@ Temporarily display line number when call go to line function
 #+end_src
 but avy-goto-line is awesome too
 ** Edit indirect
+like buffer narrow but in other buffer
 #+begin_src emacs-lisp
   (use-package edit-indirect
     :ensure t)
@@ -619,9 +676,15 @@ but avy-goto-line is awesome too
     (global-diff-hl-mode)
     )
 #+end_src
+** Praise the sun
+#+begin_src emacs-lisp
+  (use-package solaire-mode
+    :ensure t
+    :hook (after-init . solaire-global-mode))
+#+end_src
 * Appearance
 ** Font
-It works fine with windows and org table
+It works fine with windows and org table in Chinese
 
 #+begin_src emacs-lisp
   (when (eq system-type 'darwin)
@@ -655,9 +718,9 @@ Add emoji support. This is useful when working with html.
 #+end_src
 
 ** Emoji and icons
+Run M-x all-the-icons-install-fonts for the first time
 
 #+BEGIN_SRC emacs-lisp
-  ;; MUST Run M-x all-the-icons-install-fonts
   (use-package all-the-icons
     :ensure t
     :config
@@ -713,8 +776,8 @@ toggle theme (dark and light)
     (reapply-themes))
 #+end_src
 
-manually set org block style
-https://stackoverflow.com/questions/44811679/orgmode-change-code-block-background-color
+fix org block style https://stackoverflow.com/questions/44811679/orgmode-change-code-block-background-color
+
 #+begin_src emacs-lisp
   (custom-set-faces
    '(org-block-begin-line
@@ -727,6 +790,8 @@ https://stackoverflow.com/questions/44811679/orgmode-change-code-block-backgroun
 #+end_src
 
 ** Transparency
+Not work when macOS FullScreen
+
 #+begin_src emacs-lisp
   (defun increase-transparency ()
     "Increase Transparency"
@@ -748,13 +813,8 @@ https://stackoverflow.com/questions/44811679/orgmode-change-code-block-backgroun
 #+end_src
 
 ** Misc
-*** Highlight
-the current line.
-#+begin_src emacs-lisp
-  (global-hl-line-mode 1)
-#+end_src
+*** Hightlight Indent guides
 
-indent guides
 #+begin_src emacs-lisp
   (use-package highlight-indent-guides
     :ensure t
@@ -773,14 +833,6 @@ indent guides
     ;; (set-face-foreground 'highlight-indent-guides-character-face "dimgray")
     )
 #+end_src
-*** Global UTF8
-#+begin_src emacs-lisp
-  (setq locale-coding-system 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
-  (set-selection-coding-system 'utf-8)
-  (prefer-coding-system 'utf-8)
-#+end_src
 *** Light follow cursor
 #+begin_src emacs-lisp
   (use-package beacon
@@ -788,40 +840,7 @@ indent guides
     :init
     (beacon-mode 1))
 #+end_src
-*** Cursor
-#+begin_src emacs-lisp
-  (blink-cursor-mode -1)  ;; Turn off the blinking cursor
-#+end_src
-*** Tabs and indent
-#+begin_src emacs-lisp
-  (setq-default indent-tabs-mode nil)
-  (setq-default indent-tabs-mode nil)
-  (setq-default indicate-empty-lines t)
 
-  ;; Don't count two spaces after a period as the end of a sentence.
-  ;; Just one space is needed.
-  (setq sentence-end-double-space nil)
-
-  ;; delete the region when typing, just like as we expect nowadays.
-  (delete-selection-mode t)
-
-  (show-paren-mode t)
-
-  (column-number-mode t)
-
-  (global-visual-line-mode)
-
-  (setq uniquify-buffer-name-style 'forward)
-
-  ;; -i gets alias definitions from .bash_profile
-  (setq shell-command-switch "-ic")
-
-  ;; Don't beep at me
-  (setq visible-bell nil)
-
-  (use-package indent-guide
-    :ensure t)
- #+end_src
 *** Display battery
 #+begin_src emacs-lisp
   ;; (display-battery-mode 1)
