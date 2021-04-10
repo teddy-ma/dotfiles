@@ -68,7 +68,7 @@ Warning: edit config.org file will *not* affect custom.el file!
 #+begin_src emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+end_src
-*** Environment management
+*** Terminal env
 By default Emacs doesn't read from the same environment variables set in your terminal. This package fixes that.
 #+begin_src emacs-lisp
   (use-package exec-path-from-shell
@@ -78,6 +78,12 @@ By default Emacs doesn't read from the same environment variables set in your te
                              (setq exec-path-from-shell-arguments '("-l")) ; removed the -i for faster startup
                              (exec-path-from-shell-initialize))))
 #+end_src
+
+-i gets alias definitions from .bash_profile
+#+begin_src emacs-lisp
+  (setq shell-command-switch "-ic")
+#+end_src
+
 *** Always follow symlinks
 #+begin_src emacs-lisp
 (setq vc-follow-symlinks t)
@@ -233,9 +239,9 @@ Suggest next keys to me based on currently entered key combination.
 #+end_src
 ** Winner mode
 #+begin_src emacs-lisp
-(use-package winner-mode
-  :ensure nil
-  :hook (after-init . winner-mode))
+  (use-package winner-mode
+    :ensure nil
+    :hook (after-init . winner-mode))
 #+end_src
 ** Pop win
 #+begin_src emacs-lisp
@@ -336,13 +342,8 @@ TODO check every attribute and move indent-guide to Hightlight Indent guides
 
     (column-number-mode t)
 
-  TODO link to uniqufiy package?
+  ;; TODO link to uniqufiy package?
     (setq uniquify-buffer-name-style 'forward)
-
-TODO I use fish, should I delete it?
-    ;; -i gets alias definitions from .bash_profile
-    (setq shell-command-switch "-ic")
-
  #+end_src
 ** Command completion
 =ivy= is a generic completion framework which uses the minibuffer. Turning on =ivy-mode= with fuzzy support enables replacement of lots of built in =ido= functionality.
@@ -1563,7 +1564,7 @@ Interactive agenda in the console https://github.com/rougier/agenda
   ;; ~/.emacs.d/abbrev_defs
 #+end_src
 
-use aspell to ispell
+need aspell to ispell (brew install aspell)
 #+begin_src emacs-lisp
   (setq ispell-program-name "aspell")
 #+end_src
@@ -1631,13 +1632,13 @@ Proselint is an external program, install it with =pip install proselint= for th
      ("M-;" . pyim-delete-word-from-personal-buffer)))
 #+end_src
 ** PlantUML
+need plantuml (brew install plantuml)
 #+BEGIN_SRC emacs-lisp
-    (when (eq system-type 'darwin)
-      (use-package plantuml-mode
-        :ensure t)
-      (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
-      ;; brew install plantuml
-      (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2021.0/libexec/plantuml.jar"))
+  (when (eq system-type 'darwin)
+    (use-package plantuml-mode
+      :ensure t)
+    (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+    (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2021.0/libexec/plantuml.jar"))
 #+END_SRC
 ** Dictionary
 #+begin_src emacs-lisp
