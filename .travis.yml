@@ -1,3 +1,5 @@
+sudo: true
+dist: xenial
 language: generic
 
 env:
@@ -12,15 +14,14 @@ matrix:
     - env: EMACS_VERSION=master
 
 install:
-  - $CURL https://github.com/npostavs/emacs-travis/releases/download/bins/emacs-bin-${EMACS_VERSION}.tar.gz
-  - tar -xaf emacs-bin-${EMACS_VERSION}.tar.gz -C /
-  - export EMACS=/tmp/emacs/bin/emacs
-  - $EMACS --version
+  - sudo apt-get update
+  - sudo apt-get install emacs
+  - sudo apt-get install emacs-goodies-el
 
 script:
-  - sh emacs-pkg-install.sh htmlize  
+  - emacs config.org --batch -f org-html-export-to-html
   - mv config.html index.html
-  
+
 deploy:
   provider: pages
   skip_cleanup: true
