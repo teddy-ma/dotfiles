@@ -20,13 +20,20 @@ elisp_code="
 ;;   $ emacs --batch --expr \"(define pkg-to-install 'smex)\" -l emacs-pkg-install.el
 ;;
 (require 'package)
+(setq package-archives
+      '(("GNU ELPA"     . "https://elpa.gnu.org/packages/")
+        ("MELPA Stable" . "https://stable.melpa.org/packages/")
+        ("MELPA"        . "https://melpa.org/packages/"))
+      package-archive-priorities
+      '(("GNU ELPA"     . 10)
+        ("MELPA Stable" . 5)
+        ("MELPA"        . 0)))
 (package-initialize)
-(add-to-list 'package-archives
-             '(\"melpa\" . \"http://melpa.milkbox.net/packages/\") t)
-(add-to-list 'package-archives
-             '(\"marmalade\" . \"http://marmalade-repo.org/packages/\") t)
-;; Fix HTTP1/1.1 problems
-(setq url-http-attempt-keepalives nil)
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+(setq package-check-signature nil) 
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
 (package-refresh-contents)
 
