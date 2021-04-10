@@ -3,15 +3,13 @@ dist: xenial
 language: generic
 
 install:
-  - sudo apt-get update
   - wget https://github.com/npostavs/emacs-travis/releases/download/bins/emacs-bin-27.1.tar.gz
   - tar -xaf emacs-bin-27.1.tar.gz -C /
   - export EMACS=/tmp/emacs/bin/emacs
   - $EMACS --version
-  - sudo apt-get install emacs-goodies-el
 
 script:
-  - emacs config.org --batch -f org-html-export-to-html
+  - emacs --batch -l test.el
   - mv config.html index.html
 
 deploy:
