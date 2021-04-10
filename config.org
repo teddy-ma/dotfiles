@@ -832,14 +832,18 @@ lsp mode
     :ensure t)
 #+end_src
 ** Interface improvements
+#+begin_src emacs-lisp
+  (show-paren-mode 1)
+#+end_src
 
 When programming I like my editor to try to help me with keeping parentheses balanced.
 #+begin_src emacs-lisp
   (use-package smartparens
     :ensure t
-    :diminish smartparens-mode
-    :config
-    (add-hook 'prog-mode-hook 'smartparens-mode))
+    :diminish
+    smartparens-mode
+    :hook
+    (after-prog-mode . smartparens-mode))
 #+end_src
 
 Highlight parens etc. for improved readability.
@@ -1121,7 +1125,6 @@ Setup is pretty simple - we just enable globally and turn on a custom eslint fun
       :fringe-bitmap 'flycheck-fringe-bitmap-ball
       :fringe-face 'flycheck-fringe-info))
 #+end_src
-
 ** Autocomplete
 Company mode provides good autocomplete options. Perhaps I should add company-quickhelp for documentation (https://github.com/expez/company-quickhelp)?
 It would also be good to improve integration with yasnippet as I don't feel I'm making the best use there.
