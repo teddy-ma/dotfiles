@@ -18,6 +18,7 @@ install:
   - $EMACS --version
 
 script:
+  - sh emacs-pkg-install.sh htmlize
   - emacs -Q config.org --batch -f org-html-export-to-html
   - mv config.html index.html
   
@@ -29,4 +30,4 @@ deploy:
   verbose: true
   deployment_file: true
   on:
-    branch: style
+    branch: master
