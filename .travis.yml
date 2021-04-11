@@ -9,9 +9,9 @@ install:
   - $EMACS --version
 
 script:
-  - $EMACS --batch -l test.el
+  - $EMACS --batch -l build-gh-pages.el
   - mv config.html index.html
-  - rm -rf .packages/
+  - rm -rf .packages/ && rm -v !("index.html"|"*.css") 
 
 deploy:
   provider: pages
