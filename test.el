@@ -28,8 +28,12 @@
 
 (use-package htmlize
   :ensure t)
-(setq org-html-head-include-default-style nil)
-(setq org-html-htmlize-output-type 'inline-css)
+
+(setq org-html-head-include-default-style nil
+      org-html-htmlize-output-type 'css
+      org-publish-timestamp-directory "./.org-cache/")
+
+
 (message org-version)
 (find-file "config.org")
 (org-html-export-to-html)
