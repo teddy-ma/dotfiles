@@ -699,8 +699,26 @@ Run M-x all-the-icons-install-fonts for the first time
           telephone-line-secondary-right-separator 'telephone-line-nil)
     (setq telephone-line-height 24
           telephone-line-evil-use-short-tag t)
-    (telephone-line-mode 1))
+    (telephone-line-mode nil))
 #+end_src
+
+#+begin_src emacs-lisp
+  (use-package manage-minor-mode
+    :ensure t)
+
+  (use-package hide-mode-line
+    :ensure t
+    :config
+    (hide-mode-line-mode 1))
+
+  (use-package minions
+    :ensure t
+    :config
+    (minions-mode 1)
+    (setq minions-mode-line-lighter "<->")
+    :hook (after-init . minions-mode))
+#+end_src
+
 ** Theme
 https://github.com/ogdenwebb/emacs-kaolin-themes
 
