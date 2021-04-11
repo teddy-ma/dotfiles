@@ -1,7 +1,7 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Teddy Ma
 #+TOC: true
-#+OPTIONS: num:nil
+#+OPTIONS: num:nil \n:t
 #+TAGS: OS DEP CUSTOM
 
 #+BEGIN_EXPORT html
@@ -69,7 +69,7 @@ Guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-pa
           ("MELPA"        . 0)))
   (package-initialize)
   (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-  ;;(setq package-check-signature nil) ;; if ssl error occour, uncomment this line
+  ;;(setq package-check-signature nil) ;; if ssl error occur, uncomment this line
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
@@ -77,6 +77,7 @@ Guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-pa
 
 ** Load custom settings
 Set up the customize file to its own separate file, instead of saving customize settings in [[file:init.el][init.el]].
+
 Warning: edit config.org file will *not* affect custom.el file!
 
 #+begin_src emacs-lisp
@@ -91,7 +92,8 @@ Warning: edit config.org file will *not* affect custom.el file!
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+end_src
 *** Terminal env
-By default Emacs doesn't read from the same environment variables set in your terminal. This package fixes that.
+By default Emacs doesn't read from the same environment variables set in your terminal.
+This package fixes that.
 #+begin_src emacs-lisp
   (use-package exec-path-from-shell
     :if (memq window-system '(mac ns))
@@ -102,7 +104,7 @@ By default Emacs doesn't read from the same environment variables set in your te
                              (exec-path-from-shell-initialize))))
 #+end_src
 
--i gets alias definitions from .bash_profile
+-i gets alias definitions from =.bash_profile=
 #+begin_src emacs-lisp
   (setq shell-command-switch "-ic")
 #+end_src
@@ -164,8 +166,8 @@ Taken from https://emacs.stackexchange.com/questions/46210/reuse-help-window
   (setq backup-directory-alist `(("." . "~/.saves")))
 #+end_src
 
+Move file to trash instead of removing.
 #+begin_src emacs-lisp
-  ;; Move file to trash instead of removing.
   (setq-default delete-by-moving-to-trash t)
 #+end_src
 *** Auto refresh
@@ -188,7 +190,7 @@ make both command and option key to be meta key
   ;;       x-super-keysym 'meta))
 
 #+end_src
-*** Global UTF8
+*** Global UTF-8
 #+begin_src emacs-lisp
   (setq locale-coding-system 'utf-8)
   (set-terminal-coding-system 'utf-8)
@@ -301,8 +303,7 @@ Place minibuffer at the top of the current frame
     (setq uniquify-buffer-name-style 'reverse)
     (setq uniquify-separator " • ")
     (setq uniquify-after-kill-buffer-p t)
-    (setq uniquify-ignore-buffers-re "^\\*")
-    )
+    (setq uniquify-ignore-buffers-re "^\\*"))
 #+end_src
 * Edit
 ** Basics
@@ -358,12 +359,16 @@ I *never* want whitespace at the end of lines. Remove it on save.
 #+begin_src emacs-lisp
   (setq-default indent-tabs-mode nil)
   (setq-default indicate-empty-lines t)
-  ;; Don't count two spaces after a period as the end of a sentence.
-  ;; Just one space is needed.
+#+end_src
+
+Don't count two spaces after a period as the end of a sentence.
+Just one space is needed.
+#+begin_src emacs-lisp
   (setq sentence-end-double-space nil)
  #+end_src
 ** Command completion
-=ivy= is a generic completion framework which uses the minibuffer. Turning on =ivy-mode= with fuzzy support enables replacement of lots of built in =ido= functionality.
+=ivy= is a generic completion framework which uses the minibuffer.
+Turning on =ivy-mode= with fuzzy support enables replacement of lots of built in =ido= functionality.
 
 #+begin_src emacs-lisp
   (use-package smex
@@ -374,7 +379,8 @@ I *never* want whitespace at the end of lines. Remove it on save.
     (ivy-mode t))
 #+end_src
 
-=counsel= is a collection of =ivy= enhanced versions of common Emacs commands. I haven't bound much as =ivy-mode= takes care of most things.
+=counsel= is a collection of =ivy= enhanced versions of common Emacs commands.
+I haven't bound much as =ivy-mode= takes care of most things.
 
 #+begin_src emacs-lisp
   (use-package counsel
@@ -411,7 +417,8 @@ I *never* want whitespace at the end of lines. Remove it on save.
 #+end_src
 
 ** Easier selection
-=expand-region= expands the region around the cursor semantically depending on mode. Hard to describe but a killer feature.
+=expand-region= expands the region around the cursor semantically depending on mode.
+Hard to describe but a killer feature.
 
 #+begin_src emacs-lisp
   (use-package expand-region
@@ -459,7 +466,7 @@ I *never* want whitespace at the end of lines. Remove it on save.
     (wrap-region-add-wrapper "_" "_" nil 'org-mode)) ; verbatim
 #+end_src
 ** Move line up and down
-M-<up> M-<down>
+M-<up> M-<down> to move line up and down
 #+begin_src emacs-lisp
   (use-package drag-stuff
     :ensure t
