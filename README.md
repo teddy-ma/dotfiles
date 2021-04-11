@@ -1,4 +1,5 @@
 # Dotfiles
+[![Build Status](https://www.travis-ci.com/teddy-ma/dotfiles.svg?branch=master)](https://www.travis-ci.com/teddy-ma/dotfiles)
 
 这是我的 `dotfiles`,  使用 Emacs 进行管理, 支持 macOS 与 Linux
 
