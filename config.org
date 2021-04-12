@@ -2,8 +2,8 @@
 #+AUTHOR: Teddy Ma
 #+TOC: true
 #+OPTIONS: num:nil \n:t
-#+TAGS: OS DEP CUSTOM
-#+STARTUP: hideblocks
+#+TAGS: @os @dependent @script
+#+STARTUP: nohideblocks
 
 #+BEGIN_EXPORT html
 <link id="pagestyle" rel="stylesheet" type="text/css" href="">
@@ -26,7 +26,7 @@ function swapStyle(css){
 #+END_EXPORT
 
 * Setup
-** Make it easy to edit and reload this file
+** Make it easy to edit and reload this file                       :@script:
 
 #+begin_src emacs-lisp
   (defun find-config ()
@@ -92,7 +92,7 @@ Warning: edit config.org file will *not* affect custom.el file!
 #+begin_src emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+end_src
-*** Terminal env
+*** Terminal env                                                      :@os:
 By default Emacs doesn't read from the same environment variables set in your terminal.
 This package fixes that.
 #+begin_src emacs-lisp
@@ -427,7 +427,7 @@ Hard to describe but a killer feature.
     :bind ("C-=" . er/expand-region))
 #+end_src
 
-** Toggle quotes
+** Toggle quotes                                                   :@script:
 #+begin_src emacs-lisp
   (defun toggle-quotes ()
     "Toggle single quoted string to double or vice versa, and
@@ -492,7 +492,7 @@ M-<up> M-<down> to move line up and down
                 ("C-: C-r" . origami-reset)
                 ))
 #+end_src
-** Align
+** Align                                                           :@script:
 #+begin_src emacs-lisp
   (defun align-non-space (BEG END)
     "Align non-space columns in region BEG END."
@@ -513,7 +513,7 @@ M-<up> M-<down> to move line up and down
     (centaur-tabs-group-by-projectile-project)
     )
 #+end_src
-** Dired
+** Dired                                                           :@script:
 preview file
 #+begin_src emacs-lisp
   (define-minor-mode dired-follow-mode
@@ -587,7 +587,7 @@ No need to learn sed script, just learn Emacs.
   (use-package wgrep
     :ensure t)
 #+end_src
-** Find file in cursor
+** Find file in cursor                                             :@script:
 #+begin_src emacs-lisp
   (defun teddy-ma/find-file-under-cursor ()
     "Check it the filepath under cursor is an absolute path otherwise open helm and insert the filepath."
@@ -599,7 +599,7 @@ No need to learn sed script, just learn Emacs.
                                       (insert file-path))
           (helm-ls-git-ls)))))
 #+end_src
-** Goto line
+** Goto line                                                       :@script:
 Temporarily display line number when call go to line function
 #+begin_src emacs-lisp
   (global-set-key [remap goto-line] 'goto-line-with-feedback)
@@ -643,7 +643,7 @@ like buffer narrow but in other buffer
     :hook (after-init . solaire-global-mode))
 #+end_src
 * Appearance
-** Font
+** Font                                                            :@script:
 It works fine with windows and org table in Chinese
 
 #+begin_src emacs-lisp
@@ -689,7 +689,7 @@ Run M-x all-the-icons-install-fonts for the first time
     (set-fontset-font t 'symbol "Segoe UI Emoji" nil 'append)
     (set-fontset-font t 'symbol "Symbola" nil 'append))
 #+end_src
-** Mode Line
+** Mode Line                                                       :@script:
 Hide mode line if necessary
 
 #+begin_src emacs-lisp
@@ -829,7 +829,7 @@ Toggle mode line modes content which is too verbose sometimes
 
 #+end_src
 
-** Theme
+** Theme                                                           :@script:
 https://github.com/ogdenwebb/emacs-kaolin-themes
 
 #+begin_src emacs-lisp
@@ -1145,7 +1145,7 @@ You can now edit files directly from results buffers with M-x deadgrep-edit-mode
   (use-package deadgrep
     :ensure t)
 #+end_src
-** Open File with Line Number
+** Open File with Line Number                                      :@script:
 Open files and goto lines like we see from g++ etc. i.e. Gemfile:12
 
 #+begin_src emacs-lisp
@@ -1469,7 +1469,7 @@ Add flycheck support.
   (use-package rust-mode
     :ensure t )
 #+end_src
-** Web mode
+** Web mode                                                     :@dependent:
 Web mode handles html/css/js.
 #+begin_src emacs-lisp
   (use-package web-mode
@@ -1742,7 +1742,7 @@ Proselint is an external program, install it with =pip install proselint= for th
     :modes (text-mode markdown-mode gfm-mode org-mode))
 #+end_src
 
-** Pinyin
+** Pinyin                                                       :@dependent:
 #+begin_src emacs-lisp
   (use-package posframe
     :ensure t)
@@ -1788,7 +1788,7 @@ Proselint is an external program, install it with =pip install proselint= for th
     (("M-j" . pyim-convert-code-at-point) ;与 pyim-probe-dynamic-english 配合
      ("M-;" . pyim-delete-word-from-personal-buffer)))
 #+end_src
-** PlantUML
+** PlantUML                                                     :@dependent:
 need plantuml (brew install plantuml)
 #+BEGIN_SRC emacs-lisp
   (when (eq system-type 'darwin)
