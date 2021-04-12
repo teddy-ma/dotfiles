@@ -689,23 +689,42 @@ Run M-x all-the-icons-install-fonts for the first time
     (set-fontset-font t 'symbol "Symbola" nil 'append))
 #+end_src
 ** Mode Line
+Hide mode line if necessary
+
 #+begin_src emacs-lisp
-  (use-package manage-minor-mode
-    :ensure t)
 
   (use-package hide-mode-line
     :ensure t
     :config
     (hide-mode-line-mode 1))
+#+end_src
 
-  (use-package minions
-    :ensure t
-    :config
-    (minions-mode 1)
-    (setq minions-mode-line-lighter "<->")
-    :hook (after-init . minions-mode))
+In case I want to see all the minor modes
 
-  ;; util function begin
+#+begin_src emacs-lisp
+  (use-package manage-minor-mode
+    :ensure t)
+#+end_src
+
+Custom mode line unitlity functions (align)
+https://gist.github.com/fhdhsni/990cba7794b4b6918afea94af0b30d66
+#+begin_src emacs-lisp
+
+  (setq teddy-ma/mode-line-content "")
+  (defun teddy-ma/toggle-mode-line-modes()
+    (interactive)
+    (if (eql teddy-ma/mode-line-content "")
+        (setq teddy-ma/mode-line-content (eval `mode-line-modes))
+      (setq teddy-ma/mode-line-content ""))
+
+    (teddy-ma/refresh-mode-line)
+    )
+
+  (defun teddy-ma/render-mode-line-modes()
+    teddy-ma/mode-line-content)
+
+
+
   (defun mode-line-fill-right (face reserve)
     "Return empty space using FACE and leaving RESERVE space on the right."
     (unless reserve
@@ -734,81 +753,65 @@ Run M-x all-the-icons-install-fonts for the first time
 
   (defun reserve-middle/right ()
     (+ RIGHT_PADDING (length (format-mode-line mode-line-align-right))))
-  ;; util function end
+#+end_src
 
-  ;; https://gist.github.com/fhdhsni/990cba7794b4b6918afea94af0b30d66
+Setup Model Line content
+#+begin_src emacs-lisp
+    (defun teddy-ma/refresh-middle-mode-line ()
+      (setq mode-line-align-middle ;; git status, modified status
+            '(""
+              (vc-mode vc-mode)
+              "%3 "
+              ;; (:propertize "%b" face mode-line-buffer-id)
+              (:eval
+               (when (eql (buffer-modified-p) t)
+                 ;; propertize adds metadata to text, so you can add colours and formatting, amongst other things
+                 (propertize "" 'face '(:foreground "black"))))
+              " "
+              (:eval
+               (when (eql buffer-read-only t)
+                 (propertize "" 'face '(:foreground "pink"))))
+              "")))
 
-  (defun teddy-ma/render-mode-line-modes()
-    (:eval (mode-line-modes))
-    )
+    (defun teddy-ma/refresh-right-mode-line ()
+      (setq mode-line-align-right ;; line number and point location
+            '(""
+              mode-line-misc-info
+              "%2 "
+              (:eval (format "%%l/%d :aa %%c " (line-number-at-pos (point-max))))))
+      )
 
-  (setq mode-line-align-left ;; buufer name
-        '(
-          ""
-          "%2 "
-          "%2 "
-          (:propertize "%b" face mode-line-buffer-id) ;; buffer name
-          "%2 "
-          mode-line-modes
-          ))
+    (defun teddy-ma/refresh-left-mode-line ()
+      (setq mode-line-align-left ;; buufer name
+            '(
+              ""
+              "%2 "
+              "%2 "
+              (:propertize "%b" face mode-line-buffer-id) ;; buffer name
+              "%2 "
+              ;;mode-line-modes
+              "hello"
+              )))
+#+end_src
 
-  (setq mode-line-align-middle ;; git status, modified status
-        '(""
-          (vc-mode vc-mode)
-          "%3 "
-          ;; (:propertize "%b" face mode-line-buffer-id)
-          (:eval
-           (when (eql (buffer-modified-p) t)
-             ;; propertize adds metadata to text, so you can add colours and formatting, amongst other things
-             (propertize "" 'face '(:foreground "black"))))
-          " "
-          (:eval
-           (when (eql buffer-read-only t)
-             (propertize "" 'face '(:foreground "pink"))))
-          ""))
-
-  (setq mode-line-align-right ;; line number and point location
-        '(""
-          mode-line-misc-info
-          "%2 "
-          (:eval (format "%%l/%d : %%c " (line-number-at-pos (point-max))))))
-
-
+Toggle mode line modes content which is too verbose sometimes
+#+begin_src emacs-lisp
   (defun teddy-ma/refresh-mode-line ()
-    (interactive)
-
-    (if (eql (member `mode-line-modes mode-line-align-left) nil)
-        (setq mode-line-align-left (nbutlast mode-line-align-left 1))
-      (setq mode-line-align-left (append mode-line-align-left `(mode-line-modes))))
-
-    (setq mode-line-format
+    (teddy-ma/refresh-left-mode-line)
+    (teddy-ma/refresh-middle-mode-line)
+    (teddy-ma/refresh-right-mode-line)
+    (setq-default mode-line-format
           (list
+           (teddy-ma/render-mode-line-modes)
            mode-line-align-left '(:eval (mode-line-fill-center 'mode-line (reserve-left/middle)))
            mode-line-align-middle '(:eval (mode-line-fill-right 'mode-line (reserve-middle/right)))
            mode-line-align-right))
     )
 
+  ;;(teddy-ma/render-mode-line-modes)
+  ;;(teddy-ma/toggle-mode-line-modes)
+
   (teddy-ma/refresh-mode-line)
-
-  ;; default values
-  ;; (setq mode-line-format
-  ;;       '("%e"
-  ;;         mode-line-front-space
-  ;;         mode-line-mule-info
-  ;;         mode-line-client
-  ;;         mode-line-modified
-  ;;         mode-line-remote
-  ;;         mode-line-frame-identification
-  ;;         mode-line-buffer-identification
-  ;;         "   "
-  ;;         mode-line-position
-  ;;         (vc-mode vc-mode)
-  ;;         "  "
-  ;;         mode-line-modes
-  ;;         mode-line-misc-info
-  ;;         mode-line-end-spaces)
-  ;;       )
-
 #+end_src
 
 #+begin_src emacs-lisp
