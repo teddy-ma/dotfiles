@@ -3,6 +3,7 @@
 #+TOC: true
 #+OPTIONS: num:nil \n:t
 #+TAGS: OS DEP CUSTOM
+#+STARTUP: hideblocks
 
 #+BEGIN_EXPORT html
 <link id="pagestyle" rel="stylesheet" type="text/css" href="">
@@ -762,7 +763,6 @@ Setup Model Line content
             '(""
               (vc-mode vc-mode)
               "%3 "
-              ;; (:propertize "%b" face mode-line-buffer-id)
               (:eval
                (when (eql (buffer-modified-p) t)
                  ;; propertize adds metadata to text, so you can add colours and formatting, amongst other things
@@ -778,19 +778,17 @@ Setup Model Line content
             '(""
               mode-line-misc-info
               "%2 "
-              (:eval (format "%%l/%d :aa %%c " (line-number-at-pos (point-max))))))
+              (:eval (format "%%l/%d : %%c " (line-number-at-pos (point-max))))))
       )
 
     (defun teddy-ma/refresh-left-mode-line ()
-      (setq mode-line-align-left ;; buufer name
+      (setq mode-line-align-left ;; buffer name
             '(
               ""
-              "%2 "
               "%2 "
               (:propertize "%b" face mode-line-buffer-id) ;; buffer name
               "%2 "
               ;;mode-line-modes
-              "hello"
               )))
 #+end_src
 
