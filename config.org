@@ -721,49 +721,67 @@ In case I want to see all the minor modes
 Custom mode line unitlity functions (align)
 https://gist.github.com/fhdhsni/990cba7794b4b6918afea94af0b30d66
 #+begin_src emacs-lisp
-  (setq teddy-ma/mode-line-content "")
-  (defun teddy-ma/toggle-mode-line-modes()
-    (interactive)
-    (if (eql teddy-ma/mode-line-content "")
-        ;;(setq teddy-ma/mode-line-content (eval `mode-line-modes))
-        (setq teddy-ma/mode-line-content (teddy-ma/render-cyan))
+    (setq teddy-ma/current-mode-line-index 0)
+    (setq teddy-ma/mode-line-left-content `(
+                                            ""
+                                            (eval `mode-line-modes)
+                                            (teddy-ma/render-cyan)
+                                            ))
+    (nth 12 '(a b c d))
+    (% 5 (length '(a b c d)))
+    (setq teddy-ma/mode-line-content "")
+    (defun teddy-ma/toggle-mode-line-modes(@n)
+      (interactive "p")
+      (let (
+            (idx (% teddy-ma/current-mode-line-index (length teddy-ma/mode-line-left-content)))
+            ;; other variable
+            )
+        (setq teddy-ma/mode-line-content (eval (nth idx teddy-ma/mode-line-left-content)))
+        (message "idx is %s" idx )
+        (message "index is %s" teddy-ma/current-mode-line-index)
+        )
 
-      (setq teddy-ma/mode-line-content ""))
+        ;;    (setq teddy-ma/mode-line-content (eval `mode-line-modes))
+      ;;(setq teddy-ma/mode-line-content (teddy-ma/render-cyan))
 
-    (teddy-ma/refresh-mode-line)
-    )
+      (setq teddy-ma/current-mode-line-index (+ teddy-ma/current-mode-line-index 1))
+      (teddy-ma/refresh-mode-line)
+      )
 
-  (defun teddy-ma/render-mode-line-modes()
-    teddy-ma/mode-line-content)
+    (eql (eval (nth 1 teddy-ma/mode-line-left-content)) (eval `mode-line-modes))
 
-  (defun mode-line-fill-right (face reserve)
-    "Return empty space using FACE and leaving RESERVE space on the right."
-    (unless reserve
-      (setq reserve 20))
-    (when (and window-system (eq 'right (get-scroll-bar-mode)))
-      (setq reserve (- reserve 3)))
-    (propertize " "
-                'display `((space :align-to (- (+ right right-fringe right-margin) ,reserve)))
-                'face face))
+    (message "%s" teddy-ma/mode-line-content)
+    (defun teddy-ma/render-mode-line-modes()
+      teddy-ma/mode-line-content)
 
-  (defun mode-line-fill-center (face reserve)
-    "Return empty space using FACE to the center of remaining space leaving RESERVE space on the right."
-    (unless reserve
-      (setq reserve 20))
-    (when (and window-system (eq 'right (get-scroll-bar-mode)))
-      (setq reserve (- reserve 3)))
-    (propertize " "
-                'display `((space :align-to (- (+ center (.5 . right-margin)) ,reserve
-                                               (.5 . left-margin))))
-                'face face))
+    (defun mode-line-fill-right (face reserve)
+      "Return empty space using FACE and leaving RESERVE space on the right."
+      (unless reserve
+        (setq reserve 20))
+      (when (and window-system (eq 'right (get-scroll-bar-mode)))
+        (setq reserve (- reserve 3)))
+      (propertize " "
+                  'display `((space :align-to (- (+ right right-fringe right-margin) ,reserve)))
+                  'face face))
 
-  (defconst RIGHT_PADDING 1)
+    (defun mode-line-fill-center (face reserve)
+      "Return empty space using FACE to the center of remaining space leaving RESERVE space on the right."
+      (unless reserve
+        (setq reserve 20))
+      (when (and window-system (eq 'right (get-scroll-bar-mode)))
+        (setq reserve (- reserve 3)))
+      (propertize " "
+                  'display `((space :align-to (- (+ center (.5 . right-margin)) ,reserve
+                                                 (.5 . left-margin))))
+                  'face face))
 
-  (defun reserve-left/middle ()
-    (/ (length (format-mode-line mode-line-align-middle)) 2))
+    (defconst RIGHT_PADDING 1)
 
-  (defun reserve-middle/right ()
-    (+ RIGHT_PADDING (length (format-mode-line mode-line-align-right))))
+    (defun reserve-left/middle ()
+      (/ (length (format-mode-line mode-line-align-middle)) 2))
+
+    (defun reserve-middle/right ()
+      (+ RIGHT_PADDING (length (format-mode-line mode-line-align-right))))
 #+end_src
 
 Setup Model Line content
