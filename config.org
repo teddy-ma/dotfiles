@@ -725,7 +725,9 @@ https://gist.github.com/fhdhsni/990cba7794b4b6918afea94af0b30d66
   (defun teddy-ma/toggle-mode-line-modes()
     (interactive)
     (if (eql teddy-ma/mode-line-content "")
-        (setq teddy-ma/mode-line-content (eval `mode-line-modes))
+        ;;(setq teddy-ma/mode-line-content (eval `mode-line-modes))
+        (setq teddy-ma/mode-line-content (teddy-ma/render-cyan))
+
       (setq teddy-ma/mode-line-content ""))
 
     (teddy-ma/refresh-mode-line)
@@ -813,7 +815,7 @@ Toggle mode line modes content which is too verbose sometimes
     (setq-default mode-line-format
                   (list
                    (teddy-ma/render-mode-line-modes)
-                   (teddy-ma/render-cyan)
+
                    mode-line-align-left '(:eval (mode-line-fill-center 'mode-line (reserve-left/middle)))
                    mode-line-align-middle '(:eval (mode-line-fill-right 'mode-line (reserve-middle/right)))
                    mode-line-align-right
