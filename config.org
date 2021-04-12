@@ -690,19 +690,6 @@ Run M-x all-the-icons-install-fonts for the first time
 #+end_src
 ** Mode Line
 #+begin_src emacs-lisp
-  (use-package telephone-line
-    :ensure t
-    :config
-    (setq telephone-line-primary-left-separator 'telephone-line-gradient
-          telephone-line-secondary-left-separator 'telephone-line-nil
-          telephone-line-primary-right-separator 'telephone-line-gradient
-          telephone-line-secondary-right-separator 'telephone-line-nil)
-    (setq telephone-line-height 24
-          telephone-line-evil-use-short-tag t)
-    (telephone-line-mode nil))
-#+end_src
-
-#+begin_src emacs-lisp
   (use-package manage-minor-mode
     :ensure t)
 
@@ -717,6 +704,128 @@ Run M-x all-the-icons-install-fonts for the first time
     (minions-mode 1)
     (setq minions-mode-line-lighter "<->")
     :hook (after-init . minions-mode))
+
+  ;; util function begin
+  (defun mode-line-fill-right (face reserve)
+    "Return empty space using FACE and leaving RESERVE space on the right."
+    (unless reserve
+      (setq reserve 20))
+    (when (and window-system (eq 'right (get-scroll-bar-mode)))
+      (setq reserve (- reserve 3)))
+    (propertize " "
+                'display `((space :align-to (- (+ right right-fringe right-margin) ,reserve)))
+                'face face))
+
+  (defun mode-line-fill-center (face reserve)
+    "Return empty space using FACE to the center of remaining space leaving RESERVE space on the right."
+    (unless reserve
+      (setq reserve 20))
+    (when (and window-system (eq 'right (get-scroll-bar-mode)))
+      (setq reserve (- reserve 3)))
+    (propertize " "
+                'display `((space :align-to (- (+ center (.5 . right-margin)) ,reserve
+                                               (.5 . left-margin))))
+                'face face))
+
+  (defconst RIGHT_PADDING 1)
+
+  (defun reserve-left/middle ()
+    (/ (length (format-mode-line mode-line-align-middle)) 2))
+
+  (defun reserve-middle/right ()
+    (+ RIGHT_PADDING (length (format-mode-line mode-line-align-right))))
+  ;; util function end
+
+  ;; https://gist.github.com/fhdhsni/990cba7794b4b6918afea94af0b30d66
+
+  (defun teddy-ma/render-mode-line-modes()
+    (:eval (mode-line-modes))
+    )
+
+  (setq mode-line-align-left ;; buufer name
+        '(
+          ""
+          "%2 "
+          "%2 "
+          (:propertize "%b" face mode-line-buffer-id) ;; buffer name
+          "%2 "
+          mode-line-modes
+          ))
+
+  (setq mode-line-align-middle ;; git status, modified status
+        '(""
+          (vc-mode vc-mode)
+          "%3 "
+          ;; (:propertize "%b" face mode-line-buffer-id)
+          (:eval
+           (when (eql (buffer-modified-p) t)
+             ;; propertize adds metadata to text, so you can add colours and formatting, amongst other things
+             (propertize "" 'face '(:foreground "black"))))
+          " "
+          (:eval
+           (when (eql buffer-read-only t)
+             (propertize "" 'face '(:foreground "pink"))))
+          ""))
+
+  (setq mode-line-align-right ;; line number and point location
+        '(""
+          mode-line-misc-info
+          "%2 "
+          (:eval (format "%%l/%d : %%c " (line-number-at-pos (point-max))))))
+
+
+  (defun teddy-ma/refresh-mode-line ()
+    (interactive)
+
+    (if (eql (member `mode-line-modes mode-line-align-left) nil)
+        (setq mode-line-align-left (nbutlast mode-line-align-left 1))
+      (setq mode-line-align-left (append mode-line-align-left `(mode-line-modes))))
+
+    (setq mode-line-format
+          (list
+           mode-line-align-left '(:eval (mode-line-fill-center 'mode-line (reserve-left/middle)))
+           mode-line-align-middle '(:eval (mode-line-fill-right 'mode-line (reserve-middle/right)))
+           mode-line-align-right))
+    )
+
+  (teddy-ma/refresh-mode-line)
+
+  ;; default values
+  ;; (setq mode-line-format
+  ;;       '("%e"
+  ;;         mode-line-front-space
+  ;;         mode-line-mule-info
+  ;;         mode-line-client
+  ;;         mode-line-modified
+  ;;         mode-line-remote
+  ;;         mode-line-frame-identification
+  ;;         mode-line-buffer-identification
+  ;;         "   "
+  ;;         mode-line-position
+  ;;         (vc-mode vc-mode)
+  ;;         "  "
+  ;;         mode-line-modes
+  ;;         mode-line-misc-info
+  ;;         mode-line-end-spaces)
+  ;;       )
+
+#+end_src
+
+#+begin_src emacs-lisp
+  ;; (setq mode-line-format
+  ;;       (list
+
+  ;;        '(:eval
+  ;;          (list
+  ;;           (propertize "%b" 'help-echo (buffer-file-name))
+  ;;           (when (buffer-modified-p)
+  ;;             (propertize " " 'face 'cogent-line-modified-face))
+  ;;           (when (eql buffer-read-only t)
+  ;;             (propertize "" 'face '(:foreground "pink")))
+
+  ;;           ))))
+
+
 #+end_src
 
 ** Theme
@@ -823,7 +932,7 @@ Not work when macOS FullScreen
 *** Display battery
 #+begin_src emacs-lisp
   ;; (display-battery-mode 1)
-  (setq battery-mode-line-format "[%b%p%% %t]")
+  ;; (setq battery-mode-line-format "[%b%p%% %t]")
 #+end_src
 *** Dired icons
 #+begin_src emacs-lisp
