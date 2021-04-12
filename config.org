@@ -693,7 +693,6 @@ Run M-x all-the-icons-install-fonts for the first time
 Hide mode line if necessary
 
 #+begin_src emacs-lisp
-
   (use-package hide-mode-line
     :ensure t
     :config
@@ -707,10 +706,21 @@ In case I want to see all the minor modes
     :ensure t)
 #+end_src
 
+#+begin_src emacs-lisp
+  (use-package nyan-mode
+    :ensure t
+    :init
+    (setq nyan-animate-nyancat t)
+    (setq nyan-wavy-trail t)
+    (setq nyan-minimum-window-width 80)
+    (setq nyan-bar-length 20)
+    (nyan-mode)
+    )
+#+end_src
+
 Custom mode line unitlity functions (align)
 https://gist.github.com/fhdhsni/990cba7794b4b6918afea94af0b30d66
 #+begin_src emacs-lisp
-
   (setq teddy-ma/mode-line-content "")
   (defun teddy-ma/toggle-mode-line-modes()
     (interactive)
@@ -723,8 +733,6 @@ https://gist.github.com/fhdhsni/990cba7794b4b6918afea94af0b30d66
 
   (defun teddy-ma/render-mode-line-modes()
     teddy-ma/mode-line-content)
-
-
 
   (defun mode-line-fill-right (face reserve)
     "Return empty space using FACE and leaving RESERVE space on the right."
@@ -758,75 +766,63 @@ https://gist.github.com/fhdhsni/990cba7794b4b6918afea94af0b30d66
 
 Setup Model Line content
 #+begin_src emacs-lisp
-    (defun teddy-ma/refresh-middle-mode-line ()
-      (setq mode-line-align-middle ;; git status, modified status
-            '(""
-              (vc-mode vc-mode)
-              "%3 "
-              (:eval
-               (when (eql (buffer-modified-p) t)
-                 ;; propertize adds metadata to text, so you can add colours and formatting, amongst other things
-                 (propertize "" 'face '(:foreground "black"))))
-              " "
-              (:eval
-               (when (eql buffer-read-only t)
-                 (propertize "" 'face '(:foreground "pink"))))
-              "")))
+  (defun teddy-ma/refresh-middle-mode-line ()
+    (setq mode-line-align-middle ;; git status, modified status
+          '(""
+            (vc-mode vc-mode)
+            "%3 "
+            (:eval
+             (when (eql (buffer-modified-p) t)
+               ;; propertize adds metadata to text, so you can add colours and formatting, amongst other things
+               (propertize "" 'face '(:foreground "black"))))
+            " "
+            (:eval
+             (when (eql buffer-read-only t)
+               (propertize "" 'face '(:foreground "pink"))))
+            "")))
 
-    (defun teddy-ma/refresh-right-mode-line ()
-      (setq mode-line-align-right ;; line number and point location
-            '(""
-              mode-line-misc-info
-              "%2 "
-              (:eval (format "%%l/%d : %%c " (line-number-at-pos (point-max))))))
-      )
+  (defun teddy-ma/refresh-right-mode-line ()
+    (setq mode-line-align-right ;; line number and point location
+          '(""
+            mode-line-misc-info
+            "%2 "
+            (:eval (format "%%l/%d : %%c " (line-number-at-pos (point-max))))))
+    )
 
-    (defun teddy-ma/refresh-left-mode-line ()
-      (setq mode-line-align-left ;; buffer name
-            '(
-              ""
-              "%2 "
-              (:propertize "%b" face mode-line-buffer-id) ;; buffer name
-              "%2 "
-              ;;mode-line-modes
-              )))
+  (defun teddy-ma/refresh-left-mode-line ()
+    (setq mode-line-align-left ;; buffer name
+          '(
+            ""
+            "%2 "
+            (:propertize "%b" face mode-line-buffer-id) ;; buffer name
+            "%2 "
+            ;;mode-line-modes
+            )))
 #+end_src
 
 Toggle mode line modes content which is too verbose sometimes
 #+begin_src emacs-lisp
+  (defun teddy-ma/render-cyan()
+    '(:eval (list (nyan-create)))
+    )
+
   (defun teddy-ma/refresh-mode-line ()
     (teddy-ma/refresh-left-mode-line)
     (teddy-ma/refresh-middle-mode-line)
     (teddy-ma/refresh-right-mode-line)
     (setq-default mode-line-format
-          (list
-           (teddy-ma/render-mode-line-modes)
-           mode-line-align-left '(:eval (mode-line-fill-center 'mode-line (reserve-left/middle)))
-           mode-line-align-middle '(:eval (mode-line-fill-right 'mode-line (reserve-middle/right)))
-           mode-line-align-right))
+                  (list
+                   (teddy-ma/render-mode-line-modes)
+                   (teddy-ma/render-cyan)
+                   mode-line-align-left '(:eval (mode-line-fill-center 'mode-line (reserve-left/middle)))
+                   mode-line-align-middle '(:eval (mode-line-fill-right 'mode-line (reserve-middle/right)))
+                   mode-line-align-right
+                   ))
     )
 
   ;;(teddy-ma/render-mode-line-modes)
   ;;(teddy-ma/toggle-mode-line-modes)
-
   (teddy-ma/refresh-mode-line)
-#+end_src
-
-#+begin_src emacs-lisp
-  ;; (setq mode-line-format
-  ;;       (list
-
-  ;;        '(:eval
-  ;;          (list
-  ;;           (propertize "%b" 'help-echo (buffer-file-name))
-  ;;           (when (buffer-modified-p)
-  ;;             (propertize " " 'face 'cogent-line-modified-face))
-  ;;           (when (eql buffer-read-only t)
-  ;;             (propertize "" 'face '(:foreground "pink")))
-
-  ;;           ))))
-
-
 #+end_src
 
 ** Theme                                                           :@script:
