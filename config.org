@@ -4,26 +4,7 @@
 #+OPTIONS: num:nil \n:t
 #+TAGS: @os @dependent @script
 #+STARTUP: nohideblocks
-
-#+BEGIN_EXPORT html
-<link id="pagestyle" rel="stylesheet" type="text/css" href="">
-<script>
-function swapStyle(css){
-  document.getElementById('pagestyle').setAttribute('href', css);
-}
-</script>
-<div style="margin: 1em auto; position: fixed; left: 10px; top: 0; font-size:10px; font: initial; width:100px; height: 20px; !important">
-  <button style="width:100px; height: 20px; font-size:10px; font: initial; !import " onclick="swapStyle('mini.css')">
-  mini
-  </button>
-  <button style="width:100px; height: 20px; font-size:10px; font: initial; !import" onclick="swapStyle('bootstrap.css')">
-  Bootstrap
-  </button>
-  <button style="width:100px; height: 20px; font-size:10px; font: initial; !import" onclick="swapStyle('org.css')">
-  Org
-  </button>
-</div>
-#+END_EXPORT
+#+SETUPFILE: http://www.songofcode.com/socss/org.setup
 
 * Setup
 ** Make it easy to edit and reload this file                       :@script:
@@ -208,6 +189,11 @@ Turn off the blinking cursor
 #+begin_src emacs-lisp
   (column-number-mode t)
 #+end_src
+*** remove macOS black border                                         :@os:
+#+begin_src emacs-lisp
+  (setq frame-resize-pixelwise t)
+#+end_src
+
 ** Common packages
 *** Helpful
 #+begin_src emacs-lisp
