@@ -101,7 +101,7 @@ This package fixes that.
 #+end_src
 *** Garbage collection
 #+begin_src emacs-lisp
-  (setq gc-cons-threshold 20000000)
+  (setq gc-cons-threshold 100000000)
 #+end_src
 *** No Visible Bell
 #+begin_src emacs-lisp
@@ -866,6 +866,14 @@ fix org block style https://stackoverflow.com/questions/44811679/orgmode-change-
 
    '(org-block ((t (:background nil))))
    )
+#+end_src
+
+custom hl-line and mode-line bg color
+#+begin_src emacs-lisp
+  ;; (set-face-background 'hl-line "midnight blue")
+  ;; (set-face-background hl-line-face "gray13")
+
+  ;; (set-face-background 'mode-line "color-28")
 #+end_src
 
 ** Transparency
@@ -1810,7 +1818,10 @@ eshell with git
   (use-package eshell
     :ensure t
     :config
-    (eshell-git-prompt-use-theme 'powerline))
+    (eshell-git-prompt-use-theme 'powerline)
+    (add-hook 'eshell-mode-hook (lambda ()
+                                  (setq-local global-hl-line-mode
+                                              nil))))
 #+end_src
 
 vterm
