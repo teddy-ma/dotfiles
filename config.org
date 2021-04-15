@@ -244,11 +244,13 @@ Suggest next keys to me based on currently entered key combination.
 
 ** Welcome dashboard
 #+begin_src emacs-lisp
+  (setq emacs-banner "~/ownCloud/Photos/emacs-banner.png")
   (use-package dashboard
     :ensure t
     :config
     (dashboard-setup-startup-hook)
-    (setq dashboard-startup-banner "~/ownCloud/Photos/emacs-banner.png")
+    (if (file-exists-p emacs-banner)
+        (setq dashboard-startup-banner emacs-banner))
     (setq dashboard-items '((recents  . 5)
                             (bookmarks . 5)
                             (registers . 5))))
