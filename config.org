@@ -1706,7 +1706,12 @@ Interactive agenda in the console https://github.com/rougier/agenda
   (use-package org-agenda
     :bind ("C-c a" . org-agenda)
     :config
-    (add-to-list 'org-agenda-files "~/Documents/org/todo.org"))
+    (setq org-agenda-files
+          (directory-files-recursively "~/Documents/org/" "\\.org$"))
+    (org-agenda-prefix-format '((agenda . " %i %-20:c%?-12t%-6e% s")
+                                (todo   . " %i %-20:c %-6e")
+                                (tags   . " %i %-20:c")
+                                (search . " %i %-20:c"))))
 #+end_src
 * Extras
 ** Writing
