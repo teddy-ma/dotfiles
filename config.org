@@ -41,14 +41,9 @@ Guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-pa
 
 #+begin_src emacs-lisp
   (require 'package)
-  (setq package-archives
-        '(("GNU ELPA"     . "https://elpa.gnu.org/packages/")
-          ("MELPA Stable" . "https://stable.melpa.org/packages/")
-          ("MELPA"        . "https://melpa.org/packages/"))
-        package-archive-priorities
-        '(("GNU ELPA"     . 10)
-          ("MELPA Stable" . 5)
-          ("MELPA"        . 0)))
+  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                           ("org" . "https://orgmode.org/elpa/")
+                           ("elpa" . "https://elpa.gnu.org/packages/")))
   (package-initialize)
   (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
   ;;(setq package-check-signature nil) ;; if ssl error occur, uncomment this line
@@ -366,6 +361,11 @@ Turning on =ivy-mode= with fuzzy support enables replacement of lots of built in
     :ensure t
     :config
     (ivy-mode t))
+
+  (use-package ivy-rich
+    :ensure t
+    :init
+    (ivy-rich-mode 1))
 #+end_src
 
 =counsel= is a collection of =ivy= enhanced versions of common Emacs commands.

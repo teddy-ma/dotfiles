@@ -7,6 +7,7 @@
         org-self-insert-command
         smart-hungry-delete-backward-char
         smart-hungry-delete-forward-char
+        wgrep-finish-edit
         ))
 
 (setq mc/cmds-to-run-once
