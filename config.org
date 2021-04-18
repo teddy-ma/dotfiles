@@ -866,7 +866,7 @@ fix org block style https://stackoverflow.com/questions/44811679/orgmode-change-
    '(org-block-end-line
      ((t (:overline nil :foreground nil :background nil))))
 
-   ;;'(org-block ((t (:background nil))))
+   '(org-block ((t (:background nil))))
    )
 #+end_src
 
@@ -1506,6 +1506,7 @@ https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf
   (use-package org
     :ensure t
     :diminish org-indent-mode
+    :hook (org-mode . teddy-ma/org-font-setup)
     :config
     (setq org-startup-indented 'f)
     (setq org-special-ctrl-a/e 't)
@@ -1520,12 +1521,6 @@ https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf
           '((auto-mode . emacs)
             ("\\.x?html?\\'" . "Chromium %s")))
     (setq org-ellipsis " ▾")
-    ;; org-ellipsis not shown in heading when git-gutter-fringe-mode is active
-    ;; https://lccambiaghi.github.io/vanilla-emacs/readme.html#org948c5b0
-    ;; org-ellipsis "⤵"
-    ;; org-ellipsis "▼"
-    ;; org-ellipsis "..."
-    ;;  org-ellipsis " ↴
     (add-hook 'org-mode-hook (lambda ()
                                "Beautify Org Checkbox Symbol"
                                (push '("[ ]" . "☐" ) prettify-symbols-alist)
@@ -1534,6 +1529,21 @@ https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf
                                (prettify-symbols-mode))))
 
   ;; (setq-default prettify-symbols-alist '(("#+BEGIN_SRC" . "»") ("#+END_SRC" . "«")("#+begin_src" . "»") ("#+end_src" . "«") ("lambda"  . "λ") ("->" . "→") ("->>" . "↠")))
+#+end_src
+** Custom face
+
+#+begin_src emacs-lisp
+(defun teddy-ma/org-font-setup ()
+
+  (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-table nil   :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+
+)
 #+end_src
 
 ** Easy open common files
