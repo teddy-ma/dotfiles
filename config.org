@@ -632,38 +632,6 @@ like buffer narrow but in other buffer
 #+end_src
 * Appearance
 ** Font                                                            :@script:
-It works fine with windows and org table in Chinese
-
-#+begin_src emacs-lisp
-  (when (eq system-type 'darwin)
-    (setq fonts '("Monaco" "STKaiti"))
-    (set-face-attribute 'default nil :font
-                        (format "%s:pixelsize=%d" (car fonts) 15))
-    (setq face-font-rescale-alist '(("STKaiti". 1.2))))
-
-  (when (eq system-type 'windows-nt)
-    (setq fonts '("Inconsolata" "华文楷体"))
-    (set-face-attribute 'default nil :font
-                        (format "%s:pixelsize=%d" (car fonts) 20))
-    (setq face-font-rescale-alist '(("华文楷体". 1.0))))
-
-  (when (eq system-type 'gnu/linux)
-    (setq fonts '("Inconsolata" "STKaiti"))
-    (set-face-attribute 'default nil :font
-                        (format "%s:pixelsize=%d" (car fonts) 18))
-    (setq face-font-rescale-alist '(("STKaiti". 1.0))))
-
-  (dolist (charset '(kana han symbol cjk-misc bopomofo))
-    (set-fontset-font (frame-parameter nil 'font) charset
-                      (font-spec :family (car (cdr fonts)))))
-
-#+end_src
-
-Add emoji support. This is useful when working with html.
-#+begin_src emacs-lisp
-  (use-package emojify
-    :ensure t)
-#+end_src
 
 ** Emoji and icons
 Run M-x all-the-icons-install-fonts for the first time
@@ -815,59 +783,6 @@ Toggle mode line modes content which is too verbose sometimes
 #+end_src
 
 ** Theme                                                           :@script:
-https://github.com/ogdenwebb/emacs-kaolin-themes
-
-#+begin_src emacs-lisp
-  (use-package kaolin-themes
-    :ensure t)
-#+end_src
-
-toggle theme (dark and light)
-#+begin_src emacs-lisp
-  (setq-default custom-enabled-themes '(kaolin-light))
-
-  (defun reapply-themes ()
-    "Forcibly load the themes listed in `custom-enabled-themes'."
-    (dolist (theme custom-enabled-themes)
-      (unless (custom-theme-p theme)
-        (load-theme theme)))
-    (custom-set-variables `(custom-enabled-themes (quote ,custom-enabled-themes))))
-
-  (add-hook 'after-init-hook 'reapply-themes)
-
-  (defun light ()
-    "Activate a light color theme."
-    (interactive)
-    (setq custom-enabled-themes '(kaolin-light))
-    (reapply-themes))
-
-  (defun dark ()
-    "Activate a dark color theme."
-    (interactive)
-    (setq custom-enabled-themes '(kaolin-dark))
-    (reapply-themes))
-#+end_src
-
-fix org block style https://stackoverflow.com/questions/44811679/orgmode-change-code-block-background-color
-
-#+begin_src emacs-lisp
-  (custom-set-faces
-   '(org-block-begin-line
-     ((t (:underline nil :foreground "#60a83d" :background nil))))
-   '(org-block-end-line
-     ((t (:overline nil :foreground nil :background nil))))
-
-   '(org-block ((t (:background nil))))
-   )
-#+end_src
-
-custom hl-line and mode-line bg color
-#+begin_src emacs-lisp
-  ;; (set-face-background 'hl-line "midnight blue")
-  ;; (set-face-background hl-line-face "gray13")
-
-  ;; (set-face-background 'mode-line "color-28")
-#+end_src
 
 ** Transparency
 Not work when macOS FullScreen
@@ -890,7 +805,6 @@ Not work when macOS FullScreen
      ("C-c 8" . decrease-transparency))
     :config
     (seethru 95))
-
 #+end_src
 
 ** Misc
