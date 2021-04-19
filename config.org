@@ -702,32 +702,24 @@ In case I want to see all the minor modes
     (setq nyan-wavy-trail t)
     (setq nyan-minimum-window-width 80)
     (setq nyan-bar-length 20)
-    (nyan-mode)
-    )
+    (nyan-mode))
 #+end_src
 
 Custom mode line unitlity functions (align)
 https://gist.github.com/fhdhsni/990cba7794b4b6918afea94af0b30d66
 #+begin_src emacs-lisp
   (setq teddy-ma/current-mode-line-index 1)
-  (setq teddy-ma/mode-line-options `(
-                                          ""
-                                          (eval `mode-line-modes)
-                                          (teddy-ma/render-cyan)
-                                          ))
+  (setq teddy-ma/mode-line-options `(""
+                                     (eval `mode-line-modes)
+                                     (teddy-ma/render-cyan)))
   (setq teddy-ma/mode-line-content "")
 
   (defun teddy-ma/toggle-mode-line-left-display()
     (interactive)
-    (let (
-          (idx (% teddy-ma/current-mode-line-index (length teddy-ma/mode-line-options)))
-          ;; other variable
-          )
-      (setq teddy-ma/mode-line-content (eval (nth idx teddy-ma/mode-line-options)))
-      )
+    (let ((idx (% teddy-ma/current-mode-line-index (length teddy-ma/mode-line-options))))
+      (setq teddy-ma/mode-line-content (eval (nth idx teddy-ma/mode-line-options))))
     (setq teddy-ma/current-mode-line-index (+ teddy-ma/current-mode-line-index 1))
-    (teddy-ma/refresh-mode-line)
-    )
+    (teddy-ma/refresh-mode-line))
 
   (defun teddy-ma/render-mode-line-modes()
     teddy-ma/mode-line-content)
@@ -801,8 +793,7 @@ Setup Model Line content
 Toggle mode line modes content which is too verbose sometimes
 #+begin_src emacs-lisp
   (defun teddy-ma/render-cyan()
-    '(:eval (list (nyan-create)))
-    )
+    '(:eval (list (nyan-create))))
 
   (defun teddy-ma/refresh-mode-line ()
     (teddy-ma/refresh-left-mode-line)
