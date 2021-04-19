@@ -648,7 +648,7 @@ It works fine with windows and org table in Chinese
     (setq face-font-rescale-alist '(("华文楷体". 1.0))))
 
   (when (eq system-type 'gnu/linux)
-    (setq fonts '("Inconsolata" "STKaiti"))
+    (setq fonts '("Sarasa Mono SC Nerd" "STKaiti"))
     (set-face-attribute 'default nil :font
                         (format "%s:pixelsize=%d" (car fonts) 18))
     (setq face-font-rescale-alist '(("STKaiti". 1.0))))
@@ -815,16 +815,18 @@ Toggle mode line modes content which is too verbose sometimes
 #+end_src
 
 ** Theme                                                           :@script:
-https://github.com/ogdenwebb/emacs-kaolin-themes
 
 #+begin_src emacs-lisp
   (use-package kaolin-themes
+    :ensure t)
+
+  (use-package color-theme-sanityinc-tomorrow
     :ensure t)
 #+end_src
 
 toggle theme (dark and light)
 #+begin_src emacs-lisp
-  (setq-default custom-enabled-themes '(kaolin-light))
+  (setq-default custom-enabled-themes '(kaolin-light color-theme-sanityinc-tomorrow-day))
 
   (defun reapply-themes ()
     "Forcibly load the themes listed in `custom-enabled-themes'."
@@ -835,17 +837,42 @@ toggle theme (dark and light)
 
   (add-hook 'after-init-hook 'reapply-themes)
 
-  (defun light ()
+  (defun theme-light ()
     "Activate a light color theme."
     (interactive)
     (setq custom-enabled-themes '(kaolin-light))
     (reapply-themes))
 
-  (defun dark ()
+  (defun theme-dark ()
     "Activate a dark color theme."
     (interactive)
     (setq custom-enabled-themes '(kaolin-dark))
     (reapply-themes))
+
+  (defun theme-day ()
+    "Activate a light day color theme."
+    (interactive)
+    (color-theme-sanityinc-tomorrow-day))
+
+  (defun theme-night ()
+    "Active color-theme-sanityinc-tomorrow-night theme."
+    (interactive)
+    (color-theme-sanityinc-tomorrow-night))
+
+  (defun theme-blue ()
+    "Active color-theme-sanityinc-tomorrow-blue theme."
+    (interactive)
+    (color-theme-sanityinc-tomorrow-blue))
+
+  (defun theme-bright ()
+    "Active color-theme-sanityinc-tomorrow-bright theme."
+    (interactive)
+    (color-theme-sanityinc-tomorrow-bright))
+
+  (defun theme-eighties ()
+    "Active color-theme-sanityinc-tomorrow-eighties theme."
+    (interactive)
+    (color-theme-sanityinc-tomorrow-eighties))
 #+end_src
 
 fix org block style https://stackoverflow.com/questions/44811679/orgmode-change-code-block-background-color
