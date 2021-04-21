@@ -1551,27 +1551,58 @@ https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf
   ;; (setq-default prettify-symbols-alist '(("#+BEGIN_SRC" . "»") ("#+END_SRC" . "«")("#+begin_src" . "»") ("#+end_src" . "«") ("lambda"  . "λ") ("->" . "→") ("->>" . "↠")))
 #+end_src
 ** Custom face
-
+set fixed pich font for org
 #+begin_src emacs-lisp
-(defun teddy-ma/org-font-setup ()
-  (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-table nil   :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
-)
+  (defun teddy-ma/org-font-setup ()
+    (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-table nil   :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+  )
 #+end_src
 
-** Easy open common files
-use ~C+x r j~ to jump to register, http://sachachua.com/blog/2015/02/learn-take-notes-efficiently-org-mode/
+Completed tasks will be pierced through visually to intensify the sense of achievement.
+#+begin_src emacs-lisp
+  ;; (setq org-fontify-done-headline t)
+  ;; (set-face-attribute 'org-done nil :strike-through t)
+  ;; (set-face-attribute 'org-headline-done nil
+  ;;                     :strike-through t
+  ;;                     :foreground "light gray")
+#+end_src
+
+** Easy open common files                                          :@script:
 
 #+begin_src emacs-lisp
-  (set-register ?b (cons 'file "~/Documents/org/blog.org"))
-  (set-register ?t (cons 'file "~/Documents/org/todo.org"))
-  (set-register ?n (cons 'file "~/Documents/org/note.org"))
-  (set-register ?r (cons 'file "~/Documents/org/roam/index.org"))
+  (defmacro defun-open-conf (config-name filepath)
+    "Open conf macro.
+  Argument CONFIG-NAME Alias name for your function.
+  Argument FILEPATH Filepath of the file."
+    `(defun ,(intern (format "open-conf-%s" config-name)) ()
+       ,(format "Open %s: \"%s\"" config-name filepath)
+       (interactive)
+       (open-conf ,filepath)))
+
+  (defun open-conf (filepath)
+    "Argument FILEPATH Filepath of the file."
+    (switch-to-buffer
+     (find-file-noselect filepath)))
+
+  (defun-open-conf "work"  "~/Documents/org/work.org")
+  (defun-open-conf "blog"  "~/Documents/org/blog.org")
+  (defun-open-conf "todo"  "~/Documents/org/todo.org")
+  (defun-open-conf "note"  "~/Documents/org/note.org")
+  (defun-open-conf "index" "~/Documents/org/roam/index.org")
+#+end_src
+
+
+#+begin_src emacs-lisp
+  ;; (set-register ?b (cons 'file "~/Documents/org/blog.org"))
+  ;; (set-register ?t (cons 'file "~/Documents/org/todo.org"))
+  ;; (set-register ?n (cons 'file "~/Documents/org/note.org"))
+  ;; (set-register ?r (cons 'file "~/Documents/org/roam/index.org"))
 #+end_src
 ** Org bullets
 #+begin_src emacs-lisp
