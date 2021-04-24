@@ -958,9 +958,10 @@ set fish_pager_color_prefix white --bold --underline
 set fish_pager_color_progress brwhite --background=cyan
 #+end_src
 
-asdf setup
+setup path
 #+begin_src conf :tangle (if (eq system-type 'darwin) "~/.config/fish/config.fish" "no") :mkdirp "yes"
 source /usr/local/opt/asdf/asdf.fish
+set PATH $PATH ~/.cargo/bin
 #+end_src
 
 #+begin_src conf :tangle (if (eq system-type 'gnu/linux)  "~/.config/fish/config.fish" "no") :mkdirp "yes"
@@ -1318,7 +1319,7 @@ set-window-option -g window-status-bell-style fg=white,bg=red #base2, red
   set $up k
   set $right l
   # Your preferred terminal emulator
-  set $term alacritty
+  set $term zellij
   # Your preferred application launcher
   # Note: pass the final command to swaymsg so that the resulting window can be opened
   # on the original workspace that the command was run on.
