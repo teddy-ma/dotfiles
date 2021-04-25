@@ -188,7 +188,6 @@ Turn off the blinking cursor
 #+begin_src emacs-lisp
   (setq frame-resize-pixelwise t)
 #+end_src
-
 ** Common packages
 *** Helpful
 #+begin_src emacs-lisp
@@ -274,6 +273,11 @@ Place minibuffer at the top of the current frame
        '((top . 10)
          (width . 0.7)
          (left . 0.5)))))
+#+end_src
+** Posframe
+#+begin_src emacs-lisp
+  (use-package posframe
+    :ensure t)
 #+end_src
 ** Transpose frame
 #+begin_src emacs-lisp
@@ -1797,19 +1801,7 @@ Interactive agenda in the console https://github.com/rougier/agenda
 
 #+end_src
 * Extras
-** Writing
-=writegood-mode= highlights bad word choices and has functions for calculating readability.
-
-#+begin_src emacs-lisp
-  (use-package writegood-mode
-    :ensure t
-    :bind ("C-c g" . writegood-mode)
-    :config
-    (add-to-list 'writegood-weasel-words "actionable"))
-
-  (abbrev-mode t)
-  ;; ~/.emacs.d/abbrev_defs
-#+end_src
+** Writing                                                      :@dependent:
 
 need aspell to ispell (brew install aspell)
 #+begin_src emacs-lisp
@@ -1833,11 +1825,7 @@ Proselint is an external program, install it with =pip install proselint= for th
 #+end_src
 
 ** Pinyin                                                       :@dependent:
-
 #+begin_src emacs-lisp
-  (use-package posframe
-    :ensure t)
-
   (use-package pyim
     :ensure t
     :demand t
@@ -1859,8 +1847,7 @@ Proselint is an external program, install it with =pip install proselint= for th
     (setq pyim-page-length 5)
 
     :bind
-    (("M-j" . pyim-convert-string-at-point)
-     ("C-;" . pyim-delete-word-from-personal-buffer)))
+    (("M-j" . pyim-convert-string-at-point)))
 #+end_src
 ** PlantUML                                                     :@dependent:
 need plantuml (brew install plantuml)
