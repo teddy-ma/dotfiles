@@ -6,6 +6,7 @@
 #+STARTUP: nohideblocks
 #+SETUPFILE: http://www.songofcode.com/socss/org.setup
 
+
 * Setup
 ** Make it easy to edit and reload this file                       :@script:
 
@@ -630,7 +631,19 @@ like buffer narrow but in other buffer
     )
 #+end_src
 ** Magnifying mode
+
+hello
 #+begin_src emacs-lisp
+  (defun magnifying-current-line ()
+    (setq magnifying-overlay (make-overlay (line-beginning-position) (line-end-position)))
+    (overlay-put magnifying-overlay 'font-lock-face '(:height 2.5)))
+
+  (defun magnifying-delete-line ()
+    (interactive)
+
+    (setq magnifying-overlay (make-overlay (line-beginning-position) (line-end-position)))
+    (delete-overlay magnifying-overlay))
+
   (define-minor-mode magnifying-mode
     "Toggles global magnifying-mode."
     nil   ; Initial value, nil for disabled
@@ -638,9 +651,18 @@ like buffer narrow but in other buffer
     :group 'magnifying
     :lighter " magnifying"
     :keymap
-    (list (cons (kbd "C-c t") (lambda ()
-                                (interactive)
-                                (message "magnifying-mode key binding used!"))))
+    (list
+     (cons (kbd "C-c t") (lambda ()
+                           (interactive)
+                           (magnifying-current-line))
+           )
+
+     (cons (kbd "C-c m") (lambda ()
+                           (interactive)
+                           (magnifying-delete-line))
+           )
+
+     )
 
     (if magnifying-mode
         (message "magnifying-mode activated!")
