@@ -6,7 +6,6 @@
 #+STARTUP: nohideblocks
 #+SETUPFILE: http://www.songofcode.com/socss/org.setup
 
-
 * Setup
 ** Make it easy to edit and reload this file                       :@script:
 
@@ -630,8 +629,7 @@ like buffer narrow but in other buffer
     (global-diff-hl-mode)
     )
 #+end_src
-** Magnifying mode
-
+** Magnifying mode                                                 :@script:
 hello
 #+begin_src emacs-lisp
   (defun magnifying-current-line ()
@@ -639,10 +637,8 @@ hello
     (overlay-put magnifying-overlay 'font-lock-face '(:height 2.5)))
 
   (defun magnifying-delete-line ()
-    (interactive)
-
-    (setq magnifying-overlay (make-overlay (line-beginning-position) (line-end-position)))
-    (delete-overlay magnifying-overlay))
+    (dolist (o (overlays-in  (line-beginning-position) (line-end-position)))
+      (delete-overlay o)))
 
   (define-minor-mode magnifying-mode
     "Toggles global magnifying-mode."
@@ -654,14 +650,11 @@ hello
     (list
      (cons (kbd "C-c t") (lambda ()
                            (interactive)
-                           (magnifying-current-line))
-           )
+                           (magnifying-current-line)))
 
      (cons (kbd "C-c m") (lambda ()
                            (interactive)
-                           (magnifying-delete-line))
-           )
-
+                           (magnifying-delete-line)))
      )
 
     (if magnifying-mode
