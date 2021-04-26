@@ -927,7 +927,7 @@ Setup scripts
   fisher install franciscolourenco/done
 #+end_src
 
-color setting
+Color setting
 #+begin_src conf :tangle  ~/.config/fish/config.fish :mkdirp "yes"
 set TERM "xterm-256color"
 
@@ -958,17 +958,23 @@ set fish_pager_color_prefix white --bold --underline
 set fish_pager_color_progress brwhite --background=cyan
 #+end_src
 
-setup path
+Path and source (macOS)
 #+begin_src conf :tangle (if (eq system-type 'darwin) "~/.config/fish/config.fish" "no") :mkdirp "yes"
 source /usr/local/opt/asdf/asdf.fish
 set PATH $PATH ~/.cargo/bin
 #+end_src
 
+Path and source (Linux)
 #+begin_src conf :tangle (if (eq system-type 'gnu/linux)  "~/.config/fish/config.fish" "no") :mkdirp "yes"
 source /opt/asdf-vm/asdf.fish
 #+end_src
 
-starship setup
+Default editor
+#+begin_src conf :tangle  ~/.config/fish/config.fish :mkdirp "yes"
+export EDITOR=nvim
+#+end_src
+
+Starship setup
 #+begin_src conf :tangle  ~/.config/fish/config.fish :mkdirp "yes"
 starship init fish | source
 #+end_src
