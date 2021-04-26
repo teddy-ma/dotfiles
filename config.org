@@ -629,6 +629,27 @@ like buffer narrow but in other buffer
     (global-diff-hl-mode)
     )
 #+end_src
+** Magnifying mode
+#+begin_src emacs-lisp
+  (define-minor-mode magnifying-mode
+    "Toggles global magnifying-mode."
+    nil   ; Initial value, nil for disabled
+    :global t
+    :group 'magnifying
+    :lighter " magnifying"
+    :keymap
+    (list (cons (kbd "C-c t") (lambda ()
+                                (interactive)
+                                (message "magnifying-mode key binding used!"))))
+
+    (if magnifying-mode
+        (message "magnifying-mode activated!")
+      (message "magnifying-mode deactivated!")))
+
+  (add-hook 'magnifying-mode-hook (lambda () (message "magnifying hook was executed!")))
+  (add-hook 'magnifying-mode-on-hook (lambda () (message "magnifying turned on!")))
+  (add-hook 'magnifying-mode-off-hook (lambda () (message "magnifying turned off!")))
+#+end_src
 * Appearance
 ** Font                                                            :@script:
 It works fine with windows and org table in Chinese
