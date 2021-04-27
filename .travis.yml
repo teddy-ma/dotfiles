@@ -11,8 +11,7 @@ install:
 script:
   - $EMACS --batch -l build-gh-pages.el
   - mv config.html index.html
-  - ls
-  - rm -rf .packages/ && rm .mc-lists.el && rm -v !("index.html"|"org.css"|"mini.css"|"bootstrap.css")
+  - rm -rf .packages/ && rm .mc-lists.el && rm -v !("index.html"|"dotfiles.html")
 
 deploy:
   provider: pages
