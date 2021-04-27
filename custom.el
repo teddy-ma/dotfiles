@@ -19,6 +19,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 5.0))))
- '(org-block ((t (:background nil))))
- '(org-block-begin-line ((t (:underline nil :foreground "#60a83d" :background nil))))
- '(org-block-end-line ((t (:overline nil :foreground nil :background nil)))))
+
+)

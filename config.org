@@ -246,12 +246,10 @@ Suggest next keys to me based on currently entered key combination.
     (if (file-exists-p emacs-banner)
         (setq dashboard-startup-banner emacs-banner))
 
-
     (setq dashboard-items '((recents  . 5)
                             (bookmarks . 5)
                             (projects . 5)
-                            (agenda . 5)
-                            )))
+                            (agenda . 5))))
 
 #+end_src
 ** Winner mode
@@ -915,19 +913,6 @@ toggle theme (dark and light)
     (color-theme-sanityinc-tomorrow-eighties))
 #+end_src
 
-fix org block style https://stackoverflow.com/questions/44811679/orgmode-change-code-block-background-color
-
-#+begin_src emacs-lisp
-  (custom-set-faces
-   '(org-block-begin-line
-     ((t (:underline nil :foreground "#60a83d" :background nil))))
-   '(org-block-end-line
-     ((t (:overline nil :foreground nil :background nil))))
-
-   '(org-block ((t (:background nil))))
-   )
-#+end_src
-
 custom hl-line and mode-line bg color
 #+begin_src emacs-lisp
   ;; (set-face-background 'hl-line "midnight blue")
@@ -937,8 +922,7 @@ custom hl-line and mode-line bg color
 #+end_src
 
 ** Transparency
-Not work when macOS FullScreen
-
+Only work with windowed emacs on macOS
 #+begin_src emacs-lisp
   (defun increase-transparency ()
     "Increase Transparency"
@@ -1577,7 +1561,9 @@ https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf
   (use-package org
     :ensure t
     :diminish org-indent-mode
-    :hook (org-mode . teddy-ma/org-font-setup)
+    :hook
+    (org-mode . teddy-ma/org-font-setup)
+    (org-mode . teddy-ma/org-block-setup)
     :config
     (setq org-log-done 'time)
     (setq org-log-into-drawer t)
@@ -1604,7 +1590,7 @@ https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf
   ;; (setq-default prettify-symbols-alist '(("#+BEGIN_SRC" . "»") ("#+END_SRC" . "«")("#+begin_src" . "»") ("#+end_src" . "«") ("lambda"  . "λ") ("->" . "→") ("->>" . "↠")))
 #+end_src
 ** Custom face
-set fixed pich font for org
+Set fixed pitch font for org (conflict with Chinese table)
 #+begin_src emacs-lisp
   ;; conflict with chinese table in org
   (defun teddy-ma/org-font-setup ()
@@ -1625,6 +1611,16 @@ Completed tasks will be pierced through visually to intensify the sense of achie
   ;; (set-face-attribute 'org-headline-done nil
   ;;                     :strike-through t
   ;;                     :foreground "light gray")
+#+end_src
+
+Custom org block style
+#+begin_src emacs-lisp
+  (defun teddy-ma/org-block-setup ()
+    (let ((background-color (face-attribute 'default :background)))
+      (set-face-attribute 'org-block-begin-line nil :foreground background-color :background nil)
+      (set-face-attribute 'org-block-end-line nil :foreground background-color :background nil)
+      (set-face-attribute 'org-block nil :background background-color)))
+  ;;(set-face-attribute 'org-level-2 nil :height 1.3 :background "#60a83d")
 #+end_src
 
 ** Easy open common files                                          :@script:
