@@ -296,6 +296,11 @@ Place minibuffer at the top of the current frame
     (setq uniquify-after-kill-buffer-p t)
     (setq uniquify-ignore-buffers-re "^\\*"))
 #+end_src
+** Center window
+#+begin_src emacs-lisp
+  (use-package centered-window
+    :ensure t)
+  #+end_src
 * Edit
 ** Basics
 *** CRUX
@@ -349,7 +354,7 @@ I *never* want whitespace at the end of lines. Remove it on save.
 *** Tabs and indent
 #+begin_src emacs-lisp
   (setq-default indent-tabs-mode nil)
-  (setq-default indicate-empty-lines t)
+  (setq-default indicate-empty-lines nil)
 #+end_src
 
 Don't count two spaces after a period as the end of a sentence.
@@ -1580,6 +1585,7 @@ https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf
           '((auto-mode . emacs)
             ("\\.x?html?\\'" . "Chromium %s")))
     (setq org-ellipsis " ▾")
+    (centered-window-mode t)
     (add-hook 'org-mode-hook (lambda ()
                                "Beautify Org Checkbox Symbol"
                                (push '("[ ]" . "☐" ) prettify-symbols-alist)
@@ -1659,17 +1665,6 @@ Custom org block style
    (use-package org-bullets
      :ensure t
      :hook (org-mode . org-bullets-mode))
-#+end_src
-** Center org buffers
-#+begin_src emacs-lisp
-  (defun teddy-ma/org-mode-visual-fill ()
-    (setq visual-fill-column-width 120
-          visual-fill-column-center-text t)
-    (visual-fill-column-mode 1))
-
-  (use-package visual-fill-column
-    :ensure t
-    :hook (org-mode . teddy-ma/org-mode-visual-fill))
 #+end_src
 ** Custom todo stages
 #+begin_src emacs-lisp
