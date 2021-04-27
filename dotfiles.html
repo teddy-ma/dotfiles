@@ -1,0 +1,3192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-04-27 Tue 08:27 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>dotfile</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Travis CI User" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">dotfile</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org63f7fdd">1. README</a></li>
+<li><a href="#orge7a9e93">2. Git</a>
+<ul>
+<li><a href="#orgccf6b5a">2.1. basic</a></li>
+<li><a href="#org31d6c72">2.2. global ignore</a></li>
+<li><a href="#org230cc69">2.3. git message</a></li>
+<li><a href="#orgc103818">2.4. git diff</a></li>
+</ul>
+</li>
+<li><a href="#org8c519f1">3. homebrew</a></li>
+<li><a href="#org9fb7cc1">4. Neovim</a></li>
+<li><a href="#org8b7986e">5. psql</a>
+<ul>
+<li><a href="#org1427155">5.1. cli</a></li>
+<li><a href="#org9c49f67">5.2. rc</a></li>
+</ul>
+</li>
+<li><a href="#org7e9676e">6. shell</a>
+<ul>
+<li><a href="#org49c171c">6.1. fish</a></li>
+<li><a href="#org6aed633">6.2. starship</a></li>
+<li><a href="#org4d50f76">6.3. welcome memssage</a></li>
+<li><a href="#orgfdb52e6">6.4. alias</a></li>
+</ul>
+</li>
+<li><a href="#org7dbbcf3">7. Xresources</a>
+<ul>
+<li><a href="#orgacc8e41">7.1. 屏幕设置</a></li>
+<li><a href="#org356a268">7.2. XTerm 设置</a></li>
+<li><a href="#org238516b">7.3. 颜色设置</a></li>
+<li><a href="#org90f22a9">7.4. URxvt 设置</a></li>
+</ul>
+</li>
+<li><a href="#org937c2f2">8. tmux</a>
+<ul>
+<li><a href="#orge2ca68b">8.1. basic</a></li>
+<li><a href="#org2d2a63a">8.2. local</a></li>
+</ul>
+</li>
+<li><a href="#org50c146c">9. wayland</a></li>
+<li><a href="#orgcda004a">10. hammerspoon</a>
+<ul>
+<li><a href="#orgbada5db">10.1. init</a></li>
+<li><a href="#orgdb235cf">10.2. app</a></li>
+<li><a href="#org31c991f">10.3. config</a></li>
+<li><a href="#orgc6697cd">10.4. key</a></li>
+<li><a href="#org037f861">10.5. layout</a></li>
+<li><a href="#org0f4b42a">10.6. react</a></li>
+<li><a href="#org74b39df">10.7. screen</a></li>
+<li><a href="#orgd3ab904">10.8. window</a></li>
+<li><a href="#org1c004db">10.9. Dashboard</a></li>
+<li><a href="#orgbfa6836">10.10. Spoons</a></li>
+</ul>
+</li>
+<li><a href="#org2838d19">11. Misc</a>
+<ul>
+<li><a href="#org8dc7f1b">11.1. pyim</a></li>
+<li><a href="#org928afae">11.2. Snippets</a></li>
+<li><a href="#org0ae8105">11.3. bat</a></li>
+<li><a href="#org63b51b3">11.4. gita</a></li>
+<li><a href="#org08e8138">11.5. wtfutil</a></li>
+<li><a href="#org2d300a1">11.6. Xmodmap</a></li>
+</ul>
+</li>
+<li><a href="#orga77137f">12. Server</a>
+<ul>
+<li><a href="#orgd028c9e">12.1. ownCloud</a></li>
+<li><a href="#orgdb9f843">12.2. gogs</a></li>
+<li><a href="#org0733568">12.3. openwrt</a></li>
+<li><a href="#org004199a">12.4. simple file server</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+我的 (Literate) Dotfiles
+</p>
+
+<div id="outline-container-org63f7fdd" class="outline-2">
+<h2 id="org63f7fdd"><span class="section-number-2">1</span> README</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+生成 README.md
+</p>
+
+<div class="org-src-container">
+<pre class="src src-markdown"># Dotfiles
+[![Build Status](https://www.travis-ci.com/teddy-ma/dotfiles.svg?branch=master)](https://www.travis-ci.com/teddy-ma/dotfiles)
+
+这是我的 `dotfiles`,  使用 Emacs 进行管理, 支持 macOS 与 Linux
+
+# Install
+
+完成下面所写的准备工作后，只要打开 Emacs, 等待配置完成，输入 `C-i` 打开配置 `dotfiles.org` 文件，
+使用 `C-c C-v t=` 就能生成各种 dotfiles 了。
+
+## macOS prepare
+
+macOS 主要依赖 [thoughtbot 的 laptop](https://github.com/thoughtbot/laptop) 脚本进行初始化，然后配合 ownCloud 上储存的私有配置文件完成配置。
+
+  ```shell
+  curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/mac
+  sh mac 2&gt;&amp;1 | tee ~/laptop.log
+
+  brew install fish owncloud
+
+  chsh -s /usr/local/bin/fish
+
+  git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d
+  ```
+
+## Linux prepare
+
+Linux 下只需要安装几个最基础的包
+
+  ```shell
+  sudo pacman -Syu git fish ttf-inconsolata ttf-arphic-uming fzf owncloud-client
+
+  git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d/
+  ```
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge7a9e93" class="outline-2">
+<h2 id="orge7a9e93"><span class="section-number-2">2</span> Git</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgccf6b5a" class="outline-3">
+<h3 id="orgccf6b5a"><span class="section-number-3">2.1</span> basic</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+基础配置
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">ln -s ~/ownCloud/Config/id_rsa ~/.ssh/id_rsa
+ln -s ~/ownCloud/Config/id_rsa.pub ~/.ssh/id_rsa.pub
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-conf">[<span class="org-type">include</span>]
+        <span class="org-variable-name">path</span> = ~/.config/git/gitconfig
+[<span class="org-type">push</span>]
+        <span class="org-variable-name">default</span> = simple
+[<span class="org-type">pull</span>]
+        <span class="org-variable-name">rebase</span> = false
+[<span class="org-type">core</span>]
+        <span class="org-variable-name">excludesfile</span> = ~/.gitignore_global
+[<span class="org-type">commit</span>]
+        <span class="org-variable-name">template</span> = ~/.gitmessage
+[<span class="org-type">protocol</span>]
+        <span class="org-variable-name">version</span> = 2
+[<span class="org-type">pager</span>]
+        <span class="org-variable-name">branch</span> = false
+[<span class="org-type">user</span>]
+        <span class="org-variable-name">name</span> = teddy
+        <span class="org-variable-name">email</span> = mlc880926@gmail.com
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org31d6c72" class="outline-3">
+<h3 id="org31d6c72"><span class="section-number-3">2.2</span> global ignore</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+全局的 ignore 配置
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf"><span class="org-comment-delimiter">#############################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">https://github.com/github/gitignore/blob/master/Global/Archives.gitignore #</span>
+<span class="org-comment-delimiter">#############################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">It's better to unpack these files and commit the raw source because</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">git has its own built in compression methods.</span>
+*.7z
+*.jar
+*.rar
+*.zip
+*.gz
+*.bzip
+*.bz2
+*.xz
+*.lzma
+*.cab
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">packing-only formats</span>
+*.iso
+*.tar
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">package management formats</span>
+*.dmg
+*.xpi
+*.gem
+*.egg
+*.deb
+*.rpm
+*.msi
+*.msm
+*.msp
+<span class="org-comment-delimiter">###########################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">https://github.com/github/gitignore/blob/master/Global/Cloud9.gitignore #</span>
+<span class="org-comment-delimiter">###########################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Cloud9 IDE - http://c9.io</span>
+.c9revisions
+.c9
+<span class="org-comment-delimiter">############################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">https://github.com/github/gitignore/blob/master/Global/CodeKit.gitignore #</span>
+<span class="org-comment-delimiter">############################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">General CodeKit files to ignore</span>
+config.codekit
+/min
+<span class="org-comment-delimiter">##########################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">https://github.com/github/gitignore/blob/master/Global/Emacs.gitignore #</span>
+<span class="org-comment-delimiter">##########################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">-*- mode: gitignore; -*-</span>
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Org-mode</span>
+.org-id-locations
+*_archive
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">flymake-mode</span>
+*_flymake.*
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">eshell files</span>
+/eshell/history
+/eshell/lastdir
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">elpa packages</span>
+/elpa/
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">reftex files</span>
+*.rel
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">AUCTeX auto folder</span>
+/auto/
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">cask packages</span>
+.cask/
+<span class="org-comment-delimiter">####################################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">https://github.com/github/gitignore/blob/master/Global/IPythonNotebook.gitignore #</span>
+<span class="org-comment-delimiter">####################################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Temporary data</span>
+.ipynb_checkpoints/
+<span class="org-comment-delimiter">##############################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore #</span>
+<span class="org-comment-delimiter">##############################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm</span>
+
+*.iml
+
+<span class="org-comment-delimiter">## </span><span class="org-comment">Directory-based project format:</span>
+.idea/
+<span class="org-comment-delimiter"># </span><span class="org-comment">if you remove the above rule, at least ignore the following:</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">User-specific stuff:</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">.idea/workspace.xml</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">.idea/tasks.xml</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">.idea/dictionaries</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Sensitive or high-churn files:</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">.idea/dataSources.ids</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">.idea/dataSources.xml</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">.idea/sqlDataSources.xml</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">.idea/dynamic.xml</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">.idea/uiDesigner.xml</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Gradle:</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">.idea/gradle.xml</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">.idea/libraries</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Mongo Explorer plugin:</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">.idea/mongoSettings.xml</span>
+
+<span class="org-comment-delimiter">## </span><span class="org-comment">File-based project format:</span>
+*.ipr
+*.iws
+
+<span class="org-comment-delimiter">## </span><span class="org-comment">Plugin-specific files:</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">IntelliJ</span>
+out/
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">mpeltonen/sbt-idea plugin</span>
+.idea_modules/
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">JIRA plugin</span>
+atlassian-ide-plugin.xml
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Crashlytics plugin (for Android Studio and IntelliJ)</span>
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+<span class="org-comment-delimiter">################################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">https://github.com/github/gitignore/blob/master/Global/LibreOffice.gitignore #</span>
+<span class="org-comment-delimiter">################################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">LibreOffice locks</span>
+.~lock.*<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter">##########################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">https://github.com/github/gitignore/blob/master/Global/Linux.gitignore #</span>
+<span class="org-comment-delimiter">##########################################################################</span>
+*~
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">KDE directory preferences</span>
+.directory
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Linux trash folder which might appear on any partition or disk</span>
+.Trash-*
+<span class="org-comment-delimiter">####################################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">https://github.com/github/gitignore/blob/master/Global/MicrosoftOffice.gitignore #</span>
+<span class="org-comment-delimiter">####################################################################################</span>
+*.tmp
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Word temporary</span>
+~$*.doc*
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Excel temporary</span>
+~$*.xls*
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Excel Backup File</span>
+*.xlk
+<span class="org-comment-delimiter">##############################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">https://github.com/github/gitignore/blob/master/Global/NotepadPP.gitignore #</span>
+<span class="org-comment-delimiter">##############################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Notepad++ backups #</span>
+*.bak
+<span class="org-comment-delimiter">########################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">https://github.com/github/gitignore/blob/master/Global/OSX.gitignore #</span>
+<span class="org-comment-delimiter">########################################################################</span>
+.DS_Store
+.AppleDouble
+.LSOverride
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Icon must end with two \r</span>
+Icon
+
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Thumbnails</span>
+._*
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Files that might appear on external disk</span>
+.Spotlight-V100
+.Trashes
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Directories potentially created on remote AFP share</span>
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+<span class="org-comment-delimiter">##########################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">https://github.com/github/gitignore/blob/master/Global/Redis.gitignore #</span>
+<span class="org-comment-delimiter">##########################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Ignore redis binary dump (dump.rdb) files</span>
+
+*.rdb
+<span class="org-comment-delimiter">################################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">https://github.com/github/gitignore/blob/master/Global/SublimeText.gitignore #</span>
+<span class="org-comment-delimiter">################################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">cache files for sublime text</span>
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">workspace files are user-specific</span>
+*.sublime-workspace
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">project files should be checked into the repository, unless a significant</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">proportion of contributors will probably not be using SublimeText</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">*.sublime-project</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">sftp configuration file</span>
+sftp-config.json
+<span class="org-comment-delimiter">#############################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">https://github.com/github/gitignore/blob/master/Global/TextMate.gitignore #</span>
+<span class="org-comment-delimiter">#############################################################################</span>
+*.tmproj
+*.tmproject
+tmtags
+<span class="org-comment-delimiter">########################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">https://github.com/github/gitignore/blob/master/Global/Vim.gitignore #</span>
+<span class="org-comment-delimiter">########################################################################</span>
+[<span class="org-type">._]*.s[a-w][a-z</span>]
+[<span class="org-type">._]s[a-w][a-z</span>]
+*.un~
+Session.vim
+.netrwhist
+*~
+<span class="org-comment-delimiter">############################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">https://github.com/github/gitignore/blob/master/Global/Windows.gitignore #</span>
+<span class="org-comment-delimiter">############################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Windows image file caches</span>
+Thumbs.db
+ehthumbs.db
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Folder config file</span>
+Desktop.ini
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Recycle Bin used on file shares</span>
+$RECYCLE.BIN/
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Windows Installer files</span>
+*.cab
+*.msi
+*.msm
+*.msp
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Windows shortcuts</span>
+*.lnk
+<span class="org-comment-delimiter">##########################################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">https://github.com/github/gitignore/blob/master/Global/Xcode.gitignore #</span>
+<span class="org-comment-delimiter">##########################################################################</span>
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.xcuserstate
+<span class="org-comment-delimiter">###################################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">EXCERPT https://gist.github.com/octocat/9257657 #</span>
+<span class="org-comment-delimiter">###################################################</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Compiled source #</span>
+<span class="org-comment-delimiter">###################</span>
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Logs and databases #</span>
+<span class="org-comment-delimiter">######################</span>
+*.sql
+*.sqlite
+*.log
+<span class="org-comment-delimiter">############</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">PERSONAL #</span>
+<span class="org-comment-delimiter">############</span>
+tmp/
+temp/
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Floobits</span>
+.floo
+.flooignore
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org230cc69" class="outline-3">
+<h3 id="org230cc69"><span class="section-number-3">2.3</span> git message</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+git 提交信息的格式模板
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf">Why:
+
+*
+
+This change addresses the need by:
+
+*
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">50-character subject line</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">72-character wrapped longer description.</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc103818" class="outline-3">
+<h3 id="orgc103818"><span class="section-number-3">2.4</span> git diff</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+<a href="https://github.com/dandavison/delta">https://github.com/dandavison/delta</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf">[<span class="org-type">core</span>]
+    <span class="org-variable-name">pager</span> = delta
+
+[<span class="org-type">interactive</span>]
+    <span class="org-variable-name">diffFilter</span> = delta --color-only
+
+[<span class="org-type">delta</span>]
+    <span class="org-variable-name">features</span> = line-numbers decorations
+    <span class="org-variable-name">whitespace-error-style</span> = 22 reverse
+
+[delta <span class="org-string">"decorations"</span>]
+    <span class="org-variable-name">commit-decoration-style</span> = bold yellow box ul
+    <span class="org-variable-name">file-style</span> = bold yellow ul
+    <span class="org-variable-name">file-decoration-style</span> = none
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8c519f1" class="outline-2">
+<h2 id="org8c519f1"><span class="section-number-2">3</span> homebrew</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+常用的软件都列在这里了
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf">tap <span class="org-string">"d12frosted/emacs-plus"</span>
+tap <span class="org-string">"homebrew/bundle"</span>
+tap <span class="org-string">"homebrew/cask"</span>
+tap <span class="org-string">"homebrew/cask-drivers"</span>
+tap <span class="org-string">"homebrew/cask-fonts"</span>
+tap <span class="org-string">"homebrew/core"</span>
+tap <span class="org-string">"homebrew/services"</span>
+tap <span class="org-string">"thoughtbot/formulae"</span>
+tap <span class="org-string">"universal-ctags/universal-ctags"</span>
+brew <span class="org-string">"openssl@1.1"</span>
+brew <span class="org-string">"asciinema"</span>
+brew <span class="org-string">"autojump"</span>
+brew <span class="org-string">"bat"</span>
+brew <span class="org-string">"clisp"</span>
+brew <span class="org-string">"cloc"</span>
+brew <span class="org-string">"cmake"</span>
+brew <span class="org-string">"coreutils"</span>
+brew <span class="org-string">"ctags"</span>, link: false
+brew <span class="org-string">"erlang"</span>
+brew <span class="org-string">"exa"</span>
+brew <span class="org-string">"ffmpeg"</span>
+brew <span class="org-string">"fish"</span>
+brew <span class="org-string">"fswatch"</span>
+brew <span class="org-string">"fx"</span>
+brew <span class="org-string">"fzy"</span>
+brew <span class="org-string">"fzf"</span>
+brew <span class="org-string">"geckodriver"</span>
+brew <span class="org-string">"gh"</span>
+brew <span class="org-string">"git"</span>
+brew <span class="org-string">"git-delta"</span>
+brew <span class="org-string">"git-quick-stats"</span>
+brew <span class="org-string">"openjdk"</span>
+brew <span class="org-string">"gradle"</span>
+brew <span class="org-string">"graphviz"</span>
+brew <span class="org-string">"gsl"</span>
+brew <span class="org-string">"htop"</span>
+brew <span class="org-string">"httpie"</span>
+brew <span class="org-string">"hub"</span>
+brew <span class="org-string">"iftop"</span>
+brew <span class="org-string">"imagemagick"</span>
+brew <span class="org-string">"jq"</span>
+brew <span class="org-string">"memcached"</span>
+brew <span class="org-string">"mysql"</span>, restart_service: true
+brew <span class="org-string">"ncdu"</span>
+brew <span class="org-string">"neofetch"</span>
+brew <span class="org-string">"neovim"</span>
+brew <span class="org-string">"onefetch"</span>
+brew <span class="org-string">"pandoc"</span>
+brew <span class="org-string">"percol"</span>
+brew <span class="org-string">"poppler"</span>
+brew <span class="org-string">"postgresql"</span>, restart_service: true
+brew <span class="org-string">"prettyping"</span>
+brew <span class="org-string">"pstree"</span>
+brew <span class="org-string">"reattach-to-user-namespace"</span>
+brew <span class="org-string">"redis"</span>, restart_service: true
+brew <span class="org-string">"ripgrep"</span>
+brew <span class="org-string">"rustup-init"</span>
+brew <span class="org-string">"sbcl"</span>
+brew <span class="org-string">"speedtest-cli"</span>
+brew <span class="org-string">"splint"</span>
+brew <span class="org-string">"stow"</span>
+brew <span class="org-string">"terminal-notifier"</span>
+brew <span class="org-string">"the_silver_searcher"</span>
+brew <span class="org-string">"tig"</span>
+brew <span class="org-string">"tldr"</span>
+brew <span class="org-string">"tmux"</span>
+brew <span class="org-string">"tree"</span>
+brew <span class="org-string">"typespeed"</span>
+brew <span class="org-string">"vim"</span>
+brew <span class="org-string">"w3m"</span>
+brew <span class="org-string">"watchman"</span>
+brew <span class="org-string">"wget"</span>
+brew <span class="org-string">"wtfutil"</span>
+brew <span class="org-string">"yarn"</span>
+brew <span class="org-string">"you-get"</span>
+brew <span class="org-string">"youtube-dl"</span>
+brew <span class="org-string">"zsh"</span>
+cask <span class="org-string">"balenaetcher"</span>
+cask <span class="org-string">"chromium"</span>
+cask <span class="org-string">"clashx"</span>
+cask <span class="org-string">"emacs"</span>
+cask <span class="org-string">"firefox"</span>
+cask <span class="org-string">"font-cascadia-code"</span>
+cask <span class="org-string">"font-hack-nerd-font"</span>
+cask <span class="org-string">"font-noto-sans-mono"</span>
+cask <span class="org-string">"font-source-code-pro"</span>
+cask <span class="org-string">"font-source-code-pro-for-powerline"</span>
+cask <span class="org-string">"gitup"</span>
+cask <span class="org-string">"google-chrome"</span>
+cask <span class="org-string">"gpg-suite"</span>
+cask <span class="org-string">"hammerspoon"</span>
+cask <span class="org-string">"iina"</span>
+cask <span class="org-string">"intellij-idea-ce"</span>
+cask <span class="org-string">"owncloud"</span>
+cask <span class="org-string">"slack"</span>
+cask <span class="org-string">"tableplus"</span>
+cask <span class="org-string">"telegram"</span>
+cask <span class="org-string">"visual-studio-code"</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org9fb7cc1" class="outline-2">
+<h2 id="org9fb7cc1"><span class="section-number-2">4</span> Neovim</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+不太用 vim, 只有最基本的配置
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf"><span class="org-string">" Douglas Black</span>
+<span class="org-string"><span class="org-type">"</span></span><span class="org-type"> Colors {{</span>{
+syntax enable           <span class="org-string">" enable syntax processing</span>
+<span class="org-string">"</span> }}}
+<span class="org-string"><span class="org-type">" Misc {{</span></span><span class="org-string">{</span>
+<span class="org-string">set ttyfast                     "</span> faster redraw
+<span class="org-variable-name">set backspace</span>=indent,eol,start
+<span class="org-string">" }}}</span>
+<span class="org-string"><span class="org-type">"</span></span><span class="org-type"> Spaces &amp; Tabs {{</span>{
+<span class="org-variable-name">set tabstop</span>=4           <span class="org-string">" 4 space tab</span>
+<span class="org-string">set expandtab           "</span> use spaces for tabs
+<span class="org-variable-name">set softtabstop</span>=4       <span class="org-string">" 4 space tab</span>
+<span class="org-string">set shiftwidth=4</span>
+<span class="org-string">set modelines=1</span>
+<span class="org-string">filetype indent on</span>
+<span class="org-string">filetype plugin on</span>
+<span class="org-string">set autoindent</span>
+<span class="org-string">"</span> }}}
+<span class="org-string"><span class="org-type">" UI Layout {{</span></span><span class="org-string">{</span>
+<span class="org-string">set number              "</span> show line numbers
+set showcmd             <span class="org-string">" show command in bottom bar</span>
+<span class="org-string">set nocursorline          "</span> highlight current line
+set wildmenu
+<span class="org-string">"set lazyredraw</span>
+<span class="org-string">set showmatch           "</span> higlight matching parenthesis
+<span class="org-string">" }}}</span>
+<span class="org-string"><span class="org-type">"</span></span><span class="org-type"> Searching {{</span>{
+set ignorecase          <span class="org-string">" ignore case when searching</span>
+<span class="org-string">set incsearch           "</span> search as characters are entered
+set hlsearch            <span class="org-string">" highlight all matches</span>
+<span class="org-string">"</span> }}}
+<span class="org-string"><span class="org-type">" Folding {{</span></span><span class="org-string">{</span>
+<span class="org-string">"</span>=== folding ===
+<span class="org-variable-name">set foldmethod</span>=indent   <span class="org-string">" fold based on indent level</span>
+<span class="org-string">set foldnestmax=10      "</span> max 10 depth
+set foldenable          <span class="org-string">" don't fold files by default on open</span>
+<span class="org-string">nnoremap &lt;space&gt; za</span>
+<span class="org-string">set foldlevelstart=10    "</span> start with fold level of 1
+<span class="org-string">" }}}</span>
+<span class="org-string"><span class="org-type">"</span></span><span class="org-type"> Line Shortcuts {{</span>{
+nnoremap j gj
+nnoremap k gk
+nnoremap B ^
+nnoremap E $
+nnoremap $ &lt;nop&gt;
+nnoremap ^ &lt;nop&gt;
+nnoremap gV `[v`]
+onoremap an :&lt;c-u&gt;call &lt;SID&gt;NextTextObject(<span class="org-string">'a'</span>, <span class="org-string">'f'</span>)&lt;cr&gt;
+xnoremap an :&lt;c-u&gt;call &lt;SID&gt;NextTextObject(<span class="org-string">'a'</span>, <span class="org-string">'f'</span>)&lt;cr&gt;
+onoremap in :&lt;c-u&gt;call &lt;SID&gt;NextTextObject(<span class="org-string">'i'</span>, <span class="org-string">'f'</span>)&lt;cr&gt;
+xnoremap in :&lt;c-u&gt;call &lt;SID&gt;NextTextObject(<span class="org-string">'i'</span>, <span class="org-string">'f'</span>)&lt;cr&gt;
+
+onoremap al :&lt;c-u&gt;call &lt;SID&gt;NextTextObject(<span class="org-string">'a'</span>, <span class="org-string">'F'</span>)&lt;cr&gt;
+xnoremap al :&lt;c-u&gt;call &lt;SID&gt;NextTextObject(<span class="org-string">'a'</span>, <span class="org-string">'F'</span>)&lt;cr&gt;
+onoremap il :&lt;c-u&gt;call &lt;SID&gt;NextTextObject(<span class="org-string">'i'</span>, <span class="org-string">'F'</span>)&lt;cr&gt;
+xnoremap il :&lt;c-u&gt;call &lt;SID&gt;NextTextObject(<span class="org-string">'i'</span>, <span class="org-string">'F'</span>)&lt;cr&gt;
+<span class="org-string">" }}}</span>
+<span class="org-string"><span class="org-type">"</span></span><span class="org-type"> Leader Shortcuts {{</span>{
+<span class="org-variable-name">let mapleader</span>=<span class="org-string">","</span>
+nnoremap &lt;leader&gt;m :silent make\|redraw!\|cw&lt;CR&gt;
+nnoremap &lt;leader&gt;w :NERDTree&lt;CR&gt;
+nnoremap &lt;leader&gt;u :GundoToggle&lt;CR&gt;
+nnoremap &lt;leader&gt;h :A&lt;CR&gt;
+nnoremap &lt;leader&gt;ev :vsp $MYVIMRC&lt;CR&gt;
+nnoremap &lt;leader&gt;ez :vsp ~/.zshrc&lt;CR&gt;
+nnoremap &lt;leader&gt;sv :source $MYVIMRC&lt;CR&gt;
+nnoremap &lt;leader&gt;l :call ToggleNumber()&lt;CR&gt;
+nnoremap &lt;leader&gt;&lt;space&gt; :noh&lt;CR&gt;
+nnoremap &lt;leader&gt;s :mksession&lt;CR&gt;
+nnoremap &lt;leader&gt;a :Ag
+nnoremap &lt;leader&gt;c :SyntasticCheck&lt;CR&gt;:Errors&lt;CR&gt;
+nnoremap &lt;leader&gt;1 :set number!&lt;CR&gt;
+nnoremap &lt;leader&gt;d :Make!
+nnoremap &lt;leader&gt;r :call RunTestFile()&lt;CR&gt;
+nnoremap &lt;leader&gt;g :call RunGoFile()&lt;CR&gt;
+vnoremap &lt;leader&gt;y <span class="org-string">"+y</span>
+<span class="org-string">vmap v &lt;Plug&gt;(expand_region_expand)</span>
+<span class="org-string">vmap &lt;C-v&gt; &lt;Plug&gt;(expand_region_shrink)</span>
+<span class="org-string">inoremap jk &lt;esc&gt;</span>
+<span class="org-string">"</span> }}}
+<span class="org-string"><span class="org-type">" Powerline {{</span></span><span class="org-string">{</span>
+<span class="org-string">"</span>set encoding=utf-8
+<span class="org-string">"python from powerline.vim import setup as powerline_setup</span>
+<span class="org-string">"</span>python powerline_setup()
+<span class="org-string">"python del powerline_setup</span>
+<span class="org-string">let g:airline#extensions#tabline#left_sep = ' '</span>
+<span class="org-string">let g:airline#extensions#tabline#left_alt_sep = '|'</span>
+<span class="org-string">let g:airline_left_sep = ''</span>
+<span class="org-string">let g:airline_left_alt_sep = ''</span>
+<span class="org-string">let g:airline_right_sep = ''</span>
+<span class="org-string">let g:airline_right_alt_sep = ''</span>
+<span class="org-string">set laststatus=2</span>
+<span class="org-string">"</span> }}}
+<span class="org-string"><span class="org-type">" CtrlP {{</span></span><span class="org-string">{</span>
+<span class="org-string">let g:ctrlp_match_window = 'bottom,order:ttb'</span>
+<span class="org-string">let g:ctrlp_switch_buffer = 0</span>
+<span class="org-string">let g:ctrlp_working_path_mode = 0</span>
+<span class="org-string">let g:ctrlp_custom_ignore = '\vbuild/|dist/|venv/|target/|\.(o|swp|pyc|egg)$'</span>
+<span class="org-string">"</span> }}}
+<span class="org-string"><span class="org-type">" NERDTree {{</span></span><span class="org-string">{</span>
+<span class="org-string">let NERDTreeIgnore = ['\.pyc$', 'build', 'venv', 'egg', 'egg-info/', 'dist', 'docs']</span>
+<span class="org-string">"</span> }}}
+<span class="org-string"><span class="org-type">" Syntastic {{</span></span><span class="org-string">{</span>
+<span class="org-string">let g:syntastic_python_flake8_args='--ignore=E501'</span>
+<span class="org-string">let g:syntastic_ignore_files = ['.java$']</span>
+<span class="org-string">"</span> }}}
+<span class="org-string"><span class="org-type">" Launch Config {{</span></span><span class="org-string">{</span>
+<span class="org-string">runtime! debian.vim</span>
+<span class="org-string">set nocompatible</span>
+<span class="org-string">"</span> }}}
+<span class="org-string"><span class="org-type">""</span></span><span class="org-type"> Tmux {{</span>{
+<span class="org-string">"if exists('$TMUX') "</span> allows cursor change in tmux mode
+<span class="org-string">"    let &amp;t_SI = "</span>\&lt;Esc&gt;Ptmux;\&lt;Esc&gt;\&lt;Esc&gt;]50;CursorShape=1\x7\&lt;Esc&gt;\\<span class="org-string">"</span>
+<span class="org-string">"</span>    let &amp;t_EI = <span class="org-string">"\&lt;Esc&gt;Ptmux;\&lt;Esc&gt;\&lt;Esc&gt;]50;CursorShape=0\x7\&lt;Esc&gt;\\"</span>
+<span class="org-string">"else</span>
+<span class="org-string">"</span>    let &amp;t_SI = <span class="org-string">"\&lt;Esc&gt;]50;CursorShape=1\x7"</span>
+<span class="org-string">"    let &amp;t_EI = "</span>\&lt;Esc&gt;]50;CursorShape=0\x7<span class="org-string">"</span>
+<span class="org-string">"</span>endif
+<span class="org-string">""</span> }}}
+<span class="org-string"><span class="org-type">" MacVim {{</span></span><span class="org-string">{</span>
+<span class="org-string">set guioptions-=r</span>
+<span class="org-string">set guioptions-=L</span>
+<span class="org-string">"</span> }}}
+<span class="org-string"><span class="org-type">" AutoGroups {{</span></span><span class="org-string">{</span>
+<span class="org-string">augroup configgroup</span>
+<span class="org-string">    autocmd!</span>
+<span class="org-string">    autocmd VimEnter * highlight clear SignColumn</span>
+<span class="org-string">    autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.rb :call &lt;SID&gt;StripTrailingWhitespaces()</span>
+<span class="org-string">    autocmd BufEnter *.cls setlocal filetype=java</span>
+<span class="org-string">    autocmd BufEnter *.zsh-theme setlocal filetype=zsh</span>
+<span class="org-string">    autocmd BufEnter Makefile setlocal noexpandtab</span>
+<span class="org-string">    autocmd BufEnter *.sh setlocal tabstop=2</span>
+<span class="org-string">    autocmd BufEnter *.sh setlocal shiftwidth=2</span>
+<span class="org-string">    autocmd BufEnter *.sh setlocal softtabstop=2</span>
+<span class="org-string">augroup END</span>
+<span class="org-string">"</span> }}}
+<span class="org-string"><span class="org-type">" Backups {{</span></span><span class="org-string">{</span>
+<span class="org-string">set backup</span>
+<span class="org-string">set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp</span>
+<span class="org-string">set backupskip=/tmp/*,/private/tmp/*</span>
+<span class="org-string">set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp</span>
+<span class="org-string">set writebackup</span>
+<span class="org-string">"</span> }}}
+<span class="org-string"><span class="org-type">" Custom Functions {{</span></span><span class="org-string">{</span>
+<span class="org-string">function! ToggleNumber()</span>
+<span class="org-string">    if(&amp;relativenumber == 1)</span>
+<span class="org-string">        set norelativenumber</span>
+<span class="org-string">        set number</span>
+<span class="org-string">    else</span>
+<span class="org-string">        set relativenumber</span>
+<span class="org-string">    endif</span>
+<span class="org-string">endfunc</span>
+
+<span class="org-string">function! RunTestFile()</span>
+<span class="org-string">    if(&amp;ft=='python')</span>
+<span class="org-string">        exec "</span>:!<span class="org-string">" . "</span>. venv/bin/activate; nosetests <span class="org-string">" .bufname('%') . "</span> --stop<span class="org-string">"</span>
+<span class="org-string">    endif</span>
+<span class="org-string">endfunction</span>
+
+<span class="org-string">function! RunGoFile()</span>
+<span class="org-string">    if(&amp;ft=='go')</span>
+<span class="org-string">        exec "</span>:new|0read ! go run <span class="org-string">" . bufname('%')</span>
+<span class="org-string">    endif</span>
+<span class="org-string">endfunction</span>
+
+<span class="org-string">function! RunTestsInFile()</span>
+<span class="org-string">    if(&amp;ft=='php')</span>
+<span class="org-string">        :execute "</span>!<span class="org-string">" . "</span>/Users/dblack/pear/bin/phpunit -d memory_limit=512M -c /usr/local/twilio/src/php/tests/config.xml --bootstrap /usr/local/twilio/src/php/tests/bootstrap.php <span class="org-string">" . bufname('%') . ' \| grep -v Configuration \| egrep -v "</span>^$<span class="org-string">" '</span>
+<span class="org-string">    elseif(&amp;ft=='go')</span>
+<span class="org-string">        exec "</span>:!gp test<span class="org-string">"</span>
+<span class="org-string">    elseif(&amp;ft=='python')</span>
+<span class="org-string">        exec "</span>:read !<span class="org-string">" . "</span>. venv/bin/activate; nosetests <span class="org-string">" . bufname('%') . "</span> --nocapture<span class="org-string">"</span>
+<span class="org-string">    endif</span>
+<span class="org-string">endfunction</span>
+
+<span class="org-string">"</span> strips trailing whitespace at the end of files. this
+<span class="org-string">" is called on buffer write in the autogroup above.</span>
+<span class="org-string">function! &lt;SID&gt;StripTrailingWhitespaces()</span>
+<span class="org-string">    "</span> save last search &amp; cursor position
+    <span class="org-variable-name">let _s</span>=@/
+    <span class="org-variable-name">let l</span> = line(<span class="org-string">"."</span>)
+    <span class="org-variable-name">let c</span> = col(<span class="org-string">"."</span>)
+    %s/\s\+$//e
+    <span class="org-variable-name">let @/</span>=_s
+    call cursor(l, c)
+endfunction
+
+function! &lt;SID&gt;CleanFile()
+    <span class="org-string">" Preparation: save last search, and cursor position.</span>
+<span class="org-string">    let _s=@/</span>
+<span class="org-string">    let l = line("</span>.<span class="org-string">")</span>
+<span class="org-string">    let c = col("</span>.<span class="org-string">")</span>
+<span class="org-string">    "</span> Do the business:
+    %!git stripspace
+    <span class="org-string">" Clean up: restore previous search history, and cursor position</span>
+<span class="org-string">    let @/=_s</span>
+<span class="org-string">    call cursor(l, c)</span>
+<span class="org-string">endfunction</span>
+
+<span class="org-string">function! s:NextTextObject(motion, dir)</span>
+<span class="org-string">  let c = nr2char(getchar())</span>
+
+<span class="org-string">  if c ==# "</span>b<span class="org-string">"</span>
+<span class="org-string">      let c = "</span>(<span class="org-string">"</span>
+<span class="org-string">  elseif c ==# "</span>B<span class="org-string">"</span>
+<span class="org-string">      let c = "</span>{<span class="org-string">"</span>
+<span class="org-string">  elseif c ==# "</span>r<span class="org-string">"</span>
+<span class="org-string">      let c = "</span>[<span class="org-string">"</span>
+<span class="org-string">  endif</span>
+
+<span class="org-string">  exe "</span>normal! <span class="org-string">".a:dir.c."</span>v<span class="org-string">".a:motion.c</span>
+<span class="org-string">endfunction</span>
+<span class="org-string">"</span> }}}
+
+<span class="org-string">" vim:foldmethod=marker:foldlevel=0</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8b7986e" class="outline-2">
+<h2 id="org8b7986e"><span class="section-number-2">5</span> psql</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+postgresql 数据库客户端的配置
+</p>
+</div>
+
+<div id="outline-container-org1427155" class="outline-3">
+<h3 id="org1427155"><span class="section-number-3">5.1</span> cli</h3>
+<div class="outline-text-3" id="text-5-1">
+<div class="org-src-container">
+<pre class="src src-conf"><span class="org-comment-delimiter"># </span><span class="org-comment">vi: ft=dosini</span>
+[<span class="org-type">main</span>]
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Enables context sensitive auto-completion. If this is disabled the all</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">possible completions will be listed.</span>
+<span class="org-variable-name">smart_completion</span> = True
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Display the completions in several columns. (More completions will be</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">visible.)</span>
+<span class="org-variable-name">wider_completion_menu</span> = False
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Multi-line mode allows breaking up the sql statements into multiple lines. If</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">this is set to True, then the end of the statements must have a semi-colon.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">If this is set to False then sql statements can't be split into multiple</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">lines. End of line (return) is considered as the end of the statement.</span>
+<span class="org-variable-name">multi_line</span> = False
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">If multi_line_mode is set to "psql", in multi-line mode, [Enter] will execute</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">the current input if the input ends in a semicolon.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">If multi_line_mode is set to "safe", in multi-line mode, [Enter] will always</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">insert a newline, and [Esc] [Enter] or [Alt]-[Enter] must be used to execute</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">a command.</span>
+<span class="org-variable-name">multi_line_mode</span> = psql
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Enables expand mode, which is similar to `\x` in psql.</span>
+<span class="org-variable-name">expand</span> = False
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Enables auto expand mode, which is similar to `\x auto` in psql.</span>
+<span class="org-variable-name">auto_expand</span> = False
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">If set to True, table suggestions will include a table alias</span>
+<span class="org-variable-name">generate_aliases</span> = False
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">log_file location.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">In Unix/Linux: ~/.config/pgcli/log</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">In Windows: %USERPROFILE%\AppData\Local\dbcli\pgcli\log</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">%USERPROFILE% is typically C:\Users\{username}</span>
+<span class="org-variable-name">log_file</span> = default
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">keyword casing preference. Possible values "lower", "upper", "auto"</span>
+<span class="org-variable-name">keyword_casing</span> = auto
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">casing_file location.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">In Unix/Linux: ~/.config/pgcli/casing</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">In Windows: %USERPROFILE%\AppData\Local\dbcli\pgcli\casing</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">%USERPROFILE% is typically C:\Users\{username}</span>
+<span class="org-variable-name">casing_file</span> = default
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">If generate_casing_file is set to True and there is no file in the above</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">location, one will be generated based on usage in SQL/PLPGSQL functions.</span>
+<span class="org-variable-name">generate_casing_file</span> = False
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Casing of column headers based on the casing_file described above</span>
+<span class="org-variable-name">case_column_headers</span> = True
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">history_file location.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">In Unix/Linux: ~/.config/pgcli/history</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">In Windows: %USERPROFILE%\AppData\Local\dbcli\pgcli\history</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">%USERPROFILE% is typically C:\Users\{username}</span>
+<span class="org-variable-name">history_file</span> = default
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Default log level. Possible values: "CRITICAL", "ERROR", "WARNING", "INFO"</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">and "DEBUG". "NONE" disables logging.</span>
+<span class="org-variable-name">log_level</span> = INFO
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Order of columns when expanding * to column list</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Possible values: "table_order" and "alphabetic"</span>
+<span class="org-variable-name">asterisk_column_order</span> = table_order
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Whether to qualify with table alias/name when suggesting columns</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Possible values: "always", never" and "if_more_than_one_table"</span>
+<span class="org-variable-name">qualify_columns</span> = if_more_than_one_table
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">When no schema is entered, only suggest objects in search_path</span>
+<span class="org-variable-name">search_path_filter</span> = False
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Default pager.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">By default 'PAGER' environment variable is used</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">pager = less -SRXF</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Timing of sql statments and table rendering.</span>
+<span class="org-variable-name">timing</span> = True
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Table format. Possible values: psql, plain, simple, grid, fancy_grid, pipe,</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">ascii, double, github, orgtbl, rst, mediawiki, html, latex, latex_booktabs,</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">textile, moinmoin, jira, vertical, tsv, csv.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Recommended: psql, fancy_grid and grid.</span>
+<span class="org-variable-name">table_format</span> = psql
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Syntax Style. Possible values: manni, igor, xcode, vim, autumn, vs, rrt,</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">native, perldoc, borland, tango, emacs, friendly, monokai, paraiso-dark,</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">colorful, murphy, bw, pastie, paraiso-light, trac, default, fruity</span>
+<span class="org-variable-name">syntax_style</span> = default
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Keybindings:</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">When Vi mode is enabled you can use modal editing features offered by Vi in the REPL.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">When Vi mode is disabled emacs keybindings such as Ctrl-A for home and Ctrl-E</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">for end are available in the REPL.</span>
+<span class="org-variable-name">vi</span> = False
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Error handling</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">When one of multiple SQL statements causes an error, choose to either</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">continue executing the remaining statements, or stopping</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Possible values "STOP" or "RESUME"</span>
+<span class="org-variable-name">on_error</span> = STOP
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Set threshold for row limit prompt. Use 0 to disable prompt.</span>
+<span class="org-variable-name">row_limit</span> = 1000
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Skip intro on startup and goodbye on exit</span>
+<span class="org-variable-name">less_chatty</span> = False
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Postgres prompt</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">\u - Username</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">\h - Hostname of the server</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">\d - Database name</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">\n - Newline</span>
+<span class="org-variable-name">prompt</span> = <span class="org-string">'\u@\h:\d&gt; '</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Number of lines to reserve for the suggestion menu</span>
+<span class="org-variable-name">min_num_menu_lines</span> = 4
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Character used to left pad multi-line queries to match the prompt size.</span>
+<span class="org-variable-name">multiline_continuation_char</span> = <span class="org-string">''</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">The string used in place of a null value.</span>
+<span class="org-variable-name">null_string</span> = <span class="org-string">'&lt;null&gt;'</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Custom colors for the completion menu, toolbar, etc.</span>
+[<span class="org-type">colors</span>]
+<span class="org-variable-name">Token.Menu.Completions.Completion.Current</span> = <span class="org-string">'bg:#ffffff #000000'</span>
+<span class="org-variable-name">Token.Menu.Completions.Completion</span> = <span class="org-string">'bg:#008888 #ffffff'</span>
+<span class="org-variable-name">Token.Menu.Completions.Meta.Current</span> = <span class="org-string">'bg:#44aaaa #000000'</span>
+<span class="org-variable-name">Token.Menu.Completions.Meta</span> = <span class="org-string">'bg:#448888 #ffffff'</span>
+<span class="org-variable-name">Token.Menu.Completions.MultiColumnMeta</span> = <span class="org-string">'bg:#aaffff #000000'</span>
+<span class="org-variable-name">Token.Menu.Completions.ProgressButton</span> = <span class="org-string">'bg:#003333'</span>
+<span class="org-variable-name">Token.Menu.Completions.ProgressBar</span> = <span class="org-string">'bg:#00aaaa'</span>
+<span class="org-variable-name">Token.SelectedText</span> = <span class="org-string">'#ffffff bg:#6666aa'</span>
+<span class="org-variable-name">Token.SearchMatch</span> = <span class="org-string">'#ffffff bg:#4444aa'</span>
+<span class="org-variable-name">Token.SearchMatch.Current</span> = <span class="org-string">'#ffffff bg:#44aa44'</span>
+<span class="org-variable-name">Token.Toolbar</span> = <span class="org-string">'bg:#222222 #aaaaaa'</span>
+<span class="org-variable-name">Token.Toolbar.Off</span> = <span class="org-string">'bg:#222222 #888888'</span>
+<span class="org-variable-name">Token.Toolbar.On</span> = <span class="org-string">'bg:#222222 #ffffff'</span>
+<span class="org-variable-name">Token.Toolbar.Search</span> = <span class="org-string">'noinherit bold'</span>
+<span class="org-variable-name">Token.Toolbar.Search.Text</span> = <span class="org-string">'nobold'</span>
+<span class="org-variable-name">Token.Toolbar.System</span> = <span class="org-string">'noinherit bold'</span>
+<span class="org-variable-name">Token.Toolbar.Arg</span> = <span class="org-string">'noinherit bold'</span>
+<span class="org-variable-name">Token.Toolbar.Arg.Text</span> = <span class="org-string">'nobold'</span>
+<span class="org-variable-name">Token.Toolbar.Transaction.Valid</span> = <span class="org-string">'bg:#222222 #00ff5f bold'</span>
+<span class="org-variable-name">Token.Toolbar.Transaction.Failed</span> = <span class="org-string">'bg:#222222 #ff005f bold'</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Named queries are queries you can execute by name.</span>
+[<span class="org-type">named queries</span>]
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">DNS to call by -D option</span>
+[<span class="org-type">alias_dsn</span>]
+<span class="org-comment-delimiter"># </span><span class="org-comment">example_dsn = postgresql://[user[:password]@][netloc][:port][/dbname]</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Format for number representation</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">for decimal "d" - 12345678, ",d" - 12,345,678</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">for float "g" - 123456.78, ",g" - 123,456.78</span>
+[<span class="org-type">data_formats</span>]
+<span class="org-variable-name">decimal</span> = <span class="org-string">""</span>
+<span class="org-variable-name">float</span> = <span class="org-string">""</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org9c49f67" class="outline-3">
+<h3 id="org9c49f67"><span class="section-number-3">5.2</span> rc</h3>
+<div class="outline-text-3" id="text-5-2">
+<div class="org-src-container">
+<pre class="src src-conf">\set QUIET 1
+\timing
+\set ON_ERROR_ROLLBACK interactive
+\set VERBOSITY verbose
+\x auto
+\set PROMPT1 <span class="org-string">'%[%033[1m%]%M/%/%R%[%033[0m%]%# '</span>
+\set PROMPT2 <span class="org-string">''</span>
+\set HISTFILE ~/.psql_history- :DBNAME
+\set HISTCONTROL ignoredups
+\pset null [null]
+\unset QUIET
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7e9676e" class="outline-2">
+<h2 id="org7e9676e"><span class="section-number-2">6</span> shell</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-org49c171c" class="outline-3">
+<h3 id="org49c171c"><span class="section-number-3">6.1</span> fish</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+Setup scripts
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-builtin">echo</span> /usr/local/bin/fish | sudo tee -a /etc/shells <span class="org-comment-delimiter"># </span><span class="org-comment">macOS</span>
+chsh -s /usr/bin/fish <span class="org-comment-delimiter"># </span><span class="org-comment">Linux</span>
+
+curl -sL https://git.io/fisher | <span class="org-builtin">source</span>
+fisher install jethrokuan/fzf
+fisher install jethrokuan/z
+fisher install franciscolourenco/done
+</pre>
+</div>
+
+<p>
+Color setting
+</p>
+<div class="org-src-container">
+<pre class="src src-conf">set TERM <span class="org-string">"xterm-256color"</span>
+
+set fish_color_normal normal
+set fish_color_command 005fd7
+set fish_color_quote 999900
+set fish_color_redirection 00afff
+set fish_color_end 009900
+set fish_color_error ff0000
+set fish_color_param 00afff
+set fish_color_comment 990000
+<span class="org-variable-name">set fish_color_match --background</span>=brblue
+<span class="org-variable-name">set fish_color_selection white --bold --background</span>=brblack
+<span class="org-variable-name">set fish_color_search_match bryellow --background</span>=brblack
+set fish_color_history_current --bold
+set fish_color_operator 00a6b2
+set fish_color_escape 00a6b2
+set fish_color_cwd green
+set fish_color_cwd_root red
+set fish_color_valid_path --underline
+set fish_color_autosuggestion 555 brblack
+set fish_color_user brgreen
+set fish_color_host normal
+set fish_color_cancel -r
+set fish_pager_color_completion normal
+set fish_pager_color_description B3A06D yellow
+set fish_pager_color_prefix white --bold --underline
+<span class="org-variable-name">set fish_pager_color_progress brwhite --background</span>=cyan
+</pre>
+</div>
+
+<p>
+Path and source (macOS)
+</p>
+<div class="org-src-container">
+<pre class="src src-conf">source /usr/local/opt/asdf/asdf.fish
+set PATH $PATH ~/.cargo/bin
+</pre>
+</div>
+
+<p>
+Path and source (Linux)
+</p>
+<div class="org-src-container">
+<pre class="src src-conf">source /opt/asdf-vm/asdf.fish
+</pre>
+</div>
+
+<p>
+Default editor
+</p>
+<div class="org-src-container">
+<pre class="src src-conf"><span class="org-variable-name">export EDITOR</span>=nvim
+</pre>
+</div>
+
+<p>
+Starship setup
+</p>
+<div class="org-src-container">
+<pre class="src src-conf">starship init fish | source
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6aed633" class="outline-3">
+<h3 id="org6aed633"><span class="section-number-3">6.2</span> starship</h3>
+<div class="outline-text-3" id="text-6-2">
+<div class="org-src-container">
+<pre class="src src-toml">scan_timeout = 1000
+command_timeout = 1000
+
+# Disable the newline at the start of the prompt
+add_newline = true
+
+# Replace the "❯" symbol in the prompt with "➜"
+[character]                            # The name of the module we are configuring is "character"
+success_symbol = "[➜](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+
+[battery]
+full_symbol = "🔋"
+charging_symbol = "⚡️"
+discharging_symbol = "💀"
+
+[ruby]
+symbol = "🔺 "
+
+[git_status]
+conflicted = "🏳"
+ahead = "🏎💨"
+behind = "😰"
+diverged = "😵"
+untracked = "🤷‍"
+stashed = "📦"
+modified = "📝"
+staged = '[++\($count\)](green)'
+renamed = "👅"
+deleted = "🗑"
+
+[git_branch]
+symbol = "🌱 "
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4d50f76" class="outline-3">
+<h3 id="org4d50f76"><span class="section-number-3">6.3</span> welcome memssage</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+remove last login message by touch this dot file
+</p>
+<div class="org-src-container">
+<pre class="src src-conf">
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-keyword">function</span> <span class="org-function-name">fish_greeting</span>
+
+end
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgfdb52e6" class="outline-3">
+<h3 id="orgfdb52e6"><span class="section-number-3">6.4</span> alias</h3>
+<div class="outline-text-3" id="text-6-4">
+<p>
+fish shell 使用函数来实现 alias
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-keyword">function</span> <span class="org-function-name">cat</span>
+  bat $<span class="org-variable-name">argv</span>
+end
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-keyword">function</span> <span class="org-function-name">vim</span>
+  nvim $<span class="org-variable-name">argv</span>
+end
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-keyword">function</span> <span class="org-function-name">ls</span>
+  exa $<span class="org-variable-name">argv</span>
+end
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-keyword">function</span> <span class="org-function-name">gita</span>
+  python3 -m gita $<span class="org-variable-name">argv</span>
+end
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7dbbcf3" class="outline-2">
+<h2 id="org7dbbcf3"><span class="section-number-2">7</span> Xresources</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+<div id="outline-container-orgacc8e41" class="outline-3">
+<h3 id="orgacc8e41"><span class="section-number-3">7.1</span> 屏幕设置</h3>
+<div class="outline-text-3" id="text-7-1">
+<div class="org-src-container">
+<pre class="src src-conf">Xft.dpi:       96
+Xft.antialias: true
+Xft.hinting:   true
+Xft.rgba:      rgb
+Xft.autohint:  false
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org356a268" class="outline-3">
+<h3 id="org356a268"><span class="section-number-3">7.2</span> XTerm 设置</h3>
+<div class="outline-text-3" id="text-7-2">
+<div class="org-src-container">
+<pre class="src src-conf">XTerm*background:        <span class="org-comment-delimiter">#</span><span class="org-comment">222D31</span>
+XTerm*foreground:        <span class="org-comment-delimiter">#</span><span class="org-comment">d8d8d8</span>
+XTerm*pointerColor:      <span class="org-comment-delimiter">#</span><span class="org-comment">1ABB9B</span>
+XTerm*faceName:          Fixed
+XTerm*faceSize:          11
+XTerm*reverseVideo:      on
+XTerm*selectToClipboard: true
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org238516b" class="outline-3">
+<h3 id="org238516b"><span class="section-number-3">7.3</span> 颜色设置</h3>
+<div class="outline-text-3" id="text-7-3">
+<div class="org-src-container">
+<pre class="src src-conf">*background:                      <span class="org-comment-delimiter">#</span><span class="org-comment">222D31</span>
+*foreground:                      <span class="org-comment-delimiter">#</span><span class="org-comment">d8d8d8</span>
+*fading:                          8
+*fadeColor:                       black
+*cursorColor:                     <span class="org-comment-delimiter">#</span><span class="org-comment">1ABB9B</span>
+*pointerColorBackground:          <span class="org-comment-delimiter">#</span><span class="org-comment">2B2C2B</span>
+*pointerColorForeground:          <span class="org-comment-delimiter">#</span><span class="org-comment">16A085</span>
+
+!! black dark/light
+*color0:                          <span class="org-comment-delimiter">#</span><span class="org-comment">222D31</span>
+*color8:                          <span class="org-comment-delimiter">#</span><span class="org-comment">585858</span>
+
+!! red dark/light
+*color1:                          <span class="org-comment-delimiter">#</span><span class="org-comment">ab4642</span>
+*color9:                          <span class="org-comment-delimiter">#</span><span class="org-comment">ab4642</span>
+
+!! green dark/light
+*color2:                          <span class="org-comment-delimiter">#</span><span class="org-comment">7E807E</span>
+*color10:                         <span class="org-comment-delimiter">#</span><span class="org-comment">8D8F8D</span>
+
+!! yellow dark/light
+*color3:                          <span class="org-comment-delimiter">#</span><span class="org-comment">f7ca88</span>
+*color11:                         <span class="org-comment-delimiter">#</span><span class="org-comment">f7ca88</span>
+
+!! blue dark/light
+*color4:                          <span class="org-comment-delimiter">#</span><span class="org-comment">7cafc2</span>
+*color12:                         <span class="org-comment-delimiter">#</span><span class="org-comment">7cafc2</span>
+
+!! magenta dark/light
+*color5:                          <span class="org-comment-delimiter">#</span><span class="org-comment">ba8baf</span>
+*color13:                         <span class="org-comment-delimiter">#</span><span class="org-comment">ba8baf</span>
+
+!! cyan dark/light
+*color6:                          <span class="org-comment-delimiter">#</span><span class="org-comment">1ABB9B</span>
+*color14:                         <span class="org-comment-delimiter">#</span><span class="org-comment">1ABB9B</span>
+
+!! white dark/light
+*color7:                          <span class="org-comment-delimiter">#</span><span class="org-comment">d8d8d8</span>
+*color15:                         <span class="org-comment-delimiter">#</span><span class="org-comment">f8f8f8</span>
+
+Xcursor.theme:                    xcursor-breeze
+Xcursor.size:                     0
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org90f22a9" class="outline-3">
+<h3 id="org90f22a9"><span class="section-number-3">7.4</span> URxvt 设置</h3>
+<div class="outline-text-3" id="text-7-4">
+<div class="org-src-container">
+<pre class="src src-conf"><span class="org-variable-name">URxvt*font:                       xft:SauceCodePro Nerd Font Mono:pixelsize</span>=21:minspace=False, xft:DejaVu Sans:pixelsize=14, xft:Monaco:style=regular:pixelsize=13:antialias=true,hinting=true, xft:dejavu sans mono:pixelsize=13:antialias=true,hinting=true, xft:Twitter Color Emoji:pixelsize=14, xft:NotoEmoji Nerd Font Mono:pixelsize=14, xft:Symbola
+<span class="org-variable-name">URxvt*boldFont:                   xft:SauceCodePro Nerd Font Mono:pixelsize</span>=21:minspace=False, xft:DejaVu Sans:pixelsize=14, xft:Monaco:style=regular:pixelsize=13:antialias=true,hinting=true, xft:dejavu sans mono:pixelsize=13:antialias=true,hinting=true
+URxvt*letterSpace:                0
+! alternative font settings with <span class="org-string">'terminus'</span>:
+! URxvt.font:      -xos4-terminus-medium-r-normal--16-160-72-72-c-80-iso10646-1
+! URxvt.bold.font: -xos4-terminus-bold-r-normal--16-160-72-72-c-80-iso10646-1
+!! terminus names see end of file!
+
+URxvt.depth:                      32
+URxvt.background:                 [100]<span class="org-comment-delimiter">#</span><span class="org-comment">222D31</span>
+URxvt*scrollBar:                  false
+URxvt*mouseWheelScrollPage:       false
+URxvt*cursorBlink:                true
+URxvt*background:                 black
+URxvt*foreground:                 grey
+URxvt*saveLines:                  5000
+
+! for <span class="org-string">'fake'</span> transparency (without Compton) uncomment the following three lines
+! URxvt*inheritPixmap:            true
+! URxvt*transparent:              true
+! URxvt*shading:                  138
+
+! Normal copy-paste keybindings without perls
+URxvt.iso14755:                   false
+URxvt.keysym.Mod4-v:                 eval:paste_clipboard
+URxvt.keysym.Mod4-c:                 eval:selection_to_clipboard
+URxvt.keysym.Mod4-l:              command:\033c
+URxvt.keysym.Mod4-k:                    echo -ne <span class="org-string">'\\033c'</span>\n
+
+!Xterm escape codes, word by word movement
+URxvt.keysym.Control-Left:        \033[1;5D
+URxvt.keysym.Shift-Control-Left:  \033[1;6D
+URxvt.keysym.Control-Right:       \033[1;5C
+URxvt.keysym.Shift-Control-Right: \033[1;6C
+URxvt.keysym.Control-Up:          \033[1;5A
+URxvt.keysym.Shift-Control-Up:    \033[1;6A
+URxvt.keysym.Control-Down:        \033[1;5B
+URxvt.keysym.Shift-Control-Down:  \033[1;6B
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org937c2f2" class="outline-2">
+<h2 id="org937c2f2"><span class="section-number-2">8</span> tmux</h2>
+<div class="outline-text-2" id="text-8">
+</div>
+<div id="outline-container-orge2ca68b" class="outline-3">
+<h3 id="orge2ca68b"><span class="section-number-3">8.1</span> basic</h3>
+<div class="outline-text-3" id="text-8-1">
+<div class="org-src-container">
+<pre class="src src-conf"><span class="org-comment-delimiter"># </span><span class="org-comment">cat &lt;&lt; &#9658;_&#9668; &gt; /dev/null</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#19978;&#38754;&#36825;&#34892;&#21487;&#20197;&#29992;&#26469;&#26816;&#27979;&#29305;&#27530;&#23383;&#31526;&#33021;&#21542;&#22312;&#24403;&#21069;&#29615;&#22659;&#34987;&#26174;&#31034;</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">-- general -------------------------------------------------------------------</span>
+
+setw -g xterm-keys on
+
+set -sg repeat-time 600                   <span class="org-comment-delimiter"># </span><span class="org-comment">increase repeat timeout</span>
+
+set -g prefix2 C-a                        <span class="org-comment-delimiter"># </span><span class="org-comment">GNU-Screen compatible prefix</span>
+bind C-a send-prefix -2                   <span class="org-comment-delimiter"># </span><span class="org-comment">&#40664;&#35748;&#21069;&#32512;&#26159; c-a</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">edit configuration</span>
+bind e new-window -n <span class="org-string">'~/.tmux.conf'</span> <span class="org-string">'${EDITOR:-vim} ~/.tmux.conf &amp;&amp; tmux source ~/.tmux.conf &amp;&amp; tmux display "~/.tmux.conf sourced"'</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">see https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard</span>
+if <span class="org-string">'which -s reattach-to-user-namespace'</span> <span class="org-string">'set -g default-command "tmux rename-window initializing; tmux set -w automatic-rename; reattach-to-user-namespace $SHELL -l"'</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">-- display -------------------------------------------------------------------</span>
+
+set -g base-index 1         <span class="org-comment-delimiter"># </span><span class="org-comment">start windows numbering at 1</span>
+setw -g pane-base-index 1   <span class="org-comment-delimiter"># </span><span class="org-comment">make pane numbering consistent with windows</span>
+
+setw -g automatic-rename on <span class="org-comment-delimiter"># </span><span class="org-comment">rename window to reflect current program</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">renumber windows when a window is closed</span>
+set -g renumber-windows on
+
+set -g set-titles on                        <span class="org-comment-delimiter"># </span><span class="org-comment">set terminal title</span>
+set -g set-titles-string <span class="org-string">'#h &#10064; #S &#9679; #I #W'</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">&#26174;&#31034;&#30340;title</span>
+
+set -g display-panes-time 800 <span class="org-comment-delimiter"># </span><span class="org-comment">slightly longer pane indicators display time</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">24 hour clock</span>
+setw -g clock-mode-style 24
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">clear both screen and history</span>
+bind -n C-l send-keys C-l \; run <span class="org-string">'tmux clear-history'</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">activity</span>
+set -g monitor-activity on
+set -g visual-activity off
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">-- navigation ----------------------------------------------------------------</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">create new session</span>
+bind C-c new-session <span class="org-comment-delimiter"># </span><span class="org-comment">&#21019;&#24314;&#26032;&#30340; session</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">find session</span>
+bind C-f command-prompt -p find-session <span class="org-string">'switch-client -t %%'</span> <span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#25214; session</span>
+
+bind - splitw -v <span class="org-comment-delimiter"># </span><span class="org-comment">&#20998;&#21106;&#25104;&#19978;&#19979;&#20004;&#20010;&#31383;&#21475;</span>
+bind | splitw -h <span class="org-comment-delimiter"># </span><span class="org-comment">&#20998;&#21106;&#25104;&#24038;&#21491;&#20004;&#20010;&#31383;&#21475;</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">pane navigation vim &#38190;&#20301;&#30340;&#23548;&#33322;&#22312; pane &#20043;&#38388;</span>
+bind -r h select-pane -L  <span class="org-comment-delimiter"># </span><span class="org-comment">move left</span>
+bind -r j select-pane -D  <span class="org-comment-delimiter"># </span><span class="org-comment">move down</span>
+bind -r k select-pane -U  <span class="org-comment-delimiter"># </span><span class="org-comment">move up</span>
+bind -r l select-pane -R  <span class="org-comment-delimiter"># </span><span class="org-comment">move right</span>
+bind &gt; swap-pane -D       <span class="org-comment-delimiter"># </span><span class="org-comment">swap current pane with the next one</span>
+bind &lt; swap-pane -U       <span class="org-comment-delimiter"># </span><span class="org-comment">swap current pane with the previous one</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">maximize current pane &#26368;&#22823;&#21270;&#24403;&#21069; pane</span>
+bind + run <span class="org-string">'cut -c3- ~/.tmux.conf | sh -s maximize_pane'</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">pane resizing &#22823;&#20889;&#30340; vim &#38190;&#20301;&#65292; &#35843;&#25972; pane &#23610;&#23544;</span>
+bind -r H resize-pane -L 2
+bind -r J resize-pane -D 2
+bind -r K resize-pane -U 2
+bind -r L resize-pane -R 2
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">window navigation</span>
+bind -r C-h previous-window <span class="org-comment-delimiter"># </span><span class="org-comment">select previous window</span>
+bind -r C-l next-window     <span class="org-comment-delimiter"># </span><span class="org-comment">select next window</span>
+bind Space last-window      <span class="org-comment-delimiter"># </span><span class="org-comment">move to last active window</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">toggle mouse</span>
+bind m run <span class="org-string">"cut -c3- ~/.tmux.conf | sh -s toggle_mouse"</span>
+
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">copy to Mac OSX pasteboard</span>
+if <span class="org-string">'which -s reattach-to-user-namespace'</span> <span class="org-string">'bind y run "tmux save-buffer - | reattach-to-user-namespace pbcopy"'</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#29992;&#25143;&#33258;&#23450;&#20041;&#30340;&#27169;&#22359;</span>
+if <span class="org-string">'[ -f ~/.tmux.conf.local ]'</span> <span class="org-string">'source ~/.tmux.conf.local'</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">List of plugins</span>
+set -g @plugin <span class="org-string">'tmux-plugins/tpm'</span>
+set -g @plugin <span class="org-string">'tmux-plugins/tmux-sensible'</span>
+set -g @plugin <span class="org-string">'tmux-plugins/tmux-prefix-highlight'</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Other examples:</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">set -g @plugin 'github_username/plugin_name'</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">set -g @plugin 'git@github.com/user/plugin'</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">set -g @plugin 'git@bitbucket.com/user/plugin'</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)</span>
+run <span class="org-string">'~/.tmux/plugins/tpm/tpm'</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2d2a63a" class="outline-3">
+<h3 id="org2d2a63a"><span class="section-number-3">8.2</span> local</h3>
+<div class="outline-text-3" id="text-8-2">
+<div class="org-src-container">
+<pre class="src src-conf"><span class="org-comment-delimiter"># </span><span class="org-comment">tmux theme, colors and status line</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">available themes:</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- powerline (a powerline inspired theme)</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- powerline_patched_font (a powerline inspired theme using a patched font)</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">tmux_conf_theme=powerline # powerline &#30340;&#20027;&#39064;</span>
+set-option -g status-position top
+<span class="org-comment-delimiter"># </span><span class="org-comment">set -g status-right ""</span>
+set -g status-right <span class="org-string">'#{prefix_highlight} | %a %Y-%m-%d %H:%M'</span>
+
+<span class="org-comment-delimiter">#### </span><span class="org-comment">COLOUR (Solarized light)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">default statusbar colors</span>
+set-option -g status-bg white <span class="org-comment-delimiter">#</span><span class="org-comment">base2</span>
+set-option -g status-fg yellow <span class="org-comment-delimiter">#</span><span class="org-comment">yellow</span>
+set-option -g status-attr default
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">default window title colors</span>
+set-window-option -g window-status-fg brightyellow <span class="org-comment-delimiter">#</span><span class="org-comment">base00</span>
+set-window-option -g window-status-bg default
+<span class="org-comment-delimiter">#</span><span class="org-comment">set-window-option -g window-status-attr dim</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">active window title colors</span>
+set-window-option -g window-status-current-fg brightred <span class="org-comment-delimiter">#</span><span class="org-comment">orange</span>
+set-window-option -g window-status-current-bg default
+<span class="org-comment-delimiter">#</span><span class="org-comment">set-window-option -g window-status-current-attr bright</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">pane border</span>
+set-option -g pane-border-fg white <span class="org-comment-delimiter">#</span><span class="org-comment">base2</span>
+set-option -g pane-active-border-fg brightcyan <span class="org-comment-delimiter">#</span><span class="org-comment">base1</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">message text</span>
+set-option -g message-bg white <span class="org-comment-delimiter">#</span><span class="org-comment">base2</span>
+set-option -g message-fg brightred <span class="org-comment-delimiter">#</span><span class="org-comment">orange</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">pane number display</span>
+set-option -g display-panes-active-colour blue <span class="org-comment-delimiter">#</span><span class="org-comment">blue</span>
+set-option -g display-panes-colour brightred <span class="org-comment-delimiter">#</span><span class="org-comment">orange</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">clock</span>
+set-window-option -g clock-mode-colour green <span class="org-comment-delimiter">#</span><span class="org-comment">green</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">bell</span>
+<span class="org-variable-name">set-window-option -g window-status-bell-style fg</span>=white,bg=red <span class="org-comment-delimiter">#</span><span class="org-comment">base2, red</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org50c146c" class="outline-2">
+<h2 id="org50c146c"><span class="section-number-2">9</span> wayland</h2>
+<div class="outline-text-2" id="text-9">
+<div class="org-src-container">
+<pre class="src src-conf"><span class="org-comment-delimiter"># </span><span class="org-comment">Configuration for Alacritty, the GPU enhanced terminal emulator</span>
+
+env:
+  TERM: xterm-256color
+
+window:
+  dimensions:
+    columns: 100
+    lines: 85
+
+  padding:
+    x: 0
+    y: 0
+
+  dynamic_padding: false
+
+  decorations: full
+
+  startup_mode: Windowed
+
+scrolling:
+  history: 5000
+  multiplier: 3
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Font configuration (changes require restart)</span>
+font:
+  <span class="org-comment-delimiter"># </span><span class="org-comment">The normal (roman) font face to use.</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Style can be specified to pick a specific face.</span>
+  normal:
+    family: Iosevka
+    style: Light
+    <span class="org-comment-delimiter"># </span><span class="org-comment">family: "Fira Code"</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">family: "Source Code Pro"</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">style: Retina</span>
+
+  <span class="org-comment-delimiter"># </span><span class="org-comment">The bold font face</span>
+  bold:
+    family: Iosevka
+    style: Medium
+    <span class="org-comment-delimiter"># </span><span class="org-comment">family: "Fira Code"</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">family: "Source Code Pro"</span>
+
+  <span class="org-comment-delimiter"># </span><span class="org-comment">The italic font face</span>
+  italic:
+    family: Iosevka
+    style: <span class="org-string">"Light Italic"</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">style: "Light Oblique"</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">family: "Fira Code"</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">family: "Source Code Pro"</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">style: "Medium Italic"</span>
+
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Point size of the font</span>
+  size: 14.0
+
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Offset is the extra space around each character. offset.y can be thought of</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">as modifying the linespacing, and offset.x as modifying the letter spacing.</span>
+  offset:
+    x: 0
+    y: 0
+
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Glyph offset determines the locations of the glyphs within their cells with</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">the default being at the bottom. Increase the x offset to move the glyph to</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">the right, increase the y offset to move the glyph upward.</span>
+  glyph_offset:
+    x: 0
+    y: 0
+
+  use_thin_strokes: true
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">When true, bold text is drawn using the bright variant of colors.</span>
+draw_bold_text_with_bright_colors: false
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Use custom cursor colors. If true, display the cursor in the cursor.foreground</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">and cursor.background colors, otherwise invert the colors of the cursor.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">custom_cursor_colors: false</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Colors</span>
+colors:
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Default colours</span>
+  primary:
+    background: <span class="org-string">'0xffffff'</span>
+    foreground: <span class="org-string">'0x2e2e2d'</span>
+
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Colors that should be used to draw the terminal cursor. If these are unset,</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">the cursor colour will be the inverse of the cell colour.</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">cursor:</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">text: '0x2e2e2d'</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment"># text: '0x000000'</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">cursor: '0xffffff'</span>
+
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Normal colors</span>
+  normal:
+    black:   <span class="org-string">'0x000000'</span>
+    red:     <span class="org-string">'0xc62828'</span>
+    green:   <span class="org-string">'0x558b2f'</span>
+    yellow:  <span class="org-string">'0xf9a825'</span>
+    blue:    <span class="org-string">'0x1565c0'</span>
+    magenta: <span class="org-string">'0x6a1e9a'</span>
+    cyan:    <span class="org-string">'0x00838f'</span>
+    white:   <span class="org-string">'0xf2f2f2'</span>
+
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Bright colors</span>
+  bright:
+    black:   <span class="org-string">'0x545454'</span>
+    red:     <span class="org-string">'0xef5350'</span>
+    green:   <span class="org-string">'0x8bc34a'</span>
+    yellow:  <span class="org-string">'0xffeb3b'</span>
+    blue:    <span class="org-string">'0x64b5f6'</span>
+    magenta: <span class="org-string">'0xba68c8'</span>
+    cyan:    <span class="org-string">'0x26c6da'</span>
+    white:   <span class="org-string">'0xe0e0e0'</span>
+
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Dim colors (Optional)</span>
+  dim:
+    black:   <span class="org-string">'0x333333'</span>
+    red:     <span class="org-string">'0xf2777a'</span>
+    green:   <span class="org-string">'0x99cc99'</span>
+    yellow:  <span class="org-string">'0xffcc66'</span>
+    blue:    <span class="org-string">'0x6699cc'</span>
+    magenta: <span class="org-string">'0xcc99cc'</span>
+    cyan:    <span class="org-string">'0x66cccc'</span>
+    white:   <span class="org-string">'0xdddddd'</span>
+
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Tomorrow Night Bright</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">primary:</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">background: '0x000000'</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">foreground: '0xeaeaea'</span>
+  <span class="org-comment-delimiter">#</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">cursor:</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">text: '0x000000'</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">cursor: '0xffffff'</span>
+  <span class="org-comment-delimiter">#</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">normal:</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">black:   '0x000000'</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">red:     '0xd54e53'</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">green:   '0xb9ca4a'</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">yellow:  '0xe6c547'</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">blue:    '0x7aa6da'</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">magenta: '0xc397d8'</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">cyan:    '0x70c0ba'</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">white:   '0xffffff'</span>
+  <span class="org-comment-delimiter">#</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">bright:</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">black:   '0x666666'</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">red:     '0xff3334'</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">green:   '0x9ec400'</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">yellow:  '0xe7c547'</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">blue:    '0x7aa6da'</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">magenta: '0xb77ee0'</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">cyan:    '0x54ced6'</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">white:   '0xffffff'</span>
+
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Indexed Colors</span>
+  <span class="org-comment-delimiter">#</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">The indexed colors include all colors from 16 to 256.</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">When these are not set, they're filled with sensible defaults.</span>
+  <span class="org-comment-delimiter">#</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Example:</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">`- { index: 16, color: '0xff00ff' }`</span>
+  <span class="org-comment-delimiter">#</span>
+  indexed_colors: []
+
+bell:
+  animation: EaseOutExpo
+  color: <span class="org-string">'0xffffff'</span>
+  duration: 0
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Background opacity</span>
+background_opacity: 1.0
+
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Example:</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">`- { key: V, mods: Control|Shift, action: Paste }`</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Available fields:</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- key</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- mods (optional)</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- chars | action | command (exactly one required)</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- mode (optional)</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Values for `key`:</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- `A` -&gt; `Z`</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- `F1` -&gt; `F12`</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- `Key1` -&gt; `Key0`</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">A full list with available key codes can be found here:</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">https://docs.rs/glutin/*/glutin/enum.VirtualKeyCode.html#variants</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">Instead of using the name of the keys, the `key` field also supports using</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">the scancode of the desired key. Scancodes have to be specified as a</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">decimal number.</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">This command will allow you to display the hex scancodes for certain keys:</span>
+<span class="org-comment-delimiter">#     </span><span class="org-comment">`showkey --scancodes`</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Values for `mods`:</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- Command</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- Control</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- Option</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- Super</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- Shift</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- Alt</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">Multiple `mods` can be combined using `|` like this: `mods: Control|Shift`.</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">Whitespace and capitalization is relevant and must match the example.</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Values for `chars`:</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">The `chars` field writes the specified string to the terminal. This makes</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">it possible to pass escape sequences.</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">To find escape codes for bindings like `PageUp` ("\x1b[5~"), you can run</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">the command `showkey -a` outside of tmux.</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">Note that applications use terminfo to map escape sequences back to</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">keys. It is therefore required to update the terminfo when</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">changing an escape sequence.</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Values for `action`:</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- Paste</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- PasteSelection</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- Copy</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- IncreaseFontSize</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- DecreaseFontSize</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- ResetFontSize</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- ScrollPageUp</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- ScrollPageDown</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- ScrollLineUp</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- ScrollLineDown</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- ScrollToTop</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- ScrollToBottom</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- ClearHistory</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- Hide</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- Quit</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- ClearLogNotice</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- SpawnNewInstance</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- ToggleFullscreen</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- None</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Values for `action` (macOS only):</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- ToggleSimpleFullscreen: Enters fullscreen without occupying another space</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Values for `command`:</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">The `command` field must be a map containing a `program` string and</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">an `args` array of command line parameter strings.</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">Example:</span>
+<span class="org-comment-delimiter">#       </span><span class="org-comment">`command: { program: "alacritty", args: ["-e", "vttest"] }`</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Values for `mode`:</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- ~AppCursor</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- AppCursor</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- ~AppKeypad</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">- AppKeypad</span>
+<span class="org-comment-delimiter">#</span>
+key_bindings:
+  - { key: V,        mods: Command,       action: Paste                        }
+  - { key: C,        mods: Command,       action: Copy                         }
+  - { key: Q,        mods: Command,       action: Quit                         }
+  - { key: N,        mods: Command,       action: SpawnNewInstance             }
+  - { key: Return,   mods: Command,       action: ToggleFullscreen             }
+
+  - { key: Home,                          chars: <span class="org-string">"\x1bOH"</span>,   mode: AppCursor   }
+  - { key: Home,                          chars: <span class="org-string">"\x1b[H"</span>,   mode: ~AppCursor  }
+  - { key: End,                           chars: <span class="org-string">"\x1bOF"</span>,   mode: AppCursor   }
+  - { key: End,                           chars: <span class="org-string">"\x1b[F"</span>,   mode: ~AppCursor  }
+  - { key: Equals,   mods: Command,       action: IncreaseFontSize             }
+  - { key: Minus,    mods: Command,       action: DecreaseFontSize             }
+  - { key: Minus,    mods: Command|Shift, action: ResetFontSize                }
+  - { key: PageUp,   mods: Shift,         chars: <span class="org-string">"\x1b[5;2~"</span>                   }
+  - { key: PageUp,   mods: Control,       chars: <span class="org-string">"\x1b[5;5~"</span>                   }
+  - { key: PageUp,                        chars: <span class="org-string">"\x1b[5~"</span>                     }
+  - { key: PageDown, mods: Shift,         chars: <span class="org-string">"\x1b[6;2~"</span>                   }
+  - { key: PageDown, mods: Control,       chars: <span class="org-string">"\x1b[6;5~"</span>                   }
+  - { key: PageDown,                      chars: <span class="org-string">"\x1b[6~"</span>                     }
+  - { key: Left,     mods: Shift,         chars: <span class="org-string">"\x1b[1;2D"</span>                   }
+  - { key: Left,     mods: Control,       chars: <span class="org-string">"\x1b[1;5D"</span>                   }
+  - { key: Left,     mods: Alt,           chars: <span class="org-string">"\x1b[1;3D"</span>                   }
+  - { key: Left,                          chars: <span class="org-string">"\x1b[D"</span>,   mode: ~AppCursor  }
+  - { key: Left,                          chars: <span class="org-string">"\x1bOD"</span>,   mode: AppCursor   }
+  - { key: Right,    mods: Shift,         chars: <span class="org-string">"\x1b[1;2C"</span>                   }
+  - { key: Right,    mods: Control,       chars: <span class="org-string">"\x1b[1;5C"</span>                   }
+  - { key: Right,    mods: Alt,           chars: <span class="org-string">"\x1b[1;3C"</span>                   }
+  - { key: Right,                         chars: <span class="org-string">"\x1b[C"</span>,   mode: ~AppCursor  }
+  - { key: Right,                         chars: <span class="org-string">"\x1bOC"</span>,   mode: AppCursor   }
+  - { key: Up,       mods: Shift,         chars: <span class="org-string">"\x1b[1;2A"</span>                   }
+  - { key: Up,       mods: Control,       chars: <span class="org-string">"\x1b[1;5A"</span>                   }
+  - { key: Up,       mods: Alt,           chars: <span class="org-string">"\x1b[1;3A"</span>                   }
+  - { key: Up,                            chars: <span class="org-string">"\x1b[A"</span>,   mode: ~AppCursor  }
+  - { key: Up,                            chars: <span class="org-string">"\x1bOA"</span>,   mode: AppCursor   }
+  - { key: Down,     mods: Shift,         chars: <span class="org-string">"\x1b[1;2B"</span>                   }
+  - { key: Down,     mods: Control,       chars: <span class="org-string">"\x1b[1;5B"</span>                   }
+  - { key: Down,     mods: Alt,           chars: <span class="org-string">"\x1b[1;3B"</span>                   }
+  - { key: Down,                          chars: <span class="org-string">"\x1b[B"</span>,   mode: ~AppCursor  }
+  - { key: Down,                          chars: <span class="org-string">"\x1bOB"</span>,   mode: AppCursor   }
+  - { key: Tab,      mods: Shift,         chars: <span class="org-string">"\x1b[Z"</span>                      }
+  - { key: F1,                            chars: <span class="org-string">"\x1bOP"</span>                      }
+  - { key: F2,                            chars: <span class="org-string">"\x1bOQ"</span>                      }
+  - { key: F3,                            chars: <span class="org-string">"\x1bOR"</span>                      }
+  - { key: F4,                            chars: <span class="org-string">"\x1bOS"</span>                      }
+  - { key: F5,                            chars: <span class="org-string">"\x1b[15~"</span>                    }
+  - { key: F6,                            chars: <span class="org-string">"\x1b[17~"</span>                    }
+  - { key: F7,                            chars: <span class="org-string">"\x1b[18~"</span>                    }
+  - { key: F8,                            chars: <span class="org-string">"\x1b[19~"</span>                    }
+  - { key: F9,                            chars: <span class="org-string">"\x1b[20~"</span>                    }
+  - { key: F10,                           chars: <span class="org-string">"\x1b[21~"</span>                    }
+  - { key: F11,                           chars: <span class="org-string">"\x1b[23~"</span>                    }
+  - { key: F12,                           chars: <span class="org-string">"\x1b[24~"</span>                    }
+  - { key: Back,                          chars: <span class="org-string">"\x7f"</span>                        }
+  - { key: Back,     mods: Alt,           chars: <span class="org-string">"\x1b\x7f"</span>                    }
+  - { key: Insert,                        chars: <span class="org-string">"\x1b[2~"</span>                     }
+  - { key: Delete,                        chars: <span class="org-string">"\x1b[3~"</span>                     }
+
+    <span class="org-comment-delimiter"># </span><span class="org-comment">shortcuts for tmux. the leader key is control-b (0x02)</span>
+  - { key: W,        mods: Command,       chars: <span class="org-string">"\x02&amp;"</span>                       }  <span class="org-comment-delimiter"># </span><span class="org-comment">close tab (kill)</span>
+  - { key: T,        mods: Command,       chars: <span class="org-string">"\x02c"</span>                       }  <span class="org-comment-delimiter"># </span><span class="org-comment">new tab</span>
+  - { key: RBracket, mods: Command|Shift, chars: <span class="org-string">"\x02n"</span>                       }  <span class="org-comment-delimiter"># </span><span class="org-comment">select next tab</span>
+  - { key: LBracket, mods: Command|Shift, chars: <span class="org-string">"\x02p"</span>                       }  <span class="org-comment-delimiter"># </span><span class="org-comment">select previous tab</span>
+  - { key: RBracket, mods: Command,       chars: <span class="org-string">"\x02o"</span>                       }  <span class="org-comment-delimiter"># </span><span class="org-comment">select next pane</span>
+  - { key: LBracket, mods: Command,       chars: <span class="org-string">"\x02;"</span>                       }  <span class="org-comment-delimiter"># </span><span class="org-comment">select last (previously used) pane</span>
+  - { key: F,        mods: Command,       chars: <span class="org-string">"\x02/"</span>                       }  <span class="org-comment-delimiter"># </span><span class="org-comment">search (upwards) (see tmux.conf)</span>
+
+mouse:
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Click settings</span>
+  <span class="org-comment-delimiter">#</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">The `double_click` and `triple_click` settings control the time</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">alacritty should wait for accepting multiple clicks as one double</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">or triple click.</span>
+  double_click: { threshold: 300 }
+  triple_click: { threshold: 300 }
+
+  <span class="org-comment-delimiter"># </span><span class="org-comment">If this is `true`, the cursor is temporarily hidden when typing.</span>
+  hide_when_typing: true
+
+  <span class="org-comment-delimiter"># </span><span class="org-comment">URL launcher</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">url:</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">This program is executed when clicking on a text which is recognized as a URL.</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">The URL is always added to the command as the last parameter.</span>
+    <span class="org-comment-delimiter">#</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">When set to `None`, URL launching will be disabled completely.</span>
+    <span class="org-comment-delimiter">#</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">Default:</span>
+    <span class="org-comment-delimiter">#   </span><span class="org-comment">- (macOS) open</span>
+    <span class="org-comment-delimiter">#   </span><span class="org-comment">- (Linux) xdg-open</span>
+    <span class="org-comment-delimiter">#   </span><span class="org-comment">- (Windows) explorer</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">launcher:</span>
+    <span class="org-comment-delimiter">#   </span><span class="org-comment">program: xdg-open</span>
+    <span class="org-comment-delimiter">#   </span><span class="org-comment">args: []</span>
+
+    <span class="org-comment-delimiter"># </span><span class="org-comment">These are the modifiers that need to be held down for opening URLs when clicking</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">on them. The available modifiers are documented in the key binding section.</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">modifiers: Control|Shift</span>
+
+selection:
+  semantic_escape_chars: <span class="org-string">",&#9474;`|:\"' ()[]{}&lt;&gt;"</span>
+
+  <span class="org-comment-delimiter"># </span><span class="org-comment">When set to `true`, selected text will be copied to the primary clipboard.</span>
+  save_to_clipboard: false
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Mouse bindings</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Available fields:</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">- mouse</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">- action</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">- mods (optional)</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Values for `mouse`:</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">- Middle</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">- Left</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">- Right</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">- Numeric identifier such as `5`</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">All available `mods` and `action` values are documented in the key binding</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">section.</span>
+mouse_bindings:
+  - { mouse: Middle, action: PasteSelection }
+
+cursor:
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Cursor style</span>
+  <span class="org-comment-delimiter">#</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Values for 'style':</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">- &#9607; Block</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">- _ Underline</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">- | Beam</span>
+  style: Block
+
+  <span class="org-comment-delimiter"># </span><span class="org-comment">If this is `true`, the cursor will be rendered as a hollow box when the</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">window is not focused.</span>
+  unfocused_hollow: true
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">dynamic_title: false</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Live config reload (changes require restart)</span>
+live_config_reload: true
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Shell</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">You can set shell.program to the path of your favorite shell, e.g. /bin/fish.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Entries in shell.args are passed unmodified as arguments to the shell.</span>
+shell:
+  program: /usr/bin/fish
+  <span class="org-comment-delimiter">#</span><span class="org-comment">args:</span>
+  <span class="org-comment-delimiter">#  </span><span class="org-comment">- --command=tmux</span>
+
+debug:
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Should display the render timer</span>
+  render_timer: false
+
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Keep the log file after quitting Alacritty.</span>
+  persistent_logging: false
+
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Log level</span>
+  <span class="org-comment-delimiter">#</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Values for `log_level`:</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">- OFF</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">- ERROR</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">- WARN</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">- INFO</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">- DEBUG</span>
+  <span class="org-comment-delimiter">#   </span><span class="org-comment">- TRACE</span>
+  log_level: OFF
+
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Print all received window events.</span>
+  print_events: false
+
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Record all characters and escape sequences as test data.</span>
+  ref_test: false
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">vim: nospell</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-conf"><span class="org-variable-name">--enable-features</span>=UseOzonePlatform
+<span class="org-variable-name">--ozone-platform</span>=wayland
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-conf"><span class="org-comment-delimiter"># </span><span class="org-comment">Logo key. Use Mod1(super) for Alt.</span>
+set $mod Mod4
+<span class="org-comment-delimiter"># </span><span class="org-comment">Home row direction keys, like vim</span>
+set $left h
+set $down j
+set $up k
+set $right l
+<span class="org-comment-delimiter"># </span><span class="org-comment">Your preferred terminal emulator</span>
+set $term alacritty
+<span class="org-comment-delimiter"># </span><span class="org-comment">Your preferred application launcher</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Note: pass the final command to swaymsg so that the resulting window can be opened</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">on the original workspace that the command was run on.</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">set $menu dmenu_path | dmenu | xargs swaymsg exec --</span>
+<span class="org-variable-name">set $menu wofi --show</span>=drun --lines=5 --prompt=<span class="org-string">""</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)</span>
+output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+
+<span class="org-comment-delimiter">### </span><span class="org-comment">Key bindings</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Basics:</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Start a terminal</span>
+bindsym $mod+Return exec $term
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Kill focused window</span>
+bindsym $mod+Shift+q kill
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Start your launcher</span>
+bindsym $mod+d exec $menu
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Drag floating windows by holding down $mod and left mouse button.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Resize them with right mouse button + $mod.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Despite the name, also works for non-floating windows.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Change normal to inverse to use left mouse button for resizing and right</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">mouse button for dragging.</span>
+floating_modifier $mod normal
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Reload the configuration file</span>
+bindsym $mod+Shift+c reload
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Exit sway (logs you out of your Wayland session)</span>
+bindsym $mod+Shift+e exec swaynag -t warning -m <span class="org-string">'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.'</span> -b <span class="org-string">'Yes, exit sway'</span> <span class="org-string">'swaymsg exit'</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Moving around:</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Move your focus around</span>
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+<span class="org-comment-delimiter"># </span><span class="org-comment">Or use $mod+[up|down|left|right]</span>
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Move the focused window with the same, but add Shift</span>
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+<span class="org-comment-delimiter"># </span><span class="org-comment">Ditto, with arrow keys</span>
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Workspaces:</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Switch to workspace</span>
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+<span class="org-comment-delimiter"># </span><span class="org-comment">Move focused container to workspace</span>
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+<span class="org-comment-delimiter"># </span><span class="org-comment">Note: workspaces can have any name you want, not just numbers.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">We just use 1-10 as the default.</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Layout stuff:</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">You can "split" the current object of your focus with</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">$mod+b or $mod+v, for horizontal and vertical splits</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">respectively.</span>
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Switch the current container between different layout styles</span>
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Make the current focus fullscreen</span>
+bindsym $mod+f fullscreen
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Toggle the current focus between tiling and floating mode</span>
+bindsym $mod+Shift+space floating toggle
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Swap focus between the tiling area and the floating area</span>
+bindsym $mod+space focus mode_toggle
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Move focus to the parent container</span>
+bindsym $mod+a focus parent
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Scratchpad:</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Sway has a "scratchpad", which is a bag of holding for windows.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">You can send windows there and get them back later.</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Move the currently focused window to the scratchpad</span>
+bindsym $mod+Shift+minus move scratchpad
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Show the next scratchpad window or hide the focused scratchpad window.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">If there are multiple scratchpad windows, this command cycles through them.</span>
+bindsym $mod+minus scratchpad show
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Resizing containers:</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-type">mode </span><span class="org-string"><span class="org-type">"resize"</span></span> {
+<span class="org-comment-delimiter"># </span><span class="org-comment">left will shrink the containers width</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">right will grow the containers width</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">up will shrink the containers height</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">down will grow the containers height</span>
+bindsym $left resize shrink width 10px
+bindsym $down resize grow height 10px
+bindsym $up resize shrink height 10px
+bindsym $right resize grow width 10px
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Ditto, with arrow keys</span>
+bindsym Left resize shrink width 10px
+bindsym Down resize grow height 10px
+bindsym Up resize shrink height 10px
+bindsym Right resize grow width 10px
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Return to default mode</span>
+bindsym Return mode <span class="org-string">"default"</span>
+bindsym Escape mode <span class="org-string">"default"</span>
+}
+bindsym $mod+r mode <span class="org-string">"resize"</span>
+
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Status Bar:</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Read `man 5 sway-bar` for more information about this section.</span>
+<span class="org-type">bar</span> {
+position top
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">When the status_command prints a new line to stdout, swaybar updates.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">The default just shows the current date and time.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done</span>
+swaybar_command waybar
+<span class="org-type">colors</span> {
+statusline <span class="org-comment-delimiter">#</span><span class="org-comment">ffffff</span>
+background <span class="org-comment-delimiter">#</span><span class="org-comment">323232</span>
+inactive_workspace <span class="org-comment-delimiter">#</span><span class="org-comment">32323200 #32323200 #5c5c5c</span>
+}
+}
+
+input <span class="org-string">"type:keyboard"</span> {
+<span class="org-comment-delimiter"># </span><span class="org-comment">or input &lt;identifier&gt;</span>
+xkb_options ctrl:nocaps
+}
+
+include /etc/sway/config.d/*
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgcda004a" class="outline-2">
+<h2 id="orgcda004a"><span class="section-number-2">10</span> hammerspoon</h2>
+<div class="outline-text-2" id="text-10">
+</div>
+<div id="outline-container-orgbada5db" class="outline-3">
+<h3 id="orgbada5db"><span class="section-number-3">10.1</span> init</h3>
+<div class="outline-text-3" id="text-10-1">
+<div class="org-src-container">
+<pre class="src src-sh">ln -s ~/ownCloud/Config/Spoons ~/.hammerspoon
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lua">hs.loadSpoon("AClock")
+hs.loadSpoon("WinWin")
+hs.loadSpoon("WindowScreenLeftAndRight")
+hs.loadSpoon("WindowHalfsAndThirds")
+
+require "modules/config"
+require "modules/app"
+require "modules/window"
+require "modules/screen"
+require "modules/key"
+require "modules/dashboard"
+require "modules/layout"
+require "modules/react"
+
+hs.hotkey.bind(hyper, 'h', function()
+		  hs.alert.show("Hello World!")
+end)
+
+hs.hotkey.bind(hyper, 'r', function()
+		  hs.reload()
+end)
+
+hs.alert.show("Config loaded")
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdb235cf" class="outline-3">
+<h3 id="orgdb235cf"><span class="section-number-3">10.2</span> app</h3>
+<div class="outline-text-3" id="text-10-2">
+<div class="org-src-container">
+<pre class="src src-lua">hs.hotkey.bind(hyper, 'i', function()
+		  hs.application.launchOrFocus('Terminal')
+end)
+
+hs.hotkey.bind(hyper, 'f', function()
+		  hs.application.launchOrFocus('Finder')
+end)
+
+hs.hotkey.bind(hyper, 's', function()
+		  hs.application.launchOrFocus('Slack')
+end)
+
+hs.hotkey.bind(hyper, 'e', function()
+		  hs.application.launchOrFocus('Emacs')
+end)
+
+hs.hotkey.bind(hyper, 't', function()
+		  spoon.AClock:toggleShow()
+end)
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org31c991f" class="outline-3">
+<h3 id="org31c991f"><span class="section-number-3">10.3</span> config</h3>
+<div class="outline-text-3" id="text-10-3">
+<div class="org-src-container">
+<pre class="src src-lua">hyper = {'cmd', 'alt', 'ctrl'}
+hyperShift = {'alt', 'cmd', 'shift'}
+macbook_monitor = "Color LCD"
+dostyle_monitor = "DM320QC"
+lg_4k_monitor = "LV273HUPR"
+portable_monitor = "CLUO FHD"
+lg_ultrawide_monitor = "LG ULTRAWIDE"
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc6697cd" class="outline-3">
+<h3 id="orgc6697cd"><span class="section-number-3">10.4</span> key</h3>
+<div class="outline-text-3" id="text-10-4">
+<div class="org-src-container">
+<pre class="src src-lua">function showKeyPress(tap_event)
+   local duration = 1.5  -- popup duration
+   local modifiers = ""  -- key modifiers string representation
+   local flags = tap_event:getFlags()
+   local character = hs.keycodes.map[tap_event:getKeyCode()]
+   -- we only want to read special characters via getKeyCode, so we use this subset of hs.keycodes.map
+   local special_chars = {
+      ["f1"] = true, ["f2"] = true, ["f3"] = true, ["f4"] = true,
+      ["f5"] = true, ["f6"] = true, ["f7"] = true, ["f8"] = true,
+      ["f9"] = true, ["f10"] = true, ["f11"] = true, ["f12"] = true,
+      ["f13"] = true, ["f14"] = true, ["f15"] = true, ["f16"] = true,
+      ["f17"] = true, ["f18"] = true, ["f19"] = true, ["f20"] = true,
+      ["pad"] = true, ["pad*"] = true, ["pad+"] = true, ["pad/"] = true,
+      ["pad-"] = true, ["pad="] = true, ["pad0"] = true, ["pad1"] = true,
+      ["pad2"] = true, ["pad3"] = true, ["pad4"] = true, ["pad5"] = true,
+      ["pad6"] = true, ["pad7"] = true, ["pad8"] = true, ["pad9"] = true,
+      ["padclear"] = true, ["padenter"] = true, ["return"] = true,
+      ["tab"] = true, ["space"] = true, ["delete"] = true, ["escape"] = true,
+      ["help"] = true, ["home"] = true, ["pageup"] = true,
+      ["forwarddelete"] = true, ["end"] = true, ["pagedown"] = true,
+      ["left"] = true, ["right"] = true, ["down"] = true, ["up"] = true
+   }
+
+   -- if we have a simple character (no modifiers), we want a shorter popup duration.
+   if (not flags.shift and not flags.cmd and not flags.alt and not flags.ctrl) then
+      duration = 0.3
+   end
+
+   -- we want to get regular characters via getCharacters as it "cleans" the key for us
+   -- (e.g. for a "⇧-5" keypress we want to show "⇧-%").
+   if special_chars[character] == nil then
+      character = tap_event:getCharacters(true)
+      if flags.shift then
+	 character = string.lower(character)
+      end
+   end
+
+   local pretty_characters = {
+      ["return"]  = "⏎",
+      ["delete"]  = "⌫",
+      ["escape"]  = "⎋",
+      ["space"]   = "SPC",
+      ["up"]      = "↑",
+      ["down"]    = "↓",
+      ["left"]    = "←",
+      ["right"]   = "→",
+      ["tab"]     = "⇥"
+   }
+
+   character = pretty_characters[character] or character
+
+   -- get modifiers' string representation
+   if flags.ctrl then
+      modifiers = modifiers .. "⌃-"
+   end
+   if flags.cmd then
+      modifiers = modifiers .. "⌘-"
+   end
+   if flags.shift then
+      modifiers = modifiers .. "⇧-"
+   end
+   if flags.alt then
+      modifiers = modifiers .. "⌥-"
+   end
+
+   key_char = modifiers .. character
+   display_key_char(key_char)
+end
+
+function display_key_char(key_char)
+   build_exist_key_string(key_char)
+
+   if not key_draw then
+      create_draw(exist_key_string)
+   else
+      destroy_draw(key_draw)
+      create_draw(exist_key_string)
+   end
+   key_draw:show()
+   reset_key_display_timer()
+end
+
+function build_exist_key_string(string)
+   local max_display_key_command_length = 8
+   key_array = key_array or {}
+
+   if #key_array &gt; max_display_key_command_length then
+      table.remove(key_array, 1)
+   end
+
+   key_array[#key_array + 1] = string
+   exist_key_string = table.concat(key_array, ' ')
+end
+
+function reset_key_display_timer()
+   if key_display_timer then
+      key_display_timer:stop()
+   end
+   key_display_timer = hs.timer.doAfter(2, function() destroy_draw(key_draw) key_array = {} end)
+end
+
+function create_draw(content)
+   local mainRes = hs.mouse.getCurrentScreen():fullFrame() -- e.g w:1920 h:1080
+   local font_size = 40
+   local styledString = hs.styledtext.new(
+      content,
+      {
+	 font = { name = "Fira Mono", size = font_size },
+	 color = hs.drawing.color.hammerspoon.osx_green, --hs.drawing.color.x11.silver,
+	 paragraphStyle = { alignment = "center" }
+      }
+   )
+   local w = mainRes.w * 2 / 3
+   local h = font_size * 1.5
+   local x = mainRes.w / 2 - w / 3
+   local y = mainRes.y + h + w / 2
+   local keyFrame = hs.geometry.rect(x, y, w, h)
+   key_draw = hs.drawing.text(keyFrame, styledString)
+   key_draw:setLevel(hs.drawing.windowLevels.overlay)
+end
+
+function destroy_draw(draw)
+   if draw then
+      key_draw:delete()
+      key_draw = nil
+   end
+end
+
+local key_tap = hs.eventtap.new(
+   {hs.eventtap.event.types.keyDown},
+   showKeyPress
+)
+
+-- Enable/Disable Keypress Show Mode with "hyper-p"
+k = hs.hotkey.modal.new(hyper, 'P')
+function k:entered()
+   hs.alert.show("Enabling Keypress Show Mode", 1.5)
+   key_tap:start()
+end
+function k:exited()
+   hs.alert.show("Disabling Keypress Show Mode", 1.5)
+end
+k:bind(hyper, 'P', function()
+	  key_tap:stop()
+	  k:exit()
+end)
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org037f861" class="outline-3">
+<h3 id="org037f861"><span class="section-number-3">10.5</span> layout</h3>
+<div class="outline-text-3" id="text-10-5">
+<div class="org-src-container">
+<pre class="src src-lua">top_half    = hs.geometry.unitrect(0,0,1,0.5)
+buttom_half = hs.geometry.unitrect(0,0.5,1,0.5)
+left_half   = hs.layout.left50
+right_half  = hs.layout.right50
+maximized   = hs.layout.maximized
+
+
+local reading_layout= {
+  {"Emacs",         nil, macbook_monitor, maximized, nil, nil},
+  {"Google Chrome", nil, main_monitor,    right_half,   nil, nil},
+  {"iBooks",        nil, main_monitor,    left_half,    nil, nil},
+  {"Telegram",      nil, second_monitor,  top_half,    nil, nil},
+  {"Mail",          nil, second_monitor,  buttom_half,   nil, nil},
+}
+
+local coding_layout= {
+  {"Terminal",      nil, macbook_monitor, maximized, nil, nil},
+  {"Google Chrome", nil, main_monitor,    left_half,    nil, nil},
+  {"Emacs",         nil, main_monitor,    right_half,   nil, nil},
+  {"Station",       nil, second_monitor,  top_half,    nil, nil},
+  {"TablePlus",     nil, second_monitor,  buttom_half,   nil, nil},
+}
+
+local writing_layout= {
+  {"Emacs",         nil, main_monitor,    maximized, nil, nil},
+  {"Google Chrome", nil, second_monitor,  maximized, nil, nil},
+  {"IINA",          nil, macbook_monitor, maximized, nil, nil},
+}
+
+hs.hotkey.bind(hyper, '1', function()
+  hs.application.launchOrFocus('Emacs')
+  hs.application.launchOrFocus('Google Chrome')
+  hs.application.launchOrFocus('iBooks')
+  hs.application.launchOrFocus('Telegram')
+  hs.application.launchOrFocus('Mail')
+
+  hs.layout.apply(reading_layout)
+end)
+
+hs.hotkey.bind(hyper, '2', function()
+  hs.application.launchOrFocus('Terminal')
+  hs.application.launchOrFocus('Google Chrome')
+  hs.application.launchOrFocus('Emacs')
+  hs.application.launchOrFocus('Station')
+  hs.application.launchOrFocus('TablePlus')
+
+  hs.layout.apply(coding_layout)
+end)
+
+hs.hotkey.bind(hyper, '3', function()
+  hs.application.launchOrFocus('Google Chrome')
+  hs.application.launchOrFocus('Emacs')
+  hs.application.launchOrFocus('IINA')
+
+  hs.layout.apply(writing_layout)
+end)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0f4b42a" class="outline-3">
+<h3 id="org0f4b42a"><span class="section-number-3">10.6</span> react</h3>
+<div class="outline-text-3" id="text-10-6">
+<div class="org-src-container">
+<pre class="src src-lua">function applicationWatcher(appName, eventType, appObject)
+   if (eventType == hs.application.watcher.activated) then
+      if (appName == "Terminal") then
+	 appObject:selectMenuItem({"Window", "Bring All to Front"})
+      elseif (appName == "Finder") then
+	 appObject:selectMenuItem({"Window", "Bring All to Front"})
+      elseif (appName == "Google Chrome") then
+	 appObject:selectMenuItem({"Window", "Bring All to Front"})
+      end
+   end
+end
+
+appWatcher = hs.application.watcher.new(applicationWatcher)
+appWatcher:start()
+
+caffeine = hs.menubar.new()
+function setCaffeineDisplay(state)
+   if state then
+      caffeine:setTitle("AWAKE")
+   else
+      caffeine:setTitle("SLEEPY")
+   end
+end
+
+function caffeineClicked()
+   setCaffeineDisplay(hs.caffeinate.toggle("displayIdle"))
+end
+
+if caffeine then
+   caffeine:setClickCallback(caffeineClicked)
+   setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
+end
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org74b39df" class="outline-3">
+<h3 id="org74b39df"><span class="section-number-3">10.7</span> screen</h3>
+<div class="outline-text-3" id="text-10-7">
+<div class="org-src-container">
+<pre class="src src-lua">function focus_other_screen() -- focuses the other screen
+   local current_screen = hs.mouse.getCurrentScreen()
+   local nextScreen = current_screen:next()
+   local rect = nextScreen:fullFrame()
+   local center = hs.geometry.rectMidPoint(rect)
+   hs.mouse.setAbsolutePosition(center)
+   return nextScreen
+end
+
+function get_window_under_mouse() -- from https://gist.github.com/kizzx2/e542fa74b80b7563045a
+   local my_pos = hs.geometry.new(hs.mouse.getAbsolutePosition())
+   local my_screen = hs.mouse.getCurrentScreen()
+   return hs.fnutils.find(hs.window.orderedWindows(), function(w)
+			     return my_screen == w:screen() and my_pos:inside(w:frame())
+   end)
+end
+
+function activate_other_screen()
+   local next_screen = focus_other_screen()
+   local win = get_window_under_mouse()
+   win:focus()
+   redrawBorder()
+end
+
+hs.hotkey.bind(hyper, 'o', function()
+		  activate_other_screen()
+end)
+
+function redrawBorder()
+   win = hs.window.focusedWindow()
+   if not win then
+      return
+   end
+   top_left = win:topLeft()
+   size = win:size()
+   if global_border ~= nil then global_border:delete() end
+   global_border = hs.drawing.rectangle(hs.geometry.rect(top_left['x'], top_left['y'], size['w'], size['h']))
+   global_border:setStrokeColor({ ["red"] = 1, ["blue"] = 0, ["green"] = 0, ["alpha"] = 0.8 })
+   global_border:setFill(false)
+   global_border:setStrokeWidth(8)
+   global_border:show()
+   hs.timer.doAfter(1, function() global_border:hide() end)
+end
+
+function mouseHighlight()
+   -- Delete an existing highlight if it exists
+   if mouseCircle then
+      mouseCircle:delete()
+      if mouseCircleTimer then
+	 mouseCircleTimer:stop()
+      end
+   end
+   -- Get the current co-ordinates of the mouse pointer
+   mousepoint = hs.mouse.getAbsolutePosition()
+   hs.alert.show(mousepoint)
+   -- Prepare a big red circle around the mouse pointer
+   mouseCircle = hs.drawing.circle(hs.geometry.rect(mousepoint.x-40, mousepoint.y-40, 80, 80))
+   mouseCircle:setStrokeColor({ ["red"] = 1, ["blue"] = 0, ["green"] = 0, ["alpha"] = 1 })
+   mouseCircle:setFill(false)
+   mouseCircle:setStrokeWidth(5)
+   mouseCircle:show()
+
+   -- Set a timer to delete the circle after 3 seconds
+   mouseCircleTimer = hs.timer.doAfter(3, function() mouseCircle:delete() end)
+end
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd3ab904" class="outline-3">
+<h3 id="orgd3ab904"><span class="section-number-3">10.8</span> window</h3>
+<div class="outline-text-3" id="text-10-8">
+<div class="org-src-container">
+<pre class="src src-lua">-- hs.window.animationDuration = 0
+spoon.WindowScreenLeftAndRight:bindHotkeys({
+      screen_left = { hyperShift, "Left" },
+      screen_right= { hyperShift, "Right" },
+})
+
+spoon.WindowHalfsAndThirds:bindHotkeys({
+      left_half   = { hyper, "Left" },
+      right_half  = { hyper, "Right" },
+      top_half    = { hyper, "Up" },
+      bottom_half = { hyper, "Down" },
+})
+
+-- hs.hotkey.bind(hyper, "m", function()
+--   local win = hs.window.focusedWindow()
+--   win:maximize()
+-- end)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org1c004db" class="outline-3">
+<h3 id="org1c004db"><span class="section-number-3">10.9</span> Dashboard</h3>
+<div class="outline-text-3" id="text-10-9">
+<div class="org-src-container">
+<pre class="src src-lua">hs.hotkey.bind(hyper, 'y', function()
+		  if not dashboardView then
+		     generate_view()
+		     local webcontent = html_dashboard(generate_result())
+		     dashboardView:html(webcontent)
+		     dashboardView:show()
+		  else
+		     dashboardView:delete()
+		     dashboardView:hide()
+		     dashboardView = nil
+		  end
+end)
+
+function generate_result()
+   local items = {
+      todolist = {'cat ~/Documents/org/todo.org  | grep "* TODO" | sed "s/TODO/""/g"', "col-todo-list"},
+      roamlist = {'ls ~/Documents/org/roam', "col-roam-list"}
+   }
+
+   result = generate_html_row_div(items)
+   return result
+end
+
+function generate_html_row_div(tb)
+   result = '&lt;div class="row" style="min-height:100px"&gt;'
+   for k, v in pairs(tb) do
+      result = result .. '&lt;div class="col-sm ' .. v[2] .. '"&gt;'
+      result = result .. '&lt;h4&gt;' .. k .. '&lt;/h4&gt;'
+      result = result .. get_command_result(v[1]) .. '&lt;/div&gt;'
+   end
+   result = result .. '&lt;/div&gt;'
+   return result
+end
+
+function get_command_result(c)
+   local handle = io.popen(c)
+   local result = handle:read("*a")
+   handle:close()
+   return result.gsub(result, "\n", "&lt;br/&gt;")
+end
+
+function generate_view()
+   local cscreen = hs.screen.mainScreen()
+   local cres = cscreen:fullFrame()
+
+   dashboardView = hs.webview.new({x=0, y=0, w=0, h=0})
+   dashboardView:windowTitle("Dashboard")
+   dashboardView:windowStyle("utility")
+   dashboardView:allowGestures(true)
+   dashboardView:allowNewWindows(false)
+   dashboardView:level(hs.drawing.windowLevels.modalPanel)
+   dashboardView:frame({
+	 x = cres.x + cres.w * 0.15 / 2,
+	 y = cres.y + cres.h * 0.25 / 2,
+	 w = cres.w * 0.85,
+	 h = cres.h * 0.75
+   })
+end
+
+function html_dashboard(content)
+   local html = [[
+      &lt;!doctype html&gt;
+      &lt;html lang="en"&gt;
+	&lt;head&gt;
+	  &lt;!-- Required meta tags --&gt;
+	  &lt;meta charset="utf-8"&gt;
+	  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+
+	  &lt;!-- Bootstrap CSS --&gt;
+	  &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"&gt;
+
+	&lt;/head&gt;
+	&lt;body&gt;
+	  &lt;h1 style="text-align: center"&gt;Dashboard&lt;/h1&gt;
+
+      &lt;div class="container"&gt;
+		  ]] .. content .. [[
+
+    &lt;/div&gt;
+	&lt;/body&gt;
+      &lt;/html&gt;
+		  ]]
+
+   return html
+end
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbfa6836" class="outline-3">
+<h3 id="orgbfa6836"><span class="section-number-3">10.10</span> Spoons</h3>
+<div class="outline-text-3" id="text-10-10">
+<p>
+in ownCloud config folder
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2838d19" class="outline-2">
+<h2 id="org2838d19"><span class="section-number-2">11</span> Misc</h2>
+<div class="outline-text-2" id="text-11">
+</div>
+<div id="outline-container-org8dc7f1b" class="outline-3">
+<h3 id="org8dc7f1b"><span class="section-number-3">11.1</span> pyim</h3>
+<div class="outline-text-3" id="text-11-1">
+<div class="org-src-container">
+<pre class="src src-shell">ln -s ~/ownCloud/Config/pyim ~/.emacs.d
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org928afae" class="outline-3">
+<h3 id="org928afae"><span class="section-number-3">11.2</span> Snippets</h3>
+<div class="outline-text-3" id="text-11-2">
+<div class="org-src-container">
+<pre class="src src-shell">ln -s ~/ownCloud/Config/snippets ~/.emacs.d
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0ae8105" class="outline-3">
+<h3 id="org0ae8105"><span class="section-number-3">11.3</span> bat</h3>
+<div class="outline-text-3" id="text-11-3">
+<div class="org-src-container">
+<pre class="src src-conf"><span class="org-variable-name">--theme</span>=<span class="org-string">"Nord"</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org63b51b3" class="outline-3">
+<h3 id="org63b51b3"><span class="section-number-3">11.4</span> gita</h3>
+<div class="outline-text-3" id="text-11-4">
+<div class="org-src-container">
+<pre class="src src-shell">pip3 install -U gita
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-yaml">repos:
+  - name: socss
+    url: git@github.com:teddy-ma/socss.gi
+
+  - name: songofcode
+    url: git@bitbucket.org:songofcode/songofcode.git
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-conf">/Users/teddy/.emacs.d,.emacs.d
+/Users/teddy/Documents/org,org
+/Users/teddy/Documents/roam,roam
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org08e8138" class="outline-3">
+<h3 id="org08e8138"><span class="section-number-3">11.5</span> wtfutil</h3>
+<div class="outline-text-3" id="text-11-5">
+<p>
+命令行的 dashboard 工具
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf">wtf:
+  colors:
+    background: black
+    border:
+      focusable: darkslateblue
+      focused: orange
+      normal: gray
+    checked: yellow
+    highlight:
+      fore: black
+      back: gray
+    rows:
+      even: yellow
+      odd: white
+  grid:
+    columns: [50, 50, 50]
+    rows: [10, 10, 10]
+  navigation:
+    shortcuts: false
+
+  refreshInterval: 1
+  mods:
+    clocks_a:
+      colors:
+        rows:
+          even: <span class="org-string">"lightblue"</span>
+          odd: <span class="org-string">"white"</span>
+      enabled: true
+      locations:
+        Vancouver: <span class="org-string">"America/Vancouver"</span>
+        Toronto: <span class="org-string">"America/Toronto"</span>
+      position:
+        top: 0
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 15
+      sort: <span class="org-string">"alphabetical"</span>
+      title: <span class="org-string">"Clocks A"</span>
+      type: <span class="org-string">"clocks"</span>
+    clocks_b:
+      colors:
+        rows:
+          even: <span class="org-string">"lightblue"</span>
+          odd: <span class="org-string">"white"</span>
+      enabled: true
+      locations:
+        Avignon: <span class="org-string">"Europe/Paris"</span>
+        Barcelona: <span class="org-string">"Europe/Madrid"</span>
+        Dubai: <span class="org-string">"Asia/Dubai"</span>
+      position:
+        top: 0
+        left: 2
+        height: 1
+        width: 1
+      refreshInterval: 15
+      sort: <span class="org-string">"alphabetical"</span>
+      title: <span class="org-string">"Clocks B"</span>
+      type: <span class="org-string">"clocks"</span>
+    feedreader:
+      enabled: true
+      feeds:
+      - https://news.ycombinator.com/rss
+      feedLimit: 10
+      position:
+        top: 1
+        left: 1
+        width: 2
+        height: 1
+      updateInterval: 14400
+    power:
+      enabled: true
+      position:
+        top: 2
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 15
+      title: <span class="org-string">"&#9889;&#65039;"</span>
+    textfile:
+      enabled: true
+      filePath: <span class="org-string">"~/.config/wtf/config.yml"</span>
+      format: true
+      position:
+        top: 0
+        left: 0
+        height: 4
+        width: 1
+      refreshInterval: 30
+      wrapText: false
+    uptime:
+      args: [<span class="org-string">""</span>]
+      cmd: <span class="org-string">"uptime"</span>
+      enabled: true
+      position:
+        top: 2
+        left: 3
+        height: 1
+        width: 1
+      refreshInterval: 30
+      type: cmdrunner
+
+    work_git:
+      commitCount: 5
+      commitFormat: <span class="org-string">"[forestgreen]%h [grey]%cd [white]%s [grey]%an[white]"</span>
+      dateFormat: <span class="org-string">"%H:%M %d %b %y"</span>
+      enabled: true
+      position:
+        top: 0
+        left: 3
+        height: 2
+        width: 1
+      refreshInterval: 8
+      repositories:
+      - <span class="org-string">"/Users/teddy/code/gfresh/fishclub"</span>
+      type: git
+
+    personal_git:
+      commitCount: 5
+      commitFormat: <span class="org-string">"[forestgreen]%h [grey]%cd [white]%s [grey]%an[white]"</span>
+      dateFormat: <span class="org-string">"%H:%M %d %b %y"</span>
+      enabled: true
+      position:
+        top: 0
+        left: 4
+        height: 2
+        width: 1
+      refreshInterval: 8
+      repositories:
+      - <span class="org-string">"/Users/teddy/code/todo"</span>
+      type: git
+
+    resourceusage:
+      cpuCombined: false
+      enabled: true
+      position:
+        top: 2
+        left: 2
+        height: 1
+        width: 1
+        refreshInterval: 1
+      showCPU: true
+      showMem: true
+      showSwp: true
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org2d300a1" class="outline-3">
+<h3 id="org2d300a1"><span class="section-number-3">11.6</span> Xmodmap</h3>
+<div class="outline-text-3" id="text-11-6">
+<p>
+swap control and capslock
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf">clear lock
+clear control
+<span class="org-variable-name">keycode 66</span> = Control_L
+<span class="org-variable-name">add control</span> = Control_L
+<span class="org-variable-name">add Lock</span> = Control_R
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orga77137f" class="outline-2">
+<h2 id="orga77137f"><span class="section-number-2">12</span> Server</h2>
+<div class="outline-text-2" id="text-12">
+</div>
+<div id="outline-container-orgd028c9e" class="outline-3">
+<h3 id="orgd028c9e"><span class="section-number-3">12.1</span> ownCloud</h3>
+<div class="outline-text-3" id="text-12-1">
+<p>
+使用 docker 起一个网盘
+</p>
+
+<p>
+只要 sudo docker-compose up
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf">version: <span class="org-string">'2.1'</span>
+
+volumes:
+  files:
+    driver: local
+  mysql:
+    driver: local
+  backup:
+    driver: local
+  redis:
+    driver: local
+
+services:
+  owncloud:
+    image: owncloud/server:${OWNCLOUD_VERSION}
+    restart: always
+    ports:
+      - ${HTTP_PORT}:8080
+    depends_on:
+      - db
+      - redis
+    environment:
+      <span class="org-variable-name">- OWNCLOUD_DOMAIN</span>=${OWNCLOUD_DOMAIN}
+      <span class="org-variable-name">- OWNCLOUD_DB_TYPE</span>=mysql
+      <span class="org-variable-name">- OWNCLOUD_DB_NAME</span>=owncloud
+      <span class="org-variable-name">- OWNCLOUD_DB_USERNAME</span>=owncloud
+      <span class="org-variable-name">- OWNCLOUD_DB_PASSWORD</span>=owncloud
+      <span class="org-variable-name">- OWNCLOUD_DB_HOST</span>=db
+      <span class="org-variable-name">- OWNCLOUD_ADMIN_USERNAME</span>=${ADMIN_USERNAME}
+      <span class="org-variable-name">- OWNCLOUD_ADMIN_PASSWORD</span>=${ADMIN_PASSWORD}
+      <span class="org-variable-name">- OWNCLOUD_MYSQL_UTF8MB4</span>=true
+      <span class="org-variable-name">- OWNCLOUD_REDIS_ENABLED</span>=true
+      <span class="org-variable-name">- OWNCLOUD_REDIS_HOST</span>=redis
+    healthcheck:
+      test: [<span class="org-string">"CMD"</span>, <span class="org-string">"/usr/bin/healthcheck"</span>]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - /home/teddy/Public:/mnt/data
+
+  db:
+    image: webhippie/mariadb:latest
+    restart: always
+    environment:
+      <span class="org-variable-name">- MARIADB_ROOT_PASSWORD</span>=owncloud
+      <span class="org-variable-name">- MARIADB_USERNAME</span>=owncloud
+      <span class="org-variable-name">- MARIADB_PASSWORD</span>=owncloud
+      <span class="org-variable-name">- MARIADB_DATABASE</span>=owncloud
+      <span class="org-variable-name">- MARIADB_MAX_ALLOWED_PACKET</span>=128M
+      <span class="org-variable-name">- MARIADB_INNODB_LOG_FILE_SIZE</span>=64M
+    healthcheck:
+      test: [<span class="org-string">"CMD"</span>, <span class="org-string">"/usr/bin/healthcheck"</span>]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - mysql:/var/lib/mysql
+      - backup:/var/lib/backup
+
+  redis:
+    image: webhippie/redis:latest
+    restart: always
+    environment:
+      <span class="org-variable-name">- REDIS_DATABASES</span>=1
+    healthcheck:
+      test: [<span class="org-string">"CMD"</span>, <span class="org-string">"/usr/bin/healthcheck"</span>]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - redis:/var/lib/redis
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdb9f843" class="outline-3">
+<h3 id="orgdb9f843"><span class="section-number-3">12.2</span> gogs</h3>
+<div class="outline-text-3" id="text-12-2">
+<p>
+self host 的 git server
+</p>
+
+<p>
+window 下要把 C:\Program Files\Git\usr\bin 加入到 path, 主要需要里面的 ssh-keygen
+</p>
+
+<p>
+然后下载 gogs, 在命令行中执行 gogs.exe web, 设置界面要选择独立 ssh
+</p>
+</div>
+</div>
+<div id="outline-container-org0733568" class="outline-3">
+<h3 id="org0733568"><span class="section-number-3">12.3</span> openwrt</h3>
+<div class="outline-text-3" id="text-12-3">
+<p>
+直接使用镜像， 镜像转换需要以管理员身份执行
+</p>
+</div>
+</div>
+<div id="outline-container-org004199a" class="outline-3">
+<h3 id="org004199a"><span class="section-number-3">12.4</span> simple file server</h3>
+<div class="outline-text-3" id="text-12-4">
+<div class="org-src-container">
+<pre class="src src-go">/*
+Serve is a very simple static file server in go
+Usage:
+	-p="8100": port to serve on
+	-d=".":    the directory of static files to host
+Navigating to http://localhost:8100 will display the index.html or directory
+listing file.
+*/
+package main
+
+import (
+	"flag"
+	"log"
+	"net/http"
+)
+
+func main() {
+	port := flag.String("p", "8100", "port to serve on")
+	directory := flag.String("d", ".", "the directory of static file to host")
+	flag.Parse()
+
+	http.Handle("/", http.FileServer(http.Dir(*directory)))
+
+	log.Printf("Serving %s on HTTP port: %s\n", *directory, *port)
+	log.Fatal(http.ListenAndServe(":"+*port, nil))
+}
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Travis CI User</p>
+<p class="date">Created: 2021-04-27 Tue 08:27</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
