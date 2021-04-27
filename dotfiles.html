@@ -3,12 +3,13 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-04-27 Tue 08:27 -->
+<!-- 2021-04-27 Tue 08:33 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>dotfile</title>
+<title>Dotfile</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="Travis CI User" />
+<meta name="author" content="Teddy Ma" />
+<link rel="stylesheet" type="text/css" href="https://www.songofcode.com/socss/assets/toolkit/styles/org.css"/>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -80,95 +81,92 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">dotfile</h1>
+<h1 class="title">Dotfile</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org63f7fdd">1. README</a></li>
-<li><a href="#orge7a9e93">2. Git</a>
+<li><a href="#orgcb0cf86">README</a></li>
+<li><a href="#org4e5e127">Git</a>
 <ul>
-<li><a href="#orgccf6b5a">2.1. basic</a></li>
-<li><a href="#org31d6c72">2.2. global ignore</a></li>
-<li><a href="#org230cc69">2.3. git message</a></li>
-<li><a href="#orgc103818">2.4. git diff</a></li>
+<li><a href="#org4caa3c9">basic</a></li>
+<li><a href="#orgef073d1">global ignore</a></li>
+<li><a href="#orgc2bba91">git message</a></li>
+<li><a href="#orgaf3c6dd">git diff</a></li>
 </ul>
 </li>
-<li><a href="#org8c519f1">3. homebrew</a></li>
-<li><a href="#org9fb7cc1">4. Neovim</a></li>
-<li><a href="#org8b7986e">5. psql</a>
+<li><a href="#org9e4ee2a">homebrew</a></li>
+<li><a href="#orgc9c0b75">Neovim</a></li>
+<li><a href="#orgea15680">psql</a>
 <ul>
-<li><a href="#org1427155">5.1. cli</a></li>
-<li><a href="#org9c49f67">5.2. rc</a></li>
+<li><a href="#orgc2dd922">cli</a></li>
+<li><a href="#orgf1389b8">rc</a></li>
 </ul>
 </li>
-<li><a href="#org7e9676e">6. shell</a>
+<li><a href="#org2d06654">shell</a>
 <ul>
-<li><a href="#org49c171c">6.1. fish</a></li>
-<li><a href="#org6aed633">6.2. starship</a></li>
-<li><a href="#org4d50f76">6.3. welcome memssage</a></li>
-<li><a href="#orgfdb52e6">6.4. alias</a></li>
+<li><a href="#org27b9ce9">fish</a></li>
+<li><a href="#orgb8590a1">starship</a></li>
+<li><a href="#org6f81abc">welcome memssage</a></li>
+<li><a href="#orgd1c8adc">alias</a></li>
 </ul>
 </li>
-<li><a href="#org7dbbcf3">7. Xresources</a>
+<li><a href="#org448384e">Xresources</a>
 <ul>
-<li><a href="#orgacc8e41">7.1. 屏幕设置</a></li>
-<li><a href="#org356a268">7.2. XTerm 设置</a></li>
-<li><a href="#org238516b">7.3. 颜色设置</a></li>
-<li><a href="#org90f22a9">7.4. URxvt 设置</a></li>
+<li><a href="#orga7ce07f">屏幕设置</a></li>
+<li><a href="#org251290e">XTerm 设置</a></li>
+<li><a href="#orgbe551bf">颜色设置</a></li>
+<li><a href="#org9105e35">URxvt 设置</a></li>
 </ul>
 </li>
-<li><a href="#org937c2f2">8. tmux</a>
+<li><a href="#orga58b4d5">tmux</a>
 <ul>
-<li><a href="#orge2ca68b">8.1. basic</a></li>
-<li><a href="#org2d2a63a">8.2. local</a></li>
+<li><a href="#orgcd43196">basic</a></li>
+<li><a href="#org920172b">local</a></li>
 </ul>
 </li>
-<li><a href="#org50c146c">9. wayland</a></li>
-<li><a href="#orgcda004a">10. hammerspoon</a>
+<li><a href="#orgbdd1949">wayland</a></li>
+<li><a href="#org1b833ae">hammerspoon</a>
 <ul>
-<li><a href="#orgbada5db">10.1. init</a></li>
-<li><a href="#orgdb235cf">10.2. app</a></li>
-<li><a href="#org31c991f">10.3. config</a></li>
-<li><a href="#orgc6697cd">10.4. key</a></li>
-<li><a href="#org037f861">10.5. layout</a></li>
-<li><a href="#org0f4b42a">10.6. react</a></li>
-<li><a href="#org74b39df">10.7. screen</a></li>
-<li><a href="#orgd3ab904">10.8. window</a></li>
-<li><a href="#org1c004db">10.9. Dashboard</a></li>
-<li><a href="#orgbfa6836">10.10. Spoons</a></li>
+<li><a href="#org5472e31">init</a></li>
+<li><a href="#org9b3a9b5">app</a></li>
+<li><a href="#org187ab60">config</a></li>
+<li><a href="#orgcb86b98">key</a></li>
+<li><a href="#org9c939fe">layout</a></li>
+<li><a href="#org1f9b6a9">react</a></li>
+<li><a href="#org5a029b2">screen</a></li>
+<li><a href="#org0369c0c">window</a></li>
+<li><a href="#orgfe1a72f">Dashboard</a></li>
+<li><a href="#orgf7af352">Spoons</a></li>
 </ul>
 </li>
-<li><a href="#org2838d19">11. Misc</a>
+<li><a href="#orgf68da2e">Misc</a>
 <ul>
-<li><a href="#org8dc7f1b">11.1. pyim</a></li>
-<li><a href="#org928afae">11.2. Snippets</a></li>
-<li><a href="#org0ae8105">11.3. bat</a></li>
-<li><a href="#org63b51b3">11.4. gita</a></li>
-<li><a href="#org08e8138">11.5. wtfutil</a></li>
-<li><a href="#org2d300a1">11.6. Xmodmap</a></li>
+<li><a href="#orgba45e72">pyim</a></li>
+<li><a href="#orge6d159d">Snippets</a></li>
+<li><a href="#org14cabf2">bat</a></li>
+<li><a href="#org14529a5">gita</a></li>
+<li><a href="#org25a1501">wtfutil</a></li>
+<li><a href="#org11d26d8">Xmodmap</a></li>
 </ul>
 </li>
-<li><a href="#orga77137f">12. Server</a>
+<li><a href="#org5858ae7">Server</a>
 <ul>
-<li><a href="#orgd028c9e">12.1. ownCloud</a></li>
-<li><a href="#orgdb9f843">12.2. gogs</a></li>
-<li><a href="#org0733568">12.3. openwrt</a></li>
-<li><a href="#org004199a">12.4. simple file server</a></li>
+<li><a href="#org6a7514d">ownCloud</a></li>
+<li><a href="#org4f00343">gogs</a></li>
+<li><a href="#orgc748892">openwrt</a></li>
+<li><a href="#org9a545bd">simple file server</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<p>
-我的 (Literate) Dotfiles
-</p>
 
-<div id="outline-container-org63f7fdd" class="outline-2">
-<h2 id="org63f7fdd"><span class="section-number-2">1</span> README</h2>
-<div class="outline-text-2" id="text-1">
+<div id="outline-container-orgcb0cf86" class="outline-2">
+<h2 id="orgcb0cf86">README</h2>
+<div class="outline-text-2" id="text-orgcb0cf86">
 <p>
-生成 README.md
+生成 README.md<br />
 </p>
 
 <div class="org-src-container">
@@ -212,15 +210,15 @@ Linux 下只需要安装几个最基础的包
 </div>
 </div>
 
-<div id="outline-container-orge7a9e93" class="outline-2">
-<h2 id="orge7a9e93"><span class="section-number-2">2</span> Git</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-org4e5e127" class="outline-2">
+<h2 id="org4e5e127">Git</h2>
+<div class="outline-text-2" id="text-org4e5e127">
 </div>
-<div id="outline-container-orgccf6b5a" class="outline-3">
-<h3 id="orgccf6b5a"><span class="section-number-3">2.1</span> basic</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-org4caa3c9" class="outline-3">
+<h3 id="org4caa3c9">basic</h3>
+<div class="outline-text-3" id="text-org4caa3c9">
 <p>
-基础配置
+基础配置<br />
 </p>
 
 <div class="org-src-container">
@@ -252,11 +250,11 @@ ln -s ~/ownCloud/Config/id_rsa.pub ~/.ssh/id_rsa.pub
 </div>
 </div>
 
-<div id="outline-container-org31d6c72" class="outline-3">
-<h3 id="org31d6c72"><span class="section-number-3">2.2</span> global ignore</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-orgef073d1" class="outline-3">
+<h3 id="orgef073d1">global ignore</h3>
+<div class="outline-text-3" id="text-orgef073d1">
 <p>
-全局的 ignore 配置
+全局的 ignore 配置<br />
 </p>
 
 <div class="org-src-container">
@@ -556,11 +554,11 @@ temp/
 </div>
 </div>
 </div>
-<div id="outline-container-org230cc69" class="outline-3">
-<h3 id="org230cc69"><span class="section-number-3">2.3</span> git message</h3>
-<div class="outline-text-3" id="text-2-3">
+<div id="outline-container-orgc2bba91" class="outline-3">
+<h3 id="orgc2bba91">git message</h3>
+<div class="outline-text-3" id="text-orgc2bba91">
 <p>
-git 提交信息的格式模板
+git 提交信息的格式模板<br />
 </p>
 
 <div class="org-src-container">
@@ -579,11 +577,11 @@ This change addresses the need by:
 </div>
 </div>
 </div>
-<div id="outline-container-orgc103818" class="outline-3">
-<h3 id="orgc103818"><span class="section-number-3">2.4</span> git diff</h3>
-<div class="outline-text-3" id="text-2-4">
+<div id="outline-container-orgaf3c6dd" class="outline-3">
+<h3 id="orgaf3c6dd">git diff</h3>
+<div class="outline-text-3" id="text-orgaf3c6dd">
 <p>
-<a href="https://github.com/dandavison/delta">https://github.com/dandavison/delta</a>
+<a href="https://github.com/dandavison/delta">https://github.com/dandavison/delta</a><br />
 </p>
 
 <div class="org-src-container">
@@ -607,11 +605,11 @@ This change addresses the need by:
 </div>
 </div>
 
-<div id="outline-container-org8c519f1" class="outline-2">
-<h2 id="org8c519f1"><span class="section-number-2">3</span> homebrew</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org9e4ee2a" class="outline-2">
+<h2 id="org9e4ee2a">homebrew</h2>
+<div class="outline-text-2" id="text-org9e4ee2a">
 <p>
-常用的软件都列在这里了
+常用的软件都列在这里了<br />
 </p>
 
 <div class="org-src-container">
@@ -717,11 +715,11 @@ cask <span class="org-string">"visual-studio-code"</span>
 </div>
 </div>
 </div>
-<div id="outline-container-org9fb7cc1" class="outline-2">
-<h2 id="org9fb7cc1"><span class="section-number-2">4</span> Neovim</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgc9c0b75" class="outline-2">
+<h2 id="orgc9c0b75">Neovim</h2>
+<div class="outline-text-2" id="text-orgc9c0b75">
 <p>
-不太用 vim, 只有最基本的配置
+不太用 vim, 只有最基本的配置<br />
 </p>
 
 <div class="org-src-container">
@@ -945,17 +943,17 @@ function! &lt;SID&gt;CleanFile()
 </div>
 </div>
 
-<div id="outline-container-org8b7986e" class="outline-2">
-<h2 id="org8b7986e"><span class="section-number-2">5</span> psql</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-orgea15680" class="outline-2">
+<h2 id="orgea15680">psql</h2>
+<div class="outline-text-2" id="text-orgea15680">
 <p>
-postgresql 数据库客户端的配置
+postgresql 数据库客户端的配置<br />
 </p>
 </div>
 
-<div id="outline-container-org1427155" class="outline-3">
-<h3 id="org1427155"><span class="section-number-3">5.1</span> cli</h3>
-<div class="outline-text-3" id="text-5-1">
+<div id="outline-container-orgc2dd922" class="outline-3">
+<h3 id="orgc2dd922">cli</h3>
+<div class="outline-text-3" id="text-orgc2dd922">
 <div class="org-src-container">
 <pre class="src src-conf"><span class="org-comment-delimiter"># </span><span class="org-comment">vi: ft=dosini</span>
 [<span class="org-type">main</span>]
@@ -1125,9 +1123,9 @@ postgresql 数据库客户端的配置
 </div>
 </div>
 </div>
-<div id="outline-container-org9c49f67" class="outline-3">
-<h3 id="org9c49f67"><span class="section-number-3">5.2</span> rc</h3>
-<div class="outline-text-3" id="text-5-2">
+<div id="outline-container-orgf1389b8" class="outline-3">
+<h3 id="orgf1389b8">rc</h3>
+<div class="outline-text-3" id="text-orgf1389b8">
 <div class="org-src-container">
 <pre class="src src-conf">\set QUIET 1
 \timing
@@ -1146,15 +1144,15 @@ postgresql 数据库客户端的配置
 </div>
 </div>
 
-<div id="outline-container-org7e9676e" class="outline-2">
-<h2 id="org7e9676e"><span class="section-number-2">6</span> shell</h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-org2d06654" class="outline-2">
+<h2 id="org2d06654">shell</h2>
+<div class="outline-text-2" id="text-org2d06654">
 </div>
-<div id="outline-container-org49c171c" class="outline-3">
-<h3 id="org49c171c"><span class="section-number-3">6.1</span> fish</h3>
-<div class="outline-text-3" id="text-6-1">
+<div id="outline-container-org27b9ce9" class="outline-3">
+<h3 id="org27b9ce9">fish</h3>
+<div class="outline-text-3" id="text-org27b9ce9">
 <p>
-Setup scripts
+Setup scripts<br />
 </p>
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-builtin">echo</span> /usr/local/bin/fish | sudo tee -a /etc/shells <span class="org-comment-delimiter"># </span><span class="org-comment">macOS</span>
@@ -1168,7 +1166,7 @@ fisher install franciscolourenco/done
 </div>
 
 <p>
-Color setting
+Color setting<br />
 </p>
 <div class="org-src-container">
 <pre class="src src-conf">set TERM <span class="org-string">"xterm-256color"</span>
@@ -1202,7 +1200,7 @@ set fish_pager_color_prefix white --bold --underline
 </div>
 
 <p>
-Path and source (macOS)
+Path and source (macOS)<br />
 </p>
 <div class="org-src-container">
 <pre class="src src-conf">source /usr/local/opt/asdf/asdf.fish
@@ -1211,7 +1209,7 @@ set PATH $PATH ~/.cargo/bin
 </div>
 
 <p>
-Path and source (Linux)
+Path and source (Linux)<br />
 </p>
 <div class="org-src-container">
 <pre class="src src-conf">source /opt/asdf-vm/asdf.fish
@@ -1219,7 +1217,7 @@ Path and source (Linux)
 </div>
 
 <p>
-Default editor
+Default editor<br />
 </p>
 <div class="org-src-container">
 <pre class="src src-conf"><span class="org-variable-name">export EDITOR</span>=nvim
@@ -1227,7 +1225,7 @@ Default editor
 </div>
 
 <p>
-Starship setup
+Starship setup<br />
 </p>
 <div class="org-src-container">
 <pre class="src src-conf">starship init fish | source
@@ -1236,9 +1234,9 @@ Starship setup
 </div>
 </div>
 
-<div id="outline-container-org6aed633" class="outline-3">
-<h3 id="org6aed633"><span class="section-number-3">6.2</span> starship</h3>
-<div class="outline-text-3" id="text-6-2">
+<div id="outline-container-orgb8590a1" class="outline-3">
+<h3 id="orgb8590a1">starship</h3>
+<div class="outline-text-3" id="text-orgb8590a1">
 <div class="org-src-container">
 <pre class="src src-toml">scan_timeout = 1000
 command_timeout = 1000
@@ -1276,11 +1274,11 @@ symbol = "🌱 "
 </div>
 </div>
 </div>
-<div id="outline-container-org4d50f76" class="outline-3">
-<h3 id="org4d50f76"><span class="section-number-3">6.3</span> welcome memssage</h3>
-<div class="outline-text-3" id="text-6-3">
+<div id="outline-container-org6f81abc" class="outline-3">
+<h3 id="org6f81abc">welcome memssage</h3>
+<div class="outline-text-3" id="text-org6f81abc">
 <p>
-remove last login message by touch this dot file
+remove last login message by touch this dot file<br />
 </p>
 <div class="org-src-container">
 <pre class="src src-conf">
@@ -1295,11 +1293,11 @@ end
 </div>
 </div>
 </div>
-<div id="outline-container-orgfdb52e6" class="outline-3">
-<h3 id="orgfdb52e6"><span class="section-number-3">6.4</span> alias</h3>
-<div class="outline-text-3" id="text-6-4">
+<div id="outline-container-orgd1c8adc" class="outline-3">
+<h3 id="orgd1c8adc">alias</h3>
+<div class="outline-text-3" id="text-orgd1c8adc">
 <p>
-fish shell 使用函数来实现 alias
+fish shell 使用函数来实现 alias<br />
 </p>
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-keyword">function</span> <span class="org-function-name">cat</span>
@@ -1332,13 +1330,13 @@ end
 </div>
 </div>
 
-<div id="outline-container-org7dbbcf3" class="outline-2">
-<h2 id="org7dbbcf3"><span class="section-number-2">7</span> Xresources</h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-org448384e" class="outline-2">
+<h2 id="org448384e">Xresources</h2>
+<div class="outline-text-2" id="text-org448384e">
 </div>
-<div id="outline-container-orgacc8e41" class="outline-3">
-<h3 id="orgacc8e41"><span class="section-number-3">7.1</span> 屏幕设置</h3>
-<div class="outline-text-3" id="text-7-1">
+<div id="outline-container-orga7ce07f" class="outline-3">
+<h3 id="orga7ce07f">屏幕设置</h3>
+<div class="outline-text-3" id="text-orga7ce07f">
 <div class="org-src-container">
 <pre class="src src-conf">Xft.dpi:       96
 Xft.antialias: true
@@ -1352,9 +1350,9 @@ Xft.lcdfilter: lcddefault
 </div>
 </div>
 
-<div id="outline-container-org356a268" class="outline-3">
-<h3 id="org356a268"><span class="section-number-3">7.2</span> XTerm 设置</h3>
-<div class="outline-text-3" id="text-7-2">
+<div id="outline-container-org251290e" class="outline-3">
+<h3 id="org251290e">XTerm 设置</h3>
+<div class="outline-text-3" id="text-org251290e">
 <div class="org-src-container">
 <pre class="src src-conf">XTerm*background:        <span class="org-comment-delimiter">#</span><span class="org-comment">222D31</span>
 XTerm*foreground:        <span class="org-comment-delimiter">#</span><span class="org-comment">d8d8d8</span>
@@ -1368,9 +1366,9 @@ XTerm*selectToClipboard: true
 </div>
 </div>
 
-<div id="outline-container-org238516b" class="outline-3">
-<h3 id="org238516b"><span class="section-number-3">7.3</span> 颜色设置</h3>
-<div class="outline-text-3" id="text-7-3">
+<div id="outline-container-orgbe551bf" class="outline-3">
+<h3 id="orgbe551bf">颜色设置</h3>
+<div class="outline-text-3" id="text-orgbe551bf">
 <div class="org-src-container">
 <pre class="src src-conf">*background:                      <span class="org-comment-delimiter">#</span><span class="org-comment">222D31</span>
 *foreground:                      <span class="org-comment-delimiter">#</span><span class="org-comment">d8d8d8</span>
@@ -1419,9 +1417,9 @@ Xcursor.size:                     0
 </div>
 </div>
 
-<div id="outline-container-org90f22a9" class="outline-3">
-<h3 id="org90f22a9"><span class="section-number-3">7.4</span> URxvt 设置</h3>
-<div class="outline-text-3" id="text-7-4">
+<div id="outline-container-org9105e35" class="outline-3">
+<h3 id="org9105e35">URxvt 设置</h3>
+<div class="outline-text-3" id="text-org9105e35">
 <div class="org-src-container">
 <pre class="src src-conf"><span class="org-variable-name">URxvt*font:                       xft:SauceCodePro Nerd Font Mono:pixelsize</span>=21:minspace=False, xft:DejaVu Sans:pixelsize=14, xft:Monaco:style=regular:pixelsize=13:antialias=true,hinting=true, xft:dejavu sans mono:pixelsize=13:antialias=true,hinting=true, xft:Twitter Color Emoji:pixelsize=14, xft:NotoEmoji Nerd Font Mono:pixelsize=14, xft:Symbola
 <span class="org-variable-name">URxvt*boldFont:                   xft:SauceCodePro Nerd Font Mono:pixelsize</span>=21:minspace=False, xft:DejaVu Sans:pixelsize=14, xft:Monaco:style=regular:pixelsize=13:antialias=true,hinting=true, xft:dejavu sans mono:pixelsize=13:antialias=true,hinting=true
@@ -1467,13 +1465,13 @@ URxvt.keysym.Shift-Control-Down:  \033[1;6B
 </div>
 </div>
 
-<div id="outline-container-org937c2f2" class="outline-2">
-<h2 id="org937c2f2"><span class="section-number-2">8</span> tmux</h2>
-<div class="outline-text-2" id="text-8">
+<div id="outline-container-orga58b4d5" class="outline-2">
+<h2 id="orga58b4d5">tmux</h2>
+<div class="outline-text-2" id="text-orga58b4d5">
 </div>
-<div id="outline-container-orge2ca68b" class="outline-3">
-<h3 id="orge2ca68b"><span class="section-number-3">8.1</span> basic</h3>
-<div class="outline-text-3" id="text-8-1">
+<div id="outline-container-orgcd43196" class="outline-3">
+<h3 id="orgcd43196">basic</h3>
+<div class="outline-text-3" id="text-orgcd43196">
 <div class="org-src-container">
 <pre class="src src-conf"><span class="org-comment-delimiter"># </span><span class="org-comment">cat &lt;&lt; &#9658;_&#9668; &gt; /dev/null</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#19978;&#38754;&#36825;&#34892;&#21487;&#20197;&#29992;&#26469;&#26816;&#27979;&#29305;&#27530;&#23383;&#31526;&#33021;&#21542;&#22312;&#24403;&#21069;&#29615;&#22659;&#34987;&#26174;&#31034;</span>
@@ -1574,9 +1572,9 @@ run <span class="org-string">'~/.tmux/plugins/tpm/tpm'</span>
 </div>
 </div>
 
-<div id="outline-container-org2d2a63a" class="outline-3">
-<h3 id="org2d2a63a"><span class="section-number-3">8.2</span> local</h3>
-<div class="outline-text-3" id="text-8-2">
+<div id="outline-container-org920172b" class="outline-3">
+<h3 id="org920172b">local</h3>
+<div class="outline-text-3" id="text-org920172b">
 <div class="org-src-container">
 <pre class="src src-conf"><span class="org-comment-delimiter"># </span><span class="org-comment">tmux theme, colors and status line</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">available themes:</span>
@@ -1627,9 +1625,9 @@ set-window-option -g clock-mode-colour green <span class="org-comment-delimiter"
 </div>
 </div>
 
-<div id="outline-container-org50c146c" class="outline-2">
-<h2 id="org50c146c"><span class="section-number-2">9</span> wayland</h2>
-<div class="outline-text-2" id="text-9">
+<div id="outline-container-orgbdd1949" class="outline-2">
+<h2 id="orgbdd1949">wayland</h2>
+<div class="outline-text-2" id="text-orgbdd1949">
 <div class="org-src-container">
 <pre class="src src-conf"><span class="org-comment-delimiter"># </span><span class="org-comment">Configuration for Alacritty, the GPU enhanced terminal emulator</span>
 
@@ -2250,13 +2248,13 @@ include /etc/sway/config.d/*
 </div>
 </div>
 </div>
-<div id="outline-container-orgcda004a" class="outline-2">
-<h2 id="orgcda004a"><span class="section-number-2">10</span> hammerspoon</h2>
-<div class="outline-text-2" id="text-10">
+<div id="outline-container-org1b833ae" class="outline-2">
+<h2 id="org1b833ae">hammerspoon</h2>
+<div class="outline-text-2" id="text-org1b833ae">
 </div>
-<div id="outline-container-orgbada5db" class="outline-3">
-<h3 id="orgbada5db"><span class="section-number-3">10.1</span> init</h3>
-<div class="outline-text-3" id="text-10-1">
+<div id="outline-container-org5472e31" class="outline-3">
+<h3 id="org5472e31">init</h3>
+<div class="outline-text-3" id="text-org5472e31">
 <div class="org-src-container">
 <pre class="src src-sh">ln -s ~/ownCloud/Config/Spoons ~/.hammerspoon
 </pre>
@@ -2291,9 +2289,9 @@ hs.alert.show("Config loaded")
 </div>
 </div>
 
-<div id="outline-container-orgdb235cf" class="outline-3">
-<h3 id="orgdb235cf"><span class="section-number-3">10.2</span> app</h3>
-<div class="outline-text-3" id="text-10-2">
+<div id="outline-container-org9b3a9b5" class="outline-3">
+<h3 id="org9b3a9b5">app</h3>
+<div class="outline-text-3" id="text-org9b3a9b5">
 <div class="org-src-container">
 <pre class="src src-lua">hs.hotkey.bind(hyper, 'i', function()
 		  hs.application.launchOrFocus('Terminal')
@@ -2319,9 +2317,9 @@ end)
 </div>
 </div>
 </div>
-<div id="outline-container-org31c991f" class="outline-3">
-<h3 id="org31c991f"><span class="section-number-3">10.3</span> config</h3>
-<div class="outline-text-3" id="text-10-3">
+<div id="outline-container-org187ab60" class="outline-3">
+<h3 id="org187ab60">config</h3>
+<div class="outline-text-3" id="text-org187ab60">
 <div class="org-src-container">
 <pre class="src src-lua">hyper = {'cmd', 'alt', 'ctrl'}
 hyperShift = {'alt', 'cmd', 'shift'}
@@ -2334,9 +2332,9 @@ lg_ultrawide_monitor = "LG ULTRAWIDE"
 </div>
 </div>
 </div>
-<div id="outline-container-orgc6697cd" class="outline-3">
-<h3 id="orgc6697cd"><span class="section-number-3">10.4</span> key</h3>
-<div class="outline-text-3" id="text-10-4">
+<div id="outline-container-orgcb86b98" class="outline-3">
+<h3 id="orgcb86b98">key</h3>
+<div class="outline-text-3" id="text-orgcb86b98">
 <div class="org-src-container">
 <pre class="src src-lua">function showKeyPress(tap_event)
    local duration = 1.5  -- popup duration
@@ -2489,9 +2487,9 @@ end)
 </div>
 </div>
 </div>
-<div id="outline-container-org037f861" class="outline-3">
-<h3 id="org037f861"><span class="section-number-3">10.5</span> layout</h3>
-<div class="outline-text-3" id="text-10-5">
+<div id="outline-container-org9c939fe" class="outline-3">
+<h3 id="org9c939fe">layout</h3>
+<div class="outline-text-3" id="text-org9c939fe">
 <div class="org-src-container">
 <pre class="src src-lua">top_half    = hs.geometry.unitrect(0,0,1,0.5)
 buttom_half = hs.geometry.unitrect(0,0.5,1,0.5)
@@ -2553,9 +2551,9 @@ end)
 </div>
 </div>
 </div>
-<div id="outline-container-org0f4b42a" class="outline-3">
-<h3 id="org0f4b42a"><span class="section-number-3">10.6</span> react</h3>
-<div class="outline-text-3" id="text-10-6">
+<div id="outline-container-org1f9b6a9" class="outline-3">
+<h3 id="org1f9b6a9">react</h3>
+<div class="outline-text-3" id="text-org1f9b6a9">
 <div class="org-src-container">
 <pre class="src src-lua">function applicationWatcher(appName, eventType, appObject)
    if (eventType == hs.application.watcher.activated) then
@@ -2594,9 +2592,9 @@ end
 </div>
 </div>
 </div>
-<div id="outline-container-org74b39df" class="outline-3">
-<h3 id="org74b39df"><span class="section-number-3">10.7</span> screen</h3>
-<div class="outline-text-3" id="text-10-7">
+<div id="outline-container-org5a029b2" class="outline-3">
+<h3 id="org5a029b2">screen</h3>
+<div class="outline-text-3" id="text-org5a029b2">
 <div class="org-src-container">
 <pre class="src src-lua">function focus_other_screen() -- focuses the other screen
    local current_screen = hs.mouse.getCurrentScreen()
@@ -2668,9 +2666,9 @@ end
 </div>
 </div>
 </div>
-<div id="outline-container-orgd3ab904" class="outline-3">
-<h3 id="orgd3ab904"><span class="section-number-3">10.8</span> window</h3>
-<div class="outline-text-3" id="text-10-8">
+<div id="outline-container-org0369c0c" class="outline-3">
+<h3 id="org0369c0c">window</h3>
+<div class="outline-text-3" id="text-org0369c0c">
 <div class="org-src-container">
 <pre class="src src-lua">-- hs.window.animationDuration = 0
 spoon.WindowScreenLeftAndRight:bindHotkeys({
@@ -2693,9 +2691,9 @@ spoon.WindowHalfsAndThirds:bindHotkeys({
 </div>
 </div>
 </div>
-<div id="outline-container-org1c004db" class="outline-3">
-<h3 id="org1c004db"><span class="section-number-3">10.9</span> Dashboard</h3>
-<div class="outline-text-3" id="text-10-9">
+<div id="outline-container-orgfe1a72f" class="outline-3">
+<h3 id="orgfe1a72f">Dashboard</h3>
+<div class="outline-text-3" id="text-orgfe1a72f">
 <div class="org-src-container">
 <pre class="src src-lua">hs.hotkey.bind(hyper, 'y', function()
 		  if not dashboardView then
@@ -2788,50 +2786,50 @@ end
 </div>
 </div>
 
-<div id="outline-container-orgbfa6836" class="outline-3">
-<h3 id="orgbfa6836"><span class="section-number-3">10.10</span> Spoons</h3>
-<div class="outline-text-3" id="text-10-10">
+<div id="outline-container-orgf7af352" class="outline-3">
+<h3 id="orgf7af352">Spoons</h3>
+<div class="outline-text-3" id="text-orgf7af352">
 <p>
-in ownCloud config folder
+in ownCloud config folder<br />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org2838d19" class="outline-2">
-<h2 id="org2838d19"><span class="section-number-2">11</span> Misc</h2>
-<div class="outline-text-2" id="text-11">
+<div id="outline-container-orgf68da2e" class="outline-2">
+<h2 id="orgf68da2e">Misc</h2>
+<div class="outline-text-2" id="text-orgf68da2e">
 </div>
-<div id="outline-container-org8dc7f1b" class="outline-3">
-<h3 id="org8dc7f1b"><span class="section-number-3">11.1</span> pyim</h3>
-<div class="outline-text-3" id="text-11-1">
+<div id="outline-container-orgba45e72" class="outline-3">
+<h3 id="orgba45e72">pyim</h3>
+<div class="outline-text-3" id="text-orgba45e72">
 <div class="org-src-container">
 <pre class="src src-shell">ln -s ~/ownCloud/Config/pyim ~/.emacs.d
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org928afae" class="outline-3">
-<h3 id="org928afae"><span class="section-number-3">11.2</span> Snippets</h3>
-<div class="outline-text-3" id="text-11-2">
+<div id="outline-container-orge6d159d" class="outline-3">
+<h3 id="orge6d159d">Snippets</h3>
+<div class="outline-text-3" id="text-orge6d159d">
 <div class="org-src-container">
 <pre class="src src-shell">ln -s ~/ownCloud/Config/snippets ~/.emacs.d
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org0ae8105" class="outline-3">
-<h3 id="org0ae8105"><span class="section-number-3">11.3</span> bat</h3>
-<div class="outline-text-3" id="text-11-3">
+<div id="outline-container-org14cabf2" class="outline-3">
+<h3 id="org14cabf2">bat</h3>
+<div class="outline-text-3" id="text-org14cabf2">
 <div class="org-src-container">
 <pre class="src src-conf"><span class="org-variable-name">--theme</span>=<span class="org-string">"Nord"</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org63b51b3" class="outline-3">
-<h3 id="org63b51b3"><span class="section-number-3">11.4</span> gita</h3>
-<div class="outline-text-3" id="text-11-4">
+<div id="outline-container-org14529a5" class="outline-3">
+<h3 id="org14529a5">gita</h3>
+<div class="outline-text-3" id="text-org14529a5">
 <div class="org-src-container">
 <pre class="src src-shell">pip3 install -U gita
 </pre>
@@ -2855,11 +2853,11 @@ in ownCloud config folder
 </div>
 </div>
 </div>
-<div id="outline-container-org08e8138" class="outline-3">
-<h3 id="org08e8138"><span class="section-number-3">11.5</span> wtfutil</h3>
-<div class="outline-text-3" id="text-11-5">
+<div id="outline-container-org25a1501" class="outline-3">
+<h3 id="org25a1501">wtfutil</h3>
+<div class="outline-text-3" id="text-org25a1501">
 <p>
-命令行的 dashboard 工具
+命令行的 dashboard 工具<br />
 </p>
 
 <div class="org-src-container">
@@ -3011,11 +3009,11 @@ in ownCloud config folder
 </div>
 </div>
 </div>
-<div id="outline-container-org2d300a1" class="outline-3">
-<h3 id="org2d300a1"><span class="section-number-3">11.6</span> Xmodmap</h3>
-<div class="outline-text-3" id="text-11-6">
+<div id="outline-container-org11d26d8" class="outline-3">
+<h3 id="org11d26d8">Xmodmap</h3>
+<div class="outline-text-3" id="text-org11d26d8">
 <p>
-swap control and capslock
+swap control and capslock<br />
 </p>
 
 <div class="org-src-container">
@@ -3029,19 +3027,19 @@ clear control
 </div>
 </div>
 </div>
-<div id="outline-container-orga77137f" class="outline-2">
-<h2 id="orga77137f"><span class="section-number-2">12</span> Server</h2>
-<div class="outline-text-2" id="text-12">
+<div id="outline-container-org5858ae7" class="outline-2">
+<h2 id="org5858ae7">Server</h2>
+<div class="outline-text-2" id="text-org5858ae7">
 </div>
-<div id="outline-container-orgd028c9e" class="outline-3">
-<h3 id="orgd028c9e"><span class="section-number-3">12.1</span> ownCloud</h3>
-<div class="outline-text-3" id="text-12-1">
+<div id="outline-container-org6a7514d" class="outline-3">
+<h3 id="org6a7514d">ownCloud</h3>
+<div class="outline-text-3" id="text-org6a7514d">
 <p>
-使用 docker 起一个网盘
+使用 docker 起一个网盘<br />
 </p>
 
 <p>
-只要 sudo docker-compose up
+只要 sudo docker-compose up<br />
 </p>
 
 <div class="org-src-container">
@@ -3122,33 +3120,33 @@ services:
 </div>
 </div>
 </div>
-<div id="outline-container-orgdb9f843" class="outline-3">
-<h3 id="orgdb9f843"><span class="section-number-3">12.2</span> gogs</h3>
-<div class="outline-text-3" id="text-12-2">
+<div id="outline-container-org4f00343" class="outline-3">
+<h3 id="org4f00343">gogs</h3>
+<div class="outline-text-3" id="text-org4f00343">
 <p>
-self host 的 git server
+self host 的 git server<br />
 </p>
 
 <p>
-window 下要把 C:\Program Files\Git\usr\bin 加入到 path, 主要需要里面的 ssh-keygen
+window 下要把 C:\Program Files\Git\usr\bin 加入到 path, 主要需要里面的 ssh-keygen<br />
 </p>
 
 <p>
-然后下载 gogs, 在命令行中执行 gogs.exe web, 设置界面要选择独立 ssh
+然后下载 gogs, 在命令行中执行 gogs.exe web, 设置界面要选择独立 ssh<br />
 </p>
 </div>
 </div>
-<div id="outline-container-org0733568" class="outline-3">
-<h3 id="org0733568"><span class="section-number-3">12.3</span> openwrt</h3>
-<div class="outline-text-3" id="text-12-3">
+<div id="outline-container-orgc748892" class="outline-3">
+<h3 id="orgc748892">openwrt</h3>
+<div class="outline-text-3" id="text-orgc748892">
 <p>
-直接使用镜像， 镜像转换需要以管理员身份执行
+直接使用镜像， 镜像转换需要以管理员身份执行<br />
 </p>
 </div>
 </div>
-<div id="outline-container-org004199a" class="outline-3">
-<h3 id="org004199a"><span class="section-number-3">12.4</span> simple file server</h3>
-<div class="outline-text-3" id="text-12-4">
+<div id="outline-container-org9a545bd" class="outline-3">
+<h3 id="org9a545bd">simple file server</h3>
+<div class="outline-text-3" id="text-org9a545bd">
 <div class="org-src-container">
 <pre class="src src-go">/*
 Serve is a very simple static file server in go
@@ -3184,8 +3182,8 @@ func main() {
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: Travis CI User</p>
-<p class="date">Created: 2021-04-27 Tue 08:27</p>
+<p class="author">Author: Teddy Ma</p>
+<p class="date">Created: 2021-04-27 Tue 08:33</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
