@@ -298,9 +298,13 @@ Place minibuffer at the top of the current frame
 #+end_src
 ** Center window
 #+begin_src emacs-lisp
-  (use-package centered-window
-    :ensure t)
-  #+end_src
+  (use-package visual-fill-column
+    :ensure t
+    :hook (org-mode . visual-fill-column-mode)
+    :custom
+    (visual-fill-column-center-text t)
+    (visual-fill-column-width 80))
+#+end_src
 * Edit
 ** Basics
 *** CRUX
@@ -1569,6 +1573,7 @@ https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf
     :hook
     (org-mode . teddy-ma/org-font-setup)
     (org-mode . teddy-ma/org-block-setup)
+    (org-mode . teddy-ma/org-buffer-setup)
     :config
     (setq org-log-done 'time)
     (setq org-log-into-drawer t)
@@ -1584,19 +1589,11 @@ https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf
     (setq org-file-apps
           '((auto-mode . emacs)
             ("\\.x?html?\\'" . "Chromium %s")))
-    (setq org-ellipsis " ▾")
-    (centered-window-mode t)
-    (add-hook 'org-mode-hook (lambda ()
-                               "Beautify Org Checkbox Symbol"
-                               (push '("[ ]" . "☐" ) prettify-symbols-alist)
-                               (push '("[X]" . "☑" ) prettify-symbols-alist)
-                               (push '("[-]" . "❍" ) prettify-symbols-alist)
-                               (prettify-symbols-mode))))
-
-  ;; (setq-default prettify-symbols-alist '(("#+BEGIN_SRC" . "»") ("#+END_SRC" . "«")("#+begin_src" . "»") ("#+end_src" . "«") ("lambda"  . "λ") ("->" . "→") ("->>" . "↠")))
+    (setq org-ellipsis " ▾"))
 #+end_src
-** Custom face
+** Custom org face
 Set fixed pitch font for org (conflict with Chinese table)
+
 #+begin_src emacs-lisp
   ;; conflict with chinese table in org
   (defun teddy-ma/org-font-setup ()
@@ -1627,6 +1624,17 @@ Custom org block style
       (set-face-attribute 'org-block-end-line nil :foreground background-color :background nil)
       (set-face-attribute 'org-block nil :background background-color)))
   ;;(set-face-attribute 'org-level-2 nil :height 1.3 :background "#60a83d")
+#+end_src
+** Custom org buffer
+Beautify Org Checkbox Symbol
+#+begin_src emacs-lisp
+  (defun teddy-ma/org-buffer-setup ()
+    (push '("[ ]" . "☐" ) prettify-symbols-alist)
+    (push '("[X]" . "☑" ) prettify-symbols-alist)
+    (push '("[-]" . "❍" ) prettify-symbols-alist)
+    (prettify-symbols-mode))
+
+  ;; (setq-default prettify-symbols-alist '(("#+BEGIN_SRC" . "»") ("#+END_SRC" . "«")("#+begin_src" . "»") ("#+end_src" . "«") ("lambda"  . "λ") ("->" . "→") ("->>" . "↠")))
 #+end_src
 
 ** Easy open common files                                          :@script:
