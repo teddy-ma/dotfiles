@@ -11,12 +11,13 @@ install:
 script:
   - $EMACS --batch -l build-gh-pages.el
   - mv config.html index.html
-  - rm -rf .packages/ && rm .mc-lists.el && rm -v !("index.html"|"org.css"|"mini.css"|"bootstrap.css") 
+  - mv dotfiles.html dotfiles.html
+  - rm -rf .packages/ && rm .mc-lists.el && rm -v !("index.html"|"org.css"|"mini.css"|"bootstrap.css")
 
 deploy:
   provider: pages
   skip_cleanup: true
-  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  github_token: $GITHUB_TOKEN
   keep_history: true
   verbose: true
   deployment_file: true
