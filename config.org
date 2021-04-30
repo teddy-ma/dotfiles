@@ -8,7 +8,6 @@
 
 * Setup
 ** Make it easy to edit and reload this file                       :@script:
-
 #+begin_src emacs-lisp
   (defun find-config ()
     "Edit config.org"
@@ -30,12 +29,10 @@
 #+end_src
 
 ** Personal Information
-
 #+begin_src emacs-lisp
   (setq user-full-name "Teddy Ma"
         user-mail-address "mlc880926@gmail.com")
 #+end_src
-
 ** Bootstrap use-package
 Guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-package-manual.html
 
@@ -54,8 +51,7 @@ Guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-pa
 
 ** Load custom settings
 Set up the customize file to its own separate file, instead of saving customize settings in [[file:init.el][init.el]].
-
-Warning: edit config.org file will *not* affect custom.el file!
+Try your best to make custom config clean.
 
 #+begin_src emacs-lisp
   (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -114,8 +110,7 @@ This package fixes that.
     (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
     (add-to-list 'default-frame-alist '(ns-appearance . dark))
     (setq ns-use-proxy-icon  nil)
-    (setq frame-title-format nil)
-    )
+    (setq frame-title-format nil))
 #+end_src
 *** Hide the help screen on startup
 #+begin_src emacs-lisp
@@ -155,7 +150,7 @@ Move file to trash instead of removing.
 #+begin_src emacs-lisp
   (setq enable-recursive-minibuffers t)
 #+end_src
-*** Meta Key
+*** Meta Key                                                          :@os:
 make both command and option key to be meta key
 #+begin_src emacs-lisp
   (when (eq system-type 'darwin)
@@ -165,7 +160,6 @@ make both command and option key to be meta key
   ;; (when (eq system-type 'gnu/linux)
   ;; (setq  x-meta-keysym 'super
   ;;       x-super-keysym 'meta))
-
 #+end_src
 *** Global UTF-8
 #+begin_src emacs-lisp
@@ -236,6 +230,26 @@ Suggest next keys to me based on currently entered key combination.
     which-key-mode)
 #+end_src
 
+*** Posframe
+#+begin_src emacs-lisp
+  (use-package posframe
+    :ensure t)
+#+end_src
+*** Winner mode
+#+begin_src emacs-lisp
+  (use-package winner-mode
+    :ensure nil
+    :hook (after-init . winner-mode))
+#+end_src
+*** Uniquify
+#+begin_src emacs-lisp
+  (use-package uniquify
+    :config
+    (setq uniquify-buffer-name-style 'reverse)
+    (setq uniquify-separator " • ")
+    (setq uniquify-after-kill-buffer-p t)
+    (setq uniquify-ignore-buffers-re "^\\*"))
+#+end_src
 ** Welcome dashboard
 #+begin_src emacs-lisp
   (setq emacs-banner "~/ownCloud/Photos/emacs-banner.png")
@@ -250,13 +264,6 @@ Suggest next keys to me based on currently entered key combination.
                             (bookmarks . 5)
                             (projects . 5)
                             (agenda . 5))))
-
-#+end_src
-** Winner mode
-#+begin_src emacs-lisp
-  (use-package winner-mode
-    :ensure nil
-    :hook (after-init . winner-mode))
 #+end_src
 ** Pop win
 #+begin_src emacs-lisp
@@ -271,30 +278,17 @@ Place minibuffer at the top of the current frame
   (use-package mini-frame
     :ensure t
     :config
+    (mini-frame-mode t)
     (custom-set-variables
      '(mini-frame-show-parameters
        '((top . 10)
          (width . 0.7)
          (left . 0.5)))))
 #+end_src
-** Posframe
-#+begin_src emacs-lisp
-  (use-package posframe
-    :ensure t)
-#+end_src
 ** Transpose frame
 #+begin_src emacs-lisp
   (use-package transpose-frame
     :ensure t)
-#+end_src
-** Uniquify
-#+begin_src emacs-lisp
-  (use-package uniquify
-    :config
-    (setq uniquify-buffer-name-style 'reverse)
-    (setq uniquify-separator " • ")
-    (setq uniquify-after-kill-buffer-p t)
-    (setq uniquify-ignore-buffers-re "^\\*"))
 #+end_src
 ** Center window
 #+begin_src emacs-lisp
@@ -306,7 +300,7 @@ Place minibuffer at the top of the current frame
     (visual-fill-column-width 120))
 #+end_src
 * Edit
-** Basics
+** Basic
 *** CRUX
 =crux= is a list of useful functions.
 
@@ -482,8 +476,8 @@ M-<up> M-<down> to move line up and down
     (drag-stuff-define-keys))
 #+end_src
 ** Folding
+https://github.com/Schnouki/dotfiles/blob/master/emacs/init-20-dev.el#L90
 #+begin_src emacs-lisp
-  ;;https://github.com/Schnouki/dotfiles/blob/master/emacs/init-20-dev.el#L90
   (use-package origami
     :ensure t
     :commands origami-mode
@@ -497,7 +491,7 @@ M-<up> M-<down> to move line up and down
                 ("C-: C-r" . origami-reset)
                 ))
 #+end_src
-** Align                                                           :@script:
+** Align non space                                                 :@script:
 #+begin_src emacs-lisp
   (defun align-non-space (BEG END)
     "Align non-space columns in region BEG END."
@@ -706,15 +700,14 @@ It works fine with windows and org table in Chinese
 
 #+end_src
 
+** Emoji and icons
 Add emoji support. This is useful when working with html.
 #+begin_src emacs-lisp
   (use-package emojify
     :ensure t)
 #+end_src
 
-** Emoji and icons
-Run M-x all-the-icons-install-fonts for the first time
-
+Run ~M-x all-the-icons-install-fonts~ to install fonts (only once)
 #+BEGIN_SRC emacs-lisp
   (use-package all-the-icons
     :ensure t
@@ -726,21 +719,18 @@ Run M-x all-the-icons-install-fonts for the first time
 #+end_src
 ** Mode Line                                                       :@script:
 Hide mode line if necessary
-
 #+begin_src emacs-lisp
   (use-package hide-mode-line
-    :ensure t
-    :config
-    (hide-mode-line-mode 1))
+    :ensure t)
 #+end_src
 
 In case I want to see all the minor modes
-
 #+begin_src emacs-lisp
   (use-package manage-minor-mode
     :ensure t)
 #+end_src
 
+nyan is very lovely
 #+begin_src emacs-lisp
   (use-package nyan-mode
     :ensure t
@@ -837,7 +827,7 @@ Setup Model Line content
             )))
 #+end_src
 
-Toggle mode line modes content which is too verbose sometimes
+Toggle mode line left content between blank, nyancat and mode names
 #+begin_src emacs-lisp
   (defun teddy-ma/render-cyan()
     '(:eval (list (nyan-create))))
@@ -855,14 +845,12 @@ Toggle mode line modes content which is too verbose sometimes
                    mode-line-align-right
                    ))
     )
-
-  ;;(teddy-ma/render-mode-line-modes)
-  ;;(teddy-ma/toggle-mode-line-modes)
   (teddy-ma/refresh-mode-line)
 #+end_src
 
 ** Theme                                                           :@script:
 
+My favourite themes
 #+begin_src emacs-lisp
   (use-package kaolin-themes
     :ensure t)
@@ -922,11 +910,10 @@ toggle theme (dark and light)
     (color-theme-sanityinc-tomorrow-eighties))
 #+end_src
 
-custom hl-line and mode-line bg color
+custom hl-line and mode-line bg color if necessary
 #+begin_src emacs-lisp
   ;; (set-face-background 'hl-line "midnight blue")
   ;; (set-face-background hl-line-face "gray13")
-
   ;; (set-face-background 'mode-line "color-28")
 #+end_src
 
@@ -1141,7 +1128,6 @@ Integration with Helm
 #+end_src
 
 Integration with neotree
- modified version of https://github.com/hemmvm/dotemacs/blob/master/site-lisp/util--neotree.el
 #+begin_src emacs-lisp
   (use-package neotree
     :ensure t
@@ -1191,7 +1177,6 @@ Integration with neotree
      'neotree-mode-hook
      (lambda ()
        (define-key neotree-mode-map (kbd "TAB") 'custom-neotree-peek))))
-
 #+end_src
 ** Fuzzy search
 =fzf= is a fuzzy file finder which is very quick.
@@ -1352,7 +1337,7 @@ I don't want suggestions from open files / buffers to be automatically lowercase
 #+end_src
 ** Snippets
 Type the shortcut and press =TAB= to complete, or =M-/= to autosuggest a snippet.
-
+http://ergoemacs.org/emacs/yasnippet_templates_howto.html
 #+begin_src emacs-lisp
   (use-package yasnippet
     :ensure t
@@ -1362,7 +1347,6 @@ Type the shortcut and press =TAB= to complete, or =M-/= to autosuggest a snippet
     (yas-global-mode 1)
     (global-set-key (kbd "M-/") 'company-yasnippet))
 
-  ;;http://ergoemacs.org/emacs/yasnippet_templates_howto.html
   (use-package yasnippet-snippets
     :ensure t)
 #+end_src
@@ -1491,7 +1475,8 @@ Elixir highlighting is not built into emacs at present. Elixir-mode gives all th
   (use-package minitest
     :ensure t)
 #+end_src
-** Rails
+** Rails                                                           :@script:
+Run test at point or test current file
 #+begin_src emacs-lisp
   (defun run-rails-test-at-point ()
     (interactive)
