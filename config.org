@@ -854,14 +854,11 @@ My favourite themes
 #+begin_src emacs-lisp
   (use-package kaolin-themes
     :ensure t)
-
-  (use-package color-theme-sanityinc-tomorrow
-    :ensure t)
 #+end_src
 
 toggle theme (dark and light)
 #+begin_src emacs-lisp
-  (setq-default custom-enabled-themes '(kaolin-light color-theme-sanityinc-tomorrow-day))
+  (setq-default custom-enabled-themes '(kaolin-light))
 
   (defun reapply-themes ()
     "Forcibly load the themes listed in `custom-enabled-themes'."
@@ -888,26 +885,6 @@ toggle theme (dark and light)
     "Activate a light day color theme."
     (interactive)
     (color-theme-sanityinc-tomorrow-day))
-
-  (defun theme-night ()
-    "Active color-theme-sanityinc-tomorrow-night theme."
-    (interactive)
-    (color-theme-sanityinc-tomorrow-night))
-
-  (defun theme-blue ()
-    "Active color-theme-sanityinc-tomorrow-blue theme."
-    (interactive)
-    (color-theme-sanityinc-tomorrow-blue))
-
-  (defun theme-bright ()
-    "Active color-theme-sanityinc-tomorrow-bright theme."
-    (interactive)
-    (color-theme-sanityinc-tomorrow-bright))
-
-  (defun theme-eighties ()
-    "Active color-theme-sanityinc-tomorrow-eighties theme."
-    (interactive)
-    (color-theme-sanityinc-tomorrow-eighties))
 #+end_src
 
 custom hl-line and mode-line bg color if necessary
