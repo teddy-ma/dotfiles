@@ -1609,14 +1609,18 @@ Completed tasks will be pierced through visually to intensify the sense of achie
 Custom org block style
 #+begin_src emacs-lisp
   (defun teddy-ma/org-block-setup ()
-    (let ( (background-color (face-attribute 'default :background))
+    (let ((background-color (face-background 'default))
+          (foreground-color (face-foreground 'default))
           (primary-green "#60a83d"))
+      (set-face-attribute 'fringe nil :foreground foreground-color :background background-color)
+      (set-face-attribute 'org-indent nil :background nil :foreground nil)
       (set-face-attribute 'org-block-begin-line nil :foreground primary-green :background nil)
-      (set-face-attribute 'org-block-end-line nil :foreground primary-green :background nil)
-      (set-face-attribute 'org-block nil :background nil)))
+      (set-face-attribute 'org-block-end-line nil   :foreground primary-green :background nil))
+    )
+  ;;(set-face-attribute 'org-block nil :background "red")))
   ;;(set-face-attribute 'org-level-2 nil :height 1.3 :background "#60a83d")
 #+end_src
-** Custom org buffer
+** Custom Org Buffer
 Beautify Org Checkbox Symbol
 #+begin_src emacs-lisp
   (defun teddy-ma/org-buffer-setup ()
