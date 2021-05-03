@@ -1743,6 +1743,10 @@ set-window-option -g window-status-bell-style fg=white,bg=red #base2, red
   # vim: nospell
 #+end_src
 
+#+begin_src conf :tangle (if (eq system-type 'gnu/linux)  "~/.config/fish/config.fish" "no") :mkdirp "yes"
+set -x MOZ_ENABLE_WAYLAND 1
+#+end_src
+
 #+begin_src conf :tangle (if (eq system-type 'gnu/linux) "~/.config/chromium-flags.conf" "no") :mkdirp "yes"
 --enable-features=UseOzonePlatform
 --ozone-platform=wayland
