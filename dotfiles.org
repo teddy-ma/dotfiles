@@ -1960,6 +1960,7 @@ link spoons
   require "modules/select"
   require "modules/layout"
   require "modules/react"
+  require "modules/caffeine"
   require "modules/pomo"
   require "modules/translate"
   require "modules/cherry"
@@ -2244,24 +2245,60 @@ end
 
 appWatcher = hs.application.watcher.new(applicationWatcher)
 appWatcher:start()
+#+end_src
+** Caffeine
+#+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/caffeine.lua" "no")  :mkdirp "yes"
+    ampIconOn = [[ASCII:
+  .....1a..........AC..........E
+  ..............................
+  ......4.......................
+  1..........aA..........CE.....
+  e.2......4.3...........h......
+  ..............................
+  ..............................
+  .......................h......
+  e.2......6.3.........t...q....
+  5..........c.........s........
+  ......6.......................
+  .........................q....
+  .....5c..............s...t....
+  ]]
 
-caffeine = hs.menubar.new()
-function setCaffeineDisplay(state)
-   if state then
-      caffeine:setTitle("AWAKE")
-   else
-      caffeine:setTitle("SLEEPY")
-   end
-end
+  ampIconOff = [[ASCII:
+  .....1a.....x....AC.y.......zE
+  ..............................
+  ......4.......................
+  1..........aA..........CE.....
+  e.2......4.3...........h......
+  ..............................
+  ..............................
+  .......................h......
+  e.2......6.3.........t...q....
+  5..........c.........s........
+  ......6.......................
+  .........................q....
+  ...x.5c....y.......z.s...t....
+  ]]
 
-function caffeineClicked()
-   setCaffeineDisplay(hs.caffeinate.toggle("displayIdle"))
-end
+  -- caffeine replacement
+  local caffeine = hs.menubar.new()
 
-if caffeine then
-   caffeine:setClickCallback(caffeineClicked)
-   setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
-end
+  function setCaffeineDisplay(state)
+     if state then
+        caffeine:setIcon(ampIconOn)
+     else
+        caffeine:setIcon(ampIconOff)
+     end
+  end
+
+  function caffeineClicked()
+     setCaffeineDisplay(hs.caffeinate.toggle("displayIdle"))
+  end
+
+  if caffeine then
+     caffeine:setClickCallback(caffeineClicked)
+     setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
+  end
 
 #+end_src
 ** Screen
