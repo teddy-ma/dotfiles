@@ -1937,6 +1937,7 @@ set -x MOZ_ENABLE_WAYLAND 1
 #+end_src
 * hammerspoon
 ** Setup                                                           :@script:
+
 link spoons
 #+begin_src sh
   ln -s ~/ownCloud/Config/Spoons ~/.hammerspoon
@@ -1949,6 +1950,7 @@ link spoons
   hs.loadSpoon("WindowHalfsAndThirds")
 
   require "modules/config"
+  require "modules/reload"
   require "modules/app"
   require "modules/window"
   require "modules/screen"
@@ -1961,15 +1963,28 @@ link spoons
   hs.hotkey.bind(hyper, 'h', function()
                     hs.alert.show("Hello World!")
   end)
+#+end_src
+** Reload
+#+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/reload.lua" "no") :mkdirp "yes"
 
-  hs.hotkey.bind(hyper, 'r', function()
-                    hs.reload()
-  end)
+  function reloadConfig(files)
+      doReload = false
+      for _,file in pairs(files) do
+          if file:sub(-4) == ".lua" then
+              doReload = true
+          end
+      end
+      if doReload then
+         hs.reload()
+      end
+  end
+  hammerspoonConfigFilesWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()
 
-  hs.alert.show("Config loaded")
+  hs.hotkey.bind(hyper, 'r', function() hs.reload() end)
+  hs.alert.show("🤓.🛠.🤓, config succesfully")
 #+end_src
 
-** App
+** App Launcher
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/app.lua" "no") :mkdirp "yes"
 hs.hotkey.bind(hyper, 'i', function()
                   hs.application.launchOrFocus('Terminal')
@@ -2425,7 +2440,8 @@ spoon.WindowHalfsAndThirds:bindHotkeys({
   end
 
 #+end_src
-** Select Demo
+** DOING Select Demo
+https://xenodium.com/emacs-utilities-for-your-os/
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/select.lua" "no")
   local chooser = hs.chooser.new(function(choice)
         hs.alert.show(choice['text'])
