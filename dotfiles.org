@@ -1943,29 +1943,50 @@ link spoons
 #+end_src
 ** Setup
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/init.lua" "no") :mkdirp "yes"
-  hs.loadSpoon("AClock")
-  hs.loadSpoon("WinWin")
-  hs.loadSpoon("WindowScreenLeftAndRight")
-  hs.loadSpoon("WindowHalfsAndThirds")
-  hs.loadSpoon("Cherry")
-  hs.loadSpoon("PopupTranslateSelection")
+hs.loadSpoon("AClock")
+hs.loadSpoon("WinWin")
+hs.loadSpoon("WindowScreenLeftAndRight")
+hs.loadSpoon("WindowHalfsAndThirds")
+hs.loadSpoon("Cherry")
+hs.loadSpoon("PopupTranslateSelection")
 
-  require "modules/config"
-  require "modules/reload"
-  require "modules/app"
-  require "modules/window"
-  require "modules/screen"
-  require "modules/key"
-  require "modules/dashboard"
-  require "modules/select"
-  require "modules/layout"
-  require "modules/react"
-  require "modules/caffeine"
-  require "modules/pomo"
-  require "modules/translate"
-  require "modules/cherry"
+require "modules/config"
+require "modules/reload"
+require "modules/app"
+require "modules/window"
+require "modules/screen"
+require "modules/key"
+require "modules/dashboard"
+require "modules/select"
+require "modules/layout"
+require "modules/react"
+require "modules/caffeine"
+require "modules/pomo"
+require "modules/translate"
+require "modules/cherry"
 
-  hs.hotkey.bind(hyper, 'h', function() hs.alert.show("Hello World!") end)
+-- Support upcoming 5.4 release and also use luarocks' local path
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.luarocks/share/lua/5.4/?.lua;" .. os.getenv("HOME") .. "/.luarocks/share/lua/5.4/?/init.lua"
+package.cpath = package.cpath .. ";" .. os.getenv("HOME") .. "/.luarocks/lib/lua/5.4/?.so"
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.luarocks/share/lua/5.3/?.lua;" .. os.getenv("HOME") .. "/.luarocks/share/lua/5.3/?/init.lua"
+package.cpath = package.cpath .. ";" .. os.getenv("HOME") .. "/.luarocks/lib/lua/5.3/?.so"
+
+fennel = require("fennel")
+table.insert(package.loaders or package.searchers, fennel.searcher)
+
+hs.hotkey.bind(hyper, 'h', function() hs.alert.show("Hello World!") end)
+
+require "core"
+#+end_src
+** Core
+#+begin_src fennel :tangle (if (eq system-type 'darwin) "~/.hammerspoon/core.fnl" "no") :mkdirp "yes"
+  (hs.ipc.cliInstall) ; ensure CLI installed
+  (local fennel (require :fennel))
+
+  (hs.hotkey.bind
+   [:ctrl :cmd] "`" nil
+   (fn []
+     (hs.openConsole)))
 #+end_src
 ** Config
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/config.lua" "no") :mkdirp "yes"
