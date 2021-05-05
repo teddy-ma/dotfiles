@@ -3,7 +3,7 @@
 #+TOC: true
 #+OPTIONS: num:nil \n:t
 #+TAGS: @script
-#+STARTUP: nohideblocks
+#+STARTUP: nohideblocks show2levels
 #+SETUPFILE: http://www.songofcode.com/socss/org.setup
 
 * README
@@ -409,7 +409,7 @@ https://github.com/dandavison/delta
     file-decoration-style = none
 #+end_src
 
-* homebrew
+* homebrew                                                          :@script:
 常用的软件都列在这里了
 
 #+begin_src conf :tangle /tmp/Brewfile
@@ -919,7 +919,7 @@ float = ""
 #+end_src
 
 * shell
-** fish
+** fish                                                            :@script:
 
 Setup scripts
 #+begin_src shell :tangle /tmp/dotfile-script.sh
@@ -1936,7 +1936,8 @@ set -x MOZ_ENABLE_WAYLAND 1
 
 #+end_src
 * hammerspoon
-** init
+** init                                                            :@script:
+link spoons
 #+begin_src sh
   ln -s ~/ownCloud/Config/Spoons ~/.hammerspoon
 #+end_src
@@ -2424,40 +2425,18 @@ spoon.WindowHalfsAndThirds:bindHotkeys({
 
 #+end_src
 
-** Spoons
-in ownCloud config folder
-
 * Misc
-** pyim
+** pyim                                                            :@script:
 #+begin_src shell :tangle /tmp/dotfile-script.sh
   ln -s ~/ownCloud/Config/pyim ~/.emacs.d
 #+end_src
-** Snippets
+** Snippets                                                        :@script:
 #+begin_src shell :tangle /tmp/dotfile-script.sh
   ln -s ~/ownCloud/Config/snippets ~/.emacs.d
 #+end_src
 ** bat
 #+BEGIN_SRC conf :tangle ~/.config/bat/config :mkdirp "yes"
   --theme="Nord"
-#+END_SRC
-** gita
-#+begin_src shell :tangle /tmp/dotfile-script.sh
-  pip3 install -U gita
-#+end_src
-
-#+begin_src yaml :tangle /tmp/dotfile-yaml.yml
-  repos:
-    - name: socss
-      url: git@github.com:teddy-ma/socss.gi
-
-    - name: songofcode
-      url: git@bitbucket.org:songofcode/songofcode.git
-#+end_src
-
-#+BEGIN_SRC conf :tangle ~/.config/gita/repo_path :mkdirp "yes"
-  /Users/teddy/.emacs.d,.emacs.d
-  /Users/teddy/Documents/org,org
-  /Users/teddy/Documents/roam,roam
 #+END_SRC
 ** wtfutil
 命令行的 dashboard 工具
