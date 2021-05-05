@@ -1936,7 +1936,7 @@ set -x MOZ_ENABLE_WAYLAND 1
 
 #+end_src
 * hammerspoon
-** init                                                            :@script:
+** Setup                                                           :@script:
 link spoons
 #+begin_src sh
   ln -s ~/ownCloud/Config/Spoons ~/.hammerspoon
@@ -1954,6 +1954,7 @@ link spoons
   require "modules/screen"
   require "modules/key"
   require "modules/dashboard"
+  require "modules/select"
   require "modules/layout"
   require "modules/react"
 
@@ -1968,7 +1969,7 @@ link spoons
   hs.alert.show("Config loaded")
 #+end_src
 
-** app
+** App
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/app.lua" "no") :mkdirp "yes"
 hs.hotkey.bind(hyper, 'i', function()
                   hs.application.launchOrFocus('Terminal')
@@ -1991,7 +1992,7 @@ hs.hotkey.bind(hyper, 't', function()
 end)
 
 #+end_src
-** config
+** Config
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/config.lua" "no") :mkdirp "yes"
 hyper = {'cmd', 'alt', 'ctrl'}
 hyperShift = {'alt', 'cmd', 'shift'}
@@ -2001,7 +2002,7 @@ lg_4k_monitor = "LV273HUPR"
 portable_monitor = "CLUO FHD"
 lg_ultrawide_monitor = "LG ULTRAWIDE"
 #+end_src
-** key
+** Key
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/key.lua" "no")  :mkdirp "yes"
 function showKeyPress(tap_event)
    local duration = 1.5  -- popup duration
@@ -2151,7 +2152,7 @@ k:bind(hyper, 'P', function()
 end)
 
 #+end_src
-** layout
+** Layout
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/layout.lua" "no") :mkdirp "yes"
 top_half    = hs.geometry.unitrect(0,0,1,0.5)
 buttom_half = hs.geometry.unitrect(0,0.5,1,0.5)
@@ -2210,7 +2211,7 @@ hs.hotkey.bind(hyper, '3', function()
   hs.layout.apply(writing_layout)
 end)
 #+end_src
-** react
+** React
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/react.lua" "no")  :mkdirp "yes"
 function applicationWatcher(appName, eventType, appObject)
    if (eventType == hs.application.watcher.activated) then
@@ -2246,7 +2247,7 @@ if caffeine then
 end
 
 #+end_src
-** screen
+** Screen
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/screen.lua" "no") :mkdirp "yes"
 function focus_other_screen() -- focuses the other screen
    local current_screen = hs.mouse.getCurrentScreen()
@@ -2315,7 +2316,7 @@ function mouseHighlight()
 end
 
 #+end_src
-** window
+** Window
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/window.lua" "no")  :mkdirp "yes"
 -- hs.window.animationDuration = 0
 spoon.WindowScreenLeftAndRight:bindHotkeys({
@@ -2424,7 +2425,37 @@ spoon.WindowHalfsAndThirds:bindHotkeys({
   end
 
 #+end_src
+** Select Demo
+#+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/select.lua" "no")
+  local chooser = hs.chooser.new(function(choice)
+        hs.alert.show(choice['text'])
+  end)
 
+  chooser:choices({
+        {
+           ["text"] = "Alfred\n",
+           ["subText"] = "macOS only\n",
+        },
+        {
+           ["text"] = "Quicksilver\n",
+           ["subText"] = "macOS only\n",
+        },
+        {
+           ["text"] = "Hammerspoon\n",
+           ["subText"] = "macOS only\n",
+        },
+        {
+           ["text"] = "Emacs\n",
+           ["subText"] = "is everywhere :)\n",
+        },
+  })
+
+  function toggle_chooser()
+     chooser:show()
+  end
+
+  hs.hotkey.bind(hyper, 'c', toggle_chooser)
+#+end_src
 * Misc
 ** pyim                                                            :@script:
 #+begin_src shell :tangle /tmp/dotfile-script.sh
