@@ -1936,19 +1936,19 @@ set -x MOZ_ENABLE_WAYLAND 1
 
 #+end_src
 * hammerspoon
-** Setup                                                           :@script:
-
+** Link Spoons                                                     :@script:
 link spoons
 #+begin_src sh
   ln -s ~/ownCloud/Config/Spoons ~/.hammerspoon
 #+end_src
-
+** Setup
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/init.lua" "no") :mkdirp "yes"
   hs.loadSpoon("AClock")
   hs.loadSpoon("WinWin")
   hs.loadSpoon("WindowScreenLeftAndRight")
   hs.loadSpoon("WindowHalfsAndThirds")
   hs.loadSpoon("Cherry")
+  hs.loadSpoon("PopupTranslateSelection")
 
   require "modules/config"
   require "modules/reload"
@@ -1961,14 +1961,10 @@ link spoons
   require "modules/layout"
   require "modules/react"
   require "modules/pomo"
+  require "modules/translate"
+  require "modules/cherry"
 
   hs.hotkey.bind(hyper, 'h', function() hs.alert.show("Hello World!") end)
-
-  hs.loadSpoon("PopupTranslateSelection")
-  hs.hotkey.bind(hyper, '8', function() spoon.PopupTranslateSelection:translateSelectionPopup() end)
-
-  hs.hotkey.bind(hyper, '9', '🤓 > POMO ON', function() spoon.Cherry:start() end)
-  hs.hotkey.bind(hyper, '0', '😌 > POMO OFF', function() spoon.Cherry:popup() end)
 #+end_src
 ** Config
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/config.lua" "no") :mkdirp "yes"
@@ -2639,6 +2635,17 @@ end
 -- show menu only on first pom_enable
 -- hs.hotkey.bind(hyper, '9', function() pom_enable() end)
 -- hs.hotkey.bind(hyper, '0', function() pom_disable() end)
+#+end_src
+** Translate
+#+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/translate.lua" "no")
+hs.hotkey.bind(hyper, '8', function() spoon.PopupTranslateSelection:translateSelectionPopup() end)
+#+end_src
+** Cherry
+#+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/cherry.lua" "no")
+  -- hs.hotkey.bind(hyper, '9', '🤓 > POMO ON', function() spoon.Cherry:start() end)
+  -- hs.hotkey.bind(hyper, '0', '😌 > POMO OFF', function() spoon.Cherry:popup() end)
+  hs.hotkey.bind(hyper, '9', '🤓 > POMO ON', function() pom_enable() end)
+  hs.hotkey.bind(hyper, '0', '😌 > POMO OFF', function() pom_disable() end)
 #+end_src
 ** DOING Select Demo
 https://xenodium.com/emacs-utilities-for-your-os/
