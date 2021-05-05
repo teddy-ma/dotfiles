@@ -1960,9 +1960,20 @@ link spoons
   require "modules/layout"
   require "modules/react"
 
-  hs.hotkey.bind(hyper, 'h', function()
-                    hs.alert.show("Hello World!")
-  end)
+  hs.hotkey.bind(hyper, 'h', function() hs.alert.show("Hello World!") end)
+
+  hs.loadSpoon("PopupTranslateSelection")
+  hs.hotkey.bind(hyper, '8', function() spoon.PopupTranslateSelection:translateSelectionPopup() end)
+#+end_src
+** Config
+#+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/config.lua" "no") :mkdirp "yes"
+hyper = {'cmd', 'alt', 'ctrl'}
+hyperShift = {'alt', 'cmd', 'shift'}
+macbook_monitor = "Color LCD"
+dostyle_monitor = "DM320QC"
+lg_4k_monitor = "LV273HUPR"
+portable_monitor = "CLUO FHD"
+lg_ultrawide_monitor = "LG ULTRAWIDE"
 #+end_src
 ** Reload
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/reload.lua" "no") :mkdirp "yes"
@@ -2006,16 +2017,6 @@ hs.hotkey.bind(hyper, 't', function()
                   spoon.AClock:toggleShow()
 end)
 
-#+end_src
-** Config
-#+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/config.lua" "no") :mkdirp "yes"
-hyper = {'cmd', 'alt', 'ctrl'}
-hyperShift = {'alt', 'cmd', 'shift'}
-macbook_monitor = "Color LCD"
-dostyle_monitor = "DM320QC"
-lg_4k_monitor = "LV273HUPR"
-portable_monitor = "CLUO FHD"
-lg_ultrawide_monitor = "LG ULTRAWIDE"
 #+end_src
 ** Key
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/key.lua" "no")  :mkdirp "yes"
