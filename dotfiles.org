@@ -22,13 +22,13 @@
 
   ## macOS prepare
 
-  macOS 主要依赖 [thoughtbot 的 laptop](https://github.com/thoughtbot/laptop) 脚本进行初始化，然后配合 ownCloud 上储存的私有配置文件完成配置。
+  macOS 主要依赖 [thoughtbot 的 laptop](https://github.com/thoughtbot/laptop) 脚本进行初始化，然后配合 Dropbox 上储存的私有配置文件完成配置。
 
     ```shell
     curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/mac
     sh mac 2>&1 | tee ~/laptop.log
 
-    brew install fish owncloud
+    brew install fish dropbox
 
     chsh -s /usr/local/bin/fish
 
@@ -40,7 +40,7 @@
   Linux 下只需要安装几个最基础的包
 
     ```shell
-    sudo pacman -Syu git fish ttf-inconsolata ttf-arphic-uming fzf owncloud-client
+    sudo pacman -Syu git fish ttf-inconsolata ttf-arphic-uming fzf
 
     git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d/
     ```
@@ -52,8 +52,8 @@
 基础配置
 
 #+begin_src shell
-  ln -s ~/ownCloud/Config/id_rsa ~/.ssh/id_rsa
-  ln -s ~/ownCloud/Config/id_rsa.pub ~/.ssh/id_rsa.pub
+  ln -s ~/Dropbox/Config/id_rsa ~/.ssh/id_rsa
+  ln -s ~/Dropbox/Config/id_rsa.pub ~/.ssh/id_rsa.pub
 #+end_src
 
 #+begin_src conf :tangle ~/.gitconfig
@@ -506,7 +506,6 @@ cask "gpg-suite"
 cask "hammerspoon"
 cask "iina"
 cask "intellij-idea-ce"
-cask "owncloud"
 cask "slack"
 cask "tableplus"
 cask "telegram"
@@ -1939,7 +1938,7 @@ set -x MOZ_ENABLE_WAYLAND 1
 ** Link Spoons                                                     :@script:
 link spoons
 #+begin_src sh
-  ln -s ~/ownCloud/Config/Spoons ~/.hammerspoon
+  ln -s ~/Dropbox/Config/Spoons ~/.hammerspoon
 #+end_src
 ** Setup
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/init.lua" "no") :mkdirp "yes"
@@ -2740,11 +2739,11 @@ https://xenodium.com/emacs-utilities-for-your-os/
 * Misc
 ** pyim                                                            :@script:
 #+begin_src shell :tangle /tmp/dotfile-script.sh
-  ln -s ~/ownCloud/Config/pyim ~/.emacs.d
+  ln -s ~/Dropbox/Config/pyim ~/.emacs.d
 #+end_src
 ** Snippets                                                        :@script:
 #+begin_src shell :tangle /tmp/dotfile-script.sh
-  ln -s ~/ownCloud/Config/snippets ~/.emacs.d
+  ln -s ~/Dropbox/Config/snippets ~/.emacs.d
 #+end_src
 ** bat
 #+BEGIN_SRC conf :tangle ~/.config/bat/config :mkdirp "yes"
