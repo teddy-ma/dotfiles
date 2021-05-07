@@ -91,8 +91,9 @@ This package fixes that.
   (global-visual-line-mode 1)
 #+end_src
 *** Garbage collection
+The default is 800 kilobytes.  Measured in bytes.
 #+begin_src emacs-lisp
-  (setq gc-cons-threshold 100000000)
+  (setq gc-cons-threshold (* 50 1000 1000))
 #+end_src
 *** No Visible Bell
 #+begin_src emacs-lisp
