@@ -3,6 +3,7 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        crux-move-beginning-of-line
         end-of-visual-line
         org-self-insert-command
         smart-hungry-delete-backward-char
