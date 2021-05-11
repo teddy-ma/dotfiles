@@ -47,6 +47,143 @@
 
 #+end_src
 
+* shell
+** fish                                                            :@script:
+
+Setup scripts
+#+begin_src shell :tangle /tmp/dotfile-script.sh
+  echo /usr/local/bin/fish | sudo tee -a /etc/shells # macOS
+  chsh -s /usr/bin/fish # Linux
+
+  curl -sL https://git.io/fisher | source
+  fisher install jethrokuan/fzf
+  fisher install jethrokuan/z
+  fisher install franciscolourenco/done
+#+end_src
+
+Color setting
+#+begin_src conf :tangle  ~/.config/fish/config.fish :mkdirp "yes"
+set TERM "xterm-256color"
+
+set fish_color_normal normal
+set fish_color_command 005fd7
+set fish_color_quote 999900
+set fish_color_redirection 00afff
+set fish_color_end 009900
+set fish_color_error ff0000
+set fish_color_param 00afff
+set fish_color_comment 990000
+set fish_color_match --background=brblue
+set fish_color_selection white --bold --background=brblack
+set fish_color_search_match bryellow --background=brblack
+set fish_color_history_current --bold
+set fish_color_operator 00a6b2
+set fish_color_escape 00a6b2
+set fish_color_cwd green
+set fish_color_cwd_root red
+set fish_color_valid_path --underline
+set fish_color_autosuggestion 555 brblack
+set fish_color_user brgreen
+set fish_color_host normal
+set fish_color_cancel -r
+set fish_pager_color_completion normal
+set fish_pager_color_description B3A06D yellow
+set fish_pager_color_prefix white --bold --underline
+set fish_pager_color_progress brwhite --background=cyan
+#+end_src
+
+Path and source (macOS)
+#+begin_src conf :tangle (if (eq system-type 'darwin) "~/.config/fish/config.fish" "no") :mkdirp "yes"
+source /usr/local/opt/asdf/asdf.fish
+#+end_src
+
+Path and source (Linux)
+#+begin_src conf :tangle (if (eq system-type 'gnu/linux)  "~/.config/fish/config.fish" "no") :mkdirp "yes"
+source /opt/asdf-vm/asdf.fish
+#+end_src
+
+Env setting
+#+begin_src conf :tangle  ~/.config/fish/config.fish :mkdirp "yes"
+export EDITOR=nvim
+set FZF_LEGACY_KEYBINDINGS 0
+#+end_src
+
+Starship setup
+#+begin_src conf :tangle  ~/.config/fish/config.fish :mkdirp "yes"
+starship init fish | source
+#+end_src
+
+** starship
+#+begin_src toml :tangle ~/.config/starship.toml :mkdirp "yes"
+  scan_timeout = 1000
+  command_timeout = 1000
+
+  # Disable the newline at the start of the prompt
+  add_newline = true
+
+  # Replace the "❯" symbol in the prompt with "➜"
+  [character]                            # The name of the module we are configuring is "character"
+  success_symbol = "[➜](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+
+  [battery]
+  full_symbol = "🔋"
+  charging_symbol = "⚡️"
+  discharging_symbol = "💀"
+
+  [ruby]
+  symbol = "🔺 "
+
+  [git_status]
+  conflicted = "🏳"
+  ahead = "🏎💨"
+  behind = "😰"
+  diverged = "😵"
+  untracked = "🤷‍"
+  stashed = "📦"
+  modified = "📝"
+  staged = '[++\($count\)](green)'
+  renamed = "👅"
+  deleted = "🗑"
+
+  [git_branch]
+  symbol = "🌱 "
+#+end_src
+** welcome memssage
+remove last login message by touch this dot file
+#+begin_src conf :tangle ~/.hushlogin
+
+#+end_src
+
+#+begin_src shell :tangle ~/.config/fish/functions/fish_greeting.fish :mkdirp "yes"
+function fish_greeting
+
+end
+#+end_src
+** alias
+fish shell 使用函数来实现 alias
+#+begin_src shell :tangle ~/.config/fish/functions/cat.fish :mkdirp "yes"
+  function cat
+    bat $argv
+  end
+#+end_src
+
+#+begin_src shell :tangle ~/.config/fish/functions/vim.fish :mkdirp "yes"
+  function vim
+    nvim $argv
+  end
+#+end_src
+
+#+begin_src shell :tangle ~/.config/fish/functions/ls.fish :mkdirp "yes"
+  function ls
+    exa $argv
+  end
+#+end_src
+
+#+begin_src shell :tangle ~/.config/fish/functions/gita.fish :mkdirp "yes"
+  function gita
+    python3 -m gita $argv
+  end
+#+end_src
 * Git
 ** basic
 基础配置
@@ -915,145 +1052,6 @@ float = ""
 \set HISTCONTROL ignoredups
 \pset null [null]
 \unset QUIET
-#+end_src
-
-* shell
-** fish                                                            :@script:
-
-Setup scripts
-#+begin_src shell :tangle /tmp/dotfile-script.sh
-  echo /usr/local/bin/fish | sudo tee -a /etc/shells # macOS
-  chsh -s /usr/bin/fish # Linux
-
-  curl -sL https://git.io/fisher | source
-  fisher install jethrokuan/fzf
-  fisher install jethrokuan/z
-  fisher install franciscolourenco/done
-#+end_src
-
-Color setting
-#+begin_src conf :tangle  ~/.config/fish/config.fish :mkdirp "yes"
-set TERM "xterm-256color"
-
-set fish_color_normal normal
-set fish_color_command 005fd7
-set fish_color_quote 999900
-set fish_color_redirection 00afff
-set fish_color_end 009900
-set fish_color_error ff0000
-set fish_color_param 00afff
-set fish_color_comment 990000
-set fish_color_match --background=brblue
-set fish_color_selection white --bold --background=brblack
-set fish_color_search_match bryellow --background=brblack
-set fish_color_history_current --bold
-set fish_color_operator 00a6b2
-set fish_color_escape 00a6b2
-set fish_color_cwd green
-set fish_color_cwd_root red
-set fish_color_valid_path --underline
-set fish_color_autosuggestion 555 brblack
-set fish_color_user brgreen
-set fish_color_host normal
-set fish_color_cancel -r
-set fish_pager_color_completion normal
-set fish_pager_color_description B3A06D yellow
-set fish_pager_color_prefix white --bold --underline
-set fish_pager_color_progress brwhite --background=cyan
-#+end_src
-
-Path and source (macOS)
-#+begin_src conf :tangle (if (eq system-type 'darwin) "~/.config/fish/config.fish" "no") :mkdirp "yes"
-source /usr/local/opt/asdf/asdf.fish
-set PATH $PATH ~/.cargo/bin
-#+end_src
-
-Path and source (Linux)
-#+begin_src conf :tangle (if (eq system-type 'gnu/linux)  "~/.config/fish/config.fish" "no") :mkdirp "yes"
-source /opt/asdf-vm/asdf.fish
-#+end_src
-
-Env setting
-#+begin_src conf :tangle  ~/.config/fish/config.fish :mkdirp "yes"
-export EDITOR=nvim
-set FZF_LEGACY_KEYBINDINGS 0
-#+end_src
-
-Starship setup
-#+begin_src conf :tangle  ~/.config/fish/config.fish :mkdirp "yes"
-starship init fish | source
-#+end_src
-
-** starship
-#+begin_src toml :tangle ~/.config/starship.toml :mkdirp "yes"
-  scan_timeout = 1000
-  command_timeout = 1000
-
-  # Disable the newline at the start of the prompt
-  add_newline = true
-
-  # Replace the "❯" symbol in the prompt with "➜"
-  [character]                            # The name of the module we are configuring is "character"
-  success_symbol = "[➜](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
-
-  [battery]
-  full_symbol = "🔋"
-  charging_symbol = "⚡️"
-  discharging_symbol = "💀"
-
-  [ruby]
-  symbol = "🔺 "
-
-  [git_status]
-  conflicted = "🏳"
-  ahead = "🏎💨"
-  behind = "😰"
-  diverged = "😵"
-  untracked = "🤷‍"
-  stashed = "📦"
-  modified = "📝"
-  staged = '[++\($count\)](green)'
-  renamed = "👅"
-  deleted = "🗑"
-
-  [git_branch]
-  symbol = "🌱 "
-#+end_src
-** welcome memssage
-remove last login message by touch this dot file
-#+begin_src conf :tangle ~/.hushlogin
-
-#+end_src
-
-#+begin_src shell :tangle ~/.config/fish/functions/fish_greeting.fish :mkdirp "yes"
-function fish_greeting
-
-end
-#+end_src
-** alias
-fish shell 使用函数来实现 alias
-#+begin_src shell :tangle ~/.config/fish/functions/cat.fish :mkdirp "yes"
-  function cat
-    bat $argv
-  end
-#+end_src
-
-#+begin_src shell :tangle ~/.config/fish/functions/vim.fish :mkdirp "yes"
-  function vim
-    nvim $argv
-  end
-#+end_src
-
-#+begin_src shell :tangle ~/.config/fish/functions/ls.fish :mkdirp "yes"
-  function ls
-    exa $argv
-  end
-#+end_src
-
-#+begin_src shell :tangle ~/.config/fish/functions/gita.fish :mkdirp "yes"
-  function gita
-    python3 -m gita $argv
-  end
 #+end_src
 
 * Xresources
