@@ -1650,6 +1650,30 @@ Beautify Org Checkbox Symbol
      :ensure t
      :hook (org-mode . org-superstar-mode))
 #+end_src
+** Org fancy Priorities
+#+begin_src emacs-lisp
+  (use-package org-fancy-priorities
+    :ensure t
+    :hook
+    (org-mode . org-fancy-priorities-mode)
+    :config
+    (setq org-fancy-priorities-list '("⚡" "⬆" "⬇" "☕")))
+#+end_src
+** Org beautify tags
+#+begin_src emacs-lisp
+  (use-package org-pretty-tags
+    :diminish org-pretty-tags-mode
+    :ensure t
+    :config
+    (setq org-pretty-tags-surrogate-strings
+          '(
+            ("work"  . "⚒")
+            ("@pc" . "🖥")
+            ))
+
+    (org-pretty-tags-global-mode))
+
+#+end_src
 ** Custom todo stages
 #+begin_src emacs-lisp
   (setq org-todo-keywords
@@ -1811,6 +1835,50 @@ Interactive agenda in the console https://github.com/rougier/agenda
              ((agenda "" ((org-agenda-span 1)
                           (org-agenda-overriding-header "Today's Tasks")))))))
     )
+#+end_src
+** Toggle side org file
+
+#+begin_src emacs-lisp
+  (defun teddy-ma/toggle-side-org-buffer ()
+    "Toggle org file in a side buffer for quick note taking."
+    (interactive)
+    (teddy-ma/toggle-side-buffer-with-file "~/Documents/org/todo.org"))
+
+  (defun teddy-ma/buffer-visible-p (buffer)
+    "Check if given BUFFER is visible or not.  BUFFER is a string representing the buffer name."
+    (or
+     (eq buffer (window-buffer (selected-window)))
+        (get-buffer-window buffer)))
+
+  (defun teddy-ma/display-buffer-in-side-window (buffer)
+    "Just like `display-buffer-in-side-window' but only takes a BUFFER and rest of the parameters are for my taste."
+    (select-window
+     (display-buffer-in-side-window
+      buffer
+      (list (cons 'side 'right)
+            (cons 'slot 0)
+            (cons 'window-width 84)
+            (cons 'window-parameters
+                  (list (cons 'no-delete-other-windows t)
+                        (cons 'no-other-window nil)))))))
+
+  (defun teddy-ma/remove-window-with-buffer (the-buffer-name)
+    "Remove window containing given THE-BUFFER-NAME."
+    (mapc (lambda (window)
+            (when (string-equal (buffer-name (window-buffer window)) the-buffer-name)
+              (delete-window window)))
+          (window-list (selected-frame))))
+
+  (defun teddy-ma/toggle-side-buffer-with-file (file-path)
+    "Toggle FILE-PATH in a side buffer. The buffer is opened in side window so it can't be accidentaly removed."
+    (interactive)
+    (let ((fname (file-name-nondirectory file-path)))
+      (if (teddy-ma/buffer-visible-p fname)
+          (teddy-ma/remove-window-with-buffer fname)
+        (teddy-ma/display-buffer-in-side-window
+         (save-window-excursion
+           (find-file file-path)
+           (current-buffer))))))
 #+end_src
 * Extras
 ** Writing                                                      :@dependent:

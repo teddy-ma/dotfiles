@@ -5,6 +5,7 @@
       '(
         crux-move-beginning-of-line
         end-of-visual-line
+        indent-for-tab-command
         org-self-insert-command
         smart-hungry-delete-backward-char
         smart-hungry-delete-forward-char
