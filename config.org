@@ -72,16 +72,9 @@ This package fixes that.
     :if (memq window-system '(mac ns))
     :ensure t
     :hook (emacs-startup . (lambda ()
-                             (setq exec-path-from-shell-arguments '("-l"))
-                                          ; removed the -i for faster startup
+                             (setq exec-path-from-shell-arguments '("-l")) ; removed the -i for faster startup
                              (exec-path-from-shell-initialize))))
 #+end_src
-
--i gets alias definitions from =.bash_profile=
-#+begin_src emacs-lisp
-  (setq shell-command-switch "-ic")
-#+end_src
-
 *** Always follow symlinks
 #+begin_src emacs-lisp
 (setq vc-follow-symlinks t)
@@ -642,7 +635,6 @@ like buffer narrow but in other buffer
     )
 #+end_src
 ** Magnifying mode                                                 :@script:
-hello
 #+begin_src emacs-lisp
   (defun magnifying-current-line ()
     (setq magnifying-overlay (make-overlay (line-beginning-position) (line-end-position)))
@@ -1305,6 +1297,12 @@ Setup is pretty simple - we just enable globally and turn on a custom eslint fun
       :fringe-bitmap 'flycheck-fringe-bitmap-ball
       :fringe-face 'flycheck-fringe-info))
 #+end_src
+** Color Identifier
+#+begin_src emacs-lisp
+  (use-package color-identifiers-mode
+    :ensure t
+    :commands color-identifiers-mode)
+#+end_src
 ** Autocomplete
 Company mode provides good autocomplete options. Perhaps I should add company-quickhelp for documentation (https://github.com/expez/company-quickhelp)?
 It would also be good to improve integration with yasnippet as I don't feel I'm making the best use there.
@@ -1574,7 +1572,8 @@ https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf
     (setq org-file-apps
           '((auto-mode . emacs)
             ("\\.x?html?\\'" . "Chromium %s")))
-    (setq org-ellipsis " ▾"))
+    (setq org-ellipsis " ▾") ;; ↴, ▼, ▶, ⤵, ▾
+    )
 #+end_src
 ** Custom Org Styles
 Set fixed pitch font for org (conflict with Chinese table)
@@ -1994,6 +1993,12 @@ vterm
 
   (use-package vterm-toggle
     :ensure t)
+
+  (use-package shell-pop
+    :ensure t
+    :custom
+    (shell-pop-shell-type '("vterm" "*vterm*" (lambda () (vterm))))
+    (shell-pop-full-span t))
 #+end_src
 
 ** PDF
