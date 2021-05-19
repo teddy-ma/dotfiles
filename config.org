@@ -155,6 +155,10 @@ make both command and option key to be meta key
   ;; (setq  x-meta-keysym 'super
   ;;       x-super-keysym 'meta))
 #+end_src
+*** Unset M-c
+#+begin_src emacs-lisp
+  (global-unset-key (kbd "M-c"))
+#+end_src
 *** Global UTF-8
 #+begin_src emacs-lisp
   (setq locale-coding-system 'utf-8)
@@ -1059,8 +1063,25 @@ Format all
 
 underscore -> UPCASE -> CamelCase conversion of names
 #+begin_src emacs-lisp
+  (defun my-string-inflection-cycle-auto ()
+    "switching by major-mode"
+    (interactive)
+    (cond
+     ((eq major-mode 'emacs-lisp-mode)
+      (string-inflection-all-cycle))
+     ((eq major-mode 'java-mode)
+      (string-inflection-java-style-cycle))
+     ((eq major-mode 'ruby-mode)
+      (string-inflection-ruby-style-cycle))
+     (t
+      ;; default
+      (string-inflection-ruby-style-cycle))))
+
   (use-package string-inflection
-    :ensure t)
+    :ensure t
+    :config
+    (global_set_key (kbd "C-M-j") 'my-string-inflection-cycle-auto)
+    )
 #+end_src
 
 Expand parentheses for me.
