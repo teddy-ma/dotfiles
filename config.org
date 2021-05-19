@@ -600,20 +600,25 @@ No need to learn sed script, just learn Emacs.
           (helm-ls-git-ls)))))
 #+end_src
 ** Goto line                                                       :@script:
+#+begin_src emacs-lisp
+  (use-package goto-line-preview
+    :ensure t)
+#+end_src
 Temporarily display line number when call go to line function
 #+begin_src emacs-lisp
-  (global-set-key [remap goto-line] 'goto-line-with-feedback)
-
   (defun goto-line-with-feedback ()
     "Show line numbers temporarily, while prompting for the line number input"
     (interactive)
     (unwind-protect
         (progn
           (display-line-numbers-mode 1)
-          (goto-line (read-number "Goto line: ")))
+          (goto-line (read-number "Goto line: "))
+          )
       (display-line-numbers-mode -1)))
+
+  (global-set-key [remap goto-line] 'goto-line-with-feedback)
 #+end_src
-but avy-goto-line is awesome too
+
 ** Edit indirect
 like buffer narrow but in other buffer
 #+begin_src emacs-lisp
@@ -865,6 +870,7 @@ toggle theme (dark and light)
     "Forcibly load the themes listed in `custom-enabled-themes'."
     (dolist (theme custom-enabled-themes)
       (unless (custom-theme-p theme)
+        (disable-theme theme)
         (load-theme theme)))
     (custom-set-variables `(custom-enabled-themes (quote ,custom-enabled-themes))))
 
@@ -886,6 +892,14 @@ toggle theme (dark and light)
     "Activate a light day color theme."
     (interactive)
     (color-theme-sanityinc-tomorrow-day))
+#+end_src
+
+load-theme without annoying confirmation
+#+begin_src emacs-lisp
+  ;; (advice-add 'load-theme
+  ;;             :around
+  ;;             (lambda (fn theme &optional no-confirm no-enable)
+  ;;               (funcall fn theme t)))
 #+end_src
 
 custom hl-line and mode-line bg color if necessary
