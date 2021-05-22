@@ -1075,13 +1075,12 @@ underscore -> UPCASE -> CamelCase conversion of names
       (string-inflection-ruby-style-cycle))
      (t
       ;; default
-      (string-inflection-ruby-style-cycle))))
+      (string-inflection-all-cycle))))
 
   (use-package string-inflection
     :ensure t
     :config
-    (global_set_key (kbd "C-M-j") 'my-string-inflection-cycle-auto)
-    )
+    (global-set-key (kbd "C-M-j") 'my-string-inflection-cycle-auto))
 #+end_src
 
 Expand parentheses for me.
@@ -2031,4 +2030,12 @@ vterm
      '(pdf-tools-handle-upgrades nil)))
   ;;(pdf-tools-install)
   ;;(pdf-info-check-epdfinfo)
+#+end_src
+
+** ESUP
+#+begin_src emacs-lisp
+(use-package esup
+  :ensure t
+  ;; To use MELPA Stable use ":pin melpa-stable",
+  :pin melpa)
 #+end_src
