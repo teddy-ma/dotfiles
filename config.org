@@ -62,8 +62,23 @@ Try your best to make custom config clean.
   (load custom-file)
 #+end_src
 
+** Make emacs faster
+*** Less garbage collection
+The default is 800 kilobytes.  Measured in bytes.
+#+begin_src emacs-lisp
+  (setq gc-cons-threshold (* 50 1000 1000))
+#+end_src
+
+*** Start up profiler
+#+begin_src emacs-lisp
+(use-package esup
+  :ensure t
+  ;; To use MELPA Stable use ":pin melpa-stable",
+  :pin melpa)
+#+end_src
+
 * Interface
-** Enter yes or no is tedious, y or n is reasonable
+** Enter yes or no is tedious, y or n is more reasonable
 #+begin_src emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+end_src
@@ -129,7 +144,6 @@ looks only macOS has this issue
   (global-auto-revert-mode t)
 #+end_src
 
-
 ** Display all the font (Chinese, emoji and so on)
 *** UTF8 everywhere
 #+begin_src emacs-lisp
@@ -165,73 +179,24 @@ Run ~M-x all-the-icons-install-fonts~ to install fonts (only once)
   (column-number-mode t)
 #+end_src
 
-** TODO Reasonable default settings
-*** Garbage collection
-The default is 800 kilobytes.  Measured in bytes.
+** Leave some padding of text in windows
 #+begin_src emacs-lisp
-  (setq gc-cons-threshold (* 50 1000 1000))
-#+end_src
-
-*** Popup managment
-Taken from https://emacs.stackexchange.com/questions/46210/reuse-help-window
-
-#+begin_src emacs-lisp
-  (setq display-buffer-alist
-        `((,(rx bos (or "*Apropos*" "*Help*" "*helpful" "*info*" "*Summary*") (0+ not-newline))
-           (display-buffer-reuse-mode-window display-buffer-below-selected)
-           (window-height . 0.33)
-           (mode apropos-mode help-mode helpful-mode Info-mode Man-mode))))
-#+end_src
-*** Minibuffer recursive
-#+begin_src emacs-lisp
-  (setq enable-recursive-minibuffers t)
-#+end_src
-*** Meta Key                                                          :@os:
-make both command and option key to be meta key
-#+begin_src emacs-lisp
-  (when (eq system-type 'darwin)
-    (setq mac-command-modifier 'meta
-          mac-option-modifier 'meta))
-
-  ;; (when (eq system-type 'gnu/linux)
-  ;; (setq  x-meta-keysym 'super
-  ;;       x-super-keysym 'meta))
-#+end_src
-*** Unset M-c
-#+begin_src emacs-lisp
-  (global-unset-key (kbd "M-c"))
-#+end_src
-
-** Common packages
-*** Helpful
-#+begin_src emacs-lisp
-  (use-package helpful
+  (use-package visual-fill-column
     :ensure t
+    :hook (org-mode . visual-fill-column-mode)
     :custom
-    (counsel-describe-function-function #'helpful-callable)
-    (counsel-describe-variable-function #'helpful-variable)
-    :bind
-    ([remap describe-function] . counsel-describe-function)
-    ([remap describe-command] . helpful-command)
-    ([remap describe-variable] . counsel-describe-variable)
-    ([remap describe-key] . helpful-key))
+    (visual-fill-column-center-text t)
+    (visual-fill-column-width 120))
 #+end_src
-*** Restart emacs
+
+** I want to restore previous window layout
 #+begin_src emacs-lisp
-  (use-package restart-emacs
-    :ensure t)
+  (use-package winner-mode
+    :ensure nil
+    :hook (after-init . winner-mode))
 #+end_src
-*** Diminish
-#+begin_src emacs-lisp
-  (use-package diminish
-    :ensure t)
-#+end_src
-*** Show command log
-#+begin_src emacs-lisp
-  (use-package command-log-mode
-    :ensure t)
-#+end_src
-*** Suggest next key
+
+** I forgot some shortcut, only remember the prefix key, any hint?
 Suggest next keys to me based on currently entered key combination.
 
 #+begin_src emacs-lisp
@@ -250,18 +215,7 @@ Suggest next keys to me based on currently entered key combination.
     which-key-mode)
 #+end_src
 
-*** Posframe
-#+begin_src emacs-lisp
-  (use-package posframe
-    :ensure t)
-#+end_src
-*** Winner mode
-#+begin_src emacs-lisp
-  (use-package winner-mode
-    :ensure nil
-    :hook (after-init . winner-mode))
-#+end_src
-*** Uniquify
+** If more than one buffer has same name, how to identify?
 #+begin_src emacs-lisp
   (use-package uniquify
     :config
@@ -270,56 +224,89 @@ Suggest next keys to me based on currently entered key combination.
     (setq uniquify-after-kill-buffer-p t)
     (setq uniquify-ignore-buffers-re "^\\*"))
 #+end_src
-** Welcome dashboard
-#+begin_src emacs-lisp
-  (setq emacs-banner "~/Dropbox/Photos/emacs-banner.png")
-  (use-package dashboard
-    :ensure t
-    :config
-    (dashboard-setup-startup-hook)
-    (if (file-exists-p emacs-banner)
-        (setq dashboard-startup-banner emacs-banner))
 
-    (setq dashboard-items '((recents  . 5)
-                            ;;(bookmarks . 5)
-                            (projects . 5)
-                            (agenda . 5))))
-#+end_src
-** Pop win
-#+begin_src emacs-lisp
-  (use-package popwin
-    :ensure t
-    :config
-    (global-set-key (kbd "M-p") popwin:keymap))
-#+end_src
-** Mini frame
-Place minibuffer at the top of the current frame
-#+begin_src emacs-lisp
-  (use-package mini-frame
-    :ensure t
-    :config
-    (mini-frame-mode t)
-    (custom-set-variables
-     '(mini-frame-show-parameters
-       '((top . 10)
-         (width . 0.7)
-         (left . 0.5)))))
-#+end_src
-** Transpose frame
-#+begin_src emacs-lisp
-  (use-package transpose-frame
-    :ensure t)
-#+end_src
-** Center window
-#+begin_src emacs-lisp
-  (use-package visual-fill-column
-    :ensure t
-    :hook (org-mode . visual-fill-column-mode)
-    :custom
-    (visual-fill-column-center-text t)
-    (visual-fill-column-width 120))
-#+end_src
 * Edit
+** How to move effectively in one buffer
+*** Move to beginning of line
+between head of line and head of text (head is blank)
+*** TODO Move to specific line (with preview)
+** How to move effectively across buffers
+** How to effective operator buffer or file
+** How to navigate between windows
+#+begin_src emacs-lisp
+  (use-package ace-window
+    :ensure t
+    :config
+    (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+    (custom-set-faces
+     '(aw-leading-char-face
+       ((t (:inherit ace-jump-face-foreground :height 5.0)))))
+    :bind
+    ("M-o" . ace-window))
+#+end_src
+** How to delete consecutive space at once
+#+begin_src emacs-lisp
+  (use-package smart-hungry-delete
+    :ensure t
+    :bind (("<backspace>" . smart-hungry-delete-backward-char)
+           ("C-d" . smart-hungry-delete-forward-char))
+    :defer nil ;; dont defer so we can add our functions to hooks
+    :config (smart-hungry-delete-add-default-hooks))
+#+end_src
+
+** Never want whitespace at the end of lines. Remove it on save.
+#+begin_src emacs-lisp
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+#+end_src
+
+
+
+** How to easily expand selection?
+=expand-region= expands the region around the cursor semantically depending on mode.
+Hard to describe but a killer feature.
+
+#+begin_src emacs-lisp
+  (use-package expand-region
+    :ensure t
+    :bind ("C-=" . er/expand-region))
+#+end_src
+
+** I want to easily toggle between single and double quotes              :@script:
+#+begin_src emacs-lisp
+  (defun toggle-quotes ()
+    "Toggle single quoted string to double or vice versa, and
+    flip the internal quotes as well.  Best to run on the first
+    character of the string."
+    (interactive)
+    (save-excursion
+      (re-search-backward "[\"']")
+      (let* ((start (point))
+             (old-c (char-after start))
+             new-c)
+        (setq new-c
+              (case old-c
+                (?\" "'")
+                (?\' "\"")))
+        (setq old-c (char-to-string old-c))
+        (delete-char 1)
+        (insert new-c)
+        (re-search-forward old-c)
+        (backward-char 1)
+        (let ((end (point)))
+          (delete-char 1)
+          (insert new-c)
+          (replace-string new-c old-c nil (1+ start) end)))))
+#+end_src
+** How to easily swap two lines or two words location
+M-<up> M-<down> to move line up and down
+#+begin_src emacs-lisp
+  (use-package drag-stuff
+    :ensure t
+    :diminish drag-stuff-mode
+    :config
+    (drag-stuff-global-mode t)
+    (drag-stuff-define-keys))
+#+end_src
 ** Basic
 *** CRUX
 =crux= is a list of useful functions.
@@ -332,23 +319,7 @@ Place minibuffer at the top of the current frame
            ("C-c r" . crux-rename-file-and-buffer)
            ("C-c D" . crux-delete-file-and-buffer)))
 #+end_src
-*** Hungry Delete
-hungry delete can make life easier, but emacs-smart-hungry-delete is more powerful
 
-#+begin_src emacs-lisp
-  (use-package smart-hungry-delete
-    :ensure t
-    :bind (("<backspace>" . smart-hungry-delete-backward-char)
-           ("C-d" . smart-hungry-delete-forward-char))
-    :defer nil ;; dont defer so we can add our functions to hooks
-    :config (smart-hungry-delete-add-default-hooks))
-#+end_src
-*** Trailing Whitespace
-I *never* want whitespace at the end of lines. Remove it on save.
-
-#+begin_src emacs-lisp
-  (add-hook 'before-save-hook 'delete-trailing-whitespace)
-#+end_src
 
 *** Better undo
 =undo-tree= visualises undo history as a tree for easy navigation.
@@ -380,7 +351,7 @@ Just one space is needed.
 #+begin_src emacs-lisp
   (setq sentence-end-double-space nil)
  #+end_src
-** Command completion
+** TODO Command completion
 =ivy= is a generic completion framework which uses the minibuffer.
 Turning on =ivy-mode= with fuzzy support enables replacement of lots of built in =ido= functionality.
 
@@ -436,42 +407,7 @@ I haven't bound much as =ivy-mode= takes care of most things.
     :after (ivy hydra))
 #+end_src
 
-** Easier selection
-=expand-region= expands the region around the cursor semantically depending on mode.
-Hard to describe but a killer feature.
 
-#+begin_src emacs-lisp
-  (use-package expand-region
-    :ensure t
-    :bind ("C-=" . er/expand-region))
-#+end_src
-
-** Toggle quotes                                                   :@script:
-#+begin_src emacs-lisp
-  (defun toggle-quotes ()
-    "Toggle single quoted string to double or vice versa, and
-    flip the internal quotes as well.  Best to run on the first
-    character of the string."
-    (interactive)
-    (save-excursion
-      (re-search-backward "[\"']")
-      (let* ((start (point))
-             (old-c (char-after start))
-             new-c)
-        (setq new-c
-              (case old-c
-                (?\" "'")
-                (?\' "\"")))
-        (setq old-c (char-to-string old-c))
-        (delete-char 1)
-        (insert new-c)
-        (re-search-forward old-c)
-        (backward-char 1)
-        (let ((end (point)))
-          (delete-char 1)
-          (insert new-c)
-          (replace-string new-c old-c nil (1+ start) end)))))
-#+end_src
 ** Wrap region
 #+begin_src emacs-lisp
   (use-package wrap-region
@@ -485,16 +421,7 @@ Hard to describe but a killer feature.
     (wrap-region-add-wrapper "+" "+" nil 'org-mode)  ; strikethrough
     (wrap-region-add-wrapper "_" "_" nil 'org-mode)) ; verbatim
 #+end_src
-** Move line up and down
-M-<up> M-<down> to move line up and down
-#+begin_src emacs-lisp
-  (use-package drag-stuff
-    :ensure t
-    :diminish drag-stuff-mode
-    :config
-    (drag-stuff-global-mode t)
-    (drag-stuff-define-keys))
-#+end_src
+
 ** Folding
 https://github.com/Schnouki/dotfiles/blob/master/emacs/init-20-dev.el#L90
 #+begin_src emacs-lisp
@@ -587,18 +514,7 @@ dired hacks
     (global-set-key (kbd "C->") 'mc/mark-next-like-this)
     (global-set-key (kbd "C-<") 'mc/mark-previous-like-this))
 #+end_src
-** Window Navigation
-#+begin_src emacs-lisp
-  (use-package ace-window
-    :ensure t
-    :config
-    (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-    (custom-set-faces
-     '(aw-leading-char-face
-       ((t (:inherit ace-jump-face-foreground :height 5.0)))))
-    :bind
-    ("M-o" . ace-window))
-#+end_src
+
 ** Wgrep
 wgrep allows you to edit a grep buffer and apply those changes to the file buffer like sed interactively.
 No need to learn sed script, just learn Emacs.
@@ -719,6 +635,22 @@ no tool bar, no scroll bar, no menu bar, very clear
 #+begin_src emacs-lisp
   (setq inhibit-startup-screen t)
 #+end_src
+** A dashboard on startup can clean my mind
+#+begin_src emacs-lisp
+  (setq emacs-banner "~/Dropbox/Photos/emacs-banner.png")
+  (use-package dashboard
+    :ensure t
+    :config
+    (dashboard-setup-startup-hook)
+    (if (file-exists-p emacs-banner)
+        (setq dashboard-startup-banner emacs-banner))
+
+    (setq dashboard-items '((recents  . 5)
+                            ;;(bookmarks . 5)
+                            (projects . 5)
+                            (agenda . 5))))
+#+end_src
+
 ** Chinese and English font must align                             :@script:
 It works fine with windows and org table in Chinese
 #+begin_src emacs-lisp
@@ -746,21 +678,17 @@ It works fine with windows and org table in Chinese
 
 #+end_src
 
-
-** Mode Line                                                       :@script:
-Hide mode line if necessary
+** Some minor mode name is not important, no need to diplay them
+#+begin_src emacs-lisp
+  (use-package diminish
+    :ensure t)
+#+end_src
+** In some case I want to hide mode Line                           :@script:
 #+begin_src emacs-lisp
   (use-package hide-mode-line
     :ensure t)
 #+end_src
-
-In case I want to see all the minor modes
-#+begin_src emacs-lisp
-  (use-package manage-minor-mode
-    :ensure t)
-#+end_src
-
-nyan is very lovely
+** Nyan Cat is lovely, it can live on mode line
 #+begin_src emacs-lisp
   (use-package nyan-mode
     :ensure t
@@ -771,7 +699,7 @@ nyan is very lovely
     (setq nyan-bar-length 20)
     (nyan-mode))
 #+end_src
-
+** Mode line should be simple and customize
 Custom mode line unitlity functions (align)
 https://gist.github.com/fhdhsni/990cba7794b4b6918afea94af0b30d66
 #+begin_src emacs-lisp
@@ -821,7 +749,7 @@ https://gist.github.com/fhdhsni/990cba7794b4b6918afea94af0b30d66
     (+ RIGHT_PADDING (length (format-mode-line mode-line-align-right))))
 #+end_src
 
-Setup Model Line content
+** Setup Model Line content
 #+begin_src emacs-lisp
   (defun teddy-ma/refresh-middle-mode-line ()
     (setq mode-line-align-middle ;; git status, modified status
@@ -857,7 +785,7 @@ Setup Model Line content
             )))
 #+end_src
 
-Toggle mode line left content between blank, nyancat and mode names
+** Toggle mode line left content between blank, nyancat and mode names
 #+begin_src emacs-lisp
   (defun teddy-ma/render-cyan()
     '(:eval (list (nyan-create))))
@@ -878,15 +806,13 @@ Toggle mode line left content between blank, nyancat and mode names
   (teddy-ma/refresh-mode-line)
 #+end_src
 
-** Theme                                                           :@script:
-
-My favourite themes
+** I want a light theme and a dark theme                           :@script:
 #+begin_src emacs-lisp
   (use-package kaolin-themes
     :ensure t)
 #+end_src
 
-toggle theme (dark and light)
+** And can easy switch them (dark and light theme)
 #+begin_src emacs-lisp
   (setq-default custom-enabled-themes '(kaolin-light))
 
@@ -933,7 +859,7 @@ custom hl-line and mode-line bg color if necessary
   ;; (set-face-background 'mode-line "color-28")
 #+end_src
 
-** Transparency
+** Make emacs transparency
 Only work with windowed emacs on macOS
 #+begin_src emacs-lisp
   (defun increase-transparency ()
@@ -956,56 +882,12 @@ Only work with windowed emacs on macOS
 
 #+end_src
 
-** Praise the sun
+** Long may the sunshine!
 #+begin_src emacs-lisp
   (use-package solaire-mode
     :ensure t
     :hook (after-init . solaire-global-mode))
 #+end_src
-** Misc
-*** Highlight Indent guides
-
-#+begin_src emacs-lisp
-  (use-package indent-guide
-    :ensure t)
-  (use-package highlight-indent-guides
-    :ensure t
-    :hook (prog-mode . highlight-indent-guides-mode)
-    :init
-    ;; (setq highlight-indent-guides-method 'column)
-    (setq highlight-indent-guides-method 'bitmap)
-    ;; (setq highlight-indent-guides-character ?|)
-    ;; (setq highlight-indent-guides-character ?❚)
-    ;;(setq highlight-indent-guides-character ?‖)
-    ;; (setq highlight-indent-guides-responsive 'stack)
-    ;;(setq highlight-indent-guides-responsive 'top)
-    ;; (setq highlight-indent-guides-auto-enabled nil)
-    ;; (set-face-background 'highlight-indent-guides-odd-face "darkgray")
-    ;; (set-face-background 'highlight-indent-guides-even-face "dimgray")
-    ;; (set-face-foreground 'highlight-indent-guides-character-face "dimgray")
-    )
-#+end_src
-
-*** Display battery
-#+begin_src emacs-lisp
-  ;; (display-battery-mode 1)
-  ;; (setq battery-mode-line-format "[%b%p%% %t]")
-#+end_src
-*** Dired icons
-#+begin_src emacs-lisp
-  (use-package all-the-icons-dired
-    :ensure t
-    :config
-    (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
-#+end_src
-*** Info colors
-#+begin_src emacs-lisp
-  (use-package info-colors
-    :ensure t
-    :config
-    (add-hook 'Info-selection-hook 'info-colors-fontify-node))
-#+end_src
-
 * Programming
 ** LSP
 lsp mode
@@ -1604,6 +1486,7 @@ https://www.gnu.org/software/emacs/refcards/pdf/orgcard.pdf
     (setq org-startup-indented 'f)
     (setq org-special-ctrl-a/e 't)
     (setq org-startup-folded t)
+    (setq org-tags-column -77)
     (setq org-hide-emphasis-markers nil)
     (setq org-src-tab-acts-natively t)
     (setq org-src-fontify-natively t)
@@ -2051,12 +1934,4 @@ vterm
      '(pdf-tools-handle-upgrades nil)))
   ;;(pdf-tools-install)
   ;;(pdf-info-check-epdfinfo)
-#+end_src
-
-** ESUP
-#+begin_src emacs-lisp
-(use-package esup
-  :ensure t
-  ;; To use MELPA Stable use ":pin melpa-stable",
-  :pin melpa)
 #+end_src
