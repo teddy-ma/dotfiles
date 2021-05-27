@@ -3,11 +3,14 @@
 #+TOC: true
 #+OPTIONS: num:nil \n:t
 #+TAGS: @os @dependent @script
-#+STARTUP: nohideblocks
+#+STARTUP: hideblocks
 #+SETUPFILE: http://www.songofcode.com/socss/org.setup
 
-* Setup
-** Make it easy to edit and reload this file                       :@script:
+* Bootstrap
+** How to edit and reload this config file easily? :@script:
+I can use ~C-c I~ to open this config file and ~C-c R~ to reload it.
+By the way, ~C-c i~ can open system config file.
+
 #+begin_src emacs-lisp
   (defun find-config ()
     "Edit config.org"
@@ -28,12 +31,12 @@
   (global-set-key (kbd "C-c R") 'reload-config)
 #+end_src
 
-** Personal Information
+** Who am I?
 #+begin_src emacs-lisp
   (setq user-full-name "Teddy Ma"
         user-mail-address "mlc880926@gmail.com")
 #+end_src
-** Bootstrap use-package
+** How to install emacs packages effective?
 Guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-package-manual.html
 
 #+begin_src emacs-lisp
@@ -49,7 +52,7 @@ Guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-pa
     (package-install 'use-package))
 #+end_src
 
-** Load custom settings
+** How to split custom settings to other file?
 Set up the customize file to its own separate file, instead of saving customize settings in [[file:init.el][init.el]].
 Try your best to make custom config clean.
 
@@ -58,62 +61,90 @@ Try your best to make custom config clean.
   (load custom-file)
 #+end_src
 
-* UI
-** Reasonable default settings
-*** Y or N
+* Interface
+** Enter yes or no is tedious, y or n is reasonable
 #+begin_src emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+end_src
-*** Terminal env                                                      :@os:
-By default Emacs doesn't read from the same environment variables set in your terminal.
-This package fixes that.
+** The behavior of shell should be same when in emacs                  :@os:
+looks only macOS has this issue
 #+begin_src emacs-lisp
   (use-package exec-path-from-shell
-    :if (memq window-system '(mac ns))
     :ensure t
-    :hook (emacs-startup . (lambda ()
-                             (setq exec-path-from-shell-arguments '("-l")) ; removed the -i for faster startup
-                             (exec-path-from-shell-initialize))))
+    :if (memq window-system '(mac ns))
+    :config
+    (setq exec-path-from-shell-arguments '("-l"))
+    (exec-path-from-shell-initialize)
+    (exec-path-from-shell-copy-envs
+     '("GOPATH" "GO111MODULE" "GOPROXY"
+       "NPMBIN" "LC_ALL" "LANG" "LC_TYPE"
+       "SSH_AGENT_PID" "SSH_AUTH_SOCK" "SHELL"
+       "JAVA_HOME")))
 #+end_src
-*** Always follow symlinks
+** No need to alway ask follow symlinks
 #+begin_src emacs-lisp
-(setq vc-follow-symlinks t)
+  (setq vc-follow-symlinks t)
 #+end_src
-*** Alway use visual line
+** Visual line should be default in modern editor
 #+begin_src emacs-lisp
   (global-visual-line-mode 1)
 #+end_src
+** No flash when error happen
+#+begin_src emacs-lisp
+  (setq visible-bell nil)
+#+end_src
+
+** Easily find where my cursor is
+highlight current line is good idea
+#+begin_src emacs-lisp
+  (global-hl-line-mode 1)
+#+end_src
+TODO what about jump between window?
+
+** Auto save and backup file make many temp file, I don't like it
+#+begin_src emacs-lisp
+  (setq make-backup-file nil)
+  (setq auto-save-default nil)
+  (setq backup-inhibited t)
+  (setq backup-directory-alist `(("." . "~/.saves")))
+#+end_src
+** So move file to trash instead of removing is more safe
+#+begin_src emacs-lisp
+  (setq-default delete-by-moving-to-trash t)
+#+end_src
+** After change opened file on other place, auto refresh is needed
+#+begin_src emacs-lisp
+  (global-auto-revert-mode t)
+#+end_src
+
+
+
+** Display all the font (Chinese, emoji and so on)
+#+begin_src emacs-lisp
+  (setq locale-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
+#+end_src
+
+** Turn off the blinking cursor
+#+begin_src emacs-lisp
+  (blink-cursor-mode -1)
+#+end_src
+
+** When code error happen, it's useful to show the cursor column
+#+begin_src emacs-lisp
+  (column-number-mode t)
+#+end_src
+
+** TODO Reasonable default settings
 *** Garbage collection
 The default is 800 kilobytes.  Measured in bytes.
 #+begin_src emacs-lisp
   (setq gc-cons-threshold (* 50 1000 1000))
 #+end_src
-*** No Visible Bell
-#+begin_src emacs-lisp
-  (setq visible-bell nil)
-#+end_src
-*** Hide UI bar
-#+begin_src emacs-lisp
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1)
-  (menu-bar-mode -1)
-#+end_src
 
-#+begin_src emacs-lisp
-  (when (eq system-type 'darwin)
-    (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-    (add-to-list 'default-frame-alist '(ns-appearance . dark))
-    (setq ns-use-proxy-icon  nil)
-    (setq frame-title-format nil))
-#+end_src
-*** Hide the help screen on startup
-#+begin_src emacs-lisp
-  (setq inhibit-startup-screen t)
-#+end_src
-*** Highlight current line.
-#+begin_src emacs-lisp
-  (global-hl-line-mode 1)
-#+end_src
 *** Popup managment
 Taken from https://emacs.stackexchange.com/questions/46210/reuse-help-window
 
@@ -123,22 +154,6 @@ Taken from https://emacs.stackexchange.com/questions/46210/reuse-help-window
            (display-buffer-reuse-mode-window display-buffer-below-selected)
            (window-height . 0.33)
            (mode apropos-mode help-mode helpful-mode Info-mode Man-mode))))
-#+end_src
-*** Disable autosave and backup
-#+begin_src emacs-lisp
-  (setq make-backup-file nil)
-  (setq auto-save-default nil)
-  (setq backup-inhibited t)
-  (setq backup-directory-alist `(("." . "~/.saves")))
-#+end_src
-
-Move file to trash instead of removing.
-#+begin_src emacs-lisp
-  (setq-default delete-by-moving-to-trash t)
-#+end_src
-*** Auto refresh
-#+begin_src emacs-lisp
-  (global-auto-revert-mode t)
 #+end_src
 *** Minibuffer recursive
 #+begin_src emacs-lisp
@@ -159,27 +174,7 @@ make both command and option key to be meta key
 #+begin_src emacs-lisp
   (global-unset-key (kbd "M-c"))
 #+end_src
-*** Global UTF-8
-#+begin_src emacs-lisp
-  (setq locale-coding-system 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
-  (set-selection-coding-system 'utf-8)
-  (prefer-coding-system 'utf-8)
-#+end_src
-*** Cursor
-Turn off the blinking cursor
-#+begin_src emacs-lisp
-  (blink-cursor-mode -1)
-#+end_src
-*** Display column
-#+begin_src emacs-lisp
-  (column-number-mode t)
-#+end_src
-*** remove macOS black border                                         :@os:
-#+begin_src emacs-lisp
-  (setq frame-resize-pixelwise t)
-#+end_src
+
 ** Common packages
 *** Helpful
 #+begin_src emacs-lisp
@@ -674,6 +669,29 @@ like buffer narrow but in other buffer
   (add-hook 'magnifying-mode-off-hook (lambda () (message "magnifying turned off!")))
 #+end_src
 * Appearance
+** I want a clear and modern UI.
+*** There are too many bar of emacs default UI
+no tool bar, no scroll bar, no menu bar, very clear
+#+begin_src emacs-lisp
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (menu-bar-mode -1)
+#+end_src
+
+*** The icon in the titlebar on macOS looks not good
+#+begin_src emacs-lisp
+  (when (eq system-type 'darwin)
+    (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+    (add-to-list 'default-frame-alist '(ns-appearance . dark))
+    (setq ns-use-proxy-icon  nil)
+    (setq frame-title-format nil)
+    (setq frame-resize-pixelwise t))
+#+end_src
+
+*** I am not a newbie, no need to dispaly the help screen on startup
+#+begin_src emacs-lisp
+  (setq inhibit-startup-screen t)
+#+end_src
 ** Font                                                            :@script:
 It works fine with windows and org table in Chinese
 
