@@ -96,11 +96,22 @@ looks only macOS has this issue
 #+end_src
 
 ** Easily find where my cursor is
-highlight current line is good idea
+*** Highlight current line is a good idea
 #+begin_src emacs-lisp
   (global-hl-line-mode 1)
 #+end_src
-TODO what about jump between window?
+*** Light with shine when window scroll
+#+begin_src emacs-lisp
+  (use-package beacon
+    :ensure t
+    :init
+    (beacon-mode 1))
+#+end_src
+
+*** Turn off the blinking cursor, I don't need it
+#+begin_src emacs-lisp
+  (blink-cursor-mode -1)
+#+end_src
 
 ** Auto save and backup file make many temp file, I don't like it
 #+begin_src emacs-lisp
@@ -119,8 +130,8 @@ TODO what about jump between window?
 #+end_src
 
 
-
 ** Display all the font (Chinese, emoji and so on)
+*** UTF8 everywhere
 #+begin_src emacs-lisp
   (setq locale-coding-system 'utf-8)
   (set-terminal-coding-system 'utf-8)
@@ -129,9 +140,24 @@ TODO what about jump between window?
   (prefer-coding-system 'utf-8)
 #+end_src
 
-** Turn off the blinking cursor
+*** Emoji support
+Will automated download images for the first time
 #+begin_src emacs-lisp
-  (blink-cursor-mode -1)
+  (use-package emojify
+    :ensure t
+    :hook (after-init . global-emojify-mode))
+#+end_src
+
+*** Icon support
+Run ~M-x all-the-icons-install-fonts~ to install fonts (only once)
+#+BEGIN_SRC emacs-lisp
+  (use-package all-the-icons
+    :ensure t
+    :config
+    (set-fontset-font t 'symbol "Apple Color Emoji")
+    (set-fontset-font t 'symbol "Noto Color Emoji" nil 'append)
+    (set-fontset-font t 'symbol "Segoe UI Emoji" nil 'append)
+    (set-fontset-font t 'symbol "Symbola" nil 'append))
 #+end_src
 
 ** When code error happen, it's useful to show the cursor column
@@ -720,23 +746,7 @@ It works fine with windows and org table in Chinese
 
 #+end_src
 
-** Emoji and icons
-Add emoji support. This is useful when working with html.
-#+begin_src emacs-lisp
-  (use-package emojify
-    :ensure t)
-#+end_src
 
-Run ~M-x all-the-icons-install-fonts~ to install fonts (only once)
-#+BEGIN_SRC emacs-lisp
-  (use-package all-the-icons
-    :ensure t
-    :config
-    (set-fontset-font t 'symbol "Apple Color Emoji")
-    (set-fontset-font t 'symbol "Noto Color Emoji" nil 'append)
-    (set-fontset-font t 'symbol "Segoe UI Emoji" nil 'append)
-    (set-fontset-font t 'symbol "Symbola" nil 'append))
-#+end_src
 ** Mode Line                                                       :@script:
 Hide mode line if necessary
 #+begin_src emacs-lisp
@@ -974,13 +984,6 @@ Only work with windowed emacs on macOS
     ;; (set-face-background 'highlight-indent-guides-even-face "dimgray")
     ;; (set-face-foreground 'highlight-indent-guides-character-face "dimgray")
     )
-#+end_src
-*** Light follow cursor
-#+begin_src emacs-lisp
-  (use-package beacon
-    :ensure t
-    :init
-    (beacon-mode 1))
 #+end_src
 
 *** Display battery
