@@ -240,6 +240,30 @@ Suggest next keys to me based on currently entered key combination.
   (global-unset-key (kbd "M-c"))
 #+end_src
 
+** Make selection from list of items
+#+begin_src emacs-lisp
+  (use-package vertico
+    :ensure t
+    :init
+    (vertico-mode))
+#+end_src
+*** Items order should be saved
+#+begin_src emacs-lisp
+  (use-package savehist
+    :config
+    (setq history-length 25)
+    (savehist-mode 1))
+#+end_src
+*** More items information
+#+begin_src emacs-lisp
+  (use-package marginalia
+    :after vertico
+    :ensure t
+    :custom
+    (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+    :init
+    (marginalia-mode))
+#+end_src
 * Edit
 ** How to move effectively in one buffer
 *** Move to beginning of line between head of line and head of text (head is blank)
@@ -271,6 +295,14 @@ Temporarily display line number when call go to line function
   (global-set-key [remap goto-line] 'goto-line-with-feedback)
 #+end_src
 
+** How to search in one buffer
+#+begin_src emacs-lisp
+  (use-package consult
+    :ensure t
+    :bind
+    (("M-s" . consult-line))
+    )
+#+end_src
 ** TODO How to move effectively across buffers
 ** How to effective operator buffer or file
 #+begin_src emacs-lisp
@@ -294,6 +326,7 @@ Temporarily display line number when call go to line function
     :bind
     ("M-o" . ace-window))
 #+end_src
+
 ** How to delete consecutive space at once
 #+begin_src emacs-lisp
   (use-package smart-hungry-delete
@@ -373,7 +406,6 @@ M-<up> M-<down> to move line up and down
 #+begin_src emacs-lisp
   (delete-selection-mode t)
 #+end_src
-
 ** Undo many times and lost yourself?
 =undo-tree= visualises undo history as a tree for easy navigation.
 
