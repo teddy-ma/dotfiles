@@ -225,24 +225,63 @@ Suggest next keys to me based on currently entered key combination.
     (setq uniquify-ignore-buffers-re "^\\*"))
 #+end_src
 
+** Meta key is too far on macOS
+*** make both command and option key to be meta key
+#+begin_src emacs-lisp
+  (when (eq system-type 'darwin)
+    (setq mac-command-modifier 'meta
+          mac-option-modifier 'meta))
+  ;; (when (eq system-type 'gnu/linux)
+  ;; (setq  x-meta-keysym 'super
+  ;;       x-super-keysym 'meta))
+#+end_src
+*** M-c may false triggering, disable it (I don't use CUA)
+#+begin_src emacs-lisp
+  (global-unset-key (kbd "M-c"))
+#+end_src
+
 * Edit
 ** How to move effectively in one buffer
-*** Move to beginning of line
-between head of line and head of text (head is blank)
-=crux= is a list of useful functions.
-
+*** Move to beginning of line between head of line and head of text (head is blank)
 #+begin_src emacs-lisp
   (use-package crux
     :ensure t
-    :bind (("C-a" . crux-move-beginning-of-line)
-           ("C-S-d" . crux-duplicate-current-line-or-region)
-           ("C-c r" . crux-rename-file-and-buffer)
-           ("C-c D" . crux-delete-file-and-buffer)))
+    :bind (
+           ("C-a" . crux-move-beginning-of-line)
+           ))
 #+end_src
 
 *** TODO Move to specific line (with preview)
-** How to move effectively across buffers
+#+begin_src emacs-lisp
+  (use-package goto-line-preview
+    :ensure t)
+#+end_src
+Temporarily display line number when call go to line function
+#+begin_src emacs-lisp
+  (defun goto-line-with-feedback ()
+    "Show line numbers temporarily, while prompting for the line number input"
+    (interactive)
+    (unwind-protect
+        (progn
+          (display-line-numbers-mode 1)
+          (goto-line (read-number "Goto line: "))
+          )
+      (display-line-numbers-mode -1)))
+
+  (global-set-key [remap goto-line] 'goto-line-with-feedback)
+#+end_src
+
+** TODO How to move effectively across buffers
 ** How to effective operator buffer or file
+#+begin_src emacs-lisp
+  (use-package crux
+    :ensure t
+    :bind (
+           ("C-c r" . crux-rename-file-and-buffer)
+           ("C-c D" . crux-delete-file-and-buffer)
+           ))
+#+end_src
+
 ** How to navigate between windows
 #+begin_src emacs-lisp
   (use-package ace-window
@@ -269,7 +308,6 @@ between head of line and head of text (head is blank)
 #+begin_src emacs-lisp
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+end_src
-
 
 
 ** How to easily expand selection?
@@ -318,6 +356,15 @@ M-<up> M-<down> to move line up and down
     (drag-stuff-global-mode t)
     (drag-stuff-define-keys))
 #+end_src
+** How to dumplicate current line or region
+#+begin_src emacs-lisp
+  (use-package crux
+    :ensure t
+    :bind (
+           ("C-S-d" . crux-duplicate-current-line-or-region)
+           ))
+#+end_src
+
 ** I remap capslock to ctrl, how can I simulate capslock key?
 #+begin_src emacs-lisp
   (use-package caps-lock
@@ -338,7 +385,6 @@ M-<up> M-<down> to move line up and down
     :config
     (global-undo-tree-mode 1))
 #+END_SRC
-
 
 * Appearance
 ** I want a clear and modern UI.

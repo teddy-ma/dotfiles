@@ -79,21 +79,7 @@ Taken from https://emacs.stackexchange.com/questions/46210/reuse-help-window
 #+begin_src emacs-lisp
   (setq enable-recursive-minibuffers t)
 #+end_src
-*** Meta Key                                                          :@os:
-make both command and option key to be meta key
-#+begin_src emacs-lisp
-  (when (eq system-type 'darwin)
-    (setq mac-command-modifier 'meta
-          mac-option-modifier 'meta))
 
-  ;; (when (eq system-type 'gnu/linux)
-  ;; (setq  x-meta-keysym 'super
-  ;;       x-super-keysym 'meta))
-#+end_src
-*** Unset M-c
-#+begin_src emacs-lisp
-  (global-unset-key (kbd "M-c"))
-#+end_src
 
 
 ** Misc
@@ -139,7 +125,6 @@ make both command and option key to be meta key
     :config
     (add-hook 'Info-selection-hook 'info-colors-fontify-node))
 #+end_src
-
 
 ** Tab bar
 #+begin_src emacs-lisp
@@ -191,7 +176,6 @@ make both command and option key to be meta key
   (add-hook 'magnifying-mode-on-hook (lambda () (message "magnifying turned on!")))
   (add-hook 'magnifying-mode-off-hook (lambda () (message "magnifying turned off!")))
 #+end_src
-
 
 
 ** Tabs and indent
@@ -261,7 +245,6 @@ I haven't bound much as =ivy-mode= takes care of most things.
     :after (ivy hydra))
 #+end_src
 
-
 ** Wrap region
 #+begin_src emacs-lisp
   (use-package wrap-region
@@ -275,7 +258,6 @@ I haven't bound much as =ivy-mode= takes care of most things.
     (wrap-region-add-wrapper "+" "+" nil 'org-mode)  ; strikethrough
     (wrap-region-add-wrapper "_" "_" nil 'org-mode)) ; verbatim
 #+end_src
-
 
 ** Folding
 https://github.com/Schnouki/dotfiles/blob/master/emacs/init-20-dev.el#L90
@@ -375,25 +357,6 @@ No need to learn sed script, just learn Emacs.
         (minibuffer-with-setup-hook (lambda ()
                                       (insert file-path))
           (helm-ls-git-ls)))))
-#+end_src
-** Goto line                                                       :@script:
-#+begin_src emacs-lisp
-  (use-package goto-line-preview
-    :ensure t)
-#+end_src
-Temporarily display line number when call go to line function
-#+begin_src emacs-lisp
-  (defun goto-line-with-feedback ()
-    "Show line numbers temporarily, while prompting for the line number input"
-    (interactive)
-    (unwind-protect
-        (progn
-          (display-line-numbers-mode 1)
-          (goto-line (read-number "Goto line: "))
-          )
-      (display-line-numbers-mode -1)))
-
-  (global-set-key [remap goto-line] 'goto-line-with-feedback)
 #+end_src
 
 ** Edit indirect
