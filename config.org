@@ -6,7 +6,7 @@
 #+STARTUP: hideblocks
 #+SETUPFILE: http://www.songofcode.com/socss/org.setup
 
-https://utf9k.net/blog/faq-driven-configuration/?utm_source=tuicool&utm_medium=referral
+https://utf9k.net/blog/faq-driven-configuration/
 * Bootstrap
 ** How to edit and reload this config file easily? :@script:
 I can use ~C-c I~ to open this config file and ~C-c R~ to reload it.
@@ -297,13 +297,23 @@ Temporarily display line number when call go to line function
 
 ** How to search in one buffer
 #+begin_src emacs-lisp
+  (use-package orderless
+    :ensure t
+    :custom
+    (completion-styles '(orderless)))
+
   (use-package consult
     :ensure t
     :bind
-    (("M-s" . consult-line))
-    )
+    (("M-s" . consult-line)))
 #+end_src
-** TODO How to move effectively across buffers
+** How to move effectively across buffers
+#+begin_src emacs-lisp
+  (use-package consult
+    :ensure t
+    :bind
+    (("C-x b" . consult-buffer)))
+#+end_src
 ** How to effective operator buffer or file
 #+begin_src emacs-lisp
   (use-package crux
@@ -603,7 +613,6 @@ https://gist.github.com/fhdhsni/990cba7794b4b6918afea94af0b30d66
     (setq-default mode-line-format
                   (list
                    (teddy-ma/render-mode-line-modes)
-
                    mode-line-align-left '(:eval (mode-line-fill-center 'mode-line (reserve-left/middle)))
                    mode-line-align-middle '(:eval (mode-line-fill-right 'mode-line (reserve-middle/right)))
                    mode-line-align-right
