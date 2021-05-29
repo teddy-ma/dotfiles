@@ -1234,27 +1234,41 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
     (org-mode . teddy-ma/org-font-setup)
     (org-mode . teddy-ma/org-block-setup)
     (org-mode . teddy-ma/org-buffer-setup)
+    :config
+    (setq org-log-into-drawer t)
+    (setq org-startup-indented 'f)
+    (setq org-special-ctrl-a/e 't)
+    (setq org-startup-folded t)
+    (setq org-tags-column -77)
+    (setq org-src-tab-acts-natively t)
+    (setq org-src-fontify-natively t)
+    (setq org-src-window-setup 'current-window)
+    (setq browse-url-browser-function 'browse-url-generic
+          browse-url-generic-program "Chromium")
+    (setq org-file-apps
+          '((auto-mode . emacs)
+           ("\\.x?html?\\'" . "Chromium %s")))
     )
 #+end_src
-** TODO GTD
-*** Custom todo stages
+** I use org to do GTD
+*** I want to have custom todo sequence
 #+begin_src emacs-lisp
-  (setq org-todo-keywords '((sequence "TODO" "DOING" "|" "DONE" "BLOCKED"))
-  #+end_src
+  (setq org-todo-keywords '((sequence "TODO" "DOING" "|" "DONE" "BLOCKED")))
+#+end_src
 *** I need to know when a task is done
 #+begin_src emacs-lisp
   (setq org-log-done 'time)
 #+end_src
 *** TODO I need a pomodoro
-
-*** Archive (Refiling)
+*** After old task is done, archive (refiling) it
+Save Org buffers after refiling!
 #+begin_src emacs-lisp
   (setq org-refile-targets
 	'(("~/Documents/org/archive.org" :maxlevel . 1)))
-  ;; Save Org buffers after refiling!
+
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
 #+end_src
-*** Capture
+*** Capture my task or idea
 #+begin_src emacs-lisp
   (use-package org-capture
     :bind ("C-c c" . org-capture)
@@ -1270,14 +1284,45 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
                    (file+olp "~/Documents/org/work.org" "2021")
                    "* %?" :empty-lines 0)))
 #+end_src
-** TODO Rice Org
-*** Superstar
+** I can easily open common files                                  :@script:
+
+#+begin_src emacs-lisp
+  (defmacro defun-open-conf (config-name filepath)
+    "Open conf macro.
+  Argument CONFIG-NAME Alias name for your function.
+  Argument FILEPATH Filepath of the file."
+    `(defun ,(intern (format "open-conf-%s" config-name)) ()
+       ,(format "Open %s: \"%s\"" config-name filepath)
+       (interactive)
+       (open-conf ,filepath)))
+
+  (defun open-conf (filepath)
+    "Argument FILEPATH Filepath of the file."
+    (switch-to-buffer
+     (find-file-noselect filepath)))
+
+  (defun-open-conf "work"      "~/Documents/org/work.org")
+  (defun-open-conf "blog"      "~/Documents/org/blog.org")
+  (defun-open-conf "todo"      "~/Documents/org/todo.org")
+  (defun-open-conf "note"      "~/Documents/org/note.org")
+  (defun-open-conf "reminder"  "~/Documents/org/reminder.org")
+  (defun-open-conf "index"     "~/Documents/org/roam/index.org")
+#+end_src
+
+#+begin_src emacs-lisp
+  ;; (set-register ?b (cons 'file "~/Documents/org/blog.org"))
+  ;; (set-register ?t (cons 'file "~/Documents/org/todo.org"))
+  ;; (set-register ?n (cons 'file "~/Documents/org/note.org"))
+  ;; (set-register ?r (cons 'file "~/Documents/org/roam/index.org"))
+#+end_src
+** I love beautiful Org UI
+*** Beautify Org heading symbol
 #+begin_src emacs-lisp
    (use-package org-superstar
      :ensure t
      :hook (org-mode . org-superstar-mode))
 #+end_src
-*** Beautify tag
+*** Beautify Org tag
 #+begin_src emacs-lisp
   (use-package org-pretty-tags
     :diminish org-pretty-tags-mode
@@ -1370,10 +1415,48 @@ Set fixed pitch font for org (conflict with Chinese table)
   ;; (setq-default prettify-symbols-alist '(("#+BEGIN_SRC" . "»") ("#+END_SRC" . "«")("#+begin_src" . "»") ("#+end_src" . "«") ("lambda"  . "λ") ("->" . "→") ("->>" . "↠")))
 #+end_src
 
-** Export
-** Execute src
+** Exported html should have no default style, I can style it myself
+#+begin_src emacs-lisp
+  (setq org-html-head-include-default-style nil
+        org-html-htmlize-output-type 'css)
+#+end_src
+** Execute Org src block
+#+begin_src emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (ruby . t)
+     (js .t )
+     (lua .t )
+     (shell . t)
+     (plantuml . t)))
+#+end_src
 ** Agenda
+Interactive agenda in the console https://github.com/rougier/agenda
 
+#+begin_src emacs-lisp
+  (use-package org-agenda
+    :bind ("C-c a" . org-agenda)
+    :config
+    (setq org-agenda-files (directory-files-recursively "~/Documents/org/" "\\.org$"))
+    ;; (setq org-agenda-files '(
+    ;;                          "~/Documents/org/work.org"
+    ;;                          "~/Documents/org/reminder.org"
+    ;;                         ))
+    (setq org-agenda-start-with-log-mode t)
+    (setq org-agenda-prefix-format
+          '((agenda . " %i %-24:c%?-16t%-10e% s")
+            (todo   . " %i %-24:c %-10e")
+            (tags   . " %i %-24:c")
+            (search . " %i %-24:c")))
+
+    ;;https://www.philnewton.net/blog/how-i-get-work-done-with-emacs/
+    (setq org-agenda-custom-commands
+          '(("d" "Today's Tasks"
+             ((agenda "" ((org-agenda-span 1)
+                          (org-agenda-overriding-header "Today's Tasks")))))))
+    )
+#+end_src
 * Extras
 ** Writing                                                      :@dependent:
 need aspell to ispell (brew install aspell)
