@@ -9,7 +9,8 @@
 * Bootstrap
 ** About this config
    I found this post is awesome https://utf9k.net/blog/faq-driven-configuration/
-   So I try to use the faq style to make this config file
+   So I try to use the faq style to make this config file.
+   Maybe BDD's Given-When-Then is style is awesome too.
 ** How to edit and reload this config file easily? :@script:
 I can use ~C-c I~ to open this config file and ~C-c R~ to reload it.
 By the way, ~C-c i~ can open system config file.
@@ -49,7 +50,7 @@ Guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-pa
                            ("elpa" . "https://elpa.gnu.org/packages/")))
   (package-initialize)
   (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-  ;;(setq package-check-signature nil) ;; if ssl error occur, uncomment this line
+  (setq package-check-signature nil) ;; if ssl error occur, uncomment this line
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
@@ -692,35 +693,19 @@ Only work with windowed emacs on macOS
     :hook (after-init . solaire-global-mode))
 #+end_src
 * Programming
-** LSP
-lsp mode
-
-#+begin_src emacs-lisp
-  (use-package gnu-elpa-keyring-update
-    :ensure t)
-#+end_src
-
-#+begin_src emacs-lisp
-  (require 'cc-mode)
-  (use-package projectile
-    :ensure t
-    :config
-    (setq projectile-mode-line-function '(lambda () (format " Proj[%s]" (projectile-project-name)))))
-  (use-package yasnippet
-    :ensure t)
-  (use-package lsp-mode
-    :ensure t)
-  (use-package hydra
-    :ensure t)
-  (use-package lsp-ui
-    :ensure t)
-#+end_src
-** Interface improvements
+** Make matched parentheses clear and colored
 #+begin_src emacs-lisp
   (show-paren-mode 1)
 #+end_src
 
-When programming I like my editor to try to help me with keeping parentheses balanced.
+#+begin_src emacs-lisp
+  (use-package rainbow-delimiters
+    :ensure t
+    :config
+    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+#+end_src
+
+** Keep parentheses balanced
 #+begin_src emacs-lisp
   (use-package smartparens
     :ensure t
@@ -730,15 +715,8 @@ When programming I like my editor to try to help me with keeping parentheses bal
     (after-prog-mode . smartparens-mode))
 #+end_src
 
-Highlight parens etc. for improved readability.
-#+begin_src emacs-lisp
-  (use-package rainbow-delimiters
-    :ensure t
-    :config
-    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
-#+end_src
-
-Highlight strings which represent colours. I only want this in programming modes, and I don't want colour names to be highlighted (=x-colors=).
+** Highlight strings which represent colours
+I only want this in programming modes, and I don't want colour names to be highlighted (=x-colors=).
 #+begin_src emacs-lisp
   (use-package rainbow-mode
     :ensure t
@@ -746,13 +724,13 @@ Highlight strings which represent colours. I only want this in programming modes
     (setq rainbow-x-colors nil))
 #+end_src
 
-Keep things indented correctly for me.
+** TODO Keep things indented correctly for me.
 #+begin_src emacs-lisp
   (use-package aggressive-indent
     :ensure t)
 #+end_src
 
-Support editorconfig config file.
+** Support editorconfig config file.
 #+begin_src emacs-lisp
   (use-package editorconfig
     :ensure t
@@ -761,13 +739,13 @@ Support editorconfig config file.
     (editorconfig-mode 1))
 #+end_src
 
-Format all
+** Format all
 #+begin_src emacs-lisp
   (use-package format-all
     :ensure t)
 #+end_src
 
-underscore -> UPCASE -> CamelCase conversion of names
+** Underscore -> UPCASE -> CamelCase conversion of names
 #+begin_src emacs-lisp
   (defun my-string-inflection-cycle-auto ()
     "switching by major-mode"
@@ -789,12 +767,12 @@ underscore -> UPCASE -> CamelCase conversion of names
     (global-set-key (kbd "C-M-j") 'my-string-inflection-cycle-auto))
 #+end_src
 
-Expand parentheses for me.
+** TODO Expand parentheses for me.
 #+begin_src emacs-lisp
   (add-hook 'prog-mode-hook 'electric-pair-mode)
 #+end_src
 
-Smart dash guesses _ vs - depending on context.
+** Smart dash guesses _ vs - depending on context.
 #+begin_src emacs-lisp
   (use-package smart-dash
     :ensure t
@@ -802,6 +780,17 @@ Smart dash guesses _ vs - depending on context.
     (add-hook 'python-mode-hook 'smart-dash-mode))
 #+end_src
 
+** Rails                                                           :@script:
+ Run test at point or test current file
+ #+begin_src emacs-lisp
+   (defun run-rails-test-at-point ()
+     (interactive)
+     (compile (format "bundle exec rails test %s:%s" (expand-file-name (buffer-file-name))  (line-number-at-pos))))
+
+   (defun run-rails-test-file ()
+     (interactive)
+     (compile (format "bundle exec rails test %s" (expand-file-name (buffer-file-name)))))
+ #+end_src
 ** Project management
 Projectile handles folders which are in version control.
 #+begin_src emacs-lisp
@@ -1067,210 +1056,198 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
     :ensure t)
 #+end_src
 
-* Language
-** Javascript
-In JS indent to 2 spaces.
-#+begin_src emacs-lisp
-  (setq-default js-indent-level 2)
-#+end_src
+** Language Support
+*** Javascript
+ In JS indent to 2 spaces.
+ #+begin_src emacs-lisp
+   (setq-default js-indent-level 2)
+ #+end_src
 
-JS2 mode improves on the built in JS mode.
-#+begin_src emacs-lisp
-  (use-package js2-mode
-    :ensure t
-    :mode "\\.js\\'"
-    :config
-    (setq-default js2-ignored-warnings '("msg.extra.trailing.comma")))
-#+end_src
+ JS2 mode improves on the built in JS mode.
+ #+begin_src emacs-lisp
+   (use-package js2-mode
+     :ensure t
+     :mode "\\.js\\'"
+     :config
+     (setq-default js2-ignored-warnings '("msg.extra.trailing.comma")))
+ #+end_src
 
-=js2-refactor= supports some useful refactoring options and builds on top of =js2-mode=.
-#+begin_src emacs-lisp
-  (use-package js2-refactor
-    :ensure t
-    :config
-    (js2r-add-keybindings-with-prefix "C-c C-m")
-    :hook
-    (after-js-mode . js-refactor-mode))
-#+end_src
+ =js2-refactor= supports some useful refactoring options and builds on top of =js2-mode=.
+ #+begin_src emacs-lisp
+   (use-package js2-refactor
+     :ensure t
+     :config
+     (js2r-add-keybindings-with-prefix "C-c C-m")
+     :hook
+     (after-js-mode . js-refactor-mode))
+ #+end_src
 
-RJSX mode makes JSX work well.
-#+begin_src emacs-lisp
-  (use-package rjsx-mode
-    :ensure t)
-#+end_src
+ RJSX mode makes JSX work well.
+ #+begin_src emacs-lisp
+   (use-package rjsx-mode
+     :ensure t)
+ #+end_src
 
-Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 and RJSX modes.
-#+begin_src emacs-lisp
-  (use-package prettier-js
-    :ensure t
-    :config
-    (setq prettier-js-args '(
-                             "--trailing-comma" "es5"
-                             "--single-quote" "true"
-                             "--print-width" "100"
-                             ))
-    :hook
-    (after-js2-mode . prettier-js-mode)
-    (after-rjsx-mode . prettier-js-mode))
-#+end_src
-** Yaml
-#+begin_src emacs-lisp
-  (use-package yaml-mode
-    :ensure t)
-#+end_src
-** Toml
-#+begin_src emacs-lisp
-  (use-package toml-mode
-    :ensure t)
-#+end_src
-** Markdown
-Markdown support isn't built into Emacs, add it with =markdown-mode=.
-#+begin_src emacs-lisp
-  (use-package markdown-mode
-    :ensure t
-    :commands (markdown-mode gfm-mode)
-    :mode (("README\\.md\\'" . gfm-mode)
-           ("\\.md\\'" . markdown-mode)
-           ("\\.markdown\\'" . markdown-mode))
-    :init (setq markdown-command "multimarkdown"))
-#+end_src
+ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 and RJSX modes.
+ #+begin_src emacs-lisp
+   (use-package prettier-js
+     :ensure t
+     :config
+     (setq prettier-js-args '(
+                              "--trailing-comma" "es5"
+                              "--single-quote" "true"
+                              "--print-width" "100"
+                              ))
+     :hook
+     (after-js2-mode . prettier-js-mode)
+     (after-rjsx-mode . prettier-js-mode))
+ #+end_src
+*** Yaml
+ #+begin_src emacs-lisp
+   (use-package yaml-mode
+     :ensure t)
+ #+end_src
+*** Toml
+ #+begin_src emacs-lisp
+   (use-package toml-mode
+     :ensure t)
+ #+end_src
+*** Markdown
+ Markdown support isn't built into Emacs, add it with =markdown-mode=.
+ #+begin_src emacs-lisp
+   (use-package markdown-mode
+     :ensure t
+     :commands (markdown-mode gfm-mode)
+     :mode (("README\\.md\\'" . gfm-mode)
+            ("\\.md\\'" . markdown-mode)
+            ("\\.markdown\\'" . markdown-mode))
+     :init (setq markdown-command "multimarkdown"))
+ #+end_src
+*** Lua
+ #+begin_src emacs-lisp
+   (use-package lua-mode
+     :ensure t)
 
-** Lua
-#+begin_src emacs-lisp
-  (use-package lua-mode
-    :ensure t)
+   (use-package fennel-mode
+     :ensure t)
+ #+end_src
+*** Haskell
+ Install haskell mode.
+ #+begin_src emacs-lisp
+   (use-package haskell-mode
+     :ensure t)
+ #+end_src
 
-  (use-package fennel-mode
-    :ensure t)
-#+end_src
-** Haskell
-Install haskell mode.
-#+begin_src emacs-lisp
-  (use-package haskell-mode
-    :ensure t)
-#+end_src
+ Code formatting is easier with =hindent=.
+ #+begin_src emacs-lisp
+   (use-package hindent
+     :ensure t)
+ #+end_src
 
-Code formatting is easier with =hindent=.
-#+begin_src emacs-lisp
-  (use-package hindent
-    :ensure t)
-#+end_src
+*** Elixir
+ Elixir highlighting is not built into emacs at present. Elixir-mode gives all the usual niceties, and alchemist improves interaction with tools like =iex=, =mix= and =elixir-format=.
 
-** Elixir
-Elixir highlighting is not built into emacs at present. Elixir-mode gives all the usual niceties, and alchemist improves interaction with tools like =iex=, =mix= and =elixir-format=.
+ #+begin_src emacs-lisp
+   (use-package elixir-mode
+     :ensure t)
+   (use-package alchemist
+     :ensure t)
+ #+end_src
+*** Ruby
+ #+begin_src emacs-lisp
+   (use-package rake
+     :ensure t)
 
-#+begin_src emacs-lisp
-  (use-package elixir-mode
-    :ensure t)
-  (use-package alchemist
-    :ensure t)
-#+end_src
-** Ruby
-#+begin_src emacs-lisp
-  (use-package rake
-    :ensure t)
+   (use-package robe
+     :ensure t
+     :diminish
+     :hook
+     (after-ruby-mode . robe-mode))
 
-  (use-package robe
-    :ensure t
-    :diminish
-    :hook
-    (after-ruby-mode . robe-mode))
+   (use-package ruby-hash-syntax
+     :ensure t
+     :diminish
+     :hook
+     (after-ruby-mode . ruby-hash-syntax))
 
-  (use-package ruby-hash-syntax
-    :ensure t
-    :diminish
-    :hook
-    (after-ruby-mode . ruby-hash-syntax))
+   (use-package rubocop
+     :ensure t
+     :diminish
+     :hook
+     (after-ruby-mode . rubocop-mode))
 
-  (use-package rubocop
-    :ensure t
-    :diminish
-    :hook
-    (after-ruby-mode . rubocop-mode))
+   (use-package haml-mode
+     :ensure t)
 
-  (use-package haml-mode
-    :ensure t)
+   (use-package minitest
+     :ensure t)
+ #+end_src
+*** C
+ Emacs has a great built in C/C++ mode, but we can improve on it with =irony-mode= for code completion via =libclang=.
 
-  (use-package minitest
-    :ensure t)
-#+end_src
-** Rails                                                           :@script:
-Run test at point or test current file
-#+begin_src emacs-lisp
-  (defun run-rails-test-at-point ()
-    (interactive)
-    (compile (format "bundle exec rails test %s:%s" (expand-file-name (buffer-file-name))  (line-number-at-pos))))
+ #+begin_src emacs-lisp
+   (use-package irony
+     :ensure t
+     :hook (c-mode . irony-mode))
+ #+end_src
 
-  (defun run-rails-test-file ()
-    (interactive)
-    (compile (format "bundle exec rails test %s" (expand-file-name (buffer-file-name)))))
-#+end_src
-** C
-Emacs has a great built in C/C++ mode, but we can improve on it with =irony-mode= for code completion via =libclang=.
+ Add company mode support.
+ #+begin_src emacs-lisp
+   (use-package company-irony
+     :ensure t
+     :config
+     (add-to-list 'company-backends 'company-irony))
+ #+end_src
 
-#+begin_src emacs-lisp
-  (use-package irony
-    :ensure t
-    :hook (c-mode . irony-mode))
-#+end_src
+ Add flycheck support.
+ #+begin_src emacs-lisp
+   (use-package flycheck-irony
+     :ensure t
+     :hook (flycheck-mode . flycheck-irony-setup))
+ #+end_src
+*** Rust
+ #+begin_src emacs-lisp
+   (use-package rust-mode
+     :ensure t )
+ #+end_src
+*** Web mode                                                     :@dependent:
+ Web mode handles html/css/js.
+ #+begin_src emacs-lisp
+   (use-package web-mode
+     :ensure t
+     :mode (("\\.html\\'" . web-mode)
+            ("\\.erb\\'" . web-mode))
+     :config
+     (setq web-mode-markup-indent-offset 2))
+ #+end_src
 
-Add company mode support.
-#+begin_src emacs-lisp
-  (use-package company-irony
-    :ensure t
-    :config
-    (add-to-list 'company-backends 'company-irony))
-#+end_src
+ Web beautify prettifies html / css / js using js-beautify - install with =npm install -g js-beautify=.
+ #+begin_src emacs-lisp
+   (use-package web-beautify
+     :ensure t
+     :bind (:map web-mode-map
+                 ("C-c b" . web-beautify-html)
+                 :map js2-mode-map
+                 ("C-c b" . web-beautify-js)))
+ #+end_src
 
-Add flycheck support.
-#+begin_src emacs-lisp
-  (use-package flycheck-irony
-    :ensure t
-    :hook (flycheck-mode . flycheck-irony-setup))
-#+end_src
-** Rust
-#+begin_src emacs-lisp
-  (use-package rust-mode
-    :ensure t )
-#+end_src
-** Web mode                                                     :@dependent:
-Web mode handles html/css/js.
-#+begin_src emacs-lisp
-  (use-package web-mode
-    :ensure t
-    :mode (("\\.html\\'" . web-mode)
-           ("\\.erb\\'" . web-mode))
-    :config
-    (setq web-mode-markup-indent-offset 2))
-#+end_src
+ HTML preview
+ #+begin_src emacs-lisp
+   (use-package impatient-mode
+     :ensure t)
+ #+end_src
 
-Web beautify prettifies html / css / js using js-beautify - install with =npm install -g js-beautify=.
-#+begin_src emacs-lisp
-  (use-package web-beautify
-    :ensure t
-    :bind (:map web-mode-map
-                ("C-c b" . web-beautify-html)
-                :map js2-mode-map
-                ("C-c b" . web-beautify-js)))
-#+end_src
-
-HTML preview
-#+begin_src emacs-lisp
-  (use-package impatient-mode
-    :ensure t)
-#+end_src
-
-Emmet mode
-use C-j to expand it
-#+begin_src emacs-lisp
-  (use-package emmet-mode
-    :ensure t)
-#+end_src
-** Solidity
-#+begin_src emacs-lisp
-  (use-package solidity-mode
-    :ensure t)
-#+end_src
+ Emmet mode
+ use C-j to expand it
+ #+begin_src emacs-lisp
+   (use-package emmet-mode
+     :ensure t)
+ #+end_src
+*** Solidity
+ #+begin_src emacs-lisp
+   (use-package solidity-mode
+     :ensure t)
+ #+end_src
 * Org
 ** TODO GTD
 *** Custom todo stages
