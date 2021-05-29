@@ -803,29 +803,6 @@ Projectile handles folders which are in version control.
     (projectile-mode))
 #+end_src
 
-Add some extra completion options via integration with =counsel=. In particular this enables =C-c p SPC= for smart buffer / file search, and =C-c p s s= for search via =ag=.
-#+begin_src emacs-lisp
-  (use-package counsel-projectile
-    :ensure t
-    :config
-    (add-hook 'after-init-hook 'counsel-projectile-mode)
-    (global-set-key (kbd "C-c p f") 'counsel-git))
-#+end_src
-
-Integration with Helm
-#+begin_src emacs-lisp
-  (use-package helm
-    :ensure t)
-
-  (use-package helm-ag
-    :ensure t)
-
-  (use-package helm-projectile
-    :ensure t
-    :config
-    (global-set-key (kbd "C-S-f") 'helm-projectile-ag))
-#+end_src
-
 Integration with neotree
 #+begin_src emacs-lisp
   (use-package neotree
