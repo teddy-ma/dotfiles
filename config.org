@@ -484,12 +484,12 @@ It works fine with windows and org table in Chinese
                       (font-spec :family (car (cdr fonts)))))
 #+end_src
 
-** No need to display all the  minor mode name
+** No need to display all the minor mode name
 #+begin_src emacs-lisp
   (use-package diminish
     :ensure t)
 #+end_src
-** In some case I want to hide mode Line                           :@script:
+** In some case I want to hide the mode line                       :@script:
 #+begin_src emacs-lisp
   (use-package hide-mode-line
     :ensure t)
@@ -1285,7 +1285,6 @@ Save Org buffers after refiling!
                    "* %?" :empty-lines 0)))
 #+end_src
 ** I can easily open common files                                  :@script:
-
 #+begin_src emacs-lisp
   (defmacro defun-open-conf (config-name filepath)
     "Open conf macro.
@@ -1322,7 +1321,7 @@ Save Org buffers after refiling!
      :ensure t
      :hook (org-mode . org-superstar-mode))
 #+end_src
-*** Beautify Org tag
+*** Emoji Org tag
 #+begin_src emacs-lisp
   (use-package org-pretty-tags
     :diminish org-pretty-tags-mode
@@ -1377,7 +1376,8 @@ Set fixed pitch font for org (conflict with Chinese table)
     ;;   (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
     )
 #+end_src
-*** Completed tasks will be pierced through visually to intensify the sense of achievement.
+*** Completed tasks should be pierced through visually
+to intensify the sense of achievement.
 #+begin_src emacs-lisp
   ;; (setq org-fontify-done-headline t)
   ;; (set-face-attribute 'org-done nil :strike-through t)
@@ -1415,7 +1415,8 @@ Set fixed pitch font for org (conflict with Chinese table)
   ;; (setq-default prettify-symbols-alist '(("#+BEGIN_SRC" . "»") ("#+END_SRC" . "«")("#+begin_src" . "»") ("#+end_src" . "«") ("lambda"  . "λ") ("->" . "→") ("->>" . "↠")))
 #+end_src
 
-** Exported html should have no default style, I can style it myself
+** Exported html should have no default style
+I can style it myself
 #+begin_src emacs-lisp
   (setq org-html-head-include-default-style nil
         org-html-htmlize-output-type 'css)
