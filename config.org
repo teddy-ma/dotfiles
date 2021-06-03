@@ -724,7 +724,7 @@ I only want this in programming modes, and I don't want colour names to be highl
     (setq rainbow-x-colors nil))
 #+end_src
 
-** TODO Keep things indented correctly for me.
+** Auto indented code when edit
 #+begin_src emacs-lisp
   (use-package aggressive-indent
     :ensure t)
@@ -1498,7 +1498,7 @@ server
 #+end_src
 
 * Extras
-** Writing                                                      :@dependent:
+** check my writing sytle and spell                             :@dependent:
 need aspell to ispell (brew install aspell)
 #+begin_src emacs-lisp
   (setq ispell-program-name "aspell")
@@ -1519,7 +1519,7 @@ Proselint is an external program, install it with =pip install proselint= for th
     :modes (text-mode markdown-mode gfm-mode org-mode))
 #+end_src
 
-** Pinyin                                                       :@dependent:
+** I need Chinese input method                            :@dependent:
 #+begin_src emacs-lisp
   (use-package pyim
     :ensure t
@@ -1548,7 +1548,7 @@ Proselint is an external program, install it with =pip install proselint= for th
     :bind
     (("M-j" . pyim-convert-string-at-point)))
 #+end_src
-** PlantUML                                                     :@dependent:
+** Drawing UMLL                                          :@dependent:
 need plantuml (brew install plantuml)
 #+begin_src emacs-lisp
   ;;https://www.onwebsecurity.com/configuration/use-emacs-to-create-oauth-2-0-uml-sequence-diagrams.html
@@ -1565,7 +1565,7 @@ need plantuml (brew install plantuml)
     (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
     (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2021.0/libexec/plantuml.jar"))
 #+END_SRC
-** Dictionary
+** English Chinese Dictionary
 #+begin_src emacs-lisp
   (use-package youdao-dictionary
     :ensure t
@@ -1578,7 +1578,7 @@ need plantuml (brew install plantuml)
     :ensure t)
 #+end_src
 
-** Shell
+** Run shell in emacs
 eshell with git
 #+begin_src emacs-lisp
   (use-package eshell-git-prompt
@@ -1610,7 +1610,7 @@ vterm
     (shell-pop-full-span t))
 #+end_src
 
-** PDF
+** view PDF in emacs
 #+begin_src emacs-lisp
   (use-package pdf-tools
     :ensure t
