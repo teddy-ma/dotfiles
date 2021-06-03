@@ -1,0 +1,486 @@
+** Common packages
+*** Helpful
+#+begin_src emacs-lisp
+  (use-package helpful
+    :ensure t
+    :custom
+    (counsel-describe-function-function #'helpful-callable)
+    (counsel-describe-variable-function #'helpful-variable)
+    :bind
+    ([remap describe-function] . counsel-describe-function)
+    ([remap describe-command] . helpful-command)
+    ([remap describe-variable] . counsel-describe-variable)
+    ([remap describe-key] . helpful-key))
+#+end_src
+*** Restart emacs
+#+begin_src emacs-lisp
+  (use-package restart-emacs
+    :ensure t)
+#+end_src
+*** Show command log
+#+begin_src emacs-lisp
+  (use-package command-log-mode
+    :ensure t)
+#+end_src
+*** Posframe
+#+begin_src emacs-lisp
+  (use-package posframe
+    :ensure t)
+#+end_src
+
+
+
+
+*** manage minor mode
+In case I want to see all the minor modes
+#+begin_src emacs-lisp
+  (use-package manage-minor-mode
+    :ensure t)
+#+end_src
+
+** Pop win
+#+begin_src emacs-lisp
+  (use-package popwin
+    :ensure t
+    :config
+    (global-set-key (kbd "M-p") popwin:keymap))
+#+end_src
+** Mini frame
+Place minibuffer at the top of the current frame
+#+begin_src emacs-lisp
+  (use-package mini-frame
+    :ensure t
+    :config
+    (mini-frame-mode t)
+    (custom-set-variables
+     '(mini-frame-show-parameters
+       '((top . 10)
+         (width . 0.7)
+         (left . 0.5)))))
+#+end_src
+** Transpose frame
+#+begin_src emacs-lisp
+  (use-package transpose-frame
+    :ensure t)
+#+end_src
+
+** TODO Reasonable default settings
+*** Popup managment
+Taken from https://emacs.stackexchange.com/questions/46210/reuse-help-window
+
+#+begin_src emacs-lisp
+  (setq display-buffer-alist
+        `((,(rx bos (or "*Apropos*" "*Help*" "*helpful" "*info*" "*Summary*") (0+ not-newline))
+           (display-buffer-reuse-mode-window display-buffer-below-selected)
+           (window-height . 0.33)
+           (mode apropos-mode help-mode helpful-mode Info-mode Man-mode))))
+#+end_src
+*** Minibuffer recursive
+#+begin_src emacs-lisp
+  (setq enable-recursive-minibuffers t)
+#+end_src
+
+
+
+** Misc
+*** Highlight Indent guides
+
+#+begin_src emacs-lisp
+  (use-package indent-guide
+    :ensure t)
+  (use-package highlight-indent-guides
+    :ensure t
+    :hook (prog-mode . highlight-indent-guides-mode)
+    :init
+    ;; (setq highlight-indent-guides-method 'column)
+    (setq highlight-indent-guides-method 'bitmap)
+    ;; (setq highlight-indent-guides-character ?|)
+    ;; (setq highlight-indent-guides-character ?❚)
+    ;;(setq highlight-indent-guides-character ?‖)
+    ;; (setq highlight-indent-guides-responsive 'stack)
+    ;;(setq highlight-indent-guides-responsive 'top)
+    ;; (setq highlight-indent-guides-auto-enabled nil)
+    ;; (set-face-background 'highlight-indent-guides-odd-face "darkgray")
+    ;; (set-face-background 'highlight-indent-guides-even-face "dimgray")
+    ;; (set-face-foreground 'highlight-indent-guides-character-face "dimgray")
+    )
+#+end_src
+
+*** Display battery
+#+begin_src emacs-lisp
+  ;; (display-battery-mode 1)
+  ;; (setq battery-mode-line-format "[%b%p%% %t]")
+#+end_src
+*** Dired icons
+#+begin_src emacs-lisp
+  (use-package all-the-icons-dired
+    :ensure t
+    :config
+    (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+#+end_src
+*** Info colors
+#+begin_src emacs-lisp
+  (use-package info-colors
+    :ensure t
+    :config
+    (add-hook 'Info-selection-hook 'info-colors-fontify-node))
+#+end_src
+
+** Tab bar
+#+begin_src emacs-lisp
+  (use-package centaur-tabs
+    :ensure t
+    :init
+    (setq centaur-tabs-set-icons t)
+    (setq ccentaur-tabs-set-modified-marker t
+          centaur-tabs-modified-marker "M"
+          centaur-tabs-cycle-scope 'tabs)
+    (setq centaur-tabs-set-close-button nil)
+    :config
+    (centaur-tabs-group-by-projectile-project)
+    )
+#+end_src
+
+** Magnifying mode                                                 :@script:
+#+begin_src emacs-lisp
+  (defun magnifying-current-line ()
+    (setq magnifying-overlay (make-overlay (line-beginning-position) (line-end-position)))
+    (overlay-put magnifying-overlay 'font-lock-face '(:height 2.5)))
+
+  (defun magnifying-delete-line ()
+    (dolist (o (overlays-in  (line-beginning-position) (line-end-position)))
+      (delete-overlay o)))
+
+  (define-minor-mode magnifying-mode
+    "Toggles global magnifying-mode."
+    nil   ; Initial value, nil for disabled
+    :global t
+    :group 'magnifying
+    :lighter " magnifying"
+    :keymap
+    (list
+     (cons (kbd "C-c t") (lambda ()
+                           (interactive)
+                           (magnifying-current-line)))
+
+     (cons (kbd "C-c m") (lambda ()
+                           (interactive)
+                           (magnifying-delete-line)))
+     )
+
+    (if magnifying-mode
+        (message "magnifying-mode activated!")
+      (message "magnifying-mode deactivated!")))
+
+  (add-hook 'magnifying-mode-hook (lambda () (message "magnifying hook was executed!")))
+  (add-hook 'magnifying-mode-on-hook (lambda () (message "magnifying turned on!")))
+  (add-hook 'magnifying-mode-off-hook (lambda () (message "magnifying turned off!")))
+#+end_src
+
+
+** Tabs and indent
+#+begin_src emacs-lisp
+  (setq-default indent-tabs-mode nil)
+  (setq-default indicate-empty-lines nil)
+#+end_src
+
+Don't count two spaces after a period as the end of a sentence.
+Just one space is needed.
+#+begin_src emacs-lisp
+  (setq sentence-end-double-space nil)
+ #+end_src
+** TODO Command completion
+=ivy= is a generic completion framework which uses the minibuffer.
+Turning on =ivy-mode= with fuzzy support enables replacement of lots of built in =ido= functionality.
+
+#+begin_src emacs-lisp
+  (use-package smex
+    :ensure t)
+  (use-package ivy
+    :ensure t
+    :config
+    (ivy-mode t))
+
+  (use-package ivy-rich
+    :ensure t
+    :init
+    (ivy-rich-mode 1))
+#+end_src
+
+=counsel= is a collection of =ivy= enhanced versions of common Emacs commands.
+I haven't bound much as =ivy-mode= takes care of most things.
+
+#+begin_src emacs-lisp
+  (use-package counsel
+    :ensure t
+    :bind
+    (("M-x" . counsel-M-x))
+    :config
+     (setq ivy-re-builders-alist
+           '(
+             ;; no need to support fuzzy when use swiper and ivy-switch-buffer
+             (ivy-switch-buffer . ivy--regex-plus)
+             (swiper . ivy--regex-plus)
+             (t . ivy--regex-fuzzy)
+             ))
+    (setq ivy-initial-inputs-alist nil))
+#+end_src
+
+=swiper= is an =ivy= enhanced version of isearch.
+
+#+begin_src emacs-lisp
+  (use-package swiper
+    :ensure t
+    :bind (("M-s" . swiper)))
+#+end_src
+
+=hydra= presents menus for =ivy= commands.
+
+#+begin_src emacs-lisp
+  (use-package hydra
+    :ensure t)
+
+  (use-package ivy-hydra
+    :ensure t
+    :after (ivy hydra))
+#+end_src
+
+** Wrap region
+#+begin_src emacs-lisp
+  (use-package wrap-region
+    :ensure t
+    :diminish wrap-region-mode
+    :config
+    (wrap-region-global-mode t)
+    (wrap-region-add-wrapper "~" "~" nil 'org-mode)  ; code
+    (wrap-region-add-wrapper "*" "*" nil 'org-mode)  ; bold
+    (wrap-region-add-wrapper "/" "/" nil 'org-mode)  ; italic
+    (wrap-region-add-wrapper "+" "+" nil 'org-mode)  ; strikethrough
+    (wrap-region-add-wrapper "_" "_" nil 'org-mode)) ; verbatim
+#+end_src
+
+** Folding
+https://github.com/Schnouki/dotfiles/blob/master/emacs/init-20-dev.el#L90
+#+begin_src emacs-lisp
+  (use-package origami
+    :ensure t
+    :commands origami-mode
+    :bind (:map origami-mode-map
+                ("C-: :" . origami-recursively-toggle-node)
+                ("C-: a" . origami-toggle-all-nodes)
+                ("C-: t" . origami-toggle-node)
+                ("C-: o" . origami-show-only-node)
+                ("C-: u" . origami-undo)
+                ("C-: U" . origami-redo)
+                ("C-: C-r" . origami-reset)
+                ))
+#+end_src
+** Align non space                                                 :@script:
+#+begin_src emacs-lisp
+  (defun align-non-space (BEG END)
+    "Align non-space columns in region BEG END."
+    (interactive "r")
+    (align-regexp BEG END "\\(\\s-*\\)\\S-+" 1 1 t))
+#+end_src
+
+** Dired                                                           :@script:
+preview file
+#+begin_src emacs-lisp
+  (define-minor-mode dired-follow-mode
+    "Diplay file at point in dired after a move."
+    :lighter " dired-f"
+    :global t
+    (if dired-follow-mode (advice-add 'dired-next-line
+                                      :after (lambda (arg)
+                                               (dired-display-file)))
+      (advice-remove 'dired-next-line (lambda (arg)
+                                        (dired-display-file)))))
+#+end_src
+
+dired hacks
+#+begin_src emacs-lisp
+  (use-package dired-rainbow
+    :ensure t
+    :config
+    (progn
+      (dired-rainbow-define-chmod directory "#6cb2eb" "d.*")
+      (dired-rainbow-define html "#eb5286" ("css" "less" "sass" "scss" "htm" "html" "jhtm" "mht" "eml" "mustache" "xhtml"))
+      (dired-rainbow-define xml "#f2d024" ("xml" "xsd" "xsl" "xslt" "wsdl" "bib" "json" "msg" "pgn" "rss" "yaml" "yml" "rdata"))
+      (dired-rainbow-define document "#9561e2" ("docm" "doc" "docx" "odb" "odt" "pdb" "pdf" "ps" "rtf" "djvu" "epub" "odp" "ppt" "pptx"))
+      (dired-rainbow-define markdown "#ffed4a" ("org" "etx" "info" "markdown" "md" "mkd" "nfo" "pod" "rst" "tex" "textfile" "txt"))
+      (dired-rainbow-define database "#6574cd" ("xlsx" "xls" "csv" "accdb" "db" "mdb" "sqlite" "nc"))
+      (dired-rainbow-define media "#de751f" ("mp3" "mp4" "MP3" "MP4" "avi" "mpeg" "mpg" "flv" "ogg" "mov" "mid" "midi" "wav" "aiff" "flac"))
+      (dired-rainbow-define image "#f66d9b" ("tiff" "tif" "cdr" "gif" "ico" "jpeg" "jpg" "png" "psd" "eps" "svg"))
+      (dired-rainbow-define log "#c17d11" ("log"))
+      (dired-rainbow-define shell "#f6993f" ("awk" "bash" "bat" "sed" "sh" "zsh" "vim"))
+      (dired-rainbow-define interpreted "#38c172" ("py" "ipynb" "rb" "pl" "t" "msql" "mysql" "pgsql" "sql" "r" "clj" "cljs" "scala" "js"))
+      (dired-rainbow-define compiled "#4dc0b5" ("asm" "cl" "lisp" "el" "c" "h" "c++" "h++" "hpp" "hxx" "m" "cc" "cs" "cp" "cpp" "go" "f" "for" "ftn" "f90" "f95" "f03" "f08" "s" "rs" "hi" "hs" "pyc" ".java"))
+      (dired-rainbow-define executable "#8cc4ff" ("exe" "msi"))
+      (dired-rainbow-define compressed "#51d88a" ("7z" "zip" "bz2" "tgz" "txz" "gz" "xz" "z" "Z" "jar" "war" "ear" "rar" "sar" "xpi" "apk" "xz" "tar"))
+      (dired-rainbow-define packaged "#faad63" ("deb" "rpm" "apk" "jad" "jar" "cab" "pak" "pk3" "vdf" "vpk" "bsp"))
+      (dired-rainbow-define encrypted "#ffed4a" ("gpg" "pgp" "asc" "bfe" "enc" "signature" "sig" "p12" "pem"))
+      (dired-rainbow-define fonts "#6cb2eb" ("afm" "fon" "fnt" "pfb" "pfm" "ttf" "otf"))
+      (dired-rainbow-define partition "#e3342f" ("dmg" "iso" "bin" "nrg" "qcow" "toast" "vcd" "vmdk" "bak"))
+      (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules"))
+      (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*")
+      ))
+#+end_src
+** Multiple cursors
+#+begin_src emacs-lisp
+  (use-package iedit
+    :ensure t)
+  (use-package multiple-cursors
+    :ensure t
+    :config
+    (global-unset-key (kbd "M-<down-mouse-1>"))
+    (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
+    (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+    (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+    (global-set-key (kbd "C-<") 'mc/mark-previous-like-this))
+#+end_src
+
+** Wgrep
+wgrep allows you to edit a grep buffer and apply those changes to the file buffer like sed interactively.
+No need to learn sed script, just learn Emacs.
+#+begin_src emacs-lisp
+  (use-package wgrep
+    :ensure t)
+#+end_src
+** Find file in cursor                                             :@script:
+#+begin_src emacs-lisp
+  (defun teddy-ma/find-file-under-cursor ()
+    "Check it the filepath under cursor is an absolute path otherwise open helm and insert the filepath."
+    (interactive)
+    (let ((file-path (thing-at-point 'filename t)))
+      (if (file-name-absolute-p file-path)
+          (find-file-at-point file-path)
+        (minibuffer-with-setup-hook (lambda ()
+                                      (insert file-path))
+          (helm-ls-git-ls)))))
+#+end_src
+
+** Edit indirect
+like buffer narrow but in other buffer
+#+begin_src emacs-lisp
+  (use-package edit-indirect
+    :ensure t)
+#+end_src
+** Diff hl
+#+begin_src emacs-lisp
+  (use-package diff-hl
+    :ensure t
+    :hook
+    ((magit-pre-refresh . diff-hl-magit-pre-refresh)
+     (magit-post-refresh . diff-hl-magit-post-refresh))
+    :init
+    (setq diff-hl-draw-borders nil)
+    ;; (setq diff-hl-global-modes '(not org-mode))
+    ;; (setq diff-hl-fringe-bmp-function 'diff-hl-fringe-bmp-from-type)
+    ;; (setq diff-hl-global-modes (not '(image-mode org-mode)))
+    :config
+    (global-diff-hl-mode)
+    )
+#+end_src
+
+
+
+
+** Drag and drop images
+#+begin_src emacs-lisp
+  (use-package org-download
+    :ensure t
+    :config
+    (setq-default org-download-image-dir "~/Documents/org/assets/images")
+    (setq-default org-download-timestamp "")
+    (setq-default org-download-heading-lvl nil)
+    (add-hook 'dired-mode-hook 'org-download-enable))
+#+end_src
+
+
+** Reveal.js
+#+begin_src emacs-lisp
+  (use-package ox-reveal
+    :ensure t
+    :config
+    (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
+    (setq org-reveal-mathjax t))
+#+end_src
+** Org Tree Slide
+C-x-n-s and C-x-n-w can narrow to subtree
+
+#+begin_src emacs-lisp
+  (use-package org-tree-slide
+    :ensure t
+    :custom
+    (org-image-actual-width nil))
+#+end_src
+
+
+** Toggle side org file
+
+#+begin_src emacs-lisp
+  (defun teddy-ma/toggle-side-org-buffer ()
+    "Toggle org file in a side buffer for quick note taking."
+    (interactive)
+    (teddy-ma/toggle-side-buffer-with-file "~/Documents/org/todo.org"))
+
+  (defun teddy-ma/buffer-visible-p (buffer)
+    "Check if given BUFFER is visible or not.  BUFFER is a string representing the buffer name."
+    (or
+     (eq buffer (window-buffer (selected-window)))
+        (get-buffer-window buffer)))
+
+  (defun teddy-ma/display-buffer-in-side-window (buffer)
+    "Just like `display-buffer-in-side-window' but only takes a BUFFER and rest of the parameters are for my taste."
+    (select-window
+     (display-buffer-in-side-window
+      buffer
+      (list (cons 'side 'right)
+            (cons 'slot 0)
+            (cons 'window-width 84)
+            (cons 'window-parameters
+                  (list (cons 'no-delete-other-windows t)
+                        (cons 'no-other-window nil)))))))
+
+  (defun teddy-ma/remove-window-with-buffer (the-buffer-name)
+    "Remove window containing given THE-BUFFER-NAME."
+    (mapc (lambda (window)
+            (when (string-equal (buffer-name (window-buffer window)) the-buffer-name)
+              (delete-window window)))
+          (window-list (selected-frame))))
+
+  (defun teddy-ma/toggle-side-buffer-with-file (file-path)
+    "Toggle FILE-PATH in a side buffer. The buffer is opened in side window so it can't be accidentaly removed."
+    (interactive)
+    (let ((fname (file-name-nondirectory file-path)))
+      (if (teddy-ma/buffer-visible-p fname)
+          (teddy-ma/remove-window-with-buffer fname)
+        (teddy-ma/display-buffer-in-side-window
+         (save-window-excursion
+           (find-file file-path)
+           (current-buffer))))))
+#+end_src
+
+** LSP
+lsp mode
+
+#+begin_src emacs-lisp
+  (use-package gnu-elpa-keyring-update
+    :ensure t)
+#+end_src
+
+#+begin_src emacs-lisp
+  (require 'cc-mode)
+  (use-package projectile
+    :ensure t
+    :config
+    (setq projectile-mode-line-function '(lambda () (format " Proj[%s]" (projectile-project-name)))))
+  (use-package yasnippet
+    :ensure t)
+  (use-package lsp-mode
+    :ensure t)
+  (use-package hydra
+    :ensure t)
+  (use-package lsp-ui
+    :ensure t)
+#+end_src
