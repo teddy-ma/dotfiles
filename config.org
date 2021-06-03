@@ -899,8 +899,8 @@ It's quite effective even with dynamic libraries like JS and Python.
            ("C-M-q" . dumb-jump-quick-look)))
 #+end_src
 
-** Git
-Magit is an awesome interface to git. Summon it with `C-x g`.
+** Using Git inside Emacs
+*** Magit is an awesome interface to git. Summon it with `C-x g`.
 #+begin_src emacs-lisp
   (use-package magit
     :ensure t
@@ -909,28 +909,28 @@ Magit is an awesome interface to git. Summon it with `C-x g`.
     :bind ("C-x g" . magit-status))
 #+end_src
 
-Display line changes in gutter based on git history. Enable it everywhere.
+*** Display line changes in gutter based on git history. Enable it everywhere.
 #+begin_src emacs-lisp
   (use-package git-gutter
     :ensure t
     :diminish git-gutter-mode
     :config
-    (global-git-gutter-mode 't))
+    (global-git-gutter-mode t))
 #+end_src
 
-Magit Delta
+*** Magit Delta
 #+begin_src emacs-lisp
   (use-package magit-delta
     :ensure t)
 #+end_src
 
-TimeMachine lets us step through the history of a file as recorded in git.
+*** TimeMachine lets us step through the history of a file as recorded in git.
 #+begin_src emacs-lisp
   (use-package git-timemachine
     :ensure t)
 #+end_src
 
-bind =M-p -= to list all git repos in some folder
+*** bind =M-p -= to list all git repos in some folder
 #+begin_src emacs-lisp
 (setq magit-repository-directories '(("\~/code" . 4)))
 

@@ -365,25 +365,6 @@ like buffer narrow but in other buffer
   (use-package edit-indirect
     :ensure t)
 #+end_src
-** Diff hl
-#+begin_src emacs-lisp
-  (use-package diff-hl
-    :ensure t
-    :hook
-    ((magit-pre-refresh . diff-hl-magit-pre-refresh)
-     (magit-post-refresh . diff-hl-magit-post-refresh))
-    :init
-    (setq diff-hl-draw-borders nil)
-    ;; (setq diff-hl-global-modes '(not org-mode))
-    ;; (setq diff-hl-fringe-bmp-function 'diff-hl-fringe-bmp-from-type)
-    ;; (setq diff-hl-global-modes (not '(image-mode org-mode)))
-    :config
-    (global-diff-hl-mode)
-    )
-#+end_src
-
-
-
 
 ** Drag and drop images
 #+begin_src emacs-lisp
@@ -395,7 +376,6 @@ like buffer narrow but in other buffer
     (setq-default org-download-heading-lvl nil)
     (add-hook 'dired-mode-hook 'org-download-enable))
 #+end_src
-
 
 ** Reveal.js
 #+begin_src emacs-lisp
@@ -414,7 +394,6 @@ C-x-n-s and C-x-n-w can narrow to subtree
     :custom
     (org-image-actual-width nil))
 #+end_src
-
 
 ** Toggle side org file
 
