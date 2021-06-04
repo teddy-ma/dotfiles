@@ -40,7 +40,7 @@ By the way, ~C-c i~ can open system config file.
   (setq user-full-name "Teddy Ma"
         user-mail-address "mlc880926@gmail.com")
 #+end_src
-** How to install emacs packages effective?
+** How to install emacs packages effectively?
 Guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-package-manual.html
 
 #+begin_src emacs-lisp
@@ -56,7 +56,7 @@ Guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-pa
     (package-install 'use-package))
 #+end_src
 
-** How to split custom settings to other file?
+** How to have a single custom settings config file?
 Set up the customize file to its own separate file, instead of saving customize settings in [[file:init.el][init.el]].
 Try your best to make custom config clean.
 
@@ -192,14 +192,14 @@ Run ~M-x all-the-icons-install-fonts~ to install fonts (only once)
       (global-visual-line-mode 1)
     #+end_src
 
-** I want to restore previous window layout
+** Restore previous window layout
 #+begin_src emacs-lisp
   (use-package winner-mode
     :ensure nil
     :hook (after-init . winner-mode))
 #+end_src
 
-** I forgot some shortcut, only remember the prefix key, any hint?
+** What if I forgot some shortcut, only remember the prefix key, any hint?
 Suggest next keys to me based on currently entered key combination.
 
 #+begin_src emacs-lisp
@@ -218,7 +218,7 @@ Suggest next keys to me based on currently entered key combination.
     which-key-mode)
 #+end_src
 
-** If more than one buffer has same name, how to identify?
+** If more than one buffer has same name, how to identify them?
 #+begin_src emacs-lisp
   (use-package uniquify
     :config
@@ -767,7 +767,7 @@ I only want this in programming modes, and I don't want colour names to be highl
     (global-set-key (kbd "C-M-j") 'my-string-inflection-cycle-auto))
 #+end_src
 
-** TODO Expand parentheses for me.
+** Automatically inserting matching pairs of delimiters
 #+begin_src emacs-lisp
   (add-hook 'prog-mode-hook 'electric-pair-mode)
 #+end_src
@@ -1315,6 +1315,16 @@ Save Org buffers after refiling!
   ;; (set-register ?r (cons 'file "~/Documents/org/roam/index.org"))
 #+end_src
 ** I love beautiful Org UI
+*** make headings colorful
+#+begin_src emacs-lisp
+  ;; (custom-set-faces
+  ;;  '(default     ((t (:foreground "#BBC2CF"))))
+  ;;  '(org-level-1 ((t (:foreground "#BF9D7A"))))
+  ;;  '(org-level-2 ((t (:foreground "#E4E9CD"))))
+  ;;  '(org-level-3 ((t (:foreground "#EBF2EA"))))
+  ;;  '(org-level-4 ((t (:foreground "#0ABDA0"))))
+  ;;  '(org-level-5 ((t (:foreground "#80ADD7")))))
+#+end_src
 *** Beautify Org heading symbol
 #+begin_src emacs-lisp
    (use-package org-superstar
@@ -1432,6 +1442,20 @@ I can style it myself
      (shell . t)
      (plantuml . t)))
 #+end_src
+** Insert org markup easily
+#+begin_src emacs-lisp
+  (use-package wrap-region
+    :ensure t
+    :diminish wrap-region-mode
+    :config
+    (wrap-region-global-mode t)
+    (wrap-region-add-wrapper "~" "~" nil 'org-mode)  ; code
+    (wrap-region-add-wrapper "*" "*" nil 'org-mode)  ; bold
+    (wrap-region-add-wrapper "/" "/" nil 'org-mode)  ; italic
+    (wrap-region-add-wrapper "+" "+" nil 'org-mode)  ; strikethrough
+    (wrap-region-add-wrapper "_" "_" nil 'org-mode)) ; verbatim
+#+end_src
+
 ** Agenda
 Interactive agenda in the console https://github.com/rougier/agenda
 

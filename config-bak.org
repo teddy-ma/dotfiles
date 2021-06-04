@@ -245,19 +245,6 @@ I haven't bound much as =ivy-mode= takes care of most things.
     :after (ivy hydra))
 #+end_src
 
-** Wrap region
-#+begin_src emacs-lisp
-  (use-package wrap-region
-    :ensure t
-    :diminish wrap-region-mode
-    :config
-    (wrap-region-global-mode t)
-    (wrap-region-add-wrapper "~" "~" nil 'org-mode)  ; code
-    (wrap-region-add-wrapper "*" "*" nil 'org-mode)  ; bold
-    (wrap-region-add-wrapper "/" "/" nil 'org-mode)  ; italic
-    (wrap-region-add-wrapper "+" "+" nil 'org-mode)  ; strikethrough
-    (wrap-region-add-wrapper "_" "_" nil 'org-mode)) ; verbatim
-#+end_src
 
 ** Folding
 https://github.com/Schnouki/dotfiles/blob/master/emacs/init-20-dev.el#L90
