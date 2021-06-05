@@ -714,8 +714,7 @@ Only work with windowed emacs on macOS
     :hook
     (after-prog-mode . smartparens-mode))
 #+end_src
-
-** Highlight strings which represent colours
+** Highlight strings which represent colors
 I only want this in programming modes, and I don't want colour names to be highlighted (=x-colors=).
 #+begin_src emacs-lisp
   (use-package rainbow-mode
@@ -745,7 +744,7 @@ I only want this in programming modes, and I don't want colour names to be highl
     :ensure t)
 #+end_src
 
-** Underscore -> UPCASE -> CamelCase conversion of names
+** Underscore -> UPCASE -> CamelCase conversion
 #+begin_src emacs-lisp
   (defun my-string-inflection-cycle-auto ()
     "switching by major-mode"
@@ -767,21 +766,8 @@ I only want this in programming modes, and I don't want colour names to be highl
     (global-set-key (kbd "C-M-j") 'my-string-inflection-cycle-auto))
 #+end_src
 
-** Automatically inserting matching pairs of delimiters
-#+begin_src emacs-lisp
-  (add-hook 'prog-mode-hook 'electric-pair-mode)
-#+end_src
-
-** Smart dash guesses _ vs - depending on context.
-#+begin_src emacs-lisp
-  (use-package smart-dash
-    :ensure t
-    :config
-    (add-hook 'python-mode-hook 'smart-dash-mode))
-#+end_src
-
-** Rails                                                           :@script:
- Run test at point or test current file
+** Rails is my main job framework                                  :@script:
+***  Run test at point or test current file
  #+begin_src emacs-lisp
    (defun run-rails-test-at-point ()
      (interactive)
@@ -792,7 +778,7 @@ I only want this in programming modes, and I don't want colour names to be highl
      (compile (format "bundle exec rails test %s" (expand-file-name (buffer-file-name)))))
  #+end_src
 ** Project management
-Projectile handles folders which are in version control.
+*** Projectile handles folders which are in version control.
 #+begin_src emacs-lisp
   (use-package projectile
     :ensure t
@@ -803,7 +789,7 @@ Projectile handles folders which are in version control.
     (projectile-mode))
 #+end_src
 
-Integration with neotree
+*** Neotree provide a sidebar of project files
 #+begin_src emacs-lisp
   (use-package neotree
     :ensure t
