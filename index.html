@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-06-07 Mon 09:30 -->
+<!-- 2021-06-07 Mon 09:43 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Emacs Config</title>
@@ -64,222 +64,223 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgc85e066">Given a vanilla emacs</a>
+<li><a href="#org8846640">Given a vanilla emacs</a>
 <ul>
-<li><a href="#org3be655e">to open this config file&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></a></li>
-<li><a href="#orgb0c5a70">identity who I am?</a></li>
-<li><a href="#orgcd53f07">install packages</a></li>
-<li><a href="#org70c5cf2">have a single custom settings config file</a></li>
-<li><a href="#org7208444">start emacs faster</a>
+<li><a href="#orgdb70867">to open this config file&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></a></li>
+<li><a href="#orgdd50359">identity who I am?</a></li>
+<li><a href="#org863479a">install packages</a></li>
+<li><a href="#org28b00f7">have a single custom settings config file</a></li>
+<li><a href="#org44d7016">start emacs faster</a>
 <ul>
-<li><a href="#org43af7da">Less garbage collection</a></li>
-<li><a href="#org9192e22">How to measure it</a></li>
+<li><a href="#orgb978335">Less garbage collection</a></li>
+<li><a href="#org518e21c">How to measure it</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org98f4299">Given an old school emacs user interface</a>
+<li><a href="#org90d90a5">Given an old school emacs user interface</a>
 <ul>
-<li><a href="#orgbfed86d">Answer y or n not yes or no</a></li>
-<li><a href="#org04ad13b">The behavior of shell should be same when in emacs&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_os">@os</span></span></a></li>
-<li><a href="#orgddbbeb1">No need to alway ask whether to follow symlinks</a></li>
-<li><a href="#org0bf0f1e">No flash when error happen</a></li>
-<li><a href="#org8ecf9aa">Easily find where my cursor is</a>
+<li><a href="#org0651642">Answer y or n not yes or no</a></li>
+<li><a href="#org3133e24">The behavior of shell should be same when in emacs&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_os">@os</span></span></a></li>
+<li><a href="#org16ecb2c">No need to alway ask whether to follow symlinks</a></li>
+<li><a href="#org8023bd6">No flash when error happen</a></li>
+<li><a href="#org3c3a407">Easily find where my cursor is</a>
 <ul>
-<li><a href="#orgd970394">Highlight current line is a good idea</a></li>
-<li><a href="#orge99a708">Light with shine when window scroll</a></li>
-<li><a href="#org435cfd7">Turn off the blinking cursor, I don't need it</a></li>
+<li><a href="#org30331a1">Highlight current line is a good idea</a></li>
+<li><a href="#org807ca21">Light with shine when window scroll</a></li>
+<li><a href="#org20c0690">Turn off the blinking cursor, I don't need it</a></li>
 </ul>
 </li>
-<li><a href="#org775f50c">Auto save and backup file make many temp file, I don't like it</a></li>
-<li><a href="#org78aac53">So move file to trash instead of removing is more safe</a></li>
-<li><a href="#org3e56bbd">After change opened file on other place, auto refresh is needed</a></li>
-<li><a href="#org5235294">Display all the font (Chinese, emoji and so on)</a>
+<li><a href="#org2594f67">Auto save and backup file make many temp file, I don't like it</a></li>
+<li><a href="#org5d03ea0">So move file to trash instead of removing is more safe</a></li>
+<li><a href="#orgf58dc22">After change opened file on other place, auto refresh is needed</a></li>
+<li><a href="#org6b65242">Display all the font (Chinese, emoji and so on)</a>
 <ul>
-<li><a href="#org73f87d3">UTF8 everywhere</a></li>
-<li><a href="#org837af8e">Emoji support</a></li>
-<li><a href="#orgdd6d535">Icon support</a></li>
+<li><a href="#org9f8f3b6">UTF8 everywhere</a></li>
+<li><a href="#org7912389">Emoji support</a></li>
+<li><a href="#orgaf157e3">Icon support</a></li>
 </ul>
 </li>
-<li><a href="#org2c5ee7a">When code error happen, it's useful to show the cursor column</a></li>
-<li><a href="#orge74e2a8">Leave some padding of text in windows</a>
+<li><a href="#orgf6ad9c7">When code error happen, it's useful to show the cursor column</a></li>
+<li><a href="#org82e18bf">Leave some padding of text in windows</a>
 <ul>
-<li><a href="#org5aa8535">Visual line should be default in modern editor</a></li>
+<li><a href="#orgab2fb90">Visual line should be default in modern editor</a></li>
 </ul>
 </li>
-<li><a href="#org1825afc">Restore previous window layout</a></li>
-<li><a href="#org07639c8">What if I forgot some shortcut, only remember the prefix key, any hint?</a></li>
-<li><a href="#org802711e">If more than one buffer has same name, how to identify them?</a></li>
-<li><a href="#org70060cb">Meta key is too far on macOS</a>
+<li><a href="#orgf2b99c4">Restore previous window layout</a></li>
+<li><a href="#org808ddaa">What if I forgot some shortcut, only remember the prefix key, any hint?</a></li>
+<li><a href="#orgdb3447d">If more than one buffer has same name, how to identify them?</a></li>
+<li><a href="#org54e40b9">Meta key is too far on macOS</a>
 <ul>
-<li><a href="#orgf7994a6">make both command and option key to be meta key</a></li>
-<li><a href="#org5f74e82">M-c may false triggering, disable it (I don't use CUA)</a></li>
+<li><a href="#orgfda25de">make both command and option key to be meta key</a></li>
+<li><a href="#orge52cf03">M-c may false triggering, disable it (I don't use CUA)</a></li>
 </ul>
 </li>
-<li><a href="#org47f3d64">Typing full command name is hard, why not make selection from list of items</a>
+<li><a href="#orga1bfa89">Typing full command name is hard, why not make selection from list of items</a>
 <ul>
-<li><a href="#org3f0d7a9">Items order should be saved</a></li>
-<li><a href="#org138457f">More items information</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#orgc49d13e">Given a file(buffer) in editor</a>
-<ul>
-<li><a href="#org4a70831">How to move effectively in one buffer</a>
-<ul>
-<li><a href="#org1909625">Move to beginning of line between head of line and head of text (head is blank)</a></li>
-<li><a href="#org1f23e5a">Move to specific line (with preview and line number)</a></li>
-</ul>
-</li>
-<li><a href="#org26136e7">How to search in one buffer</a></li>
-<li><a href="#org462736b">How to move effectively across buffers</a></li>
-<li><a href="#org5bcebd1">How to rename or delete file and buffer</a></li>
-<li><a href="#org763e2f9">How to navigate between windows</a></li>
-<li><a href="#org619b87c">How to delete consecutive space at once</a></li>
-<li><a href="#org3d7992a">Never want whitespace at the end of lines. Remove it on save.</a></li>
-<li><a href="#org9175aa0">How to easily expand selection?</a></li>
-<li><a href="#orgd866872">Toggle between single and double quotes&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></a></li>
-<li><a href="#org7bc8f0d">How to easily swap two lines or two words location</a></li>
-<li><a href="#org69b6c02">How to dumplicate current line or region</a></li>
-<li><a href="#org33b86c4">I remap capslock to ctrl, how can I simulate capslock key?</a></li>
-<li><a href="#org798a95b">By default emacs will not delete selection text when typing on it, let's fix it</a></li>
-<li><a href="#org3bc16bf">Undo many times and lost yourself?</a></li>
-</ul>
-</li>
-<li><a href="#orgb1db3e1">Appearance</a>
-<ul>
-<li><a href="#org7d08bad">I want a clear and modern UI.</a>
-<ul>
-<li><a href="#org6b87f27">There are too many bar of emacs default UI</a></li>
-<li><a href="#org543756f">The icon in the titlebar on macOS looks not good</a></li>
-<li><a href="#org29623d2">I am not a newbie, no need to dispaly the help screen on startup</a></li>
-</ul>
-</li>
-<li><a href="#org70fc65b">A dashboard on startup can clean my mind</a></li>
-<li><a href="#org8604db4">Chinese and English font must align&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></a></li>
-<li><a href="#org9338833">No need to display all the minor mode name</a></li>
-<li><a href="#org8860749">In some case I want to hide the mode line&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></a></li>
-<li><a href="#org0f69c67">Nyan Cat is lovely, it can live on mode line</a></li>
-<li><a href="#org8f59bad">Mode line should be simple and customize</a></li>
-<li><a href="#orgda5f1ce">Setup Model Line content</a></li>
-<li><a href="#org166d8a2">Toggle mode line left content between blank, nyancat and mode names</a></li>
-<li><a href="#orgcf8966e">I want a light theme and a dark theme&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></a></li>
-<li><a href="#orgf3d195d">And can switch them (dark and light theme)</a></li>
-<li><a href="#orgc3f702f">Make emacs transparency</a></li>
-<li><a href="#org273e741">Long may the sun shine!</a></li>
-</ul>
-</li>
-<li><a href="#org6e37b64">Programming</a>
-<ul>
-<li><a href="#org32823c5">Make matched parentheses clear and colored</a></li>
-<li><a href="#org81669de">Keep parentheses balanced</a></li>
-<li><a href="#org78d164c">Highlight strings which represent colors</a></li>
-<li><a href="#orgcaa15bc">Auto indented code when edit</a></li>
-<li><a href="#org8e88544">Support editorconfig config file.</a></li>
-<li><a href="#org034143f">Format all</a></li>
-<li><a href="#orgeb45929">Underscore -&gt; UPCASE -&gt; CamelCase conversion</a></li>
-<li><a href="#org2ddc593">Rails is my main job framework&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></a>
-<ul>
-<li><a href="#org3ffcda4">Run test at point or test current file</a></li>
-</ul>
-</li>
-<li><a href="#org796f43a">Project management</a>
-<ul>
-<li><a href="#org998c0c1">Projectile handles folders which are in version control.</a></li>
-<li><a href="#orgb8faa14">Neotree provide a sidebar of project files</a></li>
-</ul>
-</li>
-<li><a href="#org796cb47">Fuzzy search</a></li>
-<li><a href="#orgc973ddd">Deadgrep</a></li>
-<li><a href="#org6ac817a">Open File with Line Number&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></a></li>
-<li><a href="#org3a4ce63">Jump to source</a></li>
-<li><a href="#org784df42">Using Git inside Emacs</a>
-<ul>
-<li><a href="#org43619b6">Magit is an awesome interface to git. Summon it with `C-x g`.</a></li>
-<li><a href="#org74c4607">Display line changes in gutter based on git history. Enable it everywhere.</a></li>
-<li><a href="#orgdc7cd11">Magit Delta</a></li>
-<li><a href="#org3ec4736">TimeMachine lets us step through the history of a file as recorded in git.</a></li>
-<li><a href="#org398e940">bind <code>M-p -</code> to list all git repos in some folder</a></li>
-</ul>
-</li>
-<li><a href="#org1519ea9">Syntax checking</a></li>
-<li><a href="#orgc34779f">Color Identifier</a></li>
-<li><a href="#orgd2d6735">Autocomplete</a></li>
-<li><a href="#org57cc074">Snippets</a></li>
-<li><a href="#org7e8838a">Language Support</a>
-<ul>
-<li><a href="#org3754872">Javascript</a></li>
-<li><a href="#orgb551238">Yaml</a></li>
-<li><a href="#org0919839">Toml</a></li>
-<li><a href="#org62fe978">Markdown</a></li>
-<li><a href="#org6fdb3a1">Lua</a></li>
-<li><a href="#orgeb6d910">Haskell</a></li>
-<li><a href="#orgdabdc74">Elixir</a></li>
-<li><a href="#org44297c1">Ruby</a></li>
-<li><a href="#org0f020a3">C</a></li>
-<li><a href="#orgd0743de">Rust</a></li>
-<li><a href="#org21d254e">Web mode&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_dependent">@dependent</span></span></a></li>
-<li><a href="#org656b906">Solidity</a></li>
+<li><a href="#orga02f4d4">Items order should be saved</a></li>
+<li><a href="#org42d3d6e">More items information</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org78ec5c8">Org</a>
+<li><a href="#org40650be">Given a file(buffer) in editor</a>
 <ul>
-<li><a href="#org91c00f7">I use org to do GTD</a>
+<li><a href="#orgd26dde8">How to move effectively in one buffer</a>
 <ul>
-<li><a href="#org77e2576">I want to have custom todo sequence</a></li>
-<li><a href="#org37939bc">I need to know when a task is done</a></li>
-<li><a href="#org6fc1d7e"><span class="todo TODO">TODO</span> I need a pomodoro</a></li>
-<li><a href="#org94f5cd6">After old task is done, archive (refiling) it</a></li>
-<li><a href="#org15a4a38">Capture my task or idea</a></li>
+<li><a href="#orgc99fb9c">Move to beginning of line between head of line and head of text (head is blank)</a></li>
+<li><a href="#org2f2b5c1">Move to specific line (with preview and line number)</a></li>
 </ul>
 </li>
-<li><a href="#org64990a5">I can easily open common files&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></a></li>
-<li><a href="#org8d1519d">I love beautiful Org UI</a>
-<ul>
-<li><a href="#orgb7afee5">make headings colorful</a></li>
-<li><a href="#orgf9244d7">Beautify Org heading symbol</a></li>
-<li><a href="#org8b8d670">Emoji Org tag</a></li>
-<li><a href="#org9be7cbe">Colorful todo stags</a></li>
-<li><a href="#orgc649ffd">Org fancy Priorities</a></li>
-<li><a href="#org4d30de3">Fixed pitch font</a></li>
-<li><a href="#org9277963">Completed tasks should be pierced through visually</a></li>
-<li><a href="#orgf80a9a2">Custom org block style</a></li>
-<li><a href="#orgfdce071">Ellipsis</a></li>
-<li><a href="#orgb1b89a2">Beautify Org Checkbox Symbol</a></li>
+<li><a href="#org00b326b">How to search in one buffer</a></li>
+<li><a href="#org4ffa8a4">How to move effectively across buffers</a></li>
+<li><a href="#org7b5c2b7">How to rename or delete file and buffer</a></li>
+<li><a href="#orgd18085e">How to navigate between windows</a></li>
+<li><a href="#org9ab9cba">How to delete consecutive space at once</a></li>
+<li><a href="#org4c3b3c7">Never want whitespace at the end of lines. Remove it on save.</a></li>
+<li><a href="#org44282b5">How to easily expand selection?</a></li>
+<li><a href="#org14bad0b">Multiple cursors</a></li>
+<li><a href="#orgb8ecc28">Toggle between single and double quotes&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></a></li>
+<li><a href="#orgabd3046">How to easily swap two lines or two words location</a></li>
+<li><a href="#orgb94bc78">How to dumplicate current line or region</a></li>
+<li><a href="#org6c9f0c5">I remap capslock to ctrl, how can I simulate capslock key?</a></li>
+<li><a href="#org521e919">By default emacs will not delete selection text when typing on it, let's fix it</a></li>
+<li><a href="#orgc782281">Undo many times and lost yourself?</a></li>
 </ul>
 </li>
-<li><a href="#org7fdd683">Exported html should have no default style</a></li>
-<li><a href="#org58ee61b">Execute Org src block</a></li>
-<li><a href="#orgcca5b8c">Insert org markup easily</a></li>
-<li><a href="#org3ff9ba7">Agenda</a></li>
-<li><a href="#orgf2b209e">Org Roam</a></li>
+<li><a href="#org6ee4380">Given an ugly default appearance</a>
+<ul>
+<li><a href="#org1e4c447">UI should be clear and modern</a>
+<ul>
+<li><a href="#orgfa46fcf">There are too many bar of emacs default UI</a></li>
+<li><a href="#orgfa7a7c4">The icon in the titlebar on macOS looks not good</a></li>
+<li><a href="#orge83cd7f">I am not a newbie, no need to dispaly the help screen on startup</a></li>
 </ul>
 </li>
-<li><a href="#org1cdb828">Extras</a>
+<li><a href="#org804acfd">A dashboard on startup can clean my mind</a></li>
+<li><a href="#org70702bf">Chinese and English font must align&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></a></li>
+<li><a href="#orgd116390">No need to display all the minor mode name</a></li>
+<li><a href="#org3dcc6d6">In some case I want to hide the mode line&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></a></li>
+<li><a href="#org6d246c4">Nyan Cat is lovely, it can live on mode line</a></li>
+<li><a href="#org989b708">Mode line should be simple and customize</a></li>
+<li><a href="#org7c97950">Setup Model Line content</a></li>
+<li><a href="#org583c6e6">Toggle mode line left content between blank, nyancat and mode names</a></li>
+<li><a href="#orgc865f54">I want a light theme and a dark theme&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></a></li>
+<li><a href="#org5a35f6f">And can switch them (dark and light theme)</a></li>
+<li><a href="#orgd32d85d">Make emacs transparency</a></li>
+<li><a href="#org750d38d">Long may the sun shine!</a></li>
+</ul>
+</li>
+<li><a href="#orgcc4c7c4">Given a programming work</a>
 <ul>
-<li><a href="#org728dc9c">check my writing sytle and spell&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_dependent">@dependent</span></span></a></li>
-<li><a href="#org3f9aecf">I need Chinese input method&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_dependent">@dependent</span></span></a></li>
-<li><a href="#orgd0a7eef">Drawing UMLL&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_dependent">@dependent</span></span></a></li>
-<li><a href="#org23c05ae">English Chinese Dictionary</a></li>
-<li><a href="#org78deeb2">Disk Usage</a></li>
-<li><a href="#org72a956a">Run shell in emacs</a></li>
-<li><a href="#org8ace50d">view PDF in emacs</a></li>
+<li><a href="#org1c25467">Make matched parentheses clear and colored</a></li>
+<li><a href="#orgf3476bb">Keep parentheses balanced</a></li>
+<li><a href="#orgc9ed39d">Highlight strings which represent colors</a></li>
+<li><a href="#orgf3df9d1">Auto indented code when edit</a></li>
+<li><a href="#org0f86f32">Support editorconfig config file.</a></li>
+<li><a href="#org74a5429">Format all</a></li>
+<li><a href="#org03d6f5b">Underscore -&gt; UPCASE -&gt; CamelCase conversion</a></li>
+<li><a href="#orgb92a3e6">Rails is my main job framework&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></a>
+<ul>
+<li><a href="#org95d80d1">Run test at point or test current file</a></li>
+</ul>
+</li>
+<li><a href="#orgcf08c98">Project management</a>
+<ul>
+<li><a href="#orgdb01cc0">Projectile handles folders which are in version control.</a></li>
+<li><a href="#orgdb2a632">Neotree provide a sidebar of project files</a></li>
+</ul>
+</li>
+<li><a href="#orgb45e8e9">Fuzzy search</a></li>
+<li><a href="#org7be9b9e">Deadgrep</a></li>
+<li><a href="#org8b17a4b">Open File with Line Number&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></a></li>
+<li><a href="#org040a78b">Jump to source</a></li>
+<li><a href="#orgfd95ca4">Using Git inside Emacs</a>
+<ul>
+<li><a href="#org7d1dedd">Magit is an awesome interface to git. Summon it with `C-x g`.</a></li>
+<li><a href="#orgb4ae131">Display line changes in gutter based on git history. Enable it everywhere.</a></li>
+<li><a href="#orge2fa416">Magit Delta</a></li>
+<li><a href="#orga6e745a">TimeMachine lets us step through the history of a file as recorded in git.</a></li>
+<li><a href="#orgfb55c43">bind <code>M-p -</code> to list all git repos in some folder</a></li>
+</ul>
+</li>
+<li><a href="#org288cae0">Syntax checking</a></li>
+<li><a href="#org353f667">Color Identifier</a></li>
+<li><a href="#org56e8457">Autocomplete</a></li>
+<li><a href="#orgf3d4a50">Snippets</a></li>
+<li><a href="#org46d60ef">Language Support</a>
+<ul>
+<li><a href="#orgf54df12">Javascript</a></li>
+<li><a href="#org398a74b">Yaml</a></li>
+<li><a href="#org7ee86bc">Toml</a></li>
+<li><a href="#orgc77b12a">Markdown</a></li>
+<li><a href="#org8b7fa6e">Lua</a></li>
+<li><a href="#orgbb22abe">Haskell</a></li>
+<li><a href="#org280c831">Elixir</a></li>
+<li><a href="#orgf8ae94b">Ruby</a></li>
+<li><a href="#orgaea120a">C</a></li>
+<li><a href="#orga11ef40">Rust</a></li>
+<li><a href="#orgd6055e9">Web mode&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_dependent">@dependent</span></span></a></li>
+<li><a href="#orgfb8c0d9">Solidity</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org6d5aa4f">Given an org workspace</a>
+<ul>
+<li><a href="#orgabd4a44">I use org to do GTD</a>
+<ul>
+<li><a href="#org0b84e5c">I want to have custom todo sequence</a></li>
+<li><a href="#org18efd44">I need to know when a task is done</a></li>
+<li><a href="#org36e7c81"><span class="todo TODO">TODO</span> I need a pomodoro</a></li>
+<li><a href="#org3ad9b51">After old task is done, archive (refiling) it</a></li>
+<li><a href="#org4b06396">Capture my task or idea</a></li>
+</ul>
+</li>
+<li><a href="#org263c8a8">I can easily open common files&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></a></li>
+<li><a href="#org8a7e6c3">I love beautiful Org UI</a>
+<ul>
+<li><a href="#orgdcbbc91">make headings colorful</a></li>
+<li><a href="#org1b8be35">Beautify Org heading symbol</a></li>
+<li><a href="#org8b98b59">Emoji Org tag</a></li>
+<li><a href="#org3ed44c4">Colorful todo stags</a></li>
+<li><a href="#org6f678f1">Org fancy Priorities</a></li>
+<li><a href="#org061aa36">Fixed pitch font</a></li>
+<li><a href="#org79f765e">Completed tasks should be pierced through visually</a></li>
+<li><a href="#org883dcd0">Custom org block style</a></li>
+<li><a href="#org14e6322">Ellipsis</a></li>
+<li><a href="#org975b2cc">Beautify Org Checkbox Symbol</a></li>
+</ul>
+</li>
+<li><a href="#org881c729">Exported html should have no default style</a></li>
+<li><a href="#org3deefa8">Execute Org src block</a></li>
+<li><a href="#org083b683">Insert org markup easily</a></li>
+<li><a href="#orgd312aa4">Agenda</a></li>
+<li><a href="#org424fed1">Org Roam</a></li>
+</ul>
+</li>
+<li><a href="#orgba7d061">Extras</a>
+<ul>
+<li><a href="#org6783d93">check my writing sytle and spell&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_dependent">@dependent</span></span></a></li>
+<li><a href="#orgae035dd">I need Chinese input method&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_dependent">@dependent</span></span></a></li>
+<li><a href="#orgb2289cd">Drawing UMLL&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_dependent">@dependent</span></span></a></li>
+<li><a href="#orge79030f">English Chinese Dictionary</a></li>
+<li><a href="#orgb42ea8e">Disk Usage</a></li>
+<li><a href="#orga9ef8cc">Run shell in emacs</a></li>
+<li><a href="#orga7787a6">view PDF in emacs</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgc85e066" class="outline-2">
-<h2 id="orgc85e066">Given a vanilla emacs</h2>
-<div class="outline-text-2" id="text-orgc85e066">
+<div id="outline-container-org8846640" class="outline-2">
+<h2 id="org8846640">Given a vanilla emacs</h2>
+<div class="outline-text-2" id="text-org8846640">
 </div>
-<div id="outline-container-org3be655e" class="outline-3">
-<h3 id="org3be655e">to open this config file&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></h3>
-<div class="outline-text-3" id="text-org3be655e">
+<div id="outline-container-orgdb70867" class="outline-3">
+<h3 id="orgdb70867">to open this config file&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></h3>
+<div class="outline-text-3" id="text-orgdb70867">
 <p>
 I can use <code>C-c I</code> to open this config file and <code>C-c R</code> to reload it.<br />
 By the way, <code>C-c i</code> can open system config file.<br />
@@ -308,9 +309,9 @@ By the way, <code>C-c i</code> can open system config file.<br />
 </div>
 </div>
 
-<div id="outline-container-orgb0c5a70" class="outline-3">
-<h3 id="orgb0c5a70">identity who I am?</h3>
-<div class="outline-text-3" id="text-orgb0c5a70">
+<div id="outline-container-orgdd50359" class="outline-3">
+<h3 id="orgdd50359">identity who I am?</h3>
+<div class="outline-text-3" id="text-orgdd50359">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> user-full-name <span class="org-string">"Teddy Ma"</span>
       user-mail-address <span class="org-string">"mlc880926@gmail.com"</span>)
@@ -318,9 +319,9 @@ By the way, <code>C-c i</code> can open system config file.<br />
 </div>
 </div>
 </div>
-<div id="outline-container-orgcd53f07" class="outline-3">
-<h3 id="orgcd53f07">install packages</h3>
-<div class="outline-text-3" id="text-orgcd53f07">
+<div id="outline-container-org863479a" class="outline-3">
+<h3 id="org863479a">install packages</h3>
+<div class="outline-text-3" id="text-org863479a">
 <p>
 Guide about use-package <a href="https://phenix3443.github.io/notebook/emacs/modes/use-package-manual.html">https://phenix3443.github.io/notebook/emacs/modes/use-package-manual.html</a><br />
 </p>
@@ -341,9 +342,9 @@ Guide about use-package <a href="https://phenix3443.github.io/notebook/emacs/mod
 </div>
 </div>
 
-<div id="outline-container-org70c5cf2" class="outline-3">
-<h3 id="org70c5cf2">have a single custom settings config file</h3>
-<div class="outline-text-3" id="text-org70c5cf2">
+<div id="outline-container-org28b00f7" class="outline-3">
+<h3 id="org28b00f7">have a single custom settings config file</h3>
+<div class="outline-text-3" id="text-org28b00f7">
 <p>
 Set up the customize file to its own separate file, instead of saving customize settings in <a href="init.el">init.el</a>.<br />
 Try your best to make custom config clean.<br />
@@ -357,13 +358,13 @@ Try your best to make custom config clean.<br />
 </div>
 </div>
 
-<div id="outline-container-org7208444" class="outline-3">
-<h3 id="org7208444">start emacs faster</h3>
-<div class="outline-text-3" id="text-org7208444">
+<div id="outline-container-org44d7016" class="outline-3">
+<h3 id="org44d7016">start emacs faster</h3>
+<div class="outline-text-3" id="text-org44d7016">
 </div>
-<div id="outline-container-org43af7da" class="outline-4">
-<h4 id="org43af7da">Less garbage collection</h4>
-<div class="outline-text-4" id="text-org43af7da">
+<div id="outline-container-orgb978335" class="outline-4">
+<h4 id="orgb978335">Less garbage collection</h4>
+<div class="outline-text-4" id="text-orgb978335">
 <p>
 The default is 800 kilobytes.  Measured in bytes.<br />
 </p>
@@ -374,9 +375,9 @@ The default is 800 kilobytes.  Measured in bytes.<br />
 </div>
 </div>
 
-<div id="outline-container-org9192e22" class="outline-4">
-<h4 id="org9192e22">How to measure it</h4>
-<div class="outline-text-4" id="text-org9192e22">
+<div id="outline-container-org518e21c" class="outline-4">
+<h4 id="org518e21c">How to measure it</h4>
+<div class="outline-text-4" id="text-org518e21c">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">esup</span>
   <span class="org-builtin">:ensure</span> t
@@ -389,22 +390,22 @@ The default is 800 kilobytes.  Measured in bytes.<br />
 </div>
 </div>
 
-<div id="outline-container-org98f4299" class="outline-2">
-<h2 id="org98f4299">Given an old school emacs user interface</h2>
-<div class="outline-text-2" id="text-org98f4299">
+<div id="outline-container-org90d90a5" class="outline-2">
+<h2 id="org90d90a5">Given an old school emacs user interface</h2>
+<div class="outline-text-2" id="text-org90d90a5">
 </div>
-<div id="outline-container-orgbfed86d" class="outline-3">
-<h3 id="orgbfed86d">Answer y or n not yes or no</h3>
-<div class="outline-text-3" id="text-orgbfed86d">
+<div id="outline-container-org0651642" class="outline-3">
+<h3 id="org0651642">Answer y or n not yes or no</h3>
+<div class="outline-text-3" id="text-org0651642">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defalias</span> '<span class="org-function-name">yes-or-no-p</span> 'y-or-n-p)
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org04ad13b" class="outline-3">
-<h3 id="org04ad13b">The behavior of shell should be same when in emacs&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_os">@os</span></span></h3>
-<div class="outline-text-3" id="text-org04ad13b">
+<div id="outline-container-org3133e24" class="outline-3">
+<h3 id="org3133e24">The behavior of shell should be same when in emacs&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_os">@os</span></span></h3>
+<div class="outline-text-3" id="text-org3133e24">
 <p>
 looks only macOS has this issue<br />
 </p>
@@ -424,18 +425,18 @@ looks only macOS has this issue<br />
 </div>
 </div>
 </div>
-<div id="outline-container-orgddbbeb1" class="outline-3">
-<h3 id="orgddbbeb1">No need to alway ask whether to follow symlinks</h3>
-<div class="outline-text-3" id="text-orgddbbeb1">
+<div id="outline-container-org16ecb2c" class="outline-3">
+<h3 id="org16ecb2c">No need to alway ask whether to follow symlinks</h3>
+<div class="outline-text-3" id="text-org16ecb2c">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> vc-follow-symlinks t)
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org0bf0f1e" class="outline-3">
-<h3 id="org0bf0f1e">No flash when error happen</h3>
-<div class="outline-text-3" id="text-org0bf0f1e">
+<div id="outline-container-org8023bd6" class="outline-3">
+<h3 id="org8023bd6">No flash when error happen</h3>
+<div class="outline-text-3" id="text-org8023bd6">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> visible-bell nil)
 </pre>
@@ -443,22 +444,22 @@ looks only macOS has this issue<br />
 </div>
 </div>
 
-<div id="outline-container-org8ecf9aa" class="outline-3">
-<h3 id="org8ecf9aa">Easily find where my cursor is</h3>
-<div class="outline-text-3" id="text-org8ecf9aa">
+<div id="outline-container-org3c3a407" class="outline-3">
+<h3 id="org3c3a407">Easily find where my cursor is</h3>
+<div class="outline-text-3" id="text-org3c3a407">
 </div>
-<div id="outline-container-orgd970394" class="outline-4">
-<h4 id="orgd970394">Highlight current line is a good idea</h4>
-<div class="outline-text-4" id="text-orgd970394">
+<div id="outline-container-org30331a1" class="outline-4">
+<h4 id="org30331a1">Highlight current line is a good idea</h4>
+<div class="outline-text-4" id="text-org30331a1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(global-hl-line-mode 1)
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orge99a708" class="outline-4">
-<h4 id="orge99a708">Light with shine when window scroll</h4>
-<div class="outline-text-4" id="text-orge99a708">
+<div id="outline-container-org807ca21" class="outline-4">
+<h4 id="org807ca21">Light with shine when window scroll</h4>
+<div class="outline-text-4" id="text-org807ca21">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">beacon</span>
   <span class="org-builtin">:ensure</span> t
@@ -469,9 +470,9 @@ looks only macOS has this issue<br />
 </div>
 </div>
 
-<div id="outline-container-org435cfd7" class="outline-4">
-<h4 id="org435cfd7">Turn off the blinking cursor, I don't need it</h4>
-<div class="outline-text-4" id="text-org435cfd7">
+<div id="outline-container-org20c0690" class="outline-4">
+<h4 id="org20c0690">Turn off the blinking cursor, I don't need it</h4>
+<div class="outline-text-4" id="text-org20c0690">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(blink-cursor-mode -1)
 </pre>
@@ -480,9 +481,9 @@ looks only macOS has this issue<br />
 </div>
 </div>
 
-<div id="outline-container-org775f50c" class="outline-3">
-<h3 id="org775f50c">Auto save and backup file make many temp file, I don't like it</h3>
-<div class="outline-text-3" id="text-org775f50c">
+<div id="outline-container-org2594f67" class="outline-3">
+<h3 id="org2594f67">Auto save and backup file make many temp file, I don't like it</h3>
+<div class="outline-text-3" id="text-org2594f67">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> make-backup-file nil)
 (<span class="org-keyword">setq</span> auto-save-default nil)
@@ -492,18 +493,18 @@ looks only macOS has this issue<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org78aac53" class="outline-3">
-<h3 id="org78aac53">So move file to trash instead of removing is more safe</h3>
-<div class="outline-text-3" id="text-org78aac53">
+<div id="outline-container-org5d03ea0" class="outline-3">
+<h3 id="org5d03ea0">So move file to trash instead of removing is more safe</h3>
+<div class="outline-text-3" id="text-org5d03ea0">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq-default</span> delete-by-moving-to-trash t)
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org3e56bbd" class="outline-3">
-<h3 id="org3e56bbd">After change opened file on other place, auto refresh is needed</h3>
-<div class="outline-text-3" id="text-org3e56bbd">
+<div id="outline-container-orgf58dc22" class="outline-3">
+<h3 id="orgf58dc22">After change opened file on other place, auto refresh is needed</h3>
+<div class="outline-text-3" id="text-orgf58dc22">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(global-auto-revert-mode t)
 </pre>
@@ -511,13 +512,13 @@ looks only macOS has this issue<br />
 </div>
 </div>
 
-<div id="outline-container-org5235294" class="outline-3">
-<h3 id="org5235294">Display all the font (Chinese, emoji and so on)</h3>
-<div class="outline-text-3" id="text-org5235294">
+<div id="outline-container-org6b65242" class="outline-3">
+<h3 id="org6b65242">Display all the font (Chinese, emoji and so on)</h3>
+<div class="outline-text-3" id="text-org6b65242">
 </div>
-<div id="outline-container-org73f87d3" class="outline-4">
-<h4 id="org73f87d3">UTF8 everywhere</h4>
-<div class="outline-text-4" id="text-org73f87d3">
+<div id="outline-container-org9f8f3b6" class="outline-4">
+<h4 id="org9f8f3b6">UTF8 everywhere</h4>
+<div class="outline-text-4" id="text-org9f8f3b6">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> locale-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)
@@ -529,9 +530,9 @@ looks only macOS has this issue<br />
 </div>
 </div>
 
-<div id="outline-container-org837af8e" class="outline-4">
-<h4 id="org837af8e">Emoji support</h4>
-<div class="outline-text-4" id="text-org837af8e">
+<div id="outline-container-org7912389" class="outline-4">
+<h4 id="org7912389">Emoji support</h4>
+<div class="outline-text-4" id="text-org7912389">
 <p>
 Will automated download images for the first time<br />
 </p>
@@ -544,9 +545,9 @@ Will automated download images for the first time<br />
 </div>
 </div>
 
-<div id="outline-container-orgdd6d535" class="outline-4">
-<h4 id="orgdd6d535">Icon support</h4>
-<div class="outline-text-4" id="text-orgdd6d535">
+<div id="outline-container-orgaf157e3" class="outline-4">
+<h4 id="orgaf157e3">Icon support</h4>
+<div class="outline-text-4" id="text-orgaf157e3">
 <p>
 Run <code>M-x all-the-icons-install-fonts</code> to install fonts (only once)<br />
 </p>
@@ -564,9 +565,9 @@ Run <code>M-x all-the-icons-install-fonts</code> to install fonts (only once)<br
 </div>
 </div>
 
-<div id="outline-container-org2c5ee7a" class="outline-3">
-<h3 id="org2c5ee7a">When code error happen, it's useful to show the cursor column</h3>
-<div class="outline-text-3" id="text-org2c5ee7a">
+<div id="outline-container-orgf6ad9c7" class="outline-3">
+<h3 id="orgf6ad9c7">When code error happen, it's useful to show the cursor column</h3>
+<div class="outline-text-3" id="text-orgf6ad9c7">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(column-number-mode t)
 </pre>
@@ -574,9 +575,9 @@ Run <code>M-x all-the-icons-install-fonts</code> to install fonts (only once)<br
 </div>
 </div>
 
-<div id="outline-container-orge74e2a8" class="outline-3">
-<h3 id="orge74e2a8">Leave some padding of text in windows</h3>
-<div class="outline-text-3" id="text-orge74e2a8">
+<div id="outline-container-org82e18bf" class="outline-3">
+<h3 id="org82e18bf">Leave some padding of text in windows</h3>
+<div class="outline-text-3" id="text-org82e18bf">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">visual-fill-column</span>
   <span class="org-builtin">:ensure</span> t
@@ -587,9 +588,9 @@ Run <code>M-x all-the-icons-install-fonts</code> to install fonts (only once)<br
 </pre>
 </div>
 </div>
-<div id="outline-container-org5aa8535" class="outline-4">
-<h4 id="org5aa8535">Visual line should be default in modern editor</h4>
-<div class="outline-text-4" id="text-org5aa8535">
+<div id="outline-container-orgab2fb90" class="outline-4">
+<h4 id="orgab2fb90">Visual line should be default in modern editor</h4>
+<div class="outline-text-4" id="text-orgab2fb90">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(global-visual-line-mode 1)
 </pre>
@@ -598,9 +599,9 @@ Run <code>M-x all-the-icons-install-fonts</code> to install fonts (only once)<br
 </div>
 </div>
 
-<div id="outline-container-org1825afc" class="outline-3">
-<h3 id="org1825afc">Restore previous window layout</h3>
-<div class="outline-text-3" id="text-org1825afc">
+<div id="outline-container-orgf2b99c4" class="outline-3">
+<h3 id="orgf2b99c4">Restore previous window layout</h3>
+<div class="outline-text-3" id="text-orgf2b99c4">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">winner-mode</span>
   <span class="org-builtin">:ensure</span> nil
@@ -610,9 +611,9 @@ Run <code>M-x all-the-icons-install-fonts</code> to install fonts (only once)<br
 </div>
 </div>
 
-<div id="outline-container-org07639c8" class="outline-3">
-<h3 id="org07639c8">What if I forgot some shortcut, only remember the prefix key, any hint?</h3>
-<div class="outline-text-3" id="text-org07639c8">
+<div id="outline-container-org808ddaa" class="outline-3">
+<h3 id="org808ddaa">What if I forgot some shortcut, only remember the prefix key, any hint?</h3>
+<div class="outline-text-3" id="text-org808ddaa">
 <p>
 Suggest next keys to me based on currently entered key combination.<br />
 </p>
@@ -636,9 +637,9 @@ Suggest next keys to me based on currently entered key combination.<br />
 </div>
 </div>
 
-<div id="outline-container-org802711e" class="outline-3">
-<h3 id="org802711e">If more than one buffer has same name, how to identify them?</h3>
-<div class="outline-text-3" id="text-org802711e">
+<div id="outline-container-orgdb3447d" class="outline-3">
+<h3 id="orgdb3447d">If more than one buffer has same name, how to identify them?</h3>
+<div class="outline-text-3" id="text-orgdb3447d">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">uniquify</span>
   <span class="org-builtin">:config</span>
@@ -651,13 +652,13 @@ Suggest next keys to me based on currently entered key combination.<br />
 </div>
 </div>
 
-<div id="outline-container-org70060cb" class="outline-3">
-<h3 id="org70060cb">Meta key is too far on macOS</h3>
-<div class="outline-text-3" id="text-org70060cb">
+<div id="outline-container-org54e40b9" class="outline-3">
+<h3 id="org54e40b9">Meta key is too far on macOS</h3>
+<div class="outline-text-3" id="text-org54e40b9">
 </div>
-<div id="outline-container-orgf7994a6" class="outline-4">
-<h4 id="orgf7994a6">make both command and option key to be meta key</h4>
-<div class="outline-text-4" id="text-orgf7994a6">
+<div id="outline-container-orgfda25de" class="outline-4">
+<h4 id="orgfda25de">make both command and option key to be meta key</h4>
+<div class="outline-text-4" id="text-orgfda25de">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">when</span> (eq system-type 'darwin)
   (<span class="org-keyword">setq</span> mac-command-modifier 'meta
@@ -669,9 +670,9 @@ Suggest next keys to me based on currently entered key combination.<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org5f74e82" class="outline-4">
-<h4 id="org5f74e82">M-c may false triggering, disable it (I don't use CUA)</h4>
-<div class="outline-text-4" id="text-org5f74e82">
+<div id="outline-container-orge52cf03" class="outline-4">
+<h4 id="orge52cf03">M-c may false triggering, disable it (I don't use CUA)</h4>
+<div class="outline-text-4" id="text-orge52cf03">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(global-unset-key (kbd <span class="org-string">"M-c"</span>))
 </pre>
@@ -680,9 +681,9 @@ Suggest next keys to me based on currently entered key combination.<br />
 </div>
 </div>
 
-<div id="outline-container-org47f3d64" class="outline-3">
-<h3 id="org47f3d64">Typing full command name is hard, why not make selection from list of items</h3>
-<div class="outline-text-3" id="text-org47f3d64">
+<div id="outline-container-orga1bfa89" class="outline-3">
+<h3 id="orga1bfa89">Typing full command name is hard, why not make selection from list of items</h3>
+<div class="outline-text-3" id="text-orga1bfa89">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">vertico</span>
   <span class="org-builtin">:ensure</span> t
@@ -691,9 +692,9 @@ Suggest next keys to me based on currently entered key combination.<br />
 </pre>
 </div>
 </div>
-<div id="outline-container-org3f0d7a9" class="outline-4">
-<h4 id="org3f0d7a9">Items order should be saved</h4>
-<div class="outline-text-4" id="text-org3f0d7a9">
+<div id="outline-container-orga02f4d4" class="outline-4">
+<h4 id="orga02f4d4">Items order should be saved</h4>
+<div class="outline-text-4" id="text-orga02f4d4">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">savehist</span>
   <span class="org-builtin">:config</span>
@@ -703,9 +704,9 @@ Suggest next keys to me based on currently entered key combination.<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org138457f" class="outline-4">
-<h4 id="org138457f">More items information</h4>
-<div class="outline-text-4" id="text-org138457f">
+<div id="outline-container-org42d3d6e" class="outline-4">
+<h4 id="org42d3d6e">More items information</h4>
+<div class="outline-text-4" id="text-org42d3d6e">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">marginalia</span>
   <span class="org-builtin">:after</span> vertico
@@ -720,17 +721,17 @@ Suggest next keys to me based on currently entered key combination.<br />
 </div>
 </div>
 </div>
-<div id="outline-container-orgc49d13e" class="outline-2">
-<h2 id="orgc49d13e">Given a file(buffer) in editor</h2>
-<div class="outline-text-2" id="text-orgc49d13e">
+<div id="outline-container-org40650be" class="outline-2">
+<h2 id="org40650be">Given a file(buffer) in editor</h2>
+<div class="outline-text-2" id="text-org40650be">
 </div>
-<div id="outline-container-org4a70831" class="outline-3">
-<h3 id="org4a70831">How to move effectively in one buffer</h3>
-<div class="outline-text-3" id="text-org4a70831">
+<div id="outline-container-orgd26dde8" class="outline-3">
+<h3 id="orgd26dde8">How to move effectively in one buffer</h3>
+<div class="outline-text-3" id="text-orgd26dde8">
 </div>
-<div id="outline-container-org1909625" class="outline-4">
-<h4 id="org1909625">Move to beginning of line between head of line and head of text (head is blank)</h4>
-<div class="outline-text-4" id="text-org1909625">
+<div id="outline-container-orgc99fb9c" class="outline-4">
+<h4 id="orgc99fb9c">Move to beginning of line between head of line and head of text (head is blank)</h4>
+<div class="outline-text-4" id="text-orgc99fb9c">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">crux</span>
   <span class="org-builtin">:ensure</span> t
@@ -742,9 +743,9 @@ Suggest next keys to me based on currently entered key combination.<br />
 </div>
 </div>
 
-<div id="outline-container-org1f23e5a" class="outline-4">
-<h4 id="org1f23e5a">Move to specific line (with preview and line number)</h4>
-<div class="outline-text-4" id="text-org1f23e5a">
+<div id="outline-container-org2f2b5c1" class="outline-4">
+<h4 id="org2f2b5c1">Move to specific line (with preview and line number)</h4>
+<div class="outline-text-4" id="text-org2f2b5c1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">consult</span>
   <span class="org-builtin">:ensure</span> t
@@ -756,9 +757,9 @@ Suggest next keys to me based on currently entered key combination.<br />
 </div>
 </div>
 
-<div id="outline-container-org26136e7" class="outline-3">
-<h3 id="org26136e7">How to search in one buffer</h3>
-<div class="outline-text-3" id="text-org26136e7">
+<div id="outline-container-org00b326b" class="outline-3">
+<h3 id="org00b326b">How to search in one buffer</h3>
+<div class="outline-text-3" id="text-org00b326b">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">orderless</span>
   <span class="org-builtin">:ensure</span> t
@@ -773,9 +774,9 @@ Suggest next keys to me based on currently entered key combination.<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org462736b" class="outline-3">
-<h3 id="org462736b">How to move effectively across buffers</h3>
-<div class="outline-text-3" id="text-org462736b">
+<div id="outline-container-org4ffa8a4" class="outline-3">
+<h3 id="org4ffa8a4">How to move effectively across buffers</h3>
+<div class="outline-text-3" id="text-org4ffa8a4">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">consult</span>
   <span class="org-builtin">:ensure</span> t
@@ -785,9 +786,9 @@ Suggest next keys to me based on currently entered key combination.<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org5bcebd1" class="outline-3">
-<h3 id="org5bcebd1">How to rename or delete file and buffer</h3>
-<div class="outline-text-3" id="text-org5bcebd1">
+<div id="outline-container-org7b5c2b7" class="outline-3">
+<h3 id="org7b5c2b7">How to rename or delete file and buffer</h3>
+<div class="outline-text-3" id="text-org7b5c2b7">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">crux</span>
   <span class="org-builtin">:ensure</span> t
@@ -800,9 +801,9 @@ Suggest next keys to me based on currently entered key combination.<br />
 </div>
 </div>
 
-<div id="outline-container-org763e2f9" class="outline-3">
-<h3 id="org763e2f9">How to navigate between windows</h3>
-<div class="outline-text-3" id="text-org763e2f9">
+<div id="outline-container-orgd18085e" class="outline-3">
+<h3 id="orgd18085e">How to navigate between windows</h3>
+<div class="outline-text-3" id="text-orgd18085e">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">ace-window</span>
   <span class="org-builtin">:ensure</span> t
@@ -818,9 +819,9 @@ Suggest next keys to me based on currently entered key combination.<br />
 </div>
 </div>
 
-<div id="outline-container-org619b87c" class="outline-3">
-<h3 id="org619b87c">How to delete consecutive space at once</h3>
-<div class="outline-text-3" id="text-org619b87c">
+<div id="outline-container-org9ab9cba" class="outline-3">
+<h3 id="org9ab9cba">How to delete consecutive space at once</h3>
+<div class="outline-text-3" id="text-org9ab9cba">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">smart-hungry-delete</span>
   <span class="org-builtin">:ensure</span> t
@@ -833,9 +834,9 @@ Suggest next keys to me based on currently entered key combination.<br />
 </div>
 </div>
 
-<div id="outline-container-org3d7992a" class="outline-3">
-<h3 id="org3d7992a">Never want whitespace at the end of lines. Remove it on save.</h3>
-<div class="outline-text-3" id="text-org3d7992a">
+<div id="outline-container-org4c3b3c7" class="outline-3">
+<h3 id="org4c3b3c7">Never want whitespace at the end of lines. Remove it on save.</h3>
+<div class="outline-text-3" id="text-org4c3b3c7">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(add-hook 'before-save-hook 'delete-trailing-whitespace)
 </pre>
@@ -843,9 +844,9 @@ Suggest next keys to me based on currently entered key combination.<br />
 </div>
 </div>
 
-<div id="outline-container-org9175aa0" class="outline-3">
-<h3 id="org9175aa0">How to easily expand selection?</h3>
-<div class="outline-text-3" id="text-org9175aa0">
+<div id="outline-container-org44282b5" class="outline-3">
+<h3 id="org44282b5">How to easily expand selection?</h3>
+<div class="outline-text-3" id="text-org44282b5">
 <p>
 <code>expand-region</code> expands the region around the cursor semantically depending on mode.<br />
 Hard to describe but a killer feature.<br />
@@ -860,9 +861,27 @@ Hard to describe but a killer feature.<br />
 </div>
 </div>
 
-<div id="outline-container-orgd866872" class="outline-3">
-<h3 id="orgd866872">Toggle between single and double quotes&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></h3>
-<div class="outline-text-3" id="text-orgd866872">
+<div id="outline-container-org14bad0b" class="outline-3">
+<h3 id="org14bad0b">Multiple cursors</h3>
+<div class="outline-text-3" id="text-org14bad0b">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">iedit</span>
+  <span class="org-builtin">:ensure</span> t)
+(<span class="org-keyword">use-package</span> <span class="org-constant">multiple-cursors</span>
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:config</span>
+  (global-unset-key (kbd <span class="org-string">"M-&lt;down-mouse-1&gt;"</span>))
+  (global-set-key (kbd <span class="org-string">"M-&lt;mouse-1&gt;"</span>) 'mc/add-cursor-on-click)
+  (global-set-key (kbd <span class="org-string">"C-S-c C-S-c"</span>) 'mc/edit-lines)
+  (global-set-key (kbd <span class="org-string">"C-&gt;"</span>) 'mc/mark-next-like-this)
+  (global-set-key (kbd <span class="org-string">"C-&lt;"</span>) 'mc/mark-previous-like-this))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb8ecc28" class="outline-3">
+<h3 id="orgb8ecc28">Toggle between single and double quotes&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></h3>
+<div class="outline-text-3" id="text-orgb8ecc28">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">toggle-quotes</span> ()
   <span class="org-doc">"Toggle single quoted string to double or vice versa, and</span>
@@ -891,9 +910,9 @@ Hard to describe but a killer feature.<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org7bc8f0d" class="outline-3">
-<h3 id="org7bc8f0d">How to easily swap two lines or two words location</h3>
-<div class="outline-text-3" id="text-org7bc8f0d">
+<div id="outline-container-orgabd3046" class="outline-3">
+<h3 id="orgabd3046">How to easily swap two lines or two words location</h3>
+<div class="outline-text-3" id="text-orgabd3046">
 <p>
 M-&lt;up&gt; M-&lt;down&gt; to move line up and down<br />
 </p>
@@ -908,9 +927,9 @@ M-&lt;up&gt; M-&lt;down&gt; to move line up and down<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org69b6c02" class="outline-3">
-<h3 id="org69b6c02">How to dumplicate current line or region</h3>
-<div class="outline-text-3" id="text-org69b6c02">
+<div id="outline-container-orgb94bc78" class="outline-3">
+<h3 id="orgb94bc78">How to dumplicate current line or region</h3>
+<div class="outline-text-3" id="text-orgb94bc78">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">crux</span>
   <span class="org-builtin">:ensure</span> t
@@ -922,9 +941,9 @@ M-&lt;up&gt; M-&lt;down&gt; to move line up and down<br />
 </div>
 </div>
 
-<div id="outline-container-org33b86c4" class="outline-3">
-<h3 id="org33b86c4">I remap capslock to ctrl, how can I simulate capslock key?</h3>
-<div class="outline-text-3" id="text-org33b86c4">
+<div id="outline-container-org6c9f0c5" class="outline-3">
+<h3 id="org6c9f0c5">I remap capslock to ctrl, how can I simulate capslock key?</h3>
+<div class="outline-text-3" id="text-org6c9f0c5">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">caps-lock</span>
   <span class="org-builtin">:ensure</span> t)
@@ -932,18 +951,18 @@ M-&lt;up&gt; M-&lt;down&gt; to move line up and down<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org798a95b" class="outline-3">
-<h3 id="org798a95b">By default emacs will not delete selection text when typing on it, let's fix it</h3>
-<div class="outline-text-3" id="text-org798a95b">
+<div id="outline-container-org521e919" class="outline-3">
+<h3 id="org521e919">By default emacs will not delete selection text when typing on it, let's fix it</h3>
+<div class="outline-text-3" id="text-org521e919">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(delete-selection-mode t)
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org3bc16bf" class="outline-3">
-<h3 id="org3bc16bf">Undo many times and lost yourself?</h3>
-<div class="outline-text-3" id="text-org3bc16bf">
+<div id="outline-container-orgc782281" class="outline-3">
+<h3 id="orgc782281">Undo many times and lost yourself?</h3>
+<div class="outline-text-3" id="text-orgc782281">
 <p>
 <code>undo-tree</code> visualises undo history as a tree for easy navigation.<br />
 </p>
@@ -960,17 +979,17 @@ M-&lt;up&gt; M-&lt;down&gt; to move line up and down<br />
 </div>
 </div>
 
-<div id="outline-container-orgb1db3e1" class="outline-2">
-<h2 id="orgb1db3e1">Appearance</h2>
-<div class="outline-text-2" id="text-orgb1db3e1">
+<div id="outline-container-org6ee4380" class="outline-2">
+<h2 id="org6ee4380">Given an ugly default appearance</h2>
+<div class="outline-text-2" id="text-org6ee4380">
 </div>
-<div id="outline-container-org7d08bad" class="outline-3">
-<h3 id="org7d08bad">I want a clear and modern UI.</h3>
-<div class="outline-text-3" id="text-org7d08bad">
+<div id="outline-container-org1e4c447" class="outline-3">
+<h3 id="org1e4c447">UI should be clear and modern</h3>
+<div class="outline-text-3" id="text-org1e4c447">
 </div>
-<div id="outline-container-org6b87f27" class="outline-4">
-<h4 id="org6b87f27">There are too many bar of emacs default UI</h4>
-<div class="outline-text-4" id="text-org6b87f27">
+<div id="outline-container-orgfa46fcf" class="outline-4">
+<h4 id="orgfa46fcf">There are too many bar of emacs default UI</h4>
+<div class="outline-text-4" id="text-orgfa46fcf">
 <p>
 no tool bar, no scroll bar, no menu bar, very clear<br />
 </p>
@@ -983,9 +1002,9 @@ no tool bar, no scroll bar, no menu bar, very clear<br />
 </div>
 </div>
 
-<div id="outline-container-org543756f" class="outline-4">
-<h4 id="org543756f">The icon in the titlebar on macOS looks not good</h4>
-<div class="outline-text-4" id="text-org543756f">
+<div id="outline-container-orgfa7a7c4" class="outline-4">
+<h4 id="orgfa7a7c4">The icon in the titlebar on macOS looks not good</h4>
+<div class="outline-text-4" id="text-orgfa7a7c4">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">when</span> (eq system-type 'darwin)
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
@@ -998,9 +1017,9 @@ no tool bar, no scroll bar, no menu bar, very clear<br />
 </div>
 </div>
 
-<div id="outline-container-org29623d2" class="outline-4">
-<h4 id="org29623d2">I am not a newbie, no need to dispaly the help screen on startup</h4>
-<div class="outline-text-4" id="text-org29623d2">
+<div id="outline-container-orge83cd7f" class="outline-4">
+<h4 id="orge83cd7f">I am not a newbie, no need to dispaly the help screen on startup</h4>
+<div class="outline-text-4" id="text-orge83cd7f">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> inhibit-startup-screen t)
 </pre>
@@ -1008,9 +1027,9 @@ no tool bar, no scroll bar, no menu bar, very clear<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org70fc65b" class="outline-3">
-<h3 id="org70fc65b">A dashboard on startup can clean my mind</h3>
-<div class="outline-text-3" id="text-org70fc65b">
+<div id="outline-container-org804acfd" class="outline-3">
+<h3 id="org804acfd">A dashboard on startup can clean my mind</h3>
+<div class="outline-text-3" id="text-org804acfd">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> emacs-banner <span class="org-string">"~/Dropbox/Photos/emacs-banner.png"</span>)
 (<span class="org-keyword">use-package</span> <span class="org-constant">dashboard</span>
@@ -1029,9 +1048,9 @@ no tool bar, no scroll bar, no menu bar, very clear<br />
 </div>
 </div>
 
-<div id="outline-container-org8604db4" class="outline-3">
-<h3 id="org8604db4">Chinese and English font must align&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></h3>
-<div class="outline-text-3" id="text-org8604db4">
+<div id="outline-container-org70702bf" class="outline-3">
+<h3 id="org70702bf">Chinese and English font must align&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></h3>
+<div class="outline-text-3" id="text-org70702bf">
 <p>
 It works fine with windows and org table in Chinese<br />
 </p>
@@ -1062,9 +1081,9 @@ It works fine with windows and org table in Chinese<br />
 </div>
 </div>
 
-<div id="outline-container-org9338833" class="outline-3">
-<h3 id="org9338833">No need to display all the minor mode name</h3>
-<div class="outline-text-3" id="text-org9338833">
+<div id="outline-container-orgd116390" class="outline-3">
+<h3 id="orgd116390">No need to display all the minor mode name</h3>
+<div class="outline-text-3" id="text-orgd116390">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">diminish</span>
   <span class="org-builtin">:ensure</span> t)
@@ -1072,9 +1091,9 @@ It works fine with windows and org table in Chinese<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org8860749" class="outline-3">
-<h3 id="org8860749">In some case I want to hide the mode line&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></h3>
-<div class="outline-text-3" id="text-org8860749">
+<div id="outline-container-org3dcc6d6" class="outline-3">
+<h3 id="org3dcc6d6">In some case I want to hide the mode line&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></h3>
+<div class="outline-text-3" id="text-org3dcc6d6">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">hide-mode-line</span>
   <span class="org-builtin">:ensure</span> t)
@@ -1082,9 +1101,9 @@ It works fine with windows and org table in Chinese<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org0f69c67" class="outline-3">
-<h3 id="org0f69c67">Nyan Cat is lovely, it can live on mode line</h3>
-<div class="outline-text-3" id="text-org0f69c67">
+<div id="outline-container-org6d246c4" class="outline-3">
+<h3 id="org6d246c4">Nyan Cat is lovely, it can live on mode line</h3>
+<div class="outline-text-3" id="text-org6d246c4">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">nyan-mode</span>
   <span class="org-builtin">:ensure</span> t
@@ -1098,9 +1117,9 @@ It works fine with windows and org table in Chinese<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org8f59bad" class="outline-3">
-<h3 id="org8f59bad">Mode line should be simple and customize</h3>
-<div class="outline-text-3" id="text-org8f59bad">
+<div id="outline-container-org989b708" class="outline-3">
+<h3 id="org989b708">Mode line should be simple and customize</h3>
+<div class="outline-text-3" id="text-org989b708">
 <p>
 Custom mode line unitlity functions (align)<br />
 <a href="https://gist.github.com/fhdhsni/990cba7794b4b6918afea94af0b30d66">https://gist.github.com/fhdhsni/990cba7794b4b6918afea94af0b30d66</a><br />
@@ -1155,9 +1174,9 @@ Custom mode line unitlity functions (align)<br />
 </div>
 </div>
 
-<div id="outline-container-orgda5f1ce" class="outline-3">
-<h3 id="orgda5f1ce">Setup Model Line content</h3>
-<div class="outline-text-3" id="text-orgda5f1ce">
+<div id="outline-container-org7c97950" class="outline-3">
+<h3 id="org7c97950">Setup Model Line content</h3>
+<div class="outline-text-3" id="text-org7c97950">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">teddy-ma/refresh-middle-mode-line</span> ()
   (<span class="org-keyword">setq</span> mode-line-align-middle <span class="org-comment-delimiter">;; </span><span class="org-comment">git status, modified status</span>
@@ -1196,9 +1215,9 @@ Custom mode line unitlity functions (align)<br />
 </div>
 </div>
 
-<div id="outline-container-org166d8a2" class="outline-3">
-<h3 id="org166d8a2">Toggle mode line left content between blank, nyancat and mode names</h3>
-<div class="outline-text-3" id="text-org166d8a2">
+<div id="outline-container-org583c6e6" class="outline-3">
+<h3 id="org583c6e6">Toggle mode line left content between blank, nyancat and mode names</h3>
+<div class="outline-text-3" id="text-org583c6e6">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">teddy-ma/render-cyan</span>()
   '(<span class="org-builtin">:eval</span> (list (nyan-create))))
@@ -1221,9 +1240,9 @@ Custom mode line unitlity functions (align)<br />
 </div>
 </div>
 
-<div id="outline-container-orgcf8966e" class="outline-3">
-<h3 id="orgcf8966e">I want a light theme and a dark theme&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></h3>
-<div class="outline-text-3" id="text-orgcf8966e">
+<div id="outline-container-orgc865f54" class="outline-3">
+<h3 id="orgc865f54">I want a light theme and a dark theme&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></h3>
+<div class="outline-text-3" id="text-orgc865f54">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">kaolin-themes</span>
   <span class="org-builtin">:ensure</span> t)
@@ -1232,9 +1251,9 @@ Custom mode line unitlity functions (align)<br />
 </div>
 </div>
 
-<div id="outline-container-orgf3d195d" class="outline-3">
-<h3 id="orgf3d195d">And can switch them (dark and light theme)</h3>
-<div class="outline-text-3" id="text-orgf3d195d">
+<div id="outline-container-org5a35f6f" class="outline-3">
+<h3 id="org5a35f6f">And can switch them (dark and light theme)</h3>
+<div class="outline-text-3" id="text-org5a35f6f">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq-default</span> custom-enabled-themes '(kaolin-light))
 
@@ -1290,9 +1309,9 @@ custom hl-line and mode-line bg color if necessary<br />
 </div>
 </div>
 
-<div id="outline-container-orgc3f702f" class="outline-3">
-<h3 id="orgc3f702f">Make emacs transparency</h3>
-<div class="outline-text-3" id="text-orgc3f702f">
+<div id="outline-container-orgd32d85d" class="outline-3">
+<h3 id="orgd32d85d">Make emacs transparency</h3>
+<div class="outline-text-3" id="text-orgd32d85d">
 <p>
 Only work with windowed emacs on macOS<br />
 </p>
@@ -1319,9 +1338,9 @@ Only work with windowed emacs on macOS<br />
 </div>
 </div>
 
-<div id="outline-container-org273e741" class="outline-3">
-<h3 id="org273e741">Long may the sun shine!</h3>
-<div class="outline-text-3" id="text-org273e741">
+<div id="outline-container-org750d38d" class="outline-3">
+<h3 id="org750d38d">Long may the sun shine!</h3>
+<div class="outline-text-3" id="text-org750d38d">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">solaire-mode</span>
   <span class="org-builtin">:ensure</span> t
@@ -1331,13 +1350,13 @@ Only work with windowed emacs on macOS<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org6e37b64" class="outline-2">
-<h2 id="org6e37b64">Programming</h2>
-<div class="outline-text-2" id="text-org6e37b64">
+<div id="outline-container-orgcc4c7c4" class="outline-2">
+<h2 id="orgcc4c7c4">Given a programming work</h2>
+<div class="outline-text-2" id="text-orgcc4c7c4">
 </div>
-<div id="outline-container-org32823c5" class="outline-3">
-<h3 id="org32823c5">Make matched parentheses clear and colored</h3>
-<div class="outline-text-3" id="text-org32823c5">
+<div id="outline-container-org1c25467" class="outline-3">
+<h3 id="org1c25467">Make matched parentheses clear and colored</h3>
+<div class="outline-text-3" id="text-org1c25467">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(show-paren-mode 1)
 </pre>
@@ -1353,9 +1372,9 @@ Only work with windowed emacs on macOS<br />
 </div>
 </div>
 
-<div id="outline-container-org81669de" class="outline-3">
-<h3 id="org81669de">Keep parentheses balanced</h3>
-<div class="outline-text-3" id="text-org81669de">
+<div id="outline-container-orgf3476bb" class="outline-3">
+<h3 id="orgf3476bb">Keep parentheses balanced</h3>
+<div class="outline-text-3" id="text-orgf3476bb">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">smartparens</span>
   <span class="org-builtin">:ensure</span> t
@@ -1367,9 +1386,9 @@ Only work with windowed emacs on macOS<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org78d164c" class="outline-3">
-<h3 id="org78d164c">Highlight strings which represent colors</h3>
-<div class="outline-text-3" id="text-org78d164c">
+<div id="outline-container-orgc9ed39d" class="outline-3">
+<h3 id="orgc9ed39d">Highlight strings which represent colors</h3>
+<div class="outline-text-3" id="text-orgc9ed39d">
 <p>
 I only want this in programming modes, and I don't want colour names to be highlighted (<code>x-colors</code>).<br />
 </p>
@@ -1383,9 +1402,9 @@ I only want this in programming modes, and I don't want colour names to be highl
 </div>
 </div>
 
-<div id="outline-container-orgcaa15bc" class="outline-3">
-<h3 id="orgcaa15bc">Auto indented code when edit</h3>
-<div class="outline-text-3" id="text-orgcaa15bc">
+<div id="outline-container-orgf3df9d1" class="outline-3">
+<h3 id="orgf3df9d1">Auto indented code when edit</h3>
+<div class="outline-text-3" id="text-orgf3df9d1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">aggressive-indent</span>
   <span class="org-builtin">:ensure</span> t)
@@ -1394,9 +1413,9 @@ I only want this in programming modes, and I don't want colour names to be highl
 </div>
 </div>
 
-<div id="outline-container-org8e88544" class="outline-3">
-<h3 id="org8e88544">Support editorconfig config file.</h3>
-<div class="outline-text-3" id="text-org8e88544">
+<div id="outline-container-org0f86f32" class="outline-3">
+<h3 id="org0f86f32">Support editorconfig config file.</h3>
+<div class="outline-text-3" id="text-org0f86f32">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">editorconfig</span>
   <span class="org-builtin">:ensure</span> t
@@ -1408,9 +1427,9 @@ I only want this in programming modes, and I don't want colour names to be highl
 </div>
 </div>
 
-<div id="outline-container-org034143f" class="outline-3">
-<h3 id="org034143f">Format all</h3>
-<div class="outline-text-3" id="text-org034143f">
+<div id="outline-container-org74a5429" class="outline-3">
+<h3 id="org74a5429">Format all</h3>
+<div class="outline-text-3" id="text-org74a5429">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">format-all</span>
   <span class="org-builtin">:ensure</span> t)
@@ -1419,9 +1438,9 @@ I only want this in programming modes, and I don't want colour names to be highl
 </div>
 </div>
 
-<div id="outline-container-orgeb45929" class="outline-3">
-<h3 id="orgeb45929">Underscore -&gt; UPCASE -&gt; CamelCase conversion</h3>
-<div class="outline-text-3" id="text-orgeb45929">
+<div id="outline-container-org03d6f5b" class="outline-3">
+<h3 id="org03d6f5b">Underscore -&gt; UPCASE -&gt; CamelCase conversion</h3>
+<div class="outline-text-3" id="text-org03d6f5b">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">my-string-inflection-cycle-auto</span> ()
   <span class="org-doc">"switching by major-mode"</span>
@@ -1446,13 +1465,13 @@ I only want this in programming modes, and I don't want colour names to be highl
 </div>
 </div>
 
-<div id="outline-container-org2ddc593" class="outline-3">
-<h3 id="org2ddc593">Rails is my main job framework&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></h3>
-<div class="outline-text-3" id="text-org2ddc593">
+<div id="outline-container-orgb92a3e6" class="outline-3">
+<h3 id="orgb92a3e6">Rails is my main job framework&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></h3>
+<div class="outline-text-3" id="text-orgb92a3e6">
 </div>
-<div id="outline-container-org3ffcda4" class="outline-4">
-<h4 id="org3ffcda4">Run test at point or test current file</h4>
-<div class="outline-text-4" id="text-org3ffcda4">
+<div id="outline-container-org95d80d1" class="outline-4">
+<h4 id="org95d80d1">Run test at point or test current file</h4>
+<div class="outline-text-4" id="text-org95d80d1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">run-rails-test-at-point</span> ()
   (<span class="org-keyword">interactive</span>)
@@ -1466,13 +1485,13 @@ I only want this in programming modes, and I don't want colour names to be highl
 </div>
 </div>
 </div>
-<div id="outline-container-org796f43a" class="outline-3">
-<h3 id="org796f43a">Project management</h3>
-<div class="outline-text-3" id="text-org796f43a">
+<div id="outline-container-orgcf08c98" class="outline-3">
+<h3 id="orgcf08c98">Project management</h3>
+<div class="outline-text-3" id="text-orgcf08c98">
 </div>
-<div id="outline-container-org998c0c1" class="outline-4">
-<h4 id="org998c0c1">Projectile handles folders which are in version control.</h4>
-<div class="outline-text-4" id="text-org998c0c1">
+<div id="outline-container-orgdb01cc0" class="outline-4">
+<h4 id="orgdb01cc0">Projectile handles folders which are in version control.</h4>
+<div class="outline-text-4" id="text-orgdb01cc0">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">projectile</span>
   <span class="org-builtin">:ensure</span> t
@@ -1486,9 +1505,9 @@ I only want this in programming modes, and I don't want colour names to be highl
 </div>
 </div>
 
-<div id="outline-container-orgb8faa14" class="outline-4">
-<h4 id="orgb8faa14">Neotree provide a sidebar of project files</h4>
-<div class="outline-text-4" id="text-orgb8faa14">
+<div id="outline-container-orgdb2a632" class="outline-4">
+<h4 id="orgdb2a632">Neotree provide a sidebar of project files</h4>
+<div class="outline-text-4" id="text-orgdb2a632">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">neotree</span>
   <span class="org-builtin">:ensure</span> t
@@ -1543,9 +1562,9 @@ I only want this in programming modes, and I don't want colour names to be highl
 </div>
 </div>
 </div>
-<div id="outline-container-org796cb47" class="outline-3">
-<h3 id="org796cb47">Fuzzy search</h3>
-<div class="outline-text-3" id="text-org796cb47">
+<div id="outline-container-orgb45e8e9" class="outline-3">
+<h3 id="orgb45e8e9">Fuzzy search</h3>
+<div class="outline-text-3" id="text-orgb45e8e9">
 <p>
 <code>fzf</code> is a fuzzy file finder which is very quick.<br />
 </p>
@@ -1556,9 +1575,9 @@ I only want this in programming modes, and I don't want colour names to be highl
 </div>
 </div>
 </div>
-<div id="outline-container-orgc973ddd" class="outline-3">
-<h3 id="orgc973ddd">Deadgrep</h3>
-<div class="outline-text-3" id="text-orgc973ddd">
+<div id="outline-container-org7be9b9e" class="outline-3">
+<h3 id="org7be9b9e">Deadgrep</h3>
+<div class="outline-text-3" id="text-org7be9b9e">
 <p>
 You can now edit files directly from results buffers with M-x deadgrep-edit-mode.<br />
 </p>
@@ -1569,9 +1588,9 @@ You can now edit files directly from results buffers with M-x deadgrep-edit-mode
 </div>
 </div>
 </div>
-<div id="outline-container-org6ac817a" class="outline-3">
-<h3 id="org6ac817a">Open File with Line Number&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></h3>
-<div class="outline-text-3" id="text-org6ac817a">
+<div id="outline-container-org8b17a4b" class="outline-3">
+<h3 id="org8b17a4b">Open File with Line Number&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></h3>
+<div class="outline-text-3" id="text-org8b17a4b">
 <p>
 Open files and goto lines like we see from g++ etc. i.e. Gemfile:12<br />
 </p>
@@ -1596,9 +1615,9 @@ Open files and goto lines like we see from g++ etc. i.e. Gemfile:12<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org3a4ce63" class="outline-3">
-<h3 id="org3a4ce63">Jump to source</h3>
-<div class="outline-text-3" id="text-org3a4ce63">
+<div id="outline-container-org040a78b" class="outline-3">
+<h3 id="org040a78b">Jump to source</h3>
+<div class="outline-text-3" id="text-org040a78b">
 <p>
 Individual language packages often support IDE features like jump to source, but <code>dumb-jump</code> attempts to support many languages by simple searching.<br />
 It's quite effective even with dynamic libraries like JS and Python.<br />
@@ -1616,13 +1635,13 @@ It's quite effective even with dynamic libraries like JS and Python.<br />
 </div>
 </div>
 
-<div id="outline-container-org784df42" class="outline-3">
-<h3 id="org784df42">Using Git inside Emacs</h3>
-<div class="outline-text-3" id="text-org784df42">
+<div id="outline-container-orgfd95ca4" class="outline-3">
+<h3 id="orgfd95ca4">Using Git inside Emacs</h3>
+<div class="outline-text-3" id="text-orgfd95ca4">
 </div>
-<div id="outline-container-org43619b6" class="outline-4">
-<h4 id="org43619b6">Magit is an awesome interface to git. Summon it with `C-x g`.</h4>
-<div class="outline-text-4" id="text-org43619b6">
+<div id="outline-container-org7d1dedd" class="outline-4">
+<h4 id="org7d1dedd">Magit is an awesome interface to git. Summon it with `C-x g`.</h4>
+<div class="outline-text-4" id="text-org7d1dedd">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">magit</span>
   <span class="org-builtin">:ensure</span> t
@@ -1634,9 +1653,9 @@ It's quite effective even with dynamic libraries like JS and Python.<br />
 </div>
 </div>
 
-<div id="outline-container-org74c4607" class="outline-4">
-<h4 id="org74c4607">Display line changes in gutter based on git history. Enable it everywhere.</h4>
-<div class="outline-text-4" id="text-org74c4607">
+<div id="outline-container-orgb4ae131" class="outline-4">
+<h4 id="orgb4ae131">Display line changes in gutter based on git history. Enable it everywhere.</h4>
+<div class="outline-text-4" id="text-orgb4ae131">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">git-gutter</span>
   <span class="org-builtin">:ensure</span> t
@@ -1648,9 +1667,9 @@ It's quite effective even with dynamic libraries like JS and Python.<br />
 </div>
 </div>
 
-<div id="outline-container-orgdc7cd11" class="outline-4">
-<h4 id="orgdc7cd11">Magit Delta</h4>
-<div class="outline-text-4" id="text-orgdc7cd11">
+<div id="outline-container-orge2fa416" class="outline-4">
+<h4 id="orge2fa416">Magit Delta</h4>
+<div class="outline-text-4" id="text-orge2fa416">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">magit-delta</span>
   <span class="org-builtin">:ensure</span> t)
@@ -1659,9 +1678,9 @@ It's quite effective even with dynamic libraries like JS and Python.<br />
 </div>
 </div>
 
-<div id="outline-container-org3ec4736" class="outline-4">
-<h4 id="org3ec4736">TimeMachine lets us step through the history of a file as recorded in git.</h4>
-<div class="outline-text-4" id="text-org3ec4736">
+<div id="outline-container-orga6e745a" class="outline-4">
+<h4 id="orga6e745a">TimeMachine lets us step through the history of a file as recorded in git.</h4>
+<div class="outline-text-4" id="text-orga6e745a">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">git-timemachine</span>
   <span class="org-builtin">:ensure</span> t)
@@ -1670,9 +1689,9 @@ It's quite effective even with dynamic libraries like JS and Python.<br />
 </div>
 </div>
 
-<div id="outline-container-org398e940" class="outline-4">
-<h4 id="org398e940">bind <code>M-p -</code> to list all git repos in some folder</h4>
-<div class="outline-text-4" id="text-org398e940">
+<div id="outline-container-orgfb55c43" class="outline-4">
+<h4 id="orgfb55c43">bind <code>M-p -</code> to list all git repos in some folder</h4>
+<div class="outline-text-4" id="text-orgfb55c43">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> magit-repository-directories '((<span class="org-string">"</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">~/code"</span> . 4)))
 
@@ -1688,9 +1707,9 @@ It's quite effective even with dynamic libraries like JS and Python.<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org1519ea9" class="outline-3">
-<h3 id="org1519ea9">Syntax checking</h3>
-<div class="outline-text-3" id="text-org1519ea9">
+<div id="outline-container-org288cae0" class="outline-3">
+<h3 id="org288cae0">Syntax checking</h3>
+<div class="outline-text-3" id="text-org288cae0">
 <p>
 <code>Flycheck</code> is a general syntax highlighting framework which other packages hook into. It's an improvment on the built in <code>flymake</code>.<br />
 </p>
@@ -1744,9 +1763,9 @@ Setup is pretty simple - we just enable globally and turn on a custom eslint fun
 </div>
 </div>
 </div>
-<div id="outline-container-orgc34779f" class="outline-3">
-<h3 id="orgc34779f">Color Identifier</h3>
-<div class="outline-text-3" id="text-orgc34779f">
+<div id="outline-container-org353f667" class="outline-3">
+<h3 id="org353f667">Color Identifier</h3>
+<div class="outline-text-3" id="text-org353f667">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">color-identifiers-mode</span>
   <span class="org-builtin">:ensure</span> t
@@ -1755,9 +1774,9 @@ Setup is pretty simple - we just enable globally and turn on a custom eslint fun
 </div>
 </div>
 </div>
-<div id="outline-container-orgd2d6735" class="outline-3">
-<h3 id="orgd2d6735">Autocomplete</h3>
-<div class="outline-text-3" id="text-orgd2d6735">
+<div id="outline-container-org56e8457" class="outline-3">
+<h3 id="org56e8457">Autocomplete</h3>
+<div class="outline-text-3" id="text-org56e8457">
 <p>
 Company mode provides good autocomplete options. Perhaps I should add company-quickhelp for documentation (<a href="https://github.com/expez/company-quickhelp">https://github.com/expez/company-quickhelp</a>)?<br />
 It would also be good to improve integration with yasnippet as I don't feel I'm making the best use there.<br />
@@ -1787,9 +1806,9 @@ I don't want suggestions from open files / buffers to be automatically lowercase
 </div>
 </div>
 </div>
-<div id="outline-container-org57cc074" class="outline-3">
-<h3 id="org57cc074">Snippets</h3>
-<div class="outline-text-3" id="text-org57cc074">
+<div id="outline-container-orgf3d4a50" class="outline-3">
+<h3 id="orgf3d4a50">Snippets</h3>
+<div class="outline-text-3" id="text-orgf3d4a50">
 <p>
 Type the shortcut and press <code>TAB</code> to complete, or <code>M-/</code> to autosuggest a snippet.<br />
 <a href="http://ergoemacs.org/emacs/yasnippet_templates_howto.html">http://ergoemacs.org/emacs/yasnippet_templates_howto.html</a><br />
@@ -1810,13 +1829,13 @@ Type the shortcut and press <code>TAB</code> to complete, or <code>M-/</code> to
 </div>
 </div>
 
-<div id="outline-container-org7e8838a" class="outline-3">
-<h3 id="org7e8838a">Language Support</h3>
-<div class="outline-text-3" id="text-org7e8838a">
+<div id="outline-container-org46d60ef" class="outline-3">
+<h3 id="org46d60ef">Language Support</h3>
+<div class="outline-text-3" id="text-org46d60ef">
 </div>
-<div id="outline-container-org3754872" class="outline-4">
-<h4 id="org3754872">Javascript</h4>
-<div class="outline-text-4" id="text-org3754872">
+<div id="outline-container-orgf54df12" class="outline-4">
+<h4 id="orgf54df12">Javascript</h4>
+<div class="outline-text-4" id="text-orgf54df12">
 <p>
 In JS indent to 2 spaces.<br />
 </p>
@@ -1878,9 +1897,9 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
 </div>
 </div>
 </div>
-<div id="outline-container-orgb551238" class="outline-4">
-<h4 id="orgb551238">Yaml</h4>
-<div class="outline-text-4" id="text-orgb551238">
+<div id="outline-container-org398a74b" class="outline-4">
+<h4 id="org398a74b">Yaml</h4>
+<div class="outline-text-4" id="text-org398a74b">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">yaml-mode</span>
   <span class="org-builtin">:ensure</span> t)
@@ -1888,9 +1907,9 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
 </div>
 </div>
 </div>
-<div id="outline-container-org0919839" class="outline-4">
-<h4 id="org0919839">Toml</h4>
-<div class="outline-text-4" id="text-org0919839">
+<div id="outline-container-org7ee86bc" class="outline-4">
+<h4 id="org7ee86bc">Toml</h4>
+<div class="outline-text-4" id="text-org7ee86bc">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">toml-mode</span>
   <span class="org-builtin">:ensure</span> t)
@@ -1898,9 +1917,9 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
 </div>
 </div>
 </div>
-<div id="outline-container-org62fe978" class="outline-4">
-<h4 id="org62fe978">Markdown</h4>
-<div class="outline-text-4" id="text-org62fe978">
+<div id="outline-container-orgc77b12a" class="outline-4">
+<h4 id="orgc77b12a">Markdown</h4>
+<div class="outline-text-4" id="text-orgc77b12a">
 <p>
 Markdown support isn't built into Emacs, add it with <code>markdown-mode</code>.<br />
 </p>
@@ -1916,9 +1935,9 @@ Markdown support isn't built into Emacs, add it with <code>markdown-mode</code>.
 </div>
 </div>
 </div>
-<div id="outline-container-org6fdb3a1" class="outline-4">
-<h4 id="org6fdb3a1">Lua</h4>
-<div class="outline-text-4" id="text-org6fdb3a1">
+<div id="outline-container-org8b7fa6e" class="outline-4">
+<h4 id="org8b7fa6e">Lua</h4>
+<div class="outline-text-4" id="text-org8b7fa6e">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">lua-mode</span>
   <span class="org-builtin">:ensure</span> t)
@@ -1929,9 +1948,9 @@ Markdown support isn't built into Emacs, add it with <code>markdown-mode</code>.
 </div>
 </div>
 </div>
-<div id="outline-container-orgeb6d910" class="outline-4">
-<h4 id="orgeb6d910">Haskell</h4>
-<div class="outline-text-4" id="text-orgeb6d910">
+<div id="outline-container-orgbb22abe" class="outline-4">
+<h4 id="orgbb22abe">Haskell</h4>
+<div class="outline-text-4" id="text-orgbb22abe">
 <p>
 Install haskell mode.<br />
 </p>
@@ -1952,9 +1971,9 @@ Code formatting is easier with <code>hindent</code>.<br />
 </div>
 </div>
 
-<div id="outline-container-orgdabdc74" class="outline-4">
-<h4 id="orgdabdc74">Elixir</h4>
-<div class="outline-text-4" id="text-orgdabdc74">
+<div id="outline-container-org280c831" class="outline-4">
+<h4 id="org280c831">Elixir</h4>
+<div class="outline-text-4" id="text-org280c831">
 <p>
 Elixir highlighting is not built into emacs at present. Elixir-mode gives all the usual niceties, and alchemist improves interaction with tools like <code>iex</code>, <code>mix</code> and <code>elixir-format</code>.<br />
 </p>
@@ -1968,9 +1987,9 @@ Elixir highlighting is not built into emacs at present. Elixir-mode gives all th
 </div>
 </div>
 </div>
-<div id="outline-container-org44297c1" class="outline-4">
-<h4 id="org44297c1">Ruby</h4>
-<div class="outline-text-4" id="text-org44297c1">
+<div id="outline-container-orgf8ae94b" class="outline-4">
+<h4 id="orgf8ae94b">Ruby</h4>
+<div class="outline-text-4" id="text-orgf8ae94b">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">rake</span>
   <span class="org-builtin">:ensure</span> t)
@@ -2002,9 +2021,9 @@ Elixir highlighting is not built into emacs at present. Elixir-mode gives all th
 </div>
 </div>
 </div>
-<div id="outline-container-org0f020a3" class="outline-4">
-<h4 id="org0f020a3">C</h4>
-<div class="outline-text-4" id="text-org0f020a3">
+<div id="outline-container-orgaea120a" class="outline-4">
+<h4 id="orgaea120a">C</h4>
+<div class="outline-text-4" id="text-orgaea120a">
 <p>
 Emacs has a great built in C/C++ mode, but we can improve on it with <code>irony-mode</code> for code completion via <code>libclang</code>.<br />
 </p>
@@ -2038,9 +2057,9 @@ Add flycheck support.<br />
 </div>
 </div>
 </div>
-<div id="outline-container-orgd0743de" class="outline-4">
-<h4 id="orgd0743de">Rust</h4>
-<div class="outline-text-4" id="text-orgd0743de">
+<div id="outline-container-orga11ef40" class="outline-4">
+<h4 id="orga11ef40">Rust</h4>
+<div class="outline-text-4" id="text-orga11ef40">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">rust-mode</span>
   <span class="org-builtin">:ensure</span> t )
@@ -2048,9 +2067,9 @@ Add flycheck support.<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org21d254e" class="outline-4">
-<h4 id="org21d254e">Web mode&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_dependent">@dependent</span></span></h4>
-<div class="outline-text-4" id="text-org21d254e">
+<div id="outline-container-orgd6055e9" class="outline-4">
+<h4 id="orgd6055e9">Web mode&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_dependent">@dependent</span></span></h4>
+<div class="outline-text-4" id="text-orgd6055e9">
 <p>
 Web mode handles html/css/js.<br />
 </p>
@@ -2097,9 +2116,9 @@ use C-j to expand it<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org656b906" class="outline-4">
-<h4 id="org656b906">Solidity</h4>
-<div class="outline-text-4" id="text-org656b906">
+<div id="outline-container-orgfb8c0d9" class="outline-4">
+<h4 id="orgfb8c0d9">Solidity</h4>
+<div class="outline-text-4" id="text-orgfb8c0d9">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">solidity-mode</span>
   <span class="org-builtin">:ensure</span> t)
@@ -2109,9 +2128,9 @@ use C-j to expand it<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org78ec5c8" class="outline-2">
-<h2 id="org78ec5c8">Org</h2>
-<div class="outline-text-2" id="text-org78ec5c8">
+<div id="outline-container-org6d5aa4f" class="outline-2">
+<h2 id="org6d5aa4f">Given an org workspace</h2>
+<div class="outline-text-2" id="text-org6d5aa4f">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">org</span>
   <span class="org-builtin">:ensure</span> t
@@ -2138,34 +2157,34 @@ use C-j to expand it<br />
 </pre>
 </div>
 </div>
-<div id="outline-container-org91c00f7" class="outline-3">
-<h3 id="org91c00f7">I use org to do GTD</h3>
-<div class="outline-text-3" id="text-org91c00f7">
+<div id="outline-container-orgabd4a44" class="outline-3">
+<h3 id="orgabd4a44">I use org to do GTD</h3>
+<div class="outline-text-3" id="text-orgabd4a44">
 </div>
-<div id="outline-container-org77e2576" class="outline-4">
-<h4 id="org77e2576">I want to have custom todo sequence</h4>
-<div class="outline-text-4" id="text-org77e2576">
+<div id="outline-container-org0b84e5c" class="outline-4">
+<h4 id="org0b84e5c">I want to have custom todo sequence</h4>
+<div class="outline-text-4" id="text-org0b84e5c">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> org-todo-keywords '((sequence <span class="org-string">"TODO"</span> <span class="org-string">"DOING"</span> <span class="org-string">"|"</span> <span class="org-string">"DONE"</span> <span class="org-string">"BLOCKED"</span>)))
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org37939bc" class="outline-4">
-<h4 id="org37939bc">I need to know when a task is done</h4>
-<div class="outline-text-4" id="text-org37939bc">
+<div id="outline-container-org18efd44" class="outline-4">
+<h4 id="org18efd44">I need to know when a task is done</h4>
+<div class="outline-text-4" id="text-org18efd44">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> org-log-done 'time)
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org6fc1d7e" class="outline-4">
-<h4 id="org6fc1d7e"><span class="todo TODO">TODO</span> I need a pomodoro</h4>
+<div id="outline-container-org36e7c81" class="outline-4">
+<h4 id="org36e7c81"><span class="todo TODO">TODO</span> I need a pomodoro</h4>
 </div>
-<div id="outline-container-org94f5cd6" class="outline-4">
-<h4 id="org94f5cd6">After old task is done, archive (refiling) it</h4>
-<div class="outline-text-4" id="text-org94f5cd6">
+<div id="outline-container-org3ad9b51" class="outline-4">
+<h4 id="org3ad9b51">After old task is done, archive (refiling) it</h4>
+<div class="outline-text-4" id="text-org3ad9b51">
 <p>
 Save Org buffers after refiling!<br />
 </p>
@@ -2178,9 +2197,9 @@ Save Org buffers after refiling!<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org15a4a38" class="outline-4">
-<h4 id="org15a4a38">Capture my task or idea</h4>
-<div class="outline-text-4" id="text-org15a4a38">
+<div id="outline-container-org4b06396" class="outline-4">
+<h4 id="org4b06396">Capture my task or idea</h4>
+<div class="outline-text-4" id="text-org4b06396">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">org-capture</span>
   <span class="org-builtin">:bind</span> (<span class="org-string">"C-c c"</span> . org-capture)
@@ -2200,9 +2219,9 @@ Save Org buffers after refiling!<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org64990a5" class="outline-3">
-<h3 id="org64990a5">I can easily open common files&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></h3>
-<div class="outline-text-3" id="text-org64990a5">
+<div id="outline-container-org263c8a8" class="outline-3">
+<h3 id="org263c8a8">I can easily open common files&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_script">@script</span></span></h3>
+<div class="outline-text-3" id="text-org263c8a8">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defmacro</span> <span class="org-function-name">defun-open-conf</span> (config-name filepath)
   <span class="org-doc">"Open conf macro.</span>
@@ -2236,13 +2255,13 @@ Save Org buffers after refiling!<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org8d1519d" class="outline-3">
-<h3 id="org8d1519d">I love beautiful Org UI</h3>
-<div class="outline-text-3" id="text-org8d1519d">
+<div id="outline-container-org8a7e6c3" class="outline-3">
+<h3 id="org8a7e6c3">I love beautiful Org UI</h3>
+<div class="outline-text-3" id="text-org8a7e6c3">
 </div>
-<div id="outline-container-orgb7afee5" class="outline-4">
-<h4 id="orgb7afee5">make headings colorful</h4>
-<div class="outline-text-4" id="text-orgb7afee5">
+<div id="outline-container-orgdcbbc91" class="outline-4">
+<h4 id="orgdcbbc91">make headings colorful</h4>
+<div class="outline-text-4" id="text-orgdcbbc91">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">(custom-set-faces</span>
 <span class="org-comment-delimiter">;;  </span><span class="org-comment">'(default     ((t (:foreground "#BBC2CF"))))</span>
@@ -2255,9 +2274,9 @@ Save Org buffers after refiling!<br />
 </div>
 </div>
 </div>
-<div id="outline-container-orgf9244d7" class="outline-4">
-<h4 id="orgf9244d7">Beautify Org heading symbol</h4>
-<div class="outline-text-4" id="text-orgf9244d7">
+<div id="outline-container-org1b8be35" class="outline-4">
+<h4 id="org1b8be35">Beautify Org heading symbol</h4>
+<div class="outline-text-4" id="text-org1b8be35">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">org-superstar</span>
   <span class="org-builtin">:ensure</span> t
@@ -2266,9 +2285,9 @@ Save Org buffers after refiling!<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org8b8d670" class="outline-4">
-<h4 id="org8b8d670">Emoji Org tag</h4>
-<div class="outline-text-4" id="text-org8b8d670">
+<div id="outline-container-org8b98b59" class="outline-4">
+<h4 id="org8b98b59">Emoji Org tag</h4>
+<div class="outline-text-4" id="text-org8b98b59">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">org-pretty-tags</span>
   <span class="org-builtin">:diminish</span> org-pretty-tags-mode
@@ -2287,9 +2306,9 @@ Save Org buffers after refiling!<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org9be7cbe" class="outline-4">
-<h4 id="org9be7cbe">Colorful todo stags</h4>
-<div class="outline-text-4" id="text-org9be7cbe">
+<div id="outline-container-org3ed44c4" class="outline-4">
+<h4 id="org3ed44c4">Colorful todo stags</h4>
+<div class="outline-text-4" id="text-org3ed44c4">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">hl-todo</span>
   <span class="org-builtin">:ensure</span> t
@@ -2307,9 +2326,9 @@ Save Org buffers after refiling!<br />
 </div>
 </div>
 </div>
-<div id="outline-container-orgc649ffd" class="outline-4">
-<h4 id="orgc649ffd">Org fancy Priorities</h4>
-<div class="outline-text-4" id="text-orgc649ffd">
+<div id="outline-container-org6f678f1" class="outline-4">
+<h4 id="org6f678f1">Org fancy Priorities</h4>
+<div class="outline-text-4" id="text-org6f678f1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">org-fancy-priorities</span>
   <span class="org-builtin">:diminish</span>
@@ -2321,9 +2340,9 @@ Save Org buffers after refiling!<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org4d30de3" class="outline-4">
-<h4 id="org4d30de3">Fixed pitch font</h4>
-<div class="outline-text-4" id="text-org4d30de3">
+<div id="outline-container-org061aa36" class="outline-4">
+<h4 id="org061aa36">Fixed pitch font</h4>
+<div class="outline-text-4" id="text-org061aa36">
 <p>
 Set fixed pitch font for org (conflict with Chinese table)<br />
 </p>
@@ -2343,9 +2362,9 @@ Set fixed pitch font for org (conflict with Chinese table)<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org9277963" class="outline-4">
-<h4 id="org9277963">Completed tasks should be pierced through visually</h4>
-<div class="outline-text-4" id="text-org9277963">
+<div id="outline-container-org79f765e" class="outline-4">
+<h4 id="org79f765e">Completed tasks should be pierced through visually</h4>
+<div class="outline-text-4" id="text-org79f765e">
 <p>
 to intensify the sense of achievement.<br />
 </p>
@@ -2359,9 +2378,9 @@ to intensify the sense of achievement.<br />
 </div>
 </div>
 </div>
-<div id="outline-container-orgf80a9a2" class="outline-4">
-<h4 id="orgf80a9a2">Custom org block style</h4>
-<div class="outline-text-4" id="text-orgf80a9a2">
+<div id="outline-container-org883dcd0" class="outline-4">
+<h4 id="org883dcd0">Custom org block style</h4>
+<div class="outline-text-4" id="text-org883dcd0">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">teddy-ma/org-block-setup</span> ()
   (<span class="org-keyword">let</span> ((background-color (face-background 'default))
@@ -2378,9 +2397,9 @@ to intensify the sense of achievement.<br />
 </div>
 </div>
 </div>
-<div id="outline-container-orgfdce071" class="outline-4">
-<h4 id="orgfdce071">Ellipsis</h4>
-<div class="outline-text-4" id="text-orgfdce071">
+<div id="outline-container-org14e6322" class="outline-4">
+<h4 id="org14e6322">Ellipsis</h4>
+<div class="outline-text-4" id="text-org14e6322">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> org-hide-emphasis-markers nil)
 (<span class="org-keyword">setq</span> org-ellipsis <span class="org-string">" &#9662;"</span>) <span class="org-comment-delimiter">;; </span><span class="org-comment">&#8628;, &#9660;, &#9654;, &#10549;, &#9662;</span>
@@ -2388,9 +2407,9 @@ to intensify the sense of achievement.<br />
 </div>
 </div>
 </div>
-<div id="outline-container-orgb1b89a2" class="outline-4">
-<h4 id="orgb1b89a2">Beautify Org Checkbox Symbol</h4>
-<div class="outline-text-4" id="text-orgb1b89a2">
+<div id="outline-container-org975b2cc" class="outline-4">
+<h4 id="org975b2cc">Beautify Org Checkbox Symbol</h4>
+<div class="outline-text-4" id="text-org975b2cc">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">teddy-ma/org-buffer-setup</span> ()
   (<span class="org-keyword">push</span> '(<span class="org-string">"[ ]"</span> . <span class="org-string">"&#9744;"</span> ) prettify-symbols-alist)
@@ -2405,9 +2424,9 @@ to intensify the sense of achievement.<br />
 </div>
 </div>
 
-<div id="outline-container-org7fdd683" class="outline-3">
-<h3 id="org7fdd683">Exported html should have no default style</h3>
-<div class="outline-text-3" id="text-org7fdd683">
+<div id="outline-container-org881c729" class="outline-3">
+<h3 id="org881c729">Exported html should have no default style</h3>
+<div class="outline-text-3" id="text-org881c729">
 <p>
 I can style it myself<br />
 </p>
@@ -2418,9 +2437,9 @@ I can style it myself<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org58ee61b" class="outline-3">
-<h3 id="org58ee61b">Execute Org src block</h3>
-<div class="outline-text-3" id="text-org58ee61b">
+<div id="outline-container-org3deefa8" class="outline-3">
+<h3 id="org3deefa8">Execute Org src block</h3>
+<div class="outline-text-3" id="text-org3deefa8">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(org-babel-do-load-languages
  'org-babel-load-languages
@@ -2434,9 +2453,9 @@ I can style it myself<br />
 </div>
 </div>
 </div>
-<div id="outline-container-orgcca5b8c" class="outline-3">
-<h3 id="orgcca5b8c">Insert org markup easily</h3>
-<div class="outline-text-3" id="text-orgcca5b8c">
+<div id="outline-container-org083b683" class="outline-3">
+<h3 id="org083b683">Insert org markup easily</h3>
+<div class="outline-text-3" id="text-org083b683">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">wrap-region</span>
   <span class="org-builtin">:ensure</span> t
@@ -2453,9 +2472,9 @@ I can style it myself<br />
 </div>
 </div>
 
-<div id="outline-container-org3ff9ba7" class="outline-3">
-<h3 id="org3ff9ba7">Agenda</h3>
-<div class="outline-text-3" id="text-org3ff9ba7">
+<div id="outline-container-orgd312aa4" class="outline-3">
+<h3 id="orgd312aa4">Agenda</h3>
+<div class="outline-text-3" id="text-orgd312aa4">
 <p>
 Interactive agenda in the console <a href="https://github.com/rougier/agenda">https://github.com/rougier/agenda</a><br />
 </p>
@@ -2486,9 +2505,9 @@ Interactive agenda in the console <a href="https://github.com/rougier/agenda">ht
 </div>
 </div>
 </div>
-<div id="outline-container-orgf2b209e" class="outline-3">
-<h3 id="orgf2b209e">Org Roam</h3>
-<div class="outline-text-3" id="text-orgf2b209e">
+<div id="outline-container-org424fed1" class="outline-3">
+<h3 id="org424fed1">Org Roam</h3>
+<div class="outline-text-3" id="text-org424fed1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">org-roam</span>
   <span class="org-builtin">:ensure</span> t
@@ -2534,13 +2553,13 @@ server<br />
 </div>
 </div>
 
-<div id="outline-container-org1cdb828" class="outline-2">
-<h2 id="org1cdb828">Extras</h2>
-<div class="outline-text-2" id="text-org1cdb828">
+<div id="outline-container-orgba7d061" class="outline-2">
+<h2 id="orgba7d061">Extras</h2>
+<div class="outline-text-2" id="text-orgba7d061">
 </div>
-<div id="outline-container-org728dc9c" class="outline-3">
-<h3 id="org728dc9c">check my writing sytle and spell&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_dependent">@dependent</span></span></h3>
-<div class="outline-text-3" id="text-org728dc9c">
+<div id="outline-container-org6783d93" class="outline-3">
+<h3 id="org6783d93">check my writing sytle and spell&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_dependent">@dependent</span></span></h3>
+<div class="outline-text-3" id="text-org6783d93">
 <p>
 need aspell to ispell (brew install aspell)<br />
 </p>
@@ -2569,9 +2588,9 @@ Proselint is an external program, install it with <code>pip install proselint</c
 </div>
 </div>
 
-<div id="outline-container-org3f9aecf" class="outline-3">
-<h3 id="org3f9aecf">I need Chinese input method&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_dependent">@dependent</span></span></h3>
-<div class="outline-text-3" id="text-org3f9aecf">
+<div id="outline-container-orgae035dd" class="outline-3">
+<h3 id="orgae035dd">I need Chinese input method&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_dependent">@dependent</span></span></h3>
+<div class="outline-text-3" id="text-orgae035dd">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">pyim</span>
   <span class="org-builtin">:ensure</span> t
@@ -2603,9 +2622,9 @@ Proselint is an external program, install it with <code>pip install proselint</c
 </div>
 </div>
 </div>
-<div id="outline-container-orgd0a7eef" class="outline-3">
-<h3 id="orgd0a7eef">Drawing UMLL&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_dependent">@dependent</span></span></h3>
-<div class="outline-text-3" id="text-orgd0a7eef">
+<div id="outline-container-orgb2289cd" class="outline-3">
+<h3 id="orgb2289cd">Drawing UMLL&#xa0;&#xa0;&#xa0;<span class="tag"><span class="_dependent">@dependent</span></span></h3>
+<div class="outline-text-3" id="text-orgb2289cd">
 <p>
 need plantuml (brew install plantuml)<br />
 </p>
@@ -2628,9 +2647,9 @@ need plantuml (brew install plantuml)<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org23c05ae" class="outline-3">
-<h3 id="org23c05ae">English Chinese Dictionary</h3>
-<div class="outline-text-3" id="text-org23c05ae">
+<div id="outline-container-orge79030f" class="outline-3">
+<h3 id="orge79030f">English Chinese Dictionary</h3>
+<div class="outline-text-3" id="text-orge79030f">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">youdao-dictionary</span>
   <span class="org-builtin">:ensure</span> t
@@ -2640,9 +2659,9 @@ need plantuml (brew install plantuml)<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org78deeb2" class="outline-3">
-<h3 id="org78deeb2">Disk Usage</h3>
-<div class="outline-text-3" id="text-org78deeb2">
+<div id="outline-container-orgb42ea8e" class="outline-3">
+<h3 id="orgb42ea8e">Disk Usage</h3>
+<div class="outline-text-3" id="text-orgb42ea8e">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">disk-usage</span>
   <span class="org-builtin">:ensure</span> t)
@@ -2651,9 +2670,9 @@ need plantuml (brew install plantuml)<br />
 </div>
 </div>
 
-<div id="outline-container-org72a956a" class="outline-3">
-<h3 id="org72a956a">Run shell in emacs</h3>
-<div class="outline-text-3" id="text-org72a956a">
+<div id="outline-container-orga9ef8cc" class="outline-3">
+<h3 id="orga9ef8cc">Run shell in emacs</h3>
+<div class="outline-text-3" id="text-orga9ef8cc">
 <p>
 eshell with git<br />
 </p>
@@ -2693,9 +2712,9 @@ vterm<br />
 </div>
 </div>
 
-<div id="outline-container-org8ace50d" class="outline-3">
-<h3 id="org8ace50d">view PDF in emacs</h3>
-<div class="outline-text-3" id="text-org8ace50d">
+<div id="outline-container-orga7787a6" class="outline-3">
+<h3 id="orga7787a6">view PDF in emacs</h3>
+<div class="outline-text-3" id="text-orga7787a6">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">use-package</span> <span class="org-constant">pdf-tools</span>
   <span class="org-builtin">:ensure</span> t
@@ -2712,7 +2731,7 @@ vterm<br />
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Teddy Ma</p>
-<p class="date">Created: 2021-06-07 Mon 09:30</p>
+<p class="date">Created: 2021-06-07 Mon 09:43</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
