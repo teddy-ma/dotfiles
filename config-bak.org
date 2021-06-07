@@ -312,19 +312,6 @@ dired hacks
       (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*")
       ))
 #+end_src
-** Multiple cursors
-#+begin_src emacs-lisp
-  (use-package iedit
-    :ensure t)
-  (use-package multiple-cursors
-    :ensure t
-    :config
-    (global-unset-key (kbd "M-<down-mouse-1>"))
-    (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
-    (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-    (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-    (global-set-key (kbd "C-<") 'mc/mark-previous-like-this))
-#+end_src
 
 ** Wgrep
 wgrep allows you to edit a grep buffer and apply those changes to the file buffer like sed interactively.

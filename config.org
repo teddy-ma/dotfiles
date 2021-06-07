@@ -349,6 +349,19 @@ Hard to describe but a killer feature.
     :bind ("C-=" . er/expand-region))
 #+end_src
 
+** Multiple cursors
+#+begin_src emacs-lisp
+  (use-package iedit
+    :ensure t)
+  (use-package multiple-cursors
+    :ensure t
+    :config
+    (global-unset-key (kbd "M-<down-mouse-1>"))
+    (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
+    (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+    (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+    (global-set-key (kbd "C-<") 'mc/mark-previous-like-this))
+#+end_src
 ** Toggle between single and double quotes                          :@script:
 #+begin_src emacs-lisp
   (defun toggle-quotes ()
@@ -414,8 +427,8 @@ M-<up> M-<down> to move line up and down
     (global-undo-tree-mode 1))
 #+END_SRC
 
-* Appearance
-** I want a clear and modern UI.
+* Given an ugly default appearance
+** UI should be clear and modern
 *** There are too many bar of emacs default UI
 no tool bar, no scroll bar, no menu bar, very clear
 #+begin_src emacs-lisp
@@ -688,7 +701,7 @@ Only work with windowed emacs on macOS
     :ensure t
     :hook (after-init . solaire-global-mode))
 #+end_src
-* Programming
+* Given a programming work
 ** Make matched parentheses clear and colored
 #+begin_src emacs-lisp
   (show-paren-mode 1)
@@ -1207,7 +1220,7 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
    (use-package solidity-mode
      :ensure t)
  #+end_src
-* Org
+* Given an org workspace
 #+begin_src emacs-lisp
   (use-package org
     :ensure t
