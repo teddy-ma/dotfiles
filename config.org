@@ -6,12 +6,8 @@
 #+STARTUP: hideblocks
 #+SETUPFILE: http://www.songofcode.com/socss/org.setup
 
-* Bootstrap
-** About this config
-   I found this post is awesome https://utf9k.net/blog/faq-driven-configuration/
-   So I try to use the faq style to make this config file.
-   Maybe BDD's Given-When-Then is style is awesome too.
-** How to edit and reload this config file easily? :@script:
+* Given a vanilla emacs
+** to open this config file                :@script:
 I can use ~C-c I~ to open this config file and ~C-c R~ to reload it.
 By the way, ~C-c i~ can open system config file.
 
@@ -35,12 +31,12 @@ By the way, ~C-c i~ can open system config file.
   (global-set-key (kbd "C-c R") 'reload-config)
 #+end_src
 
-** Who am I?
+** identity who I am?
 #+begin_src emacs-lisp
   (setq user-full-name "Teddy Ma"
         user-mail-address "mlc880926@gmail.com")
 #+end_src
-** How to install emacs packages effectively?
+** install packages
 Guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-package-manual.html
 
 #+begin_src emacs-lisp
@@ -56,7 +52,7 @@ Guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-pa
     (package-install 'use-package))
 #+end_src
 
-** How to have a single custom settings config file?
+** have a single custom settings config file
 Set up the customize file to its own separate file, instead of saving customize settings in [[file:init.el][init.el]].
 Try your best to make custom config clean.
 
@@ -65,7 +61,7 @@ Try your best to make custom config clean.
   (load custom-file)
 #+end_src
 
-** How to make emacs faster
+** start emacs faster
 *** Less garbage collection
 The default is 800 kilobytes.  Measured in bytes.
 #+begin_src emacs-lisp
@@ -80,8 +76,8 @@ The default is 800 kilobytes.  Measured in bytes.
   :pin melpa)
 #+end_src
 
-* Interface
-** Enter yes or no is tedious, y or n is more reasonable
+* Given an old school emacs user interface
+** Answer y or n not yes or no
 #+begin_src emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+end_src
@@ -267,7 +263,7 @@ Suggest next keys to me based on currently entered key combination.
     :init
     (marginalia-mode))
 #+end_src
-* Edit
+* Given a file(buffer) in editor
 ** How to move effectively in one buffer
 *** Move to beginning of line between head of line and head of text (head is blank)
 #+begin_src emacs-lisp
