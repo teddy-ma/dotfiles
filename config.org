@@ -23,7 +23,7 @@ By the way, ~C-c i~ can open system config file.
   (defun reload-config()
     "Reload config.org"
     (interactive)
-    (delete-file "~/.emacs.d/config.el") ;; hotfix, manually delete old config.el file
+    (delete-file "~/.emacs.d/config.el")
     (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
 
   (global-set-key (kbd "C-c i") 'find-dotfiles)
@@ -195,6 +195,14 @@ Run ~M-x all-the-icons-install-fonts~ to install fonts (only once)
     :hook (after-init . winner-mode))
 #+end_src
 
+** Notify when package loading
+#+begin_src emacs-lisp
+  (use-package package-loading-notifier
+    :ensure t
+    :config
+    (package-loading-notifier-mode 1))
+#+end_src
+
 ** What if I forgot some shortcut, only remember the prefix key, any hint?
 Suggest next keys to me based on currently entered key combination.
 
@@ -263,7 +271,7 @@ Suggest next keys to me based on currently entered key combination.
     :init
     (marginalia-mode))
 #+end_src
-* Given a file(buffer) in editor
+* Given a file (buffer) when edit
 ** How to move effectively in one buffer
 *** Move to beginning of line between head of line and head of text (head is blank)
 #+begin_src emacs-lisp
@@ -294,6 +302,14 @@ Suggest next keys to me based on currently entered key combination.
     :bind
     (("M-s" . consult-line)))
 #+end_src
+** Incremental find-and-replace
+~anzu-query-replace~ command, ~y~ to replace and ~n~ to skip
+#+begin_src emacs-lisp
+  (use-package anzu
+    :ensure t
+    :config
+    (global-anzu-mode +1))
+#+end_src
 ** How to move effectively across buffers
 #+begin_src emacs-lisp
   (use-package consult
@@ -309,19 +325,6 @@ Suggest next keys to me based on currently entered key combination.
            ("C-c r" . crux-rename-file-and-buffer)
            ("C-c D" . crux-delete-file-and-buffer)
            ))
-#+end_src
-
-** How to navigate between windows
-#+begin_src emacs-lisp
-  (use-package ace-window
-    :ensure t
-    :config
-    (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-    (custom-set-faces
-     '(aw-leading-char-face
-       ((t (:inherit ace-jump-face-foreground :height 5.0)))))
-    :bind
-    ("M-o" . ace-window))
 #+end_src
 
 ** How to delete consecutive space at once
@@ -426,6 +429,84 @@ M-<up> M-<down> to move line up and down
     :config
     (global-undo-tree-mode 1))
 #+END_SRC
+
+* Given multiple files (buffers) when edit
+** wgrep multi search result
+use ~consult-grep~ to get global search result, C-S-a (embark-act) and E to export and C-c C-p to use wgrep to edit,
+after saved, use ~wgrep-save-all-buffers~ to confirm change
+#+begin_src emacs-lisp
+  (use-package embark
+    :ensure t
+    :bind
+    (("C-S-a" . embark-act)       ;; pick some comfortable binding
+     ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+    :init
+    ;; Optionally replace the key help with a completing-read interface
+    (setq prefix-help-command #'embark-prefix-help-command)
+    :config
+    ;; Hide the mode line of the Embark live/completions buffers
+    (add-to-list 'display-buffer-alist
+                 '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                   nil
+                   (window-parameters (mode-line-format . none)))))
+
+  ;; Consult users will also want the embark-consult package.
+  (use-package embark-consult
+    :ensure t
+    :after (embark consult)
+    :demand t ; only necessary if you have the hook below
+    ;; if you want to have consult previews as you move around an
+    ;; auto-updating embark collect buffer
+    :hook
+    (embark-collect-mode . consult-preview-at-point-mode))
+
+  ;; wgrep allows you to edit a grep buffer and apply those changes to the file buffer like sed interactively.
+  ;; No need to learn sed script, just learn Emacs.
+  (use-package wgrep
+    :ensure t)
+#+end_src
+
+** search & replace multi files
+after get wgrep searched result, use single file replacement and save all buffer
+#+begin_src emacs-lisp
+  (use-package consult
+    :ensure t
+    :config
+    (setq consult-project-root-function
+          (lambda ()
+            (when-let (project (project-current))
+              (car (project-roots project)))))
+    )
+#+end_src
+* Given multiple windows when edit
+** jump between windows
+#+begin_src emacs-lisp
+  (use-package ace-window
+    :ensure t
+    :config
+    (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+    (custom-set-faces
+     '(aw-leading-char-face
+       ((t (:inherit ace-jump-face-foreground :height 5.0)))))
+    :bind
+    ("M-o" . ace-window))
+#+end_src
+
+** v/h layout toggle
+#+begin_src emacs-lisp
+  (use-package transpose-frame
+    :ensure t)
+#+end_src
+** swap window
+~ace-swap-window~
+** save current windows layout
+will lose after emacs restart
+~window-configuration-to-register~
+** change size of windows
+|-------+-------------------------------|
+| C-x { | (shrink-window-horizontally)  |
+| C-x } | (enlarge-window-horizontally) |
+|-------+-------------------------------|
 
 * Given an ugly default appearance
 ** UI should be clear and modern
@@ -701,6 +782,15 @@ Only work with windowed emacs on macOS
     :ensure t
     :hook (after-init . solaire-global-mode))
 #+end_src
+* Given a source code file
+** Align non space                                                 :@script:
+#+begin_src emacs-lisp
+  (defun align-non-space (BEG END)
+    "Align non-space columns in region BEG END."
+    (interactive "r")
+    (align-regexp BEG END "\\(\\s-*\\)\\S-+" 1 1 t))
+#+end_src
+
 * Given a programming work
 ** Make matched parentheses clear and colored
 #+begin_src emacs-lisp
@@ -1220,7 +1310,8 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
    (use-package solidity-mode
      :ensure t)
  #+end_src
-* Given an org workspace
+* Given an org file
+** TODO basic setup
 #+begin_src emacs-lisp
   (use-package org
     :ensure t
@@ -1230,7 +1321,6 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
     (org-mode . teddy-ma/org-block-setup)
     (org-mode . teddy-ma/org-buffer-setup)
     :config
-    (setq org-log-into-drawer t)
     (setq org-startup-indented 'f)
     (setq org-special-ctrl-a/e 't)
     (setq org-startup-folded t)
@@ -1245,13 +1335,26 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
            ("\\.x?html?\\'" . "Chromium %s")))
     )
 #+end_src
-** I use org to do GTD
-*** I want to have custom todo sequence
+** Change level recusively
+M+S+ left/right
+** Quick insert code block
+#+begin_src emacs-lisp
+  (use-package company-org-block
+    :ensure t
+    :custom
+    (company-org-block-edit-style 'auto) ;; 'auto, 'prompt, or 'inline
+    :hook ((org-mode . (lambda ()
+                         (setq-local company-backends '(company-org-block))
+                         (company-mode +1)))))
+#+end_src
+* Given a todo list
+*** Custom todo sequence
 #+begin_src emacs-lisp
   (setq org-todo-keywords '((sequence "TODO" "DOING" "|" "DONE" "BLOCKED")))
 #+end_src
-*** I need to know when a task is done
+*** When a task is done
 #+begin_src emacs-lisp
+  (setq org-log-into-drawer t)
   (setq org-log-done 'time)
 #+end_src
 *** TODO I need a pomodoro
@@ -1263,7 +1366,8 @@ Save Org buffers after refiling!
 
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
 #+end_src
-*** Capture my task or idea
+* Given an org workflow
+** Capture my task or idea
 #+begin_src emacs-lisp
   (use-package org-capture
     :bind ("C-c c" . org-capture)
@@ -1279,7 +1383,7 @@ Save Org buffers after refiling!
                    (file+olp "~/Documents/org/work.org" "2021")
                    "* %?" :empty-lines 0)))
 #+end_src
-** I can easily open common files                                  :@script:
+** Easily open common files                                        :@script:
 #+begin_src emacs-lisp
   (defmacro defun-open-conf (config-name filepath)
     "Open conf macro.
@@ -1309,117 +1413,6 @@ Save Org buffers after refiling!
   ;; (set-register ?n (cons 'file "~/Documents/org/note.org"))
   ;; (set-register ?r (cons 'file "~/Documents/org/roam/index.org"))
 #+end_src
-** I love beautiful Org UI
-*** make headings colorful
-#+begin_src emacs-lisp
-  ;; (custom-set-faces
-  ;;  '(default     ((t (:foreground "#BBC2CF"))))
-  ;;  '(org-level-1 ((t (:foreground "#BF9D7A"))))
-  ;;  '(org-level-2 ((t (:foreground "#E4E9CD"))))
-  ;;  '(org-level-3 ((t (:foreground "#EBF2EA"))))
-  ;;  '(org-level-4 ((t (:foreground "#0ABDA0"))))
-  ;;  '(org-level-5 ((t (:foreground "#80ADD7")))))
-#+end_src
-*** Beautify Org heading symbol
-#+begin_src emacs-lisp
-   (use-package org-superstar
-     :ensure t
-     :hook (org-mode . org-superstar-mode))
-#+end_src
-*** Emoji Org tag
-#+begin_src emacs-lisp
-  (use-package org-pretty-tags
-    :diminish org-pretty-tags-mode
-    :ensure t
-    :config
-    (setq org-pretty-tags-surrogate-strings
-          '(
-            ("work"  . "⚒")
-            ("@pc" . "🖥")
-            ("@ps5" . "🎮")
-            ("@switch" . "🕹")
-            ("script" . "📝")
-            ))
-    (org-pretty-tags-global-mode))
-#+end_src
-*** Colorful todo stags
-#+begin_src emacs-lisp
-  (use-package hl-todo
-    :ensure t
-    :hook ((prog-mode org-mode) . teddy-ma/hl-todo-init)
-    :init
-    (defun teddy-ma/hl-todo-init ()
-      (setq-local hl-todo-keyword-faces '(("TODO" . "#ff9977")
-                                          ("DOING" . "#FF00BC")
-                                          ("DONE" . "#44bc44")
-                                          ("BLOCKED" . "#003366")
-                                          ))
-      (hl-todo-mode))
-    )
-#+end_src
-*** Org fancy Priorities
-#+begin_src emacs-lisp
-  (use-package org-fancy-priorities
-    :diminish
-    :ensure t
-    :hook (org-mode . org-fancy-priorities-mode)
-    :config
-    (setq org-fancy-priorities-list '("🅰" "🅱" "🅲" "🅳" "🅴")))
-#+end_src
-*** Fixed pitch font
-Set fixed pitch font for org (conflict with Chinese table)
-
-#+begin_src emacs-lisp
-  ;; conflict with chinese table in org
-  (defun teddy-ma/org-font-setup ()
-    ;;   (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
-    ;;   (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
-    ;;   (set-face-attribute 'org-table nil   :inherit '(shadow fixed-pitch))
-    ;;   (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-    ;;   (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-    ;;   (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-    ;;   (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
-    )
-#+end_src
-*** Completed tasks should be pierced through visually
-to intensify the sense of achievement.
-#+begin_src emacs-lisp
-  ;; (setq org-fontify-done-headline t)
-  ;; (set-face-attribute 'org-done nil :strike-through t)
-  ;; (set-face-attribute 'org-headline-done nil
-  ;;                     :strike-through t
-  ;;                     :foreground "light gray")
-#+end_src
-*** Custom org block style
-#+begin_src emacs-lisp
-  (defun teddy-ma/org-block-setup ()
-    (let ((background-color (face-background 'default))
-	  (foreground-color (face-foreground 'default))
-	  (primary-green "#60a83d"))
-      (set-face-attribute 'fringe nil :foreground foreground-color :background background-color)
-      (set-face-attribute 'org-indent nil :background nil :foreground nil)
-      (set-face-attribute 'org-block-begin-line nil :foreground primary-green :background nil)
-      (set-face-attribute 'org-block-end-line nil   :foreground primary-green :background nil))
-    )
-  ;;(set-face-attribute 'org-block nil :background "red")))
-  ;;(set-face-attribute 'org-level-2 nil :height 1.3 :background "#60a83d")
-#+end_src
-*** Ellipsis
-#+begin_src emacs-lisp
-  (setq org-hide-emphasis-markers nil)
-  (setq org-ellipsis " ▾") ;; ↴, ▼, ▶, ⤵, ▾
-#+end_src
-*** Beautify Org Checkbox Symbol
-#+begin_src emacs-lisp
-  (defun teddy-ma/org-buffer-setup ()
-    (push '("[ ]" . "☐" ) prettify-symbols-alist)
-    (push '("[X]" . "☑" ) prettify-symbols-alist)
-    (push '("[-]" . "❍" ) prettify-symbols-alist)
-    (prettify-symbols-mode)
-    )
-  ;; (setq-default prettify-symbols-alist '(("#+BEGIN_SRC" . "»") ("#+END_SRC" . "«")("#+begin_src" . "»") ("#+end_src" . "«") ("lambda"  . "λ") ("->" . "→") ("->>" . "↠")))
-#+end_src
-
 ** Exported html should have no default style
 I can style it myself
 #+begin_src emacs-lisp
@@ -1516,8 +1509,122 @@ server
           org-roam-server-network-label-wrap-length 20))
 #+end_src
 
-* Extras
-** check my writing sytle and spell                             :@dependent:
+* Given org UI
+** make headings colorful
+#+begin_src emacs-lisp
+  ;; (custom-set-faces
+  ;;  '(default     ((t (:foreground "#BBC2CF"))))
+  ;;  '(org-level-1 ((t (:foreground "#BF9D7A"))))
+  ;;  '(org-level-2 ((t (:foreground "#E4E9CD"))))
+  ;;  '(org-level-3 ((t (:foreground "#EBF2EA"))))
+  ;;  '(org-level-4 ((t (:foreground "#0ABDA0"))))
+  ;;  '(org-level-5 ((t (:foreground "#80ADD7")))))
+#+end_src
+** Beautify Org heading symbol
+#+begin_src emacs-lisp
+   (use-package org-superstar
+     :ensure t
+     :hook (org-mode . org-superstar-mode))
+#+end_src
+** Emoji Org tag
+#+begin_src emacs-lisp
+  (use-package org-pretty-tags
+    :diminish org-pretty-tags-mode
+    :ensure t
+    :config
+    (setq org-pretty-tags-surrogate-strings
+          '(
+            ("work"  . "⚒")
+            ("@pc" . "🖥")
+            ("@ps5" . "🎮")
+            ("@switch" . "🕹")
+            ("script" . "📝")
+            ))
+    (org-pretty-tags-global-mode))
+#+end_src
+** Colorful todo stags
+#+begin_src emacs-lisp
+  (use-package hl-todo
+    :ensure t
+    :hook ((prog-mode org-mode) . teddy-ma/hl-todo-init)
+    :init
+    (defun teddy-ma/hl-todo-init ()
+      (setq-local hl-todo-keyword-faces '(("TODO" . "#ff9977")
+                                          ("DOING" . "#FF00BC")
+                                          ("DONE" . "#44bc44")
+                                          ("BLOCKED" . "#003366")
+                                          ))
+      (hl-todo-mode))
+    )
+#+end_src
+** Org fancy Priorities
+#+begin_src emacs-lisp
+  (use-package org-fancy-priorities
+    :diminish
+    :ensure t
+    :hook (org-mode . org-fancy-priorities-mode)
+    :config
+    (setq org-fancy-priorities-list '("🅰" "🅱" "🅲" "🅳" "🅴")))
+#+end_src
+** Fixed pitch font
+Set fixed pitch font for org (conflict with Chinese table)
+
+#+begin_src emacs-lisp
+  ;; conflict with chinese table in org
+  (defun teddy-ma/org-font-setup ()
+    ;;   (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+    ;;   (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+    ;;   (set-face-attribute 'org-table nil   :inherit '(shadow fixed-pitch))
+    ;;   (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+    ;;   (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+    ;;   (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+    ;;   (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+    )
+#+end_src
+** Completed tasks should be pierced through visually
+to intensify the sense of achievement.
+#+begin_src emacs-lisp
+  ;; (setq org-fontify-done-headline t)
+  ;; (set-face-attribute 'org-done nil :strike-through t)
+  ;; (set-face-attribute 'org-headline-done nil
+  ;;                     :strike-through t
+  ;;                     :foreground "light gray")
+#+end_src
+** Custom org block style
+#+begin_src emacs-lisp
+  (defun teddy-ma/org-block-setup ()
+    (let ((background-color (face-background 'default))
+	  (foreground-color (face-foreground 'default))
+	  (primary-green "#60a83d"))
+      (set-face-attribute 'fringe nil :foreground foreground-color :background background-color)
+      (set-face-attribute 'org-indent nil :background nil :foreground nil)
+      (set-face-attribute 'org-block-begin-line nil :foreground primary-green :background nil)
+      (set-face-attribute 'org-block-end-line nil   :foreground primary-green :background nil))
+    )
+  ;;(set-face-attribute 'org-block nil :background "red")))
+  ;;(set-face-attribute 'org-level-2 nil :height 1.3 :background "#60a83d")
+#+end_src
+** Ellipsis
+#+begin_src emacs-lisp
+  (setq org-hide-emphasis-markers nil)
+  (setq org-ellipsis " ▾") ;; ↴, ▼, ▶, ⤵, ▾
+#+end_src
+** Beautify Org Checkbox Symbol
+#+begin_src emacs-lisp
+  (defun teddy-ma/org-buffer-setup ()
+    (push '("[ ]" . "☐" ) prettify-symbols-alist)
+    (push '("☑" . "☑" ) prettify-symbols-alist)
+    (push '("[-]" . "❍" ) prettify-symbols-alist)
+    (prettify-symbols-mode)
+    )
+  ;; (setq-default prettify-symbols-alist '(("#+BEGIN_SRC" . "»") ("#+END_SRC" . "«")("#+begin_src" . "»") ("#+end_src" . "«") ("lambda"  . "λ") ("->" . "→") ("->>" . "↠")))
+#+end_src
+* Given a Dired mode
+** Batch change file names
+in dired mode, embark-export and Edit, change file names and save
+* Given a git workflow
+* Given a writting job
+** Spell and syntax checker                                     :@dependent:
 need aspell to ispell (brew install aspell)
 #+begin_src emacs-lisp
   (setq ispell-program-name "aspell")
@@ -1537,8 +1644,7 @@ Proselint is an external program, install it with =pip install proselint= for th
               line-end))
     :modes (text-mode markdown-mode gfm-mode org-mode))
 #+end_src
-
-** I need Chinese input method                            :@dependent:
+** Chinese input method                            :@dependent:
 #+begin_src emacs-lisp
   (use-package pyim
     :ensure t
@@ -1567,6 +1673,14 @@ Proselint is an external program, install it with =pip install proselint= for th
     :bind
     (("M-j" . pyim-convert-string-at-point)))
 #+end_src
+** English Chinese Dictionary
+#+begin_src emacs-lisp
+  (use-package youdao-dictionary
+    :ensure t
+    :config
+    (setq url-automatic-caching t))
+#+end_src
+* Extras
 ** Drawing UMLL                                          :@dependent:
 need plantuml (brew install plantuml)
 #+begin_src emacs-lisp
@@ -1584,13 +1698,6 @@ need plantuml (brew install plantuml)
     (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
     (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2021.0/libexec/plantuml.jar"))
 #+END_SRC
-** English Chinese Dictionary
-#+begin_src emacs-lisp
-  (use-package youdao-dictionary
-    :ensure t
-    :config
-    (setq url-automatic-caching t))
-#+end_src
 ** Disk Usage
 #+begin_src emacs-lisp
   (use-package disk-usage

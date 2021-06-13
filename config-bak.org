@@ -262,13 +262,6 @@ https://github.com/Schnouki/dotfiles/blob/master/emacs/init-20-dev.el#L90
                 ("C-: C-r" . origami-reset)
                 ))
 #+end_src
-** Align non space                                                 :@script:
-#+begin_src emacs-lisp
-  (defun align-non-space (BEG END)
-    "Align non-space columns in region BEG END."
-    (interactive "r")
-    (align-regexp BEG END "\\(\\s-*\\)\\S-+" 1 1 t))
-#+end_src
 
 ** Dired                                                           :@script:
 preview file
@@ -313,13 +306,7 @@ dired hacks
       ))
 #+end_src
 
-** Wgrep
-wgrep allows you to edit a grep buffer and apply those changes to the file buffer like sed interactively.
-No need to learn sed script, just learn Emacs.
-#+begin_src emacs-lisp
-  (use-package wgrep
-    :ensure t)
-#+end_src
+
 ** Find file in cursor                                             :@script:
 #+begin_src emacs-lisp
   (defun teddy-ma/find-file-under-cursor ()
