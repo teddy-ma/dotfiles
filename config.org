@@ -76,6 +76,11 @@ The default is 800 kilobytes.  Measured in bytes.
   :pin melpa)
 #+end_src
 
+** subpress warning buffer
+#+begin_src emacs-lisp :lexical no
+  (setq native-comp-async-report-warnings-errors nil)
+#+end_src
+
 * Given an old school emacs user interface
 ** Answer y or n not yes or no
 #+begin_src emacs-lisp
@@ -1480,7 +1485,6 @@ Interactive agenda in the console https://github.com/rougier/agenda
     :custom
     (org-roam-directory "~/Documents/org/roam/")
     (org-roam-db-update-method 'immediate)
-    (org-roam-completion-system 'ivy)
     :bind
     (:map org-roam-mode-map
           (("C-c n l" . org-roam)
@@ -1489,24 +1493,6 @@ Interactive agenda in the console https://github.com/rougier/agenda
           :map org-mode-map
           (("C-c n i" . org-roam-insert))
           (("C-c n I" . org-roam-insert-immediate))))
-#+end_src
-
-server
-#+begin_src emacs-lisp
-  (use-package org-roam-server
-    :ensure t
-    :config
-    (setq org-roam-server-host "127.0.0.1"
-          org-roam-server-port 8686
-          org-roam-server-authenticate nil
-          org-roam-server-export-inline-images t
-          org-roam-server-serve-files nil
-          org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
-          org-roam-server-network-poll t
-          org-roam-server-network-arrows nil
-          org-roam-server-network-label-truncate t
-          org-roam-server-network-label-truncate-length 60
-          org-roam-server-network-label-wrap-length 20))
 #+end_src
 
 * Given org UI

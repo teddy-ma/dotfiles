@@ -10,13 +10,13 @@
 
 ## macOS prepare
 
-macOS 主要依赖 [thoughtbot 的 laptop](https://github.com/thoughtbot/laptop) 脚本进行初始化，然后配合 ownCloud 上储存的私有配置文件完成配置。
+macOS 主要依赖 [thoughtbot 的 laptop](https://github.com/thoughtbot/laptop) 脚本进行初始化，然后配合 Dropbox 上储存的私有配置文件完成配置。
 
   ```shell
   curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/mac
   sh mac 2>&1 | tee ~/laptop.log
 
-  brew install fish owncloud
+  brew install fish dropbox
 
   chsh -s /usr/local/bin/fish
 
@@ -28,7 +28,7 @@ macOS 主要依赖 [thoughtbot 的 laptop](https://github.com/thoughtbot/laptop)
 Linux 下只需要安装几个最基础的包
 
   ```shell
-  sudo pacman -Syu git fish ttf-inconsolata ttf-arphic-uming fzf owncloud-client
+  sudo pacman -Syu git fish ttf-inconsolata ttf-arphic-uming fzf
 
   git clone git@github.com:teddy-ma/dotfiles.git ~/.emacs.d/
   ```
