@@ -795,7 +795,17 @@ Only work with windowed emacs on macOS
     (interactive "r")
     (align-regexp BEG END "\\(\\s-*\\)\\S-+" 1 1 t))
 #+end_src
+** no tabs and show empty line
+#+begin_src emacs-lisp
+  (setq-default indent-tabs-mode nil)
+  (setq-default indicate-empty-lines nil)
+#+end_src
 
+Don't count two spaces after a period as the end of a sentence.
+Just one space is needed.
+#+begin_src emacs-lisp
+  (setq sentence-end-double-space nil)
+ #+end_src
 * Given a programming work
 ** Make matched parentheses clear and colored
 #+begin_src emacs-lisp
