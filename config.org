@@ -165,6 +165,7 @@ Will automated download images for the first time
 *** Icon support
 Run ~M-x all-the-icons-install-fonts~ to install fonts (only once)
 #+BEGIN_SRC emacs-lisp
+;; Emoji: 😄, 🤦, 🏴󠁧󠁢󠁳󠁣󠁴󠁿
   (use-package all-the-icons
     :ensure t
     :config
@@ -357,6 +358,9 @@ Hard to describe but a killer feature.
     :bind ("C-=" . er/expand-region))
 #+end_src
 
+** Zoom out && Zoom in
+C-x C-+   C-x C--
+
 ** Multiple cursors
 #+begin_src emacs-lisp
   (use-package iedit
@@ -424,6 +428,19 @@ M-<up> M-<down> to move line up and down
 #+begin_src emacs-lisp
   (delete-selection-mode t)
 #+end_src
+** Quick copy target word (and other operation)
+calling avy-goto-word-1 then press one key char and then press ~n~, and select target word
+
+(global-set-key (kbd "M-t") 'avy-goto-word-1)
+and a word that starts with a "w" and is select-able with "a". Here's what you can do now:
+
+M-t w a to jump there
+M-t w x a - avy-action-kill-move: kill the word and move there,
+M-t w X a - avy-action-kill-stay: kill the word without moving the point,
+M-t w i a - avy-action-ispell: use ispell/flyspell to correct the word,
+M-t w y a - avy-action-yank: yank the word at point,
+M-t w t a - avy-action-teleport: kill the word and yank it at point,
+M-t w z a - avy-action-zap-to-char: kill from point up to selected point.
 ** Undo many times and lost yourself?
 =undo-tree= visualises undo history as a tree for easy navigation.
 
@@ -512,7 +529,10 @@ will lose after emacs restart
 | C-x { | (shrink-window-horizontally)  |
 | C-x } | (enlarge-window-horizontally) |
 |-------+-------------------------------|
-
+** multiple windows show same file
+enable flow-mode and create new window (C-x 3)
+** kill selected window
+C-u C-u then calling ace-window
 * Given an ugly default appearance
 ** UI should be clear and modern
 *** There are too many bar of emacs default UI
@@ -1362,6 +1382,8 @@ M+S+ left/right
                          (setq-local company-backends '(company-org-block))
                          (company-mode +1)))))
 #+end_src
+** foucs on one org node
+C-x n s      # org-narrow-to-subtree (bound in org-mode)
 * Given a todo list
 *** Custom todo sequence
 #+begin_src emacs-lisp
@@ -1618,7 +1640,12 @@ to intensify the sense of achievement.
 * Given a Dired mode
 ** Batch change file names
 in dired mode, embark-export and Edit, change file names and save
-* Given a git workflow
+* Given a git repo
+** Delete local and remote branch
+Open the Magit status buffer (C-x g)
+Press y to get a listing of all branches and tags in the git repo
+Navigate to the branch you want to delete and press k
+
 * Given a writting job
 ** Spell and syntax checker                                     :@dependent:
 need aspell to ispell (brew install aspell)
