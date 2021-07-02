@@ -7,7 +7,7 @@
 #+SETUPFILE: http://www.songofcode.com/socss/org.setup
 
 * Given a vanilla emacs
-** to open this config file                :@script:
+** Open this config file                                           :@script:
 I can use ~C-c I~ to open this config file and ~C-c R~ to reload it.
 By the way, ~C-c i~ can open system config file.
 
@@ -31,12 +31,12 @@ By the way, ~C-c i~ can open system config file.
   (global-set-key (kbd "C-c R") 'reload-config)
 #+end_src
 
-** identity who I am?
+** Identity who I am?
 #+begin_src emacs-lisp
   (setq user-full-name "Teddy Ma"
         user-mail-address "mlc880926@gmail.com")
 #+end_src
-** install packages
+** Install packages
 Guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-package-manual.html
 
 #+begin_src emacs-lisp
@@ -52,7 +52,7 @@ Guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-pa
     (package-install 'use-package))
 #+end_src
 
-** have a single custom settings config file
+** Split custom settings config file
 Set up the customize file to its own separate file, instead of saving customize settings in [[file:init.el][init.el]].
 Try your best to make custom config clean.
 
@@ -61,7 +61,7 @@ Try your best to make custom config clean.
   (load custom-file)
 #+end_src
 
-** start emacs faster
+** Faster start
 *** Less garbage collection
 The default is 800 kilobytes.  Measured in bytes.
 #+begin_src emacs-lisp
@@ -76,7 +76,7 @@ The default is 800 kilobytes.  Measured in bytes.
   :pin melpa)
 #+end_src
 
-** subpress warning buffer
+** Subpress warning buffer
 #+begin_src emacs-lisp :lexical no
   (setq native-comp-async-report-warnings-errors nil)
 #+end_src
@@ -238,7 +238,7 @@ Suggest next keys to me based on currently entered key combination.
     (setq uniquify-ignore-buffers-re "^\\*"))
 #+end_src
 
-** Meta key is too far on macOS
+** Meta key is too far on mac layout keyboard
 *** make both command and option key to be meta key
 #+begin_src emacs-lisp
   (when (eq system-type 'darwin)
@@ -453,7 +453,7 @@ M-t w z a - avy-action-zap-to-char: kill from point up to selected point.
 #+END_SRC
 
 * Given multiple files (buffers) when edit
-** wgrep multi search result
+** Wgrep multi search result
 use ~consult-grep~ to get global search result, C-S-a (embark-act) and E to export and C-c C-p to use wgrep to edit,
 after saved, use ~wgrep-save-all-buffers~ to confirm change
 #+begin_src emacs-lisp
@@ -488,7 +488,7 @@ after saved, use ~wgrep-save-all-buffers~ to confirm change
     :ensure t)
 #+end_src
 
-** search & replace multi files
+** Search & replace multi files
 after get wgrep searched result, use single file replacement and save all buffer
 #+begin_src emacs-lisp
   (use-package consult
