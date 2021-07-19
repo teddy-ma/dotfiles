@@ -826,6 +826,7 @@ Just one space is needed.
 #+begin_src emacs-lisp
   (setq sentence-end-double-space nil)
  #+end_src
+
 * Given a programming work
 ** Make matched parentheses clear and colored
 #+begin_src emacs-lisp
@@ -1153,8 +1154,8 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
     :ensure t)
 #+end_src
 
-** Language Support
-*** Javascript
+* Given a programming language
+** Javascript
  In JS indent to 2 spaces.
  #+begin_src emacs-lisp
    (setq-default js-indent-level 2)
@@ -1199,17 +1200,17 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
      (after-js2-mode . prettier-js-mode)
      (after-rjsx-mode . prettier-js-mode))
  #+end_src
-*** Yaml
+** Yaml
  #+begin_src emacs-lisp
    (use-package yaml-mode
      :ensure t)
  #+end_src
-*** Toml
+** Toml
  #+begin_src emacs-lisp
    (use-package toml-mode
      :ensure t)
  #+end_src
-*** Markdown
+** Markdown
  Markdown support isn't built into Emacs, add it with =markdown-mode=.
  #+begin_src emacs-lisp
    (use-package markdown-mode
@@ -1220,7 +1221,7 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
             ("\\.markdown\\'" . markdown-mode))
      :init (setq markdown-command "multimarkdown"))
  #+end_src
-*** Lua
+** Lua
  #+begin_src emacs-lisp
    (use-package lua-mode
      :ensure t)
@@ -1228,7 +1229,7 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
    (use-package fennel-mode
      :ensure t)
  #+end_src
-*** Haskell
+** Haskell
  Install haskell mode.
  #+begin_src emacs-lisp
    (use-package haskell-mode
@@ -1241,7 +1242,7 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
      :ensure t)
  #+end_src
 
-*** Elixir
+** Elixir
  Elixir highlighting is not built into emacs at present. Elixir-mode gives all the usual niceties, and alchemist improves interaction with tools like =iex=, =mix= and =elixir-format=.
 
  #+begin_src emacs-lisp
@@ -1250,7 +1251,7 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
    (use-package alchemist
      :ensure t)
  #+end_src
-*** Ruby
+** Ruby
  #+begin_src emacs-lisp
    (use-package rake
      :ensure t)
@@ -1279,7 +1280,7 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
    (use-package minitest
      :ensure t)
  #+end_src
-*** C
+** C
  Emacs has a great built in C/C++ mode, but we can improve on it with =irony-mode= for code completion via =libclang=.
 
  #+begin_src emacs-lisp
@@ -1302,13 +1303,14 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
      :ensure t
      :hook (flycheck-mode . flycheck-irony-setup))
  #+end_src
-*** Rust
+** Rust
  #+begin_src emacs-lisp
    (use-package rust-mode
      :ensure t )
  #+end_src
-*** Web mode                                                     :@dependent:
- Web mode handles html/css/js.
+** Web mode                                                     :@dependent:
+Web mode handles html/css/js.
+
  #+begin_src emacs-lisp
    (use-package web-mode
      :ensure t
@@ -1317,6 +1319,9 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
      :config
      (setq web-mode-markup-indent-offset 2))
  #+end_src
+
+close tag
+C-c C-e /
 
  Web beautify prettifies html / css / js using js-beautify - install with =npm install -g js-beautify=.
  #+begin_src emacs-lisp
@@ -1340,11 +1345,12 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
    (use-package emmet-mode
      :ensure t)
  #+end_src
-*** Solidity
+** Solidity
  #+begin_src emacs-lisp
    (use-package solidity-mode
      :ensure t)
  #+end_src
+
 * Given an org file
 ** TODO basic setup
 #+begin_src emacs-lisp
@@ -1511,20 +1517,18 @@ Interactive agenda in the console https://github.com/rougier/agenda
 #+begin_src emacs-lisp
   (use-package org-roam
     :ensure t
-    :diminish org-roam-mode
-    :hook
-    (after-init . org-roam-mode)
     :custom
-    (org-roam-directory "~/Documents/org/roam/")
-    (org-roam-db-update-method 'immediate)
-    :bind
-    (:map org-roam-mode-map
-          (("C-c n l" . org-roam)
-           ("C-c n f" . org-roam-find-file)
-           ("C-c n g" . org-roam-graph))
-          :map org-mode-map
-          (("C-c n i" . org-roam-insert))
-          (("C-c n I" . org-roam-insert-immediate))))
+    (org-roam-directory (file-truename "~/Documents/org/roam/"))
+    :bind (("C-c n l" . org-roam-buffer-toggle)
+           ("C-c n f" . org-roam-node-find)
+           ("C-c n g" . org-roam-graph)
+           ("C-c n i" . org-roam-node-insert)
+           ("C-c n c" . org-roam-capture)
+           ;; Dailies
+           ("C-c n j" . org-roam-dailies-capture-today))
+    :config
+    (org-roam-setup)
+    )
 #+end_src
 
 * Given org UI
