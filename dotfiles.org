@@ -18,7 +18,7 @@
   # Install
 
   完成下面所写的准备工作后，只要打开 Emacs, 等待配置完成，输入 `C-i` 打开配置 `dotfiles.org` 文件，
-  使用 `C-c C-v t=` 就能生成各种 dotfiles 了。
+  使用 `C-c C-v t` 就能生成各种 dotfiles 了。
 
   ## macOS prepare
 
@@ -648,6 +648,7 @@ cask "tableplus"
 cask "telegram"
 cask "visual-studio-code"
 #+end_src
+
 * Neovim
 不太用 vim, 只有最基本的配置
 
@@ -1937,6 +1938,10 @@ set -x MOZ_ENABLE_WAYLAND 1
 #+begin_src sh
   ln -s ~/Dropbox/Config/Spoons ~/.hammerspoon
 #+end_src
+** Install fennel                                                  :@script:
+#+begin_src sh
+luarocks install fennel
+#+end_src
 ** Setup
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/init.lua" "no") :mkdirp "yes"
 hs.loadSpoon("AClock")
@@ -2905,7 +2910,7 @@ keycode 66 = Control_L
 add control = Control_L
 add Lock = Control_R
 #+end_src
-* Server
+* Server                                                            :@script:
 ** ownCloud
 使用 docker 起一个网盘
 
