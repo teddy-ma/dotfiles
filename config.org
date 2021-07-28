@@ -208,7 +208,6 @@ Run ~M-x all-the-icons-install-fonts~ to install fonts (only once)
     :config
     (package-loading-notifier-mode 1))
 #+end_src
-
 ** What if I forgot some shortcut, only remember the prefix key, any hint?
 Suggest next keys to me based on currently entered key combination.
 
@@ -1517,6 +1516,8 @@ Interactive agenda in the console https://github.com/rougier/agenda
 #+begin_src emacs-lisp
   (use-package org-roam
     :ensure t
+    :init
+    (setq org-roam-v2-ack t)
     :custom
     (org-roam-directory (file-truename "~/Documents/org/roam/"))
     :bind (("C-c n l" . org-roam-buffer-toggle)
@@ -1527,9 +1528,7 @@ Interactive agenda in the console https://github.com/rougier/agenda
            ;; Dailies
            ("C-c n j" . org-roam-dailies-capture-today))
     :config
-    (org-roam-setup)
-    (setq org-roam-v2-ack t)
-    )
+    (org-roam-setup))
 #+end_src
 
 * Given org UI
