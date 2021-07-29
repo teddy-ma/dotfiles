@@ -71,9 +71,7 @@ The default is 800 kilobytes.  Measured in bytes.
 *** How to measure it
 #+begin_src emacs-lisp
 (use-package esup
-  :ensure t
-  ;; To use MELPA Stable use ":pin melpa-stable",
-  :pin melpa)
+  :ensure t)
 #+end_src
 
 ** Subpress warning buffer
@@ -1351,7 +1349,7 @@ C-c C-e /
  #+end_src
 
 * Given an org file
-** TODO basic setup
+** Basic setup
 #+begin_src emacs-lisp
   (use-package org
     :ensure t
@@ -1378,6 +1376,7 @@ C-c C-e /
 ** Change level recusively
 M+S+ left/right
 ** Quick insert code block
+eg. press `<s` and select shell or src block
 #+begin_src emacs-lisp
   (use-package company-org-block
     :ensure t
@@ -1388,7 +1387,8 @@ M+S+ left/right
                          (company-mode +1)))))
 #+end_src
 ** foucs on one org node
-C-x n s      # org-narrow-to-subtree (bound in org-mode)
+org-narrow-to-subtree (bound in org-mode)
+~C-x n s~
 * Given a todo list
 *** Custom todo sequence
 #+begin_src emacs-lisp
