@@ -31,7 +31,7 @@ By the way, ~C-c i~ can open system config file.
   (global-set-key (kbd "C-c R") 'reload-config)
 #+end_src
 
-** Identity who I am?
+** Identity who am I?
 #+begin_src emacs-lisp
   (setq user-full-name "Teddy Ma"
         user-mail-address "mlc880926@gmail.com")
@@ -74,11 +74,6 @@ The default is 800 kilobytes.  Measured in bytes.
   :ensure t)
 #+end_src
 
-** Subpress warning buffer
-#+begin_src emacs-lisp :lexical no
-  (setq native-comp-async-report-warnings-errors nil)
-#+end_src
-
 * Given an old school emacs user interface
 ** Answer y or n not yes or no
 #+begin_src emacs-lisp
@@ -99,11 +94,11 @@ looks only macOS has this issue
        "SSH_AGENT_PID" "SSH_AUTH_SOCK" "SHELL"
        "JAVA_HOME")))
 #+end_src
-** No need to alway ask whether to follow symlinks
+** No more asking whether to follow symlinks
 #+begin_src emacs-lisp
   (setq vc-follow-symlinks t)
 #+end_src
-** No flash when error happen
+** No flash when error happens
 #+begin_src emacs-lisp
   (setq visible-bell nil)
 #+end_src
@@ -133,7 +128,7 @@ looks only macOS has this issue
   (setq backup-inhibited t)
   (setq backup-directory-alist `(("." . "~/.saves")))
 #+end_src
-** So move file to trash instead of removing is more safe
+** Move file to trash instead of delete it, it's more safe
 #+begin_src emacs-lisp
   (setq-default delete-by-moving-to-trash t)
 #+end_src
@@ -173,7 +168,7 @@ Run ~M-x all-the-icons-install-fonts~ to install fonts (only once)
     (set-fontset-font t 'symbol "Symbola" nil 'append))
 #+end_src
 
-** When code error happen, it's useful to show the cursor column
+** When code error happen, showing the cursor column is helpful
 #+begin_src emacs-lisp
   (column-number-mode t)
 #+end_src
@@ -187,7 +182,7 @@ Run ~M-x all-the-icons-install-fonts~ to install fonts (only once)
        (visual-fill-column-center-text t)
        (visual-fill-column-width 120))
    #+end_src
-*** Visual line should be default in modern editor
+** Long text of one line should be broken
     #+begin_src emacs-lisp
       (global-visual-line-mode 1)
     #+end_src
@@ -225,7 +220,7 @@ Suggest next keys to me based on currently entered key combination.
     which-key-mode)
 #+end_src
 
-** If more than one buffer has same name, how to identify them?
+** If more than one buffer have the same name, how to identify them?
 #+begin_src emacs-lisp
   (use-package uniquify
     :config
@@ -275,8 +270,8 @@ Suggest next keys to me based on currently entered key combination.
     (marginalia-mode))
 #+end_src
 * Given a file (buffer) when edit
-** How to move effectively in one buffer
-*** Move to beginning of line between head of line and head of text (head is blank)
+** Move effectively in one buffer
+*** Move to beginning of line between head of line and head of text (head with blank space)
 #+begin_src emacs-lisp
   (use-package crux
     :ensure t
@@ -284,7 +279,6 @@ Suggest next keys to me based on currently entered key combination.
            ("C-a" . crux-move-beginning-of-line)
            ))
   #+end_src
-
 *** Move to specific line (with preview and line number)
 #+begin_src emacs-lisp
   (use-package consult
@@ -292,8 +286,12 @@ Suggest next keys to me based on currently entered key combination.
     :bind
     (("M-g g" . consult-goto-line)))
 #+end_src
+*** Move to the beginning and end of buffer
+~M + <~  # beginning of buffer
+~M + >~  # end of buffer
 
-** How to search in one buffer
+** Search text in one buffer
+~M-s~ to search with key words
 #+begin_src emacs-lisp
   (use-package orderless
     :ensure t
@@ -313,14 +311,17 @@ Suggest next keys to me based on currently entered key combination.
     :config
     (global-anzu-mode +1))
 #+end_src
-** How to move effectively across buffers
+** Select from buffers
+~C-x b~ can select buffers with preview (including bookmarks and files)
 #+begin_src emacs-lisp
   (use-package consult
     :ensure t
     :bind
     (("C-x b" . consult-buffer)))
 #+end_src
-** How to rename or delete file and buffer
+** Rename or delete file with buffer
+~C-c r~ to rename file and buffer
+~C-c D~ to delte file and buffer
 #+begin_src emacs-lisp
   (use-package crux
     :ensure t
@@ -330,7 +331,8 @@ Suggest next keys to me based on currently entered key combination.
            ))
 #+end_src
 
-** How to delete consecutive space at once
+** Delete consecutive space at once
+enchance default backspace and C-d
 #+begin_src emacs-lisp
   (use-package smart-hungry-delete
     :ensure t
@@ -340,12 +342,12 @@ Suggest next keys to me based on currently entered key combination.
     :config (smart-hungry-delete-add-default-hooks))
 #+end_src
 
-** Never want whitespace at the end of lines. Remove it on save.
+** Never leave whitespace at the end of lines, remove it on save.
 #+begin_src emacs-lisp
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+end_src
 
-** How to easily expand selection?
+** Easily expand selection?
 =expand-region= expands the region around the cursor semantically depending on mode.
 Hard to describe but a killer feature.
 
@@ -356,7 +358,9 @@ Hard to describe but a killer feature.
 #+end_src
 
 ** Zoom out && Zoom in
-C-x C-+   C-x C--
+~C-x C-=~ Zoom in
+~C-x C--~ Zoom out
+~C-x 0~   Reset
 
 ** Multiple cursors
 #+begin_src emacs-lisp
@@ -397,7 +401,7 @@ C-x C-+   C-x C--
           (insert new-c)
           (replace-string new-c old-c nil (1+ start) end)))))
 #+end_src
-** How to easily swap two lines or two words location
+** Swap two lines or two words location
 M-<up> M-<down> to move line up and down
 #+begin_src emacs-lisp
   (use-package drag-stuff
@@ -407,7 +411,8 @@ M-<up> M-<down> to move line up and down
     (drag-stuff-global-mode t)
     (drag-stuff-define-keys))
 #+end_src
-** How to dumplicate current line or region
+** Dumplicate current line or region
+~C-S-d~ if marked region, dumplicate region else current line
 #+begin_src emacs-lisp
   (use-package crux
     :ensure t
@@ -1390,17 +1395,17 @@ eg. press `<s` and select shell or src block
 org-narrow-to-subtree (bound in org-mode)
 ~C-x n s~
 * Given a todo list
-*** Custom todo sequence
+** Custom todo sequence
 #+begin_src emacs-lisp
   (setq org-todo-keywords '((sequence "TODO" "DOING" "|" "DONE" "BLOCKED")))
 #+end_src
-*** When a task is done
+** When a task is done
 #+begin_src emacs-lisp
   (setq org-log-into-drawer t)
   (setq org-log-done 'time)
 #+end_src
-*** TODO I need a pomodoro
-*** After old task is done, archive (refiling) it
+** TODO I need a pomodoro
+** After old task is done, archive (refiling) it
 Save Org buffers after refiling!
 #+begin_src emacs-lisp
   (setq org-refile-targets
