@@ -901,17 +901,6 @@ I only want this in programming modes, and I don't want colour names to be highl
     (global-set-key (kbd "C-M-j") 'my-string-inflection-cycle-auto))
 #+end_src
 
-** Rails is my main job framework                                  :@script:
-***  Run test at point or test current file
- #+begin_src emacs-lisp
-   (defun run-rails-test-at-point ()
-     (interactive)
-     (compile (format "bundle exec rails test %s:%s" (expand-file-name (buffer-file-name))  (line-number-at-pos))))
-
-   (defun run-rails-test-file ()
-     (interactive)
-     (compile (format "bundle exec rails test %s" (expand-file-name (buffer-file-name)))))
- #+end_src
 ** Project management
 *** Projectile handles folders which are in version control.
 #+begin_src emacs-lisp
@@ -1156,12 +1145,13 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
 
 * Given a programming language
 ** Javascript
- In JS indent to 2 spaces.
+*** Indent 2 spaces.
  #+begin_src emacs-lisp
    (setq-default js-indent-level 2)
  #+end_src
 
- JS2 mode improves on the built in JS mode.
+*** Enchance JS mode
+JS2 mode improves on the built in JS mode.
  #+begin_src emacs-lisp
    (use-package js2-mode
      :ensure t
@@ -1170,7 +1160,8 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
      (setq-default js2-ignored-warnings '("msg.extra.trailing.comma")))
  #+end_src
 
- =js2-refactor= supports some useful refactoring options and builds on top of =js2-mode=.
+*** Refactor
+=js2-refactor= supports some useful refactoring options and builds on top of =js2-mode=.
  #+begin_src emacs-lisp
    (use-package js2-refactor
      :ensure t
@@ -1180,13 +1171,14 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
      (after-js-mode . js-refactor-mode))
  #+end_src
 
- RJSX mode makes JSX work well.
+*** RJSX mode makes JSX work well.
  #+begin_src emacs-lisp
    (use-package rjsx-mode
      :ensure t)
  #+end_src
 
- Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 and RJSX modes.
+*** Prettier
+Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 and RJSX modes.
  #+begin_src emacs-lisp
    (use-package prettier-js
      :ensure t
@@ -1201,16 +1193,19 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
      (after-rjsx-mode . prettier-js-mode))
  #+end_src
 ** Yaml
+*** sytnax highlight
  #+begin_src emacs-lisp
    (use-package yaml-mode
      :ensure t)
  #+end_src
 ** Toml
+*** sytnax highlight
  #+begin_src emacs-lisp
    (use-package toml-mode
      :ensure t)
  #+end_src
 ** Markdown
+*** sytnax highlight
  Markdown support isn't built into Emacs, add it with =markdown-mode=.
  #+begin_src emacs-lisp
    (use-package markdown-mode
@@ -1222,27 +1217,31 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
      :init (setq markdown-command "multimarkdown"))
  #+end_src
 ** Lua
+*** sytnax highlight
  #+begin_src emacs-lisp
    (use-package lua-mode
      :ensure t)
-
+#+end_src
+*** fennel support
+#+begin_src emacs-lisp
    (use-package fennel-mode
      :ensure t)
  #+end_src
 ** Haskell
- Install haskell mode.
+*** sytnax highlight
  #+begin_src emacs-lisp
    (use-package haskell-mode
      :ensure t)
  #+end_src
 
- Code formatting is easier with =hindent=.
+*** format
  #+begin_src emacs-lisp
    (use-package hindent
      :ensure t)
  #+end_src
 
 ** Elixir
+*** sytnax highlight
  Elixir highlighting is not built into emacs at present. Elixir-mode gives all the usual niceties, and alchemist improves interaction with tools like =iex=, =mix= and =elixir-format=.
 
  #+begin_src emacs-lisp
@@ -1252,6 +1251,7 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
      :ensure t)
  #+end_src
 ** Ruby
+*** basic
  #+begin_src emacs-lisp
    (use-package rake
      :ensure t)
@@ -1280,6 +1280,7 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
    (use-package minitest
      :ensure t)
  #+end_src
+*** Rails                                                         :@script:
 ** C
  Emacs has a great built in C/C++ mode, but we can improve on it with =irony-mode= for code completion via =libclang=.
 
@@ -1304,53 +1305,55 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
      :hook (flycheck-mode . flycheck-irony-setup))
  #+end_src
 ** Rust
+*** sytnax highlight
  #+begin_src emacs-lisp
    (use-package rust-mode
      :ensure t )
  #+end_src
 ** Web mode                                                     :@dependent:
+*** sytnax highlight
 Web mode handles html/css/js.
 
- #+begin_src emacs-lisp
+#+begin_src emacs-lisp
    (use-package web-mode
      :ensure t
      :mode (("\\.html\\'" . web-mode)
             ("\\.erb\\'" . web-mode))
      :config
      (setq web-mode-markup-indent-offset 2))
- #+end_src
+#+end_src
 
-close tag
+*** close tag
 C-c C-e /
 
+*** format
  Web beautify prettifies html / css / js using js-beautify - install with =npm install -g js-beautify=.
- #+begin_src emacs-lisp
-   (use-package web-beautify
-     :ensure t
-     :bind (:map web-mode-map
-                 ("C-c b" . web-beautify-html)
-                 :map js2-mode-map
-                 ("C-c b" . web-beautify-js)))
- #+end_src
+#+begin_src emacs-lisp
+  (use-package web-beautify
+    :ensure t
+    :bind (:map web-mode-map
+                ("C-c b" . web-beautify-html)
+                :map js2-mode-map
+                ("C-c b" . web-beautify-js)))
+#+end_src
+*** HTML preview
+#+begin_src emacs-lisp
+  (use-package impatient-mode
+    :ensure t)
+#+end_src
 
- HTML preview
- #+begin_src emacs-lisp
-   (use-package impatient-mode
-     :ensure t)
- #+end_src
-
- Emmet mode
- use C-j to expand it
- #+begin_src emacs-lisp
-   (use-package emmet-mode
-     :ensure t)
- #+end_src
+*** Quick insert
+Emmet mode use C-j to expand it
+#+begin_src emacs-lisp
+  (use-package emmet-mode
+    :ensure t)
+#+end_src
 ** Solidity
- #+begin_src emacs-lisp
-   (use-package solidity-mode
-     :ensure t)
- #+end_src
-
+*** sytnax highlight
+#+begin_src emacs-lisp
+  (use-package solidity-mode
+    :ensure t)
+#+end_src
 * Given an org file
 ** Basic setup
 #+begin_src emacs-lisp
