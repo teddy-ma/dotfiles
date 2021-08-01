@@ -490,8 +490,6 @@ after saved, use ~wgrep-save-all-buffers~ to confirm change
     :ensure t)
 #+end_src
 
-** Search & replace multi files
-after get wgrep searched result, use single file replacement and save all buffer
 #+begin_src emacs-lisp
   (use-package consult
     :ensure t
@@ -502,8 +500,9 @@ after get wgrep searched result, use single file replacement and save all buffer
               (car (project-roots project)))))
     )
 #+end_src
-* Given multiple windows when edit
+* Given multiple windows
 ** jump between windows
+~M-o~ if more than two windows, a leader key is needed
 #+begin_src emacs-lisp
   (use-package ace-window
     :ensure t
@@ -531,13 +530,14 @@ will lose after emacs restart
 | C-x { | (shrink-window-horizontally)  |
 | C-x } | (enlarge-window-horizontally) |
 |-------+-------------------------------|
-** multiple windows show same file
+** multiple windows show same file(buffer)
 enable flow-mode and create new window (C-x 3)
 ** kill selected window
-C-u C-u then calling ace-window
+press ~x~ when calling ace-window and select window
+many other actions https://github.com/abo-abo/ace-window#change-the-action-midway
 * Given an ugly default appearance
 ** UI should be clear and modern
-*** There are too many bar of emacs default UI
+*** There are too many bars
 no tool bar, no scroll bar, no menu bar, very clear
 #+begin_src emacs-lisp
   (tool-bar-mode -1)
@@ -606,7 +606,7 @@ It works fine with windows and org table in Chinese
   (use-package diminish
     :ensure t)
 #+end_src
-** In some case I want to hide the mode line                       :@script:
+** In some case I want to hide the mode line
 #+begin_src emacs-lisp
   (use-package hide-mode-line
     :ensure t)
@@ -734,7 +734,7 @@ https://gist.github.com/fhdhsni/990cba7794b4b6918afea94af0b30d66
     :ensure t)
 #+end_src
 
-** And can switch them (dark and light theme)
+** And can switch them (toggle dark and light theme)
 #+begin_src emacs-lisp
   (setq-default custom-enabled-themes '(kaolin-light))
 
@@ -809,7 +809,7 @@ Only works on windowed emacs on macOS
     :ensure t
     :hook (after-init . solaire-global-mode))
 #+end_src
-* Given a source code file
+* Given common programming work
 ** Align non space                                                 :@script:
 #+begin_src emacs-lisp
   (defun align-non-space (BEG END)
@@ -828,8 +828,6 @@ Just one space is needed.
 #+begin_src emacs-lisp
   (setq sentence-end-double-space nil)
  #+end_src
-
-* Given a programming work
 ** Make matched parentheses clear and colored
 #+begin_src emacs-lisp
   (show-paren-mode 1)
