@@ -74,6 +74,10 @@ The default is 800 kilobytes.  Measured in bytes.
   :ensure t)
 #+end_src
 
+** Subpress warning buffer
+#+begin_src emacs-lisp :lexical no
+  (setq native-comp-async-report-warnings-errors nil)
+#+end_src
 * Given an old school emacs user interface
 ** Answer y or n not yes or no
 #+begin_src emacs-lisp
@@ -1380,7 +1384,7 @@ Emmet mode use C-j to expand it
     )
 #+end_src
 ** Change level recusively
-M+S+ left/right
+M+S+<left/right>
 ** Quick insert code block
 eg. press `<s` and select shell or src block
 #+begin_src emacs-lisp
@@ -1400,12 +1404,20 @@ org-narrow-to-subtree (bound in org-mode)
 #+begin_src emacs-lisp
   (setq org-todo-keywords '((sequence "TODO" "DOING" "|" "DONE" "BLOCKED")))
 #+end_src
-** When a task is done
+** Log time when a task is done
 #+begin_src emacs-lisp
   (setq org-log-into-drawer t)
   (setq org-log-done 'time)
 #+end_src
-** TODO I need a pomodoro
+** I need a pomodoro
+~C-c C-x ;~ start
+~C-c C-x ,~ pause or continue
+~C-c C-x _~ stop
+#+begin_src emacs-lisp :lexical no
+  ;; (setq emacs-org-clock-sound-voice "~/Dropbox/Public/pomodoro-wei.wav")
+  ;; (if (file-exists-p emacs-org-clock-sound-voice)
+  ;;     (setq org-clock-sound emacs-org-clock-sound-voice))
+#+end_src
 ** After old task is done, archive (refiling) it
 Save Org buffers after refiling!
 #+begin_src emacs-lisp
