@@ -1284,7 +1284,23 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
    (use-package minitest
      :ensure t)
  #+end_src
-*** Rails                                                         :@script:
+*** Rails
+**** open latest migration file                                  :@script:
+ #+begin_src emacs-lisp
+   (defun teddy-ma/visit-last-dired-file ()
+     "Open the last file in an open dired buffer."
+     (interactive)
+     (end-of-buffer)
+     (previous-line)
+     (dired-find-file))
+
+   (defun teddy-ma/visit-last-migration ()
+     "Open the last file in 'db/migrate/'."
+     (interactive)
+     (dired (expand-file-name "db/migrate" (projectile-project-root)))
+     (teddy-ma/visit-last-dired-file)
+     (kill-buffer "migrate"))
+ #+end_src
 ** C
  Emacs has a great built in C/C++ mode, but we can improve on it with =irony-mode= for code completion via =libclang=.
 
@@ -1364,10 +1380,6 @@ Emmet mode use C-j to expand it
   (use-package org
     :ensure t
     :diminish org-indent-mode
-    :hook
-    (org-mode . teddy-ma/org-font-setup)
-    (org-mode . teddy-ma/org-block-setup)
-    (org-mode . teddy-ma/org-buffer-setup)
     :config
     (setq org-startup-indented 'f)
     (setq org-special-ctrl-a/e 't)
@@ -1658,6 +1670,16 @@ to intensify the sense of achievement.
     (prettify-symbols-mode)
     )
   ;; (setq-default prettify-symbols-alist '(("#+BEGIN_SRC" . "»") ("#+END_SRC" . "«")("#+begin_src" . "»") ("#+end_src" . "«") ("lambda"  . "λ") ("->" . "→") ("->>" . "↠")))
+#+end_src
+** Apply
+#+begin_src emacs-lisp :lexical no
+  (use-package org
+      :ensure t
+      :diminish org-indent-mode
+      :hook
+      (org-mode . teddy-ma/org-font-setup)
+      (org-mode . teddy-ma/org-block-setup)
+      (org-mode . teddy-ma/org-buffer-setup))
 #+end_src
 * Given a Dired mode
 ** Batch change file names
