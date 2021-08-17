@@ -273,6 +273,24 @@ Suggest next keys to me based on currently entered key combination.
     :init
     (marginalia-mode))
 #+end_src
+** Exit cleanly                                                    :@script:
+#+begin_src emacs-lisp :lexical no
+  (defun teddy-ma/clean-exit ()
+    "Exit Emacs cleanly.
+  If there are unsaved buffer, pop up a list for them to be saved
+  before existing. Replaces ‘save-buffers-kill-terminal’."
+    (interactive)
+    (if (frame-parameter nil 'client)
+        (server-save-buffers-kill-terminal arg)
+      (if-let ((buf-list (seq-filter (lambda (buf)
+                                       (and (buffer-modified-p buf)
+                                            (buffer-file-name buf)))
+                                     (buffer-list))))
+          (progn
+            (pop-to-buffer (list-buffers-noselect t buf-list))
+            (message "s to save, C-k to kill, x to execute"))
+        (save-buffers-kill-emacs))))
+#+end_src
 * Given a file (buffer) when edit
 ** Move effectively in one buffer
 *** Move to beginning of line between head of line and head of text (head with blank space)
