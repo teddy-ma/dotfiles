@@ -1036,11 +1036,8 @@ It's quite effective even with dynamic libraries like JS and Python.
 #+begin_src emacs-lisp
   (use-package magit
     :ensure t
-    :config
-    (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1)))
     :bind ("C-x g" . magit-status))
 #+end_src
-
 *** Display line changes in gutter based on git history. Enable it everywhere.
 #+begin_src emacs-lisp
   (use-package git-gutter
@@ -1048,12 +1045,6 @@ It's quite effective even with dynamic libraries like JS and Python.
     :diminish git-gutter-mode
     :config
     (global-git-gutter-mode t))
-#+end_src
-
-*** Magit Delta
-#+begin_src emacs-lisp
-  (use-package magit-delta
-    :ensure t)
 #+end_src
 
 *** TimeMachine lets us step through the history of a file as recorded in git.
