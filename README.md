@@ -6,7 +6,7 @@
 # Install
 
 完成下面所写的准备工作后，只要打开 Emacs, 等待配置完成，输入 `C-i` 打开配置 `dotfiles.org` 文件，
-使用 `C-c C-v t=` 就能生成各种 dotfiles 了。
+使用 `C-c C-v t` 就能生成各种 dotfiles 了。 `C-c C-v C-b` 可以执行 shell 命令。
 
 ## macOS prepare
 
