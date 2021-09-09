@@ -346,50 +346,6 @@ C-x-n-s and C-x-n-w can narrow to subtree
     (org-image-actual-width nil))
 #+end_src
 
-** Toggle side org file                                            :@script:
-#+begin_src emacs-lisp
-  (defun teddy-ma/toggle-side-org-buffer ()
-    "Toggle org file in a side buffer for quick note taking."
-    (interactive)
-    (teddy-ma/toggle-side-buffer-with-file "~/Documents/org/todo.org"))
-
-  (defun teddy-ma/buffer-visible-p (buffer)
-    "Check if given BUFFER is visible or not.  BUFFER is a string representing the buffer name."
-    (or
-     (eq buffer (window-buffer (selected-window)))
-        (get-buffer-window buffer)))
-
-  (defun teddy-ma/display-buffer-in-side-window (buffer)
-    "Just like `display-buffer-in-side-window' but only takes a BUFFER and rest of the parameters are for my taste."
-    (select-window
-     (display-buffer-in-side-window
-      buffer
-      (list (cons 'side 'right)
-            (cons 'slot 0)
-            (cons 'window-width 84)
-            (cons 'window-parameters
-                  (list (cons 'no-delete-other-windows t)
-                        (cons 'no-other-window nil)))))))
-
-  (defun teddy-ma/remove-window-with-buffer (the-buffer-name)
-    "Remove window containing given THE-BUFFER-NAME."
-    (mapc (lambda (window)
-            (when (string-equal (buffer-name (window-buffer window)) the-buffer-name)
-              (delete-window window)))
-          (window-list (selected-frame))))
-
-  (defun teddy-ma/toggle-side-buffer-with-file (file-path)
-    "Toggle FILE-PATH in a side buffer. The buffer is opened in side window so it can't be accidentaly removed."
-    (interactive)
-    (let ((fname (file-name-nondirectory file-path)))
-      (if (teddy-ma/buffer-visible-p fname)
-          (teddy-ma/remove-window-with-buffer fname)
-        (teddy-ma/display-buffer-in-side-window
-         (save-window-excursion
-           (find-file file-path)
-           (current-buffer))))))
-#+end_src
-
 ** LSP
 lsp mode
 
