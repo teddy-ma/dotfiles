@@ -869,7 +869,7 @@ Just one space is needed.
     :diminish
     smartparens-mode
     :hook
-    (after-prog-mode . smartparens-mode))
+    (prog-mode . smartparens-mode))
 #+end_src
 ** Highlight strings which represent colors
 I only want this in programming modes, and I don't want colour names to be highlighted (=x-colors=).
@@ -1555,8 +1555,7 @@ I can style it myself
      (ruby . t)
      (js .t )
      (lua .t )
-     (shell . t)
-     (plantuml . t)))
+     (shell . t)))
 #+end_src
 ** Insert org markup easily
 #+begin_src emacs-lisp
@@ -1773,7 +1772,7 @@ Proselint is an external program, install it with =pip install proselint= for th
               line-end))
     :modes (text-mode markdown-mode gfm-mode org-mode))
 #+end_src
-** Chinese input method                            :@dependent:
+** Chinese input method                                         :@dependent:
 #+begin_src emacs-lisp
   (use-package pyim
     :ensure t
@@ -1810,23 +1809,6 @@ Proselint is an external program, install it with =pip install proselint= for th
     (setq url-automatic-caching t))
 #+end_src
 * Extras
-** Drawing UMLL                                          :@dependent:
-need plantuml (brew install plantuml)
-#+begin_src emacs-lisp
-  ;;https://www.onwebsecurity.com/configuration/use-emacs-to-create-oauth-2-0-uml-sequence-diagrams.html
-  ;; tell org-mode where to find the plantuml JAR file (specify the JAR file)
-  (setq org-plantuml-jar-path (expand-file-name "/usr/local/Cellar/plantuml/1.2021.4/libexec/plantuml.jar"))
-
-  ;; automatically show the resulting image
-  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
-#+end_src
-#+BEGIN_SRC emacs-lisp
-  (when (eq system-type 'darwin)
-    (use-package plantuml-mode
-      :ensure t)
-    (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
-    (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2021.0/libexec/plantuml.jar"))
-#+END_SRC
 ** Disk Usage
 #+begin_src emacs-lisp
   (use-package disk-usage
