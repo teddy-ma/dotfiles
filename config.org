@@ -1391,17 +1391,19 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
 Web mode handles html/css/js.
 
 #+begin_src emacs-lisp
-   (use-package web-mode
-     :ensure t
-     :mode (("\\.html\\'" . web-mode)
-            ("\\.erb\\'" . web-mode))
-     :config
-     (setq web-mode-markup-indent-offset 2))
+  (use-package web-mode
+    :ensure t
+    :mode (("\\.html\\'" . web-mode)
+           ("\\.erb\\'" . web-mode))
+    :config
+    (setq web-mode-markup-indent-offset 2)
+    )
 #+end_src
 
 *** close tag
-C-c C-e /
-
+~C-c C-e /~
+*** jump between opening / closing HTML tags
+~C-c C-n~
 *** format
  Web beautify prettifies html / css / js using js-beautify - install with =npm install -g js-beautify=.
 #+begin_src emacs-lisp
@@ -1419,11 +1421,18 @@ C-c C-e /
 #+end_src
 
 *** Quick insert
-Emmet mode use C-j to expand it
+Emmet mode, use ~C-j~ to expand it
 #+begin_src emacs-lisp
   (use-package emmet-mode
     :ensure t)
 #+end_src
+*** Snippets
+(setq web-mode-extra-snippets
+      '(("erb" . (("toto" . "<% toto | %>\n\n<% end %>")))
+        ("php" . (("dowhile" . "<?php do { ?>\n\n<?php } while (|); ?>")
+                  ("debug" . "<?php error_log(__LINE__); ?>")))
+       ))
+
 ** Solidity
 *** sytnax highlight
 #+begin_src emacs-lisp
