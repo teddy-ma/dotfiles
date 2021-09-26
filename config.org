@@ -352,7 +352,6 @@ Suggest next keys to me based on currently entered key combination.
            ("C-c D" . crux-delete-file-and-buffer)
            ))
 #+end_src
-
 ** Delete consecutive space at once
 enchance default backspace and C-d
 #+begin_src emacs-lisp
@@ -431,7 +430,8 @@ M-<up> M-<down> to move line up and down
     :diminish drag-stuff-mode
     :config
     (drag-stuff-global-mode t)
-    (drag-stuff-define-keys))
+    (drag-stuff-define-keys)
+    (add-to-list 'drag-stuff-except-modes 'org-mode))
 #+end_src
 ** Dumplicate current line or region
 ~C-S-d~ if marked region, dumplicate region else current line
@@ -1433,19 +1433,15 @@ Emmet mode, use ~C-j~ to expand it
 *** Highlight matching tag
 ~web-mode-toggle-current-element-highlight~
 *** shortcuts
-C-c C-f toggle folding on a tag/block
-C-c C-e a select element content
-C-c C-e k element kill (useful when tag is complex)
-C-c C-d d show tag mismatch (check)
-C-c C-e w wrap element
-C-c C-e v element vanish(remove tag)
-M-; un/comment block
-** Solidity
-*** sytnax highlight
-#+begin_src emacs-lisp
-  (use-package solidity-mode
-    :ensure t)
-#+end_src
+| key       | description                                    |
+|-----------+------------------------------------------------|
+| C-c C-f   | toggle folding on a tag/block                  |
+| C-c C-e   | a select element content                       |
+| C-c C-e k | element kill (useful when html struct complex) |
+| C-c C-d d | show tag mismatch (check)                      |
+| C-c C-e w | wrap element                                   |
+| C-c C-e v | element vanish(remove tag)                     |
+| M-;       | un/comment block                               |
 * Given an org file
 ** Basic setup
 #+begin_src emacs-lisp
