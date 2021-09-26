@@ -1424,15 +1424,12 @@ Web mode handles html/css/js.
 Emmet mode, use ~C-j~ to expand it
 #+begin_src emacs-lisp
   (use-package emmet-mode
-    :ensure t)
+    :ensure t
+    :config
+    (add-hook 'web-mode-hook  'emmet-mode)
+    (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+    )
 #+end_src
-*** Snippets
-(setq web-mode-extra-snippets
-      '(("erb" . (("toto" . "<% toto | %>\n\n<% end %>")))
-        ("php" . (("dowhile" . "<?php do { ?>\n\n<?php } while (|); ?>")
-                  ("debug" . "<?php error_log(__LINE__); ?>")))
-       ))
-
 ** Solidity
 *** sytnax highlight
 #+begin_src emacs-lisp
