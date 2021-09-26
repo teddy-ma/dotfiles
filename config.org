@@ -1400,7 +1400,7 @@ Web mode handles html/css/js.
     )
 #+end_src
 
-*** close tag
+*** close tag manually
 ~C-c C-e /~
 *** jump between opening / closing HTML tags
 ~C-c C-n~
@@ -1430,6 +1430,16 @@ Emmet mode, use ~C-j~ to expand it
     (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
     )
 #+end_src
+*** Highlight matching tag
+~web-mode-toggle-current-element-highlight~
+*** shortcuts
+C-c C-f toggle folding on a tag/block
+C-c C-e a select element content
+C-c C-e k element kill (useful when tag is complex)
+C-c C-d d show tag mismatch (check)
+C-c C-e w wrap element
+C-c C-e v element vanish(remove tag)
+M-; un/comment block
 ** Solidity
 *** sytnax highlight
 #+begin_src emacs-lisp
