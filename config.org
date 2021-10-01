@@ -37,21 +37,28 @@ By the way, ~C-c i~ can open system config file.
         user-mail-address "mlc880926@gmail.com")
 #+end_src
 ** Install packages
-Guide about use-package https://phenix3443.github.io/notebook/emacs/modes/use-package-manual.html
-
+straight.el
 #+begin_src emacs-lisp
-  (require 'package)
-  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                           ("org" . "https://orgmode.org/elpa/")
-                           ("elpa" . "https://elpa.gnu.org/packages/")))
-  (package-initialize)
-  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-  (setq package-check-signature nil) ;; if ssl error occur, uncomment this line
-  (unless (package-installed-p 'use-package)
-    (package-refresh-contents)
-    (package-install 'use-package))
-#+end_src
+  (defvar bootstrap-version)
+  (let ((bootstrap-file
+         (expand-file-name
+          "straight/repos/straight.el/bootstrap.el"
+          user-emacs-directory))
+        (bootstrap-version 5))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+          (url-retrieve-synchronously
+           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+           'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
 
+  ;;; Integration with use-package
+  (straight-use-package 'use-package)
+
+  (setq straight-use-package-by-default t)
+#+end_src
 ** Split custom settings config file
 Set up the customize file to its own separate file, instead of saving customize settings in [[file:init.el][init.el]].
 Try your best to make custom config clean.
@@ -71,7 +78,7 @@ The default is 800 kilobytes.  Measured in bytes.
 *** How to measure it
 #+begin_src emacs-lisp
 (use-package esup
-  :ensure t)
+  :straight t)
 #+end_src
 
 ** Subpress warning buffer
@@ -87,7 +94,7 @@ The default is 800 kilobytes.  Measured in bytes.
 looks only macOS has this issue
 #+begin_src emacs-lisp
   (use-package exec-path-from-shell
-    :ensure t
+    :straight t
     :if (memq window-system '(mac ns))
     :config
     (setq exec-path-from-shell-arguments '("-l"))
@@ -115,7 +122,7 @@ looks only macOS has this issue
 *** Light with shine when window scroll
 #+begin_src emacs-lisp
   (use-package beacon
-    :ensure t
+    :straight t
     :init
     (beacon-mode 1))
 #+end_src
@@ -155,7 +162,7 @@ looks only macOS has this issue
 Will automated download images for the first time
 #+begin_src emacs-lisp
   (use-package emojify
-    :ensure t
+    :straight t
     :hook (after-init . global-emojify-mode))
 #+end_src
 
@@ -164,7 +171,7 @@ Run ~M-x all-the-icons-install-fonts~ to install fonts (only once)
 #+BEGIN_SRC emacs-lisp
 ;; Emoji: 😄, 🤦, 🏴󠁧󠁢󠁳󠁣󠁴󠁿
   (use-package all-the-icons
-    :ensure t
+    :straight t
     :config
     (set-fontset-font t 'symbol "Apple Color Emoji")
     (set-fontset-font t 'symbol "Noto Color Emoji" nil 'append)
@@ -180,7 +187,7 @@ Run ~M-x all-the-icons-install-fonts~ to install fonts (only once)
 ** Leave some padding of text in windows
    #+begin_src emacs-lisp
      (use-package visual-fill-column
-       :ensure t
+       :straight t
        :hook (org-mode . visual-fill-column-mode)
        :custom
        (visual-fill-column-center-text t)
@@ -194,14 +201,14 @@ Run ~M-x all-the-icons-install-fonts~ to install fonts (only once)
 ** Restore previous window layout
 #+begin_src emacs-lisp
   (use-package winner-mode
-    :ensure nil
+    :straight nil
     :hook (after-init . winner-mode))
 #+end_src
 
 ** Notify when package loading
 #+begin_src emacs-lisp
   (use-package package-loading-notifier
-    :ensure t
+    :straight t
     :config
     (package-loading-notifier-mode 1))
 #+end_src
@@ -210,7 +217,7 @@ Suggest next keys to me based on currently entered key combination.
 
 #+begin_src emacs-lisp
   (use-package which-key
-    :ensure t
+    :straight t
     :init
     (which-key-mode 1)
     :config
@@ -227,6 +234,7 @@ Suggest next keys to me based on currently entered key combination.
 ** If more than one buffer have the same name, how to identify them?
 #+begin_src emacs-lisp
   (use-package uniquify
+    :straight nil
     :config
     (setq uniquify-buffer-name-style 'reverse)
     (setq uniquify-separator " • ")
@@ -252,7 +260,7 @@ Suggest next keys to me based on currently entered key combination.
 ** Typing full command name is hard, why not make selection from list of items
 #+begin_src emacs-lisp
   (use-package vertico
-    :ensure t
+    :straight t
     :init
     (vertico-mode))
 #+end_src
@@ -267,7 +275,7 @@ Suggest next keys to me based on currently entered key combination.
 #+begin_src emacs-lisp
   (use-package marginalia
     :after vertico
-    :ensure t
+    :straight t
     :custom
     (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
     :init
@@ -291,12 +299,20 @@ Suggest next keys to me based on currently entered key combination.
             (message "s to save, C-k to kill, x to execute"))
         (save-buffers-kill-emacs))))
 #+end_src
+** I need power
+#+begin_src emacs-lisp :lexical no
+  (use-package power-mode
+    :straight '(power-mode :host github
+                           :branch "main"
+                           :repo "elizagamedev/power-mode.el")
+  )
+#+end_src
 * Given a file (buffer) when edit
 ** Move effectively in one buffer
 *** Move to beginning of line between head of line and head of text (head with blank space)
 #+begin_src emacs-lisp
   (use-package crux
-    :ensure t
+    :straight t
     :bind (
            ("C-a" . crux-move-beginning-of-line)
            ))
@@ -304,7 +320,7 @@ Suggest next keys to me based on currently entered key combination.
 *** Move to specific line (with preview and line number)
 #+begin_src emacs-lisp
   (use-package consult
-    :ensure t
+    :straight t
     :bind
     (("M-g g" . consult-goto-line)))
 #+end_src
@@ -316,12 +332,12 @@ Suggest next keys to me based on currently entered key combination.
 ~M-s~ to search with key words
 #+begin_src emacs-lisp
   (use-package orderless
-    :ensure t
+    :straight t
     :custom
     (completion-styles '(orderless)))
 
   (use-package consult
-    :ensure t
+    :straight t
     :bind
     (("M-s" . consult-line)))
 #+end_src
@@ -329,7 +345,7 @@ Suggest next keys to me based on currently entered key combination.
 ~anzu-query-replace~ command, ~y~ to replace and ~n~ to skip
 #+begin_src emacs-lisp
   (use-package anzu
-    :ensure t
+    :straight t
     :config
     (global-anzu-mode +1))
 #+end_src
@@ -337,7 +353,7 @@ Suggest next keys to me based on currently entered key combination.
 ~C-x b~ can select buffers with preview (including bookmarks and files)
 #+begin_src emacs-lisp
   (use-package consult
-    :ensure t
+    :straight t
     :bind
     (("C-x b" . consult-buffer)))
 #+end_src
@@ -346,7 +362,7 @@ Suggest next keys to me based on currently entered key combination.
 ~C-c D~ to delte file and buffer
 #+begin_src emacs-lisp
   (use-package crux
-    :ensure t
+    :straight t
     :bind (
            ("C-c r" . crux-rename-file-and-buffer)
            ("C-c D" . crux-delete-file-and-buffer)
@@ -356,7 +372,7 @@ Suggest next keys to me based on currently entered key combination.
 enchance default backspace and C-d
 #+begin_src emacs-lisp
   (use-package smart-hungry-delete
-    :ensure t
+    :straight t
     :bind (("<backspace>" . smart-hungry-delete-backward-char)
            ("C-d" . smart-hungry-delete-forward-char))
     :defer nil ;; dont defer so we can add our functions to hooks
@@ -374,7 +390,7 @@ Hard to describe but a killer feature.
 
 #+begin_src emacs-lisp
   (use-package expand-region
-    :ensure t
+    :straight t
     :bind ("C-=" . er/expand-region))
 #+end_src
 
@@ -386,9 +402,9 @@ Hard to describe but a killer feature.
 ** Multiple cursors
 #+begin_src emacs-lisp
   (use-package iedit
-    :ensure t)
+    :straight t)
   (use-package multiple-cursors
-    :ensure t
+    :straight t
     :config
     (global-unset-key (kbd "M-<down-mouse-1>"))
     (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
@@ -426,7 +442,7 @@ Hard to describe but a killer feature.
 M-<up> M-<down> to move line up and down
 #+begin_src emacs-lisp
   (use-package drag-stuff
-    :ensure t
+    :straight t
     :diminish drag-stuff-mode
     :config
     (drag-stuff-global-mode t)
@@ -437,7 +453,7 @@ M-<up> M-<down> to move line up and down
 ~C-S-d~ if marked region, dumplicate region else current line
 #+begin_src emacs-lisp
   (use-package crux
-    :ensure t
+    :straight t
     :bind (
            ("C-S-d" . crux-duplicate-current-line-or-region)
            ))
@@ -446,7 +462,7 @@ M-<up> M-<down> to move line up and down
 ** I remap capslock to ctrl, how can I simulate capslock key?
 #+begin_src emacs-lisp
   (use-package caps-lock
-    :ensure t)
+    :straight t)
 #+end_src
 ** By default emacs will not delete selection text when typing on it, let's fix it
 #+begin_src emacs-lisp
@@ -470,11 +486,46 @@ M-t w z a - avy-action-zap-to-char: kill from point up to selected point.
 
 #+BEGIN_SRC emacs-lisp
   (use-package undo-tree
-    :ensure t
+    :straight t
     :diminish undo-tree-mode
     :config
     (global-undo-tree-mode 1))
 #+END_SRC
+** Magnifying current line when showing content to other poeple
+#+begin_src emacs-lisp
+  (defun magnifying-current-line ()
+    (setq magnifying-overlay (make-overlay (line-beginning-position) (line-end-position)))
+    (overlay-put magnifying-overlay 'font-lock-face '(:height 2.5)))
+
+  (defun magnifying-restore-line ()
+    (dolist (o (overlays-in  (line-beginning-position) (line-end-position)))
+      (delete-overlay o)))
+
+  (define-minor-mode magnifying-mode
+    "Toggles global magnifying-mode."
+    nil   ; Initial value, nil for disabled
+    :global t
+    :group 'magnifying
+    :lighter " magnifying"
+    :keymap
+    (list
+     (cons (kbd "C-c t") (lambda ()
+                           (interactive)
+                           (magnifying-current-line)))
+
+     (cons (kbd "C-c m") (lambda ()
+                           (interactive)
+                           (magnifying-restore-line)))
+     )
+
+    (if magnifying-mode
+        (message "magnifying-mode activated!")
+      (message "magnifying-mode deactivated!")))
+
+  (add-hook 'magnifying-mode-hook (lambda () (message "magnifying hook was executed!")))
+  (add-hook 'magnifying-mode-on-hook (lambda () (message "magnifying turned on!")))
+  (add-hook 'magnifying-mode-off-hook (lambda () (message "magnifying turned off!")))
+#+end_src
 
 * Given multiple files (buffers) when edit
 ** Wgrep multi search result
@@ -482,7 +533,7 @@ use ~consult-grep~ to get global search result, C-S-a (embark-act) and E to expo
 after saved, use ~wgrep-save-all-buffers~ to confirm change
 #+begin_src emacs-lisp
   (use-package embark
-    :ensure t
+    :straight t
     :bind
     (("C-S-a" . embark-act)       ;; pick some comfortable binding
      ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
@@ -498,7 +549,7 @@ after saved, use ~wgrep-save-all-buffers~ to confirm change
 
   ;; Consult users will also want the embark-consult package.
   (use-package embark-consult
-    :ensure t
+    :straight t
     :after (embark consult)
     :demand t ; only necessary if you have the hook below
     ;; if you want to have consult previews as you move around an
@@ -509,12 +560,12 @@ after saved, use ~wgrep-save-all-buffers~ to confirm change
   ;; wgrep allows you to edit a grep buffer and apply those changes to the file buffer like sed interactively.
   ;; No need to learn sed script, just learn Emacs.
   (use-package wgrep
-    :ensure t)
+    :straight t)
 #+end_src
 
 #+begin_src emacs-lisp
   (use-package consult
-    :ensure t
+    :straight t
     :config
     (setq consult-project-root-function
           (lambda ()
@@ -527,7 +578,7 @@ after saved, use ~wgrep-save-all-buffers~ to confirm change
 ~M-o~ if more than two windows, a leader key is needed
 #+begin_src emacs-lisp
   (use-package ace-window
-    :ensure t
+    :straight t
     :config
     (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
     (custom-set-faces
@@ -540,7 +591,7 @@ after saved, use ~wgrep-save-all-buffers~ to confirm change
 ** v/h layout toggle
 #+begin_src emacs-lisp
   (use-package transpose-frame
-    :ensure t)
+    :straight t)
 #+end_src
 ** swap window
 ~ace-swap-window~
@@ -585,7 +636,7 @@ no tool bar, no scroll bar, no menu bar, very clear
 #+begin_src emacs-lisp
   (setq emacs-banner "~/Dropbox/Photos/emacs-banner.png")
   (use-package dashboard
-    :ensure t
+    :straight t
     :config
     (dashboard-setup-startup-hook)
     (if (file-exists-p emacs-banner)
@@ -626,17 +677,17 @@ It works fine with windows and org table in Chinese
 ** No need to display all the minor mode name
 #+begin_src emacs-lisp
   (use-package diminish
-    :ensure t)
+    :straight t)
 #+end_src
 ** In some case I want to hide the mode line
 #+begin_src emacs-lisp
   (use-package hide-mode-line
-    :ensure t)
+    :straight t)
 #+end_src
 ** Nyan Cat is lovely, it can live on mode line
 #+begin_src emacs-lisp
   (use-package nyan-mode
-    :ensure t
+    :straight t
     :init
     (setq nyan-animate-nyancat t)
     (setq nyan-wavy-trail t)
@@ -753,7 +804,7 @@ https://gist.github.com/fhdhsni/990cba7794b4b6918afea94af0b30d66
 ** I want a light theme and a dark theme                           :@script:
 #+begin_src emacs-lisp
   (use-package kaolin-themes
-    :ensure t)
+    :straight t)
 #+end_src
 
 ** And can switch them (toggle dark and light theme)
@@ -817,7 +868,7 @@ Only works on windowed emacs on macOS
     (seethru-relative -10))
 
   (use-package seethru
-    :ensure t
+    :straight t
     :bind
     (("C-c 9" . increase-transparency)
      ("C-c 8" . decrease-transparency))
@@ -828,7 +879,7 @@ Only works on windowed emacs on macOS
 ** Long may the sun shine!
 #+begin_src emacs-lisp
   (use-package solaire-mode
-    :ensure t
+    :straight t
     :hook (after-init . solaire-global-mode))
 #+end_src
 * Given common programming work
@@ -857,7 +908,7 @@ Just one space is needed.
 
 #+begin_src emacs-lisp
   (use-package rainbow-delimiters
-    :ensure t
+    :straight t
     :config
     (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 #+end_src
@@ -865,7 +916,7 @@ Just one space is needed.
 ** Keep parentheses balanced
 #+begin_src emacs-lisp
   (use-package smartparens
-    :ensure t
+    :straight t
     :diminish
     smartparens-mode
     :hook
@@ -875,7 +926,7 @@ Just one space is needed.
 I only want this in programming modes, and I don't want colour names to be highlighted (=x-colors=).
 #+begin_src emacs-lisp
   (use-package rainbow-mode
-    :ensure t
+    :straight t
     :config
     (setq rainbow-x-colors nil))
 #+end_src
@@ -883,13 +934,13 @@ I only want this in programming modes, and I don't want colour names to be highl
 ** Auto indented code when edit
 #+begin_src emacs-lisp
   (use-package aggressive-indent
-    :ensure t)
+    :straight t)
 #+end_src
 
 ** Support editorconfig config file.
 #+begin_src emacs-lisp
   (use-package editorconfig
-    :ensure t
+    :straight t
     :diminish editorconfig-mode
     :config
     (editorconfig-mode 1))
@@ -898,7 +949,7 @@ I only want this in programming modes, and I don't want colour names to be highl
 ** Format all
 #+begin_src emacs-lisp
   (use-package format-all
-    :ensure t)
+    :straight t)
 #+end_src
 
 ** Underscore -> UPCASE -> CamelCase conversion
@@ -918,7 +969,7 @@ I only want this in programming modes, and I don't want colour names to be highl
       (string-inflection-all-cycle))))
 
   (use-package string-inflection
-    :ensure t
+    :straight t
     :config
     (global-set-key (kbd "C-M-j") 'my-string-inflection-cycle-auto))
 #+end_src
@@ -927,7 +978,7 @@ I only want this in programming modes, and I don't want colour names to be highl
 *** Projectile handles folders which are in version control.
 #+begin_src emacs-lisp
   (use-package projectile
-    :ensure t
+    :straight t
     :config
     (projectile-mode +1)
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
@@ -938,7 +989,7 @@ I only want this in programming modes, and I don't want colour names to be highl
 *** Neotree provide a sidebar of project files
 #+begin_src emacs-lisp
   (use-package neotree
-    :ensure t
+    :straight t
     :config
     (defun neotree-project-tree-open ()
       (interactive)
@@ -990,13 +1041,13 @@ I only want this in programming modes, and I don't want colour names to be highl
 =fzf= is a fuzzy file finder which is very quick.
 #+begin_src emacs-lisp
   (use-package fzf
-    :ensure t)
+    :straight t)
 #+end_src
 ** Deadgrep
 You can now edit files directly from results buffers with M-x deadgrep-edit-mode.
 #+begin_src emacs-lisp
   (use-package deadgrep
-    :ensure t)
+    :straight t)
 #+end_src
 ** Open File with Line Number                                      :@script:
 Open files and goto lines like we see from g++ etc. i.e. Gemfile:12
@@ -1024,7 +1075,7 @@ It's quite effective even with dynamic libraries like JS and Python.
 
 #+begin_src emacs-lisp
   (use-package dumb-jump
-    :ensure t
+    :straight t
     :diminish dumb-jump-mode
     :bind (("C-M-g" . dumb-jump-go)
            ("C-M-p" . dumb-jump-back)
@@ -1035,13 +1086,13 @@ It's quite effective even with dynamic libraries like JS and Python.
 *** Magit is an awesome interface to git. Summon it with `C-x g`.
 #+begin_src emacs-lisp
   (use-package magit
-    :ensure t
+    :straight t
     :bind ("C-x g" . magit-status))
 #+end_src
 *** Display line changes in gutter based on git history. Enable it everywhere.
 #+begin_src emacs-lisp
   (use-package git-gutter
-    :ensure t
+    :straight t
     :diminish git-gutter-mode
     :config
     (global-git-gutter-mode t))
@@ -1050,7 +1101,7 @@ It's quite effective even with dynamic libraries like JS and Python.
 *** TimeMachine lets us step through the history of a file as recorded in git.
 #+begin_src emacs-lisp
   (use-package git-timemachine
-    :ensure t)
+    :straight t)
 #+end_src
 
 *** bind =M-p -= to list all git repos in some folder
@@ -1072,7 +1123,7 @@ Setup is pretty simple - we just enable globally and turn on a custom eslint fun
 
 #+begin_src emacs-lisp
   (use-package flycheck
-    :ensure t
+    :straight t
     :config
     (add-hook 'after-init-hook 'global-flycheck-mode)
     (add-to-list 'flycheck-checkers 'proselint)
@@ -1115,7 +1166,7 @@ Setup is pretty simple - we just enable globally and turn on a custom eslint fun
 ** Color Identifier
 #+begin_src emacs-lisp
   (use-package color-identifiers-mode
-    :ensure t
+    :straight t
     :commands color-identifiers-mode)
 #+end_src
 ** Autocomplete
@@ -1123,14 +1174,14 @@ Company mode provides good autocomplete options. Perhaps I should add company-qu
 It would also be good to improve integration with yasnippet as I don't feel I'm making the best use there.
 #+begin_src emacs-lisp
   (use-package company
-    :ensure t
+    :straight t
     :config
     (add-hook 'after-init-hook 'global-company-mode)
 
     (setq company-idle-delay t)
 
     (use-package company-anaconda
-      :ensure t
+      :straight t
       :config
       (add-to-list 'company-backends 'company-anaconda)))
 #+end_src
@@ -1145,7 +1196,7 @@ Type the shortcut and press =TAB= to complete, or =M-/= to autosuggest a snippet
 http://ergoemacs.org/emacs/yasnippet_templates_howto.html
 #+begin_src emacs-lisp
   (use-package yasnippet
-    :ensure t
+    :straight t
     :diminish yas-minor-mode
     :config
     (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
@@ -1153,7 +1204,7 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
     (global-set-key (kbd "M-/") 'company-yasnippet))
 
   (use-package yasnippet-snippets
-    :ensure t)
+    :straight t)
 #+end_src
 
 ** Toggle side org file to take note                               :@script:
@@ -1209,7 +1260,7 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
 JS2 mode improves on the built in JS mode.
  #+begin_src emacs-lisp
    (use-package js2-mode
-     :ensure t
+     :straight t
      :mode "\\.js\\'"
      :config
      (setq-default js2-ignored-warnings '("msg.extra.trailing.comma")))
@@ -1219,7 +1270,7 @@ JS2 mode improves on the built in JS mode.
 =js2-refactor= supports some useful refactoring options and builds on top of =js2-mode=.
  #+begin_src emacs-lisp
    (use-package js2-refactor
-     :ensure t
+     :straight t
      :config
      (js2r-add-keybindings-with-prefix "C-c C-m")
      :hook
@@ -1229,14 +1280,14 @@ JS2 mode improves on the built in JS mode.
 *** RJSX mode makes JSX work well.
  #+begin_src emacs-lisp
    (use-package rjsx-mode
-     :ensure t)
+     :straight t)
  #+end_src
 
 *** Prettier
 Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 and RJSX modes.
  #+begin_src emacs-lisp
    (use-package prettier-js
-     :ensure t
+     :straight t
      :config
      (setq prettier-js-args '(
                               "--trailing-comma" "es5"
@@ -1250,26 +1301,26 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
 *** JSON
 #+begin_src emacs-lisp
   (use-package json-mode
-    :ensure t)
+    :straight t)
  #+end_src
 ** Yaml
 *** sytnax highlight
  #+begin_src emacs-lisp
    (use-package yaml-mode
-     :ensure t)
+     :straight t)
  #+end_src
 ** Toml
 *** sytnax highlight
  #+begin_src emacs-lisp
    (use-package toml-mode
-     :ensure t)
+     :straight t)
  #+end_src
 ** Markdown
 *** sytnax highlight
  Markdown support isn't built into Emacs, add it with =markdown-mode=.
  #+begin_src emacs-lisp
    (use-package markdown-mode
-     :ensure t
+     :straight t
      :commands (markdown-mode gfm-mode)
      :mode (("README\\.md\\'" . gfm-mode)
             ("\\.md\\'" . markdown-mode)
@@ -1280,24 +1331,24 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
 *** sytnax highlight
  #+begin_src emacs-lisp
    (use-package lua-mode
-     :ensure t)
+     :straight t)
 #+end_src
 *** fennel support
 #+begin_src emacs-lisp
    (use-package fennel-mode
-     :ensure t)
+     :straight t)
  #+end_src
 ** Haskell
 *** sytnax highlight
  #+begin_src emacs-lisp
    (use-package haskell-mode
-     :ensure t)
+     :straight t)
  #+end_src
 
 *** format
  #+begin_src emacs-lisp
    (use-package hindent
-     :ensure t)
+     :straight t)
  #+end_src
 
 ** Elixir
@@ -1306,39 +1357,39 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
 
  #+begin_src emacs-lisp
    (use-package elixir-mode
-     :ensure t)
+     :straight t)
    (use-package alchemist
-     :ensure t)
+     :straight t)
  #+end_src
 ** Ruby
 *** basic
  #+begin_src emacs-lisp
    (use-package rake
-     :ensure t)
+     :straight t)
 
    (use-package robe
-     :ensure t
+     :straight t
      :diminish
      :hook
      (after-ruby-mode . robe-mode))
 
    (use-package ruby-hash-syntax
-     :ensure t
+     :straight t
      :diminish
      :hook
      (after-ruby-mode . ruby-hash-syntax))
 
    (use-package rubocop
-     :ensure t
+     :straight t
      :diminish
      :hook
      (after-ruby-mode . rubocop-mode))
 
    (use-package haml-mode
-     :ensure t)
+     :straight t)
 
    (use-package minitest
-     :ensure t)
+     :straight t)
  #+end_src
 *** Rails
 **** open latest migration file                                  :@script:
@@ -1362,14 +1413,14 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
 
  #+begin_src emacs-lisp
    (use-package irony
-     :ensure t
+     :straight t
      :hook (c-mode . irony-mode))
  #+end_src
 
  Add company mode support.
  #+begin_src emacs-lisp
    (use-package company-irony
-     :ensure t
+     :straight t
      :config
      (add-to-list 'company-backends 'company-irony))
  #+end_src
@@ -1377,14 +1428,14 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
  Add flycheck support.
  #+begin_src emacs-lisp
    (use-package flycheck-irony
-     :ensure t
+     :straight t
      :hook (flycheck-mode . flycheck-irony-setup))
  #+end_src
 ** Rust
 *** sytnax highlight
  #+begin_src emacs-lisp
    (use-package rust-mode
-     :ensure t )
+     :straight t )
  #+end_src
 ** Web mode                                                     :@dependent:
 *** sytnax highlight
@@ -1392,7 +1443,7 @@ Web mode handles html/css/js.
 
 #+begin_src emacs-lisp
   (use-package web-mode
-    :ensure t
+    :straight t
     :mode (("\\.html\\'" . web-mode)
            ("\\.erb\\'" . web-mode))
     :config
@@ -1408,7 +1459,7 @@ Web mode handles html/css/js.
  Web beautify prettifies html / css / js using js-beautify - install with =npm install -g js-beautify=.
 #+begin_src emacs-lisp
   (use-package web-beautify
-    :ensure t
+    :straight t
     :bind (:map web-mode-map
                 ("C-c b" . web-beautify-html)
                 :map js2-mode-map
@@ -1417,14 +1468,14 @@ Web mode handles html/css/js.
 *** HTML preview
 #+begin_src emacs-lisp
   (use-package impatient-mode
-    :ensure t)
+    :straight t)
 #+end_src
 
 *** Quick insert
 Emmet mode, use ~C-j~ to expand it
 #+begin_src emacs-lisp
   (use-package emmet-mode
-    :ensure t
+    :straight t
     :config
     (add-hook 'web-mode-hook  'emmet-mode)
     (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
@@ -1446,7 +1497,7 @@ Emmet mode, use ~C-j~ to expand it
 ** Basic setup
 #+begin_src emacs-lisp
   (use-package org
-    :ensure t
+    :straight t
     :diminish org-indent-mode
     :config
     (setq org-startup-indented 'f)
@@ -1469,7 +1520,7 @@ M+S+<left/right>
 eg. press `<s` and select shell or src block
 #+begin_src emacs-lisp
   (use-package company-org-block
-    :ensure t
+    :straight t
     :custom
     (company-org-block-edit-style 'auto) ;; 'auto, 'prompt, or 'inline
     :hook ((org-mode . (lambda ()
@@ -1510,6 +1561,7 @@ Save Org buffers after refiling!
 ** Capture my task or idea
 #+begin_src emacs-lisp
   (use-package org-capture
+    :straight nil
     :bind ("C-c c" . org-capture)
     :after org
     :config
@@ -1572,7 +1624,7 @@ I can style it myself
 ** Insert org markup easily
 #+begin_src emacs-lisp
   (use-package wrap-region
-    :ensure t
+    :straight t
     :config
     (wrap-region-add-wrappers
      '(("*" "*" nil org-mode)
@@ -1588,6 +1640,7 @@ Interactive agenda in the console https://github.com/rougier/agenda
 
 #+begin_src emacs-lisp
   (use-package org-agenda
+    :straight nil
     :bind ("C-c a" . org-agenda)
     :config
     (setq org-agenda-files (directory-files-recursively "~/Documents/org/" "\\.org$"))
@@ -1612,7 +1665,7 @@ Interactive agenda in the console https://github.com/rougier/agenda
 ** Org Roam
 #+begin_src emacs-lisp
   (use-package org-roam
-    :ensure t
+    :straight t
     :init
     (setq org-roam-v2-ack t)
     :custom
@@ -1642,14 +1695,14 @@ Interactive agenda in the console https://github.com/rougier/agenda
 ** Beautify Org heading symbol
 #+begin_src emacs-lisp
    (use-package org-superstar
-     :ensure t
+     :straight t
      :hook (org-mode . org-superstar-mode))
 #+end_src
 ** Emoji Org tag
 #+begin_src emacs-lisp
   (use-package org-pretty-tags
     :diminish org-pretty-tags-mode
-    :ensure t
+    :straight t
     :config
     ;;(setq org-pretty-tags-surrogate-strings
     ;;    '(
@@ -1664,7 +1717,7 @@ Interactive agenda in the console https://github.com/rougier/agenda
 ** Colorful todo stags
 #+begin_src emacs-lisp
   (use-package hl-todo
-    :ensure t
+    :straight t
     :hook ((prog-mode org-mode) . teddy-ma/hl-todo-init)
     :init
     (defun teddy-ma/hl-todo-init ()
@@ -1680,7 +1733,7 @@ Interactive agenda in the console https://github.com/rougier/agenda
 #+begin_src emacs-lisp
   (use-package org-fancy-priorities
     :diminish
-    :ensure t
+    :straight t
     :hook (org-mode . org-fancy-priorities-mode)
     :config
     (setq org-fancy-priorities-list '("🅰" "🅱" "🅲" "🅳" "🅴")))
@@ -1741,7 +1794,7 @@ to intensify the sense of achievement.
 ** Apply
 #+begin_src emacs-lisp :lexical no
   (use-package org
-      :ensure t
+      :straight t
       :diminish org-indent-mode
       :hook
       (org-mode . teddy-ma/org-font-setup)
@@ -1787,11 +1840,11 @@ Proselint is an external program, install it with =pip install proselint= for th
 ** Chinese input method                                         :@dependent:
 #+begin_src emacs-lisp
   (use-package pyim
-    :ensure t
+    :straight t
     :demand t
     :config
     (use-package pyim-basedict
-      :ensure t
+      :straight t
       :config (pyim-basedict-enable))
 
     (setq default-input-method "pyim")
@@ -1816,7 +1869,7 @@ Proselint is an external program, install it with =pip install proselint= for th
 ** English Chinese Dictionary
 #+begin_src emacs-lisp
   (use-package youdao-dictionary
-    :ensure t
+    :straight t
     :config
     (setq url-automatic-caching t))
 #+end_src
@@ -1824,16 +1877,16 @@ Proselint is an external program, install it with =pip install proselint= for th
 ** Disk Usage
 #+begin_src emacs-lisp
   (use-package disk-usage
-    :ensure t)
+    :straight t)
 #+end_src
 
 ** Run shell in emacs
 eshell with git
 #+begin_src emacs-lisp
   (use-package eshell-git-prompt
-    :ensure t)
+    :straight t)
   (use-package eshell
-    :ensure t
+    :straight t
     :config
     (eshell-git-prompt-use-theme 'powerline)
     (add-hook 'eshell-mode-hook (lambda ()
@@ -1844,16 +1897,16 @@ eshell with git
 vterm
 #+begin_src emacs-lisp
   (use-package vterm
-    :ensure t
+    :straight t
     :config
     (setq vterm-shell (executable-find "fish")
           vterm-max-scrollback 10000))
 
   (use-package vterm-toggle
-    :ensure t)
+    :straight t)
 
   (use-package shell-pop
-    :ensure t
+    :straight t
     :custom
     (shell-pop-shell-type '("vterm" "*vterm*" (lambda () (vterm))))
     (shell-pop-full-span t))
@@ -1862,7 +1915,7 @@ vterm
 ** view PDF in emacs
 #+begin_src emacs-lisp
   (use-package pdf-tools
-    :ensure t
+    :straight t
     :config
     (custom-set-variables
      '(pdf-tools-handle-upgrades nil)))
