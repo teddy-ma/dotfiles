@@ -82,7 +82,7 @@ The default is 800 kilobytes.  Measured in bytes.
 #+end_src
 
 ** Subpress warning buffer
-#+begin_src emacs-lisp :lexical no
+#+begin_src emacs-lisp
   (setq native-comp-async-report-warnings-errors nil)
 #+end_src
 * Given an old school emacs user interface
@@ -282,7 +282,7 @@ Suggest next keys to me based on currently entered key combination.
     (marginalia-mode))
 #+end_src
 ** Exit cleanly                                                    :@script:
-#+begin_src emacs-lisp :lexical no
+#+begin_src emacs-lisp
   (defun teddy-ma/clean-exit ()
     "Exit Emacs cleanly.
   If there are unsaved buffer, pop up a list for them to be saved
@@ -300,12 +300,32 @@ Suggest next keys to me based on currently entered key combination.
         (save-buffers-kill-emacs))))
 #+end_src
 ** I need power
-#+begin_src emacs-lisp :lexical no
+#+begin_src emacs-lisp
   (use-package power-mode
     :straight '(power-mode :host github
                            :branch "main"
                            :repo "elizagamedev/power-mode.el")
   )
+#+end_src
+** Smooth Scrolling
+#+begin_src emacs-lisp
+  ;; Vertical Scroll
+  (setq scroll-step 1)
+  (setq scroll-margin 1)
+  (setq scroll-conservatively 101)
+  (setq scroll-up-aggressively 0.01)
+  (setq scroll-down-aggressively 0.01)
+  (setq auto-window-vscroll nil)
+  (setq fast-but-imprecise-scrolling nil)
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+  (setq mouse-wheel-progressive-speed nil)
+  ;; Horizontal Scroll
+  (setq hscroll-step 1)
+  (setq hscroll-margin 1)
+#+end_src
+** Do not lock file
+#+begin_src emacs-lisp
+  (setq-default create-lockfiles nil)
 #+end_src
 * Given a file (buffer) when edit
 ** Move effectively in one buffer
@@ -625,9 +645,9 @@ no tool bar, no scroll bar, no menu bar, very clear
     (add-to-list 'default-frame-alist '(ns-appearance . dark))
     (setq ns-use-proxy-icon  nil)
     (setq frame-title-format nil)
+;;(setq-default frame-title-format '("M-EMACS - " user-login-name "@" system-name " - %b"))
     (setq frame-resize-pixelwise t))
 #+end_src
-
 *** I am not a newbie, no need to dispaly the help screen on startup
 #+begin_src emacs-lisp
   (setq inhibit-startup-screen t)
@@ -949,6 +969,11 @@ I only want this in programming modes, and I don't want colour names to be highl
 ** Format all
 #+begin_src emacs-lisp
   (use-package format-all
+    :straight t)
+#+end_src
+** Quickrun
+#+begin_src emacs-lisp
+  (use-package quickrun
     :straight t)
 #+end_src
 
@@ -1544,7 +1569,7 @@ org-narrow-to-subtree (bound in org-mode)
 ~C-c C-x ;~ start
 ~C-c C-x ,~ pause or continue
 ~C-c C-x _~ stop
-#+begin_src emacs-lisp :lexical no
+#+begin_src emacs-lisp
   ;; (setq emacs-org-clock-sound-voice "~/Dropbox/Public/pomodoro-wei.wav")
   ;; (if (file-exists-p emacs-org-clock-sound-voice)
   ;;     (setq org-clock-sound emacs-org-clock-sound-voice))
@@ -1792,7 +1817,7 @@ to intensify the sense of achievement.
   ;; (setq-default prettify-symbols-alist '(("#+BEGIN_SRC" . "»") ("#+END_SRC" . "«")("#+begin_src" . "»") ("#+end_src" . "«") ("lambda"  . "λ") ("->" . "→") ("->>" . "↠")))
 #+end_src
 ** Apply
-#+begin_src emacs-lisp :lexical no
+#+begin_src emacs-lisp
   (use-package org
       :straight t
       :diminish org-indent-mode
@@ -1910,15 +1935,20 @@ vterm
     :custom
     (shell-pop-shell-type '("vterm" "*vterm*" (lambda () (vterm))))
     (shell-pop-full-span t))
+
+
+    (use-package turbo-log
+ :straight '(turbo :host github
+                           :branch "main"
+                           :repo "artawower/turbo.el")
+
+  :bind (("C-s-l" . turbo-log-print)
+         ("C-s-i" . turbo-log-print-immediately)
+         ("C-s-h" . turbo-log-comment-all-logs)
+         ("C-s-s" . turbo-log-uncomment-all-logs)
+         ("C-s-d" . turbo-log-delete-all-logs))
+  :config
+  (setq turbo-console--prefix "✰"))
 #+end_src
 
-** view PDF in emacs
-#+begin_src emacs-lisp
-  (use-package pdf-tools
-    :straight t
-    :config
-    (custom-set-variables
-     '(pdf-tools-handle-upgrades nil)))
-  ;;(pdf-tools-install)
-  ;;(pdf-info-check-epdfinfo)
-#+end_src
+
