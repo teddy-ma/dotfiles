@@ -976,6 +976,24 @@ I only want this in programming modes, and I don't want colour names to be highl
   (use-package quickrun
     :straight t)
 #+end_src
+** Quick insert log
+#+begin_src emacs-lisp
+  (use-package turbo-log
+    :straight '(turbo-log :host github
+                          :branch "master"
+                          :repo "artawower/turbo-log.el")
+
+    :bind (("C-s-l" . turbo-log-print)
+           ("C-s-i" . turbo-log-print-immediately)
+           ("C-s-h" . turbo-log-comment-all-logs)
+           ("C-s-s" . turbo-log-uncomment-all-logs)
+           ("C-s-d" . turbo-log-delete-all-logs))
+
+    :config
+    (setq turbo-log--ecmascript-loggers '("console.log" "console.debug" "console.error"))
+
+    (setq turbo-console--prefix "✰"))
+#+end_src
 
 ** Underscore -> UPCASE -> CamelCase conversion
 #+begin_src emacs-lisp
@@ -1935,20 +1953,4 @@ vterm
     :custom
     (shell-pop-shell-type '("vterm" "*vterm*" (lambda () (vterm))))
     (shell-pop-full-span t))
-
-
-    (use-package turbo-log
- :straight '(turbo :host github
-                           :branch "main"
-                           :repo "artawower/turbo.el")
-
-  :bind (("C-s-l" . turbo-log-print)
-         ("C-s-i" . turbo-log-print-immediately)
-         ("C-s-h" . turbo-log-comment-all-logs)
-         ("C-s-s" . turbo-log-uncomment-all-logs)
-         ("C-s-d" . turbo-log-delete-all-logs))
-  :config
-  (setq turbo-console--prefix "✰"))
 #+end_src
-
-
