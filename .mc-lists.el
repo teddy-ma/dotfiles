@@ -15,4 +15,5 @@
 (setq mc/cmds-to-run-once
       '(
         iedit-switch-to-mc-mode
+        mouse-set-region
         ))
