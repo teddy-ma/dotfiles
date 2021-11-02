@@ -1311,6 +1311,12 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
   (use-package lsp-mode
      :straight t)
 #+end_src
+** Quick Run
+#+begin_src emacs-lisp
+  (use-package quickrun
+    :straight t)
+#+end_src
+
 ** Javascript
 *** Indent 2 spaces.
  #+begin_src emacs-lisp
@@ -1908,7 +1914,7 @@ Open the Magit status buffer (C-x g)
 Press y to get a listing of all branches and tags in the git repo
 Navigate to the branch you want to delete and press k
 ** Blame
-#+begin_src emacs-lisp :lexical no
+#+begin_src emacs-lisp
   (use-package blamer
     :straight
     (:host github :repo "artawower/blamer.el" :branch "master")
@@ -1921,7 +1927,7 @@ Navigate to the branch you want to delete and press k
                      :height 140
                      :italic t)))
     :config
-    (global-blamer-mode 1))
+    (global-blamer-mode nil))
 #+end_src
 * Given a writting job
 ** Spell and syntax checker                                     :@dependent:
