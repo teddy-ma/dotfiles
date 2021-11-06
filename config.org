@@ -88,7 +88,7 @@ The default is 800 kilobytes.  Measured in bytes.
 * Given an old school emacs user interface
 ** Answer y or n not yes or no
 #+begin_src emacs-lisp
-  (defalias 'yes-or-no-p 'y-or-n-p)
+  (setq-default use-short-answers t)
 #+end_src
 ** The behavior of shell should be same when in emacs                  :@os:
 looks only macOS has this issue
@@ -929,10 +929,7 @@ Just one space is needed.
 #+begin_src emacs-lisp
   (setq sentence-end-double-space nil)
  #+end_src
-** Make matched parentheses clear and colored
-#+begin_src emacs-lisp
-  (show-paren-mode 1)
-#+end_src
+** Make matched parentheses colored
 
 #+begin_src emacs-lisp
   (use-package rainbow-delimiters
@@ -1926,8 +1923,7 @@ Navigate to the branch you want to delete and press k
                      :background nil
                      :height 140
                      :italic t)))
-    :config
-    (global-blamer-mode nil))
+    )
 #+end_src
 * Given a writting job
 ** Spell and syntax checker                                     :@dependent:
