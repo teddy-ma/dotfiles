@@ -1593,6 +1593,7 @@ Emmet mode, use ~C-j~ to expand it
     (setq org-file-apps
           '((auto-mode . emacs)
            ("\\.x?html?\\'" . "Chromium %s")))
+    (org-reload) ;; hotfix, make sure newest emacs version loaded
     )
 #+end_src
 ** Change level recusively
@@ -1886,7 +1887,7 @@ to intensify the sense of achievement.
     )
   ;; (setq-default prettify-symbols-alist '(("#+BEGIN_SRC" . "»") ("#+END_SRC" . "«")("#+begin_src" . "»") ("#+end_src" . "«") ("lambda"  . "λ") ("->" . "→") ("->>" . "↠")))
 #+end_src
-** Apply
+** Apply UI
 #+begin_src emacs-lisp
   (use-package org
       :straight t
