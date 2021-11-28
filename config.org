@@ -1304,11 +1304,12 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
 #+end_src
 * Given a programming language
 ** LSP
+Language Server Protocol
 #+begin_src emacs-lisp
   (use-package lsp-mode
      :straight t)
 #+end_src
-** Quick Run
+** Quick run a programming file
 #+begin_src emacs-lisp
   (use-package quickrun
     :straight t)
@@ -1316,19 +1317,19 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
 
 ** Javascript
 *** Indent 2 spaces.
- #+begin_src emacs-lisp
-   (setq-default js-indent-level 2)
- #+end_src
+#+begin_src emacs-lisp
+  (setq-default js-indent-level 2)
+#+end_src
 
 *** Enchance JS mode
 JS2 mode improves on the built in JS mode.
- #+begin_src emacs-lisp
-   (use-package js2-mode
-     :straight t
-     :mode "\\.js\\'"
-     :config
-     (setq-default js2-ignored-warnings '("msg.extra.trailing.comma")))
- #+end_src
+#+begin_src emacs-lisp
+  (use-package js2-mode
+    :straight t
+    :mode "\\.js\\'"
+    :config
+    (setq-default js2-ignored-warnings '("msg.extra.trailing.comma")))
+#+end_src
 
 *** Refactor
 =js2-refactor= supports some useful refactoring options and builds on top of =js2-mode=.
@@ -1380,10 +1381,10 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
  #+end_src
 ** Toml
 *** sytnax highlight
- #+begin_src emacs-lisp
-   (use-package toml-mode
-     :straight t)
- #+end_src
+#+begin_src emacs-lisp
+  (use-package toml-mode
+    :straight t)
+#+end_src
 ** Markdown
 *** sytnax highlight
  Markdown support isn't built into Emacs, add it with =markdown-mode=.
@@ -1424,67 +1425,69 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
 *** sytnax highlight
  Elixir highlighting is not built into emacs at present. Elixir-mode gives all the usual niceties, and alchemist improves interaction with tools like =iex=, =mix= and =elixir-format=.
 
- #+begin_src emacs-lisp
-   (use-package elixir-mode
-     :straight t)
-   (use-package alchemist
-     :straight t)
- #+end_src
+#+begin_src emacs-lisp
+  (use-package elixir-mode
+    :straight t)
+  (use-package alchemist
+    :straight t)
+#+end_src
 ** Ruby
-*** basic
- #+begin_src emacs-lisp
-   (use-package rake
-     :straight t)
+*** Basic
+#+begin_src emacs-lisp
+  (use-package rake
+    :straight t)
 
-   (use-package robe
-     :straight t
-     :diminish
-     :hook
-     (after-ruby-mode . robe-mode))
+  (use-package robe
+    :straight t
+    :diminish
+    :hook
+    (after-ruby-mode . robe-mode))
 
-   (use-package ruby-hash-syntax
-     :straight t
-     :diminish
-     :hook
-     (after-ruby-mode . ruby-hash-syntax))
+  (use-package ruby-hash-syntax
+    :straight t
+    :diminish
+    :hook
+    (after-ruby-mode . ruby-hash-syntax))
 
-   (use-package rubocop
-     :straight t
-     :diminish
-     :hook
-     (after-ruby-mode . rubocop-mode))
+  (use-package rubocop
+    :straight t
+    :diminish
+    :hook
+    (after-ruby-mode . rubocop-mode))
 
-   (use-package haml-mode
-     :straight t)
+  (use-package haml-mode
+    :straight t)
 
-   (use-package minitest
-     :straight t)
- #+end_src
+  (use-package minitest
+    :straight t)
+#+end_src
 *** Rails
 **** open latest migration file                                  :@script:
- #+begin_src emacs-lisp
-   (defun teddy-ma/visit-last-dired-file ()
-     "Open the last file in an open dired buffer."
-     (interactive)
-     (end-of-buffer)
-     (previous-line)
-     (dired-find-file))
+#+begin_src emacs-lisp
+  (defun teddy-ma/visit-last-dired-file ()
+    "Open the last file in an open dired buffer."
+    (interactive)
+    (end-of-buffer)
+    (previous-line)
+    (dired-find-file))
 
-   (defun teddy-ma/visit-last-migration ()
-     "Open the last file in 'db/migrate/'."
-     (interactive)
-     (dired (expand-file-name "db/migrate" (projectile-project-root)))
-     (teddy-ma/visit-last-dired-file)
-     (kill-buffer "migrate"))
- #+end_src
+  (defun teddy-ma/visit-last-migration ()
+    "Open the last file in 'db/migrate/'."
+    (interactive)
+    (dired (expand-file-name "db/migrate" (projectile-project-root)))
+    (teddy-ma/visit-last-dired-file)
+    (kill-buffer "migrate"))
+#+end_src
 **** Rails route insert
 https://github.com/otavioschwanck/rails-routes.el
 #+begin_src emacs-lisp
-(use-package rails-routes
-    :straight '(rails-routes :host github
-                          :branch "master"
-                          :repo "otavioschwanck/rails-routes.el"))
+  (use-package rails-routes
+      :straight '(rails-routes :host github
+                            :branch "master"
+                            :repo "otavioschwanck/rails-routes.el"))
 #+end_src
+**** Snippet
+cls -> create class with file name
 ** C
  Emacs has a great built in C/C++ mode, but we can improve on it with =irony-mode= for code completion via =libclang=.
 
@@ -1512,7 +1515,7 @@ https://github.com/otavioschwanck/rails-routes.el
 #+begin_src emacs-lisp
   (use-package go-mode
     :straight t)
- #+end_src
+#+end_src
 ** Rust
  #+begin_src emacs-lisp
    (use-package rustic
@@ -1992,6 +1995,7 @@ Proselint is an external program, install it with =pip install proselint= for th
 
 ** Run shell in emacs
 eshell with git
+https://github.com/elken/eshell-p10k optional theme
 #+begin_src emacs-lisp
   (use-package eshell-git-prompt
     :straight t)
