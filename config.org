@@ -1777,7 +1777,7 @@ Interactive agenda in the console https://github.com/rougier/agenda
     (setq org-roam-ui-sync-theme t
           org-roam-ui-follow t
           org-roam-ui-update-on-save t
-          org-roam-ui-open-on-start t))
+          org-roam-ui-open-on-start nil))
 #+end_src
 
 * Given org UI
@@ -1909,6 +1909,15 @@ press ^
 press v
 ** Batch change file names
 in dired mode, embark-export and Edit, change file names and save
+** Use tab to expand folder
+#+begin_src emacs-lisp :lexical no
+  (use-package dired-subtree
+    :straight t
+    :after dired
+    :bind (:map dired-mode-map
+                ("TAB" . dired-subtree-toggle)))
+#+end_src
+
 * Given a git repo
 ** Delete local and remote branch
 Open the Magit status buffer (C-x g)
