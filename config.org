@@ -1558,12 +1558,12 @@ Web mode handles html/css/js.
 *** Quick insert
 Emmet mode, use ~C-j~ to expand it
 #+begin_src emacs-lisp
-  (use-package emmet-mode
-    :straight t
-    :config
-    (add-hook 'web-mode-hook  'emmet-mode)
-    (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
-    )
+  ;; (use-package emmet-mode
+  ;;   :straight t
+  ;;   :config
+  ;;   (add-hook 'web-mode-hook  'emmet-mode)
+  ;;   (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+  ;;   )
 #+end_src
 *** Highlight matching tag
 ~web-mode-toggle-current-element-highlight~
@@ -1917,7 +1917,6 @@ in dired mode, embark-export and Edit, change file names and save
     :bind (:map dired-mode-map
                 ("TAB" . dired-subtree-toggle)))
 #+end_src
-
 * Given a git repo
 ** Delete local and remote branch
 Open the Magit status buffer (C-x g)
@@ -2022,20 +2021,20 @@ https://github.com/elken/eshell-p10k optional theme
 
 vterm
 #+begin_src emacs-lisp
-  (use-package vterm
-    :straight t
-    :config
-    (setq vterm-shell (executable-find "fish")
-          vterm-max-scrollback 10000))
+  ;; (use-package vterm
+  ;;   :straight t
+  ;;   :config
+  ;;   (setq vterm-shell (executable-find "fish")
+  ;;         vterm-max-scrollback 10000))
 
-  (use-package vterm-toggle
-    :straight t)
+  ;; (use-package vterm-toggle
+  ;;   :straight t)
 
-  (use-package shell-pop
-    :straight t
-    :custom
-    (shell-pop-shell-type '("vterm" "*vterm*" (lambda () (vterm))))
-    (shell-pop-full-span t))
+  ;; (use-package shell-pop
+  ;;   :straight t
+  ;;   :custom
+  ;;   (shell-pop-shell-type '("vterm" "*vterm*" (lambda () (vterm))))
+  ;;   (shell-pop-full-span t))
 #+end_src
 
 ** Discover my major
