@@ -1082,6 +1082,11 @@ I only want this in programming modes, and I don't want colour names to be highl
      (lambda ()
        (define-key neotree-mode-map (kbd "TAB") 'custom-neotree-peek))))
 #+end_src
+*** Consult integration for projectile
+#+begin_src emacs-lisp
+  (use-package consult-projectile
+    :straight (consult-projectile :type git :host gitlab :repo "OlMon/consult-projectile" :branch "master"))
+#+end_src
 ** Fuzzy search
 =fzf= is a fuzzy file finder which is very quick.
 #+begin_src emacs-lisp
@@ -1733,11 +1738,11 @@ Interactive agenda in the console https://github.com/rougier/agenda
     (setq org-agenda-start-with-log-mode t)
     (setq org-agenda-prefix-format
           '((agenda . " %i %-24:c%?-16t%-10e% s")
-            (todo   . " %i %-24:c %-10e")
+            (todo   . " %i %-36:c %-16e")
             (tags   . " %i %-24:c")
             (search . " %i %-24:c")))
 
-    ;;https://www.philnewton.net/blog/how-i-get-work-done-with-emacs/
+    ;; https://www.philnewton.net/blog/how-i-get-work-done-with-emacs/
     (setq org-agenda-custom-commands
           '(("d" "Today's Tasks"
              ((agenda "" ((org-agenda-span 1)
@@ -1776,7 +1781,11 @@ Interactive agenda in the console https://github.com/rougier/agenda
           org-roam-ui-update-on-save t
           org-roam-ui-open-on-start nil))
 #+end_src
-
+*** Turn heading into a node
+move the cursor to the heading, and run:
+#+begin_src emacs-lisp
+  (org-id-get-create)
+#+end_src
 * Given org UI
 ** make headings colorful
 #+begin_src emacs-lisp
@@ -1940,6 +1949,11 @@ Navigate to the branch you want to delete and press ~k~
     :straight
     (:host github :repo "sshaw/git-link" :branch "master"))
 #+end_src
+** Only show one file commits history
++ Open (magit-status) ~C-x g~
++ press ~l~
++ limit to files ~--~
++ press ~l~ again
 * Given a writting job
 ** Spell and syntax checker                                     :@dependent:
 need aspell to ispell (brew install aspell)
