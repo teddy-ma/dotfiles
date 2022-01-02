@@ -1916,9 +1916,9 @@ in dired mode, embark-export and Edit, change file names and save
 #+end_src
 * Given a git repo
 ** Delete local and remote branch
-Open the Magit status buffer (C-x g)
-Press y to get a listing of all branches and tags in the git repo
-Navigate to the branch you want to delete and press k
+Open the Magit status buffer (~C-x g~)
+Press ~y~ to get a listing of all branches and tags in the git repo
+Navigate to the branch you want to delete and press ~k~
 ** Blame
 #+begin_src emacs-lisp
   (use-package blamer
@@ -1933,6 +1933,12 @@ Navigate to the branch you want to delete and press k
                      :height 140
                      :italic t)))
     )
+#+end_src
+** Get current file git server remote url
+#+begin_src emacs-lisp
+(use-package git-link
+    :straight
+    (:host github :repo "sshaw/git-link" :branch "master"))
 #+end_src
 * Given a writting job
 ** Spell and syntax checker                                     :@dependent:
