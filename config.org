@@ -1771,10 +1771,10 @@ Interactive agenda in the console https://github.com/rougier/agenda
     :straight
     (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
     :after org-roam
-    ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-    ;;         a hookable mode anymore, you're advised to pick something yourself
-    ;;         if you don't care about startup time, use
-    ;;  :hook (after-init . org-roam-ui-mode)
+    ;; normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+    ;; a hookable mode anymore, you're advised to pick something yourself
+    ;; if you don't care about startup time, use
+    ;; :hook (after-init . org-roam-ui-mode)
     :config
     (setq org-roam-ui-sync-theme t
           org-roam-ui-follow t
@@ -1783,9 +1783,8 @@ Interactive agenda in the console https://github.com/rougier/agenda
 #+end_src
 *** Turn heading into a node
 move the cursor to the heading, and run:
-#+begin_src emacs-lisp
-  (org-id-get-create)
-#+end_src
+~org-id-get-create~
+
 * Given org UI
 ** make headings colorful
 #+begin_src emacs-lisp
