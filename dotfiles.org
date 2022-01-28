@@ -50,7 +50,6 @@
 
 * shell
 ** fish                                                            :@script:
-
 Setup scripts
 #+begin_src shell :tangle /tmp/dotfile-script.sh
   echo /usr/local/bin/fish | sudo tee -a /etc/shells # macOS
@@ -96,6 +95,7 @@ set fish_pager_color_progress brwhite --background=cyan
 Path and source (macOS)
 #+begin_src conf :tangle (if (eq system-type 'darwin) "~/.config/fish/config.fish" "no") :mkdirp "yes"
 source /usr/local/opt/asdf/asdf.fish
+mcfly init fish | source
 #+end_src
 
 Path and source (Linux)
