@@ -58,6 +58,8 @@ straight.el
   (straight-use-package 'use-package)
 
   (setq straight-use-package-by-default t)
+
+  ;;(async-shell-command "emacs -batch -l ~/.emacs.d/init.el -f straight-pull-all")
 #+end_src
 ** Split custom settings config file
 Set up the customize file to its own separate file, instead of saving customize settings in [[file:init.el][init.el]].
@@ -84,7 +86,6 @@ The default is 800 kilobytes.  Measured in bytes.
 ** Subpress warning buffer
 #+begin_src emacs-lisp
   (setq native-comp-async-report-warnings-errors nil)
-  (async-shell-command "emacs -batch -l ~/.emacs.d/init.el -f straight-pull-all")
 #+end_src
 * Given an old school emacs user interface
 ** Answer y or n not yes or no
@@ -677,27 +678,30 @@ no tool bar, no scroll bar, no menu bar, very clear
 ** Chinese and English font must align                             :@script:
 It works fine with windows and org table in Chinese
 #+begin_src emacs-lisp
-  (when (eq system-type 'darwin)
-    (setq fonts '("Monaco" "STKaiti"))
-    (set-face-attribute 'default nil :font
-                        (format "%s:pixelsize=%d" (car fonts) 15))
-    (setq face-font-rescale-alist '(("STKaiti". 1.2))))
+  (when (display-graphic-p)
 
-  (when (eq system-type 'windows-nt)
-    (setq fonts '("Inconsolata" "华文楷体"))
-    (set-face-attribute 'default nil :font
-                        (format "%s:pixelsize=%d" (car fonts) 20))
-    (setq face-font-rescale-alist '(("华文楷体". 1.0))))
+    (when (eq system-type 'darwin)
+      (setq fonts '("Monaco" "STKaiti"))
+      (set-face-attribute 'default nil :font
+                          (format "%s:pixelsize=%d" (car fonts) 15))
+      (setq face-font-rescale-alist '(("STKaiti". 1.2))))
 
-  (when (eq system-type 'gnu/linux)
-    (setq fonts '("Sarasa Mono SC Nerd" "STKaiti"))
-    (set-face-attribute 'default nil :font
-                        (format "%s:pixelsize=%d" (car fonts) 18))
-    (setq face-font-rescale-alist '(("STKaiti". 1.0))))
+    (when (eq system-type 'windows-nt)
+      (setq fonts '("Inconsolata" "华文楷体"))
+      (set-face-attribute 'default nil :font
+                          (format "%s:pixelsize=%d" (car fonts) 20))
+      (setq face-font-rescale-alist '(("华文楷体". 1.0))))
 
-  (dolist (charset '(kana han symbol cjk-misc bopomofo))
-    (set-fontset-font (frame-parameter nil 'font) charset
-                      (font-spec :family (car (cdr fonts)))))
+    (when (eq system-type 'gnu/linux)
+      (setq fonts '("Sarasa Mono SC Nerd" "STKaiti"))
+      (set-face-attribute 'default nil :font
+                          (format "%s:pixelsize=%d" (car fonts) 18))
+      (setq face-font-rescale-alist '(("STKaiti". 1.0))))
+
+    (dolist (charset '(kana han symbol cjk-misc bopomofo))
+      (set-fontset-font (frame-parameter nil 'font) charset
+                        (font-spec :family (car (cdr fonts)))))
+    )
 #+end_src
 
 ** No need to display all the minor mode name
