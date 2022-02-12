@@ -386,7 +386,7 @@ Suggest next keys to me based on currently entered key combination.
   (use-package crux
     :straight t
     :bind (
-           ("C-c r" . crux-rename-file-and-buffer)
+           ;;("C-c r" . crux-rename-file-and-buffer) ;; conflic with rails keybinding
            ("C-c D" . crux-delete-file-and-buffer)
            ))
 #+end_src
@@ -1506,6 +1506,16 @@ https://github.com/otavioschwanck/rails-routes.el
 #+end_src
 **** Snippet
 cls -> create class with file name
+**** projectile extends
+#+begin_src emacs-lisp
+  (use-package projectile-rails
+    :straight t
+    :config
+    (define-key projectile-rails-mode-map
+      (kbd "C-c r")
+      'projectile-rails-command-map)
+    (projectile-rails-global-mode))
+#+end_src
 ** C
  Emacs has a great built in C/C++ mode, but we can improve on it with =irony-mode= for code completion via =libclang=.
 
