@@ -84,6 +84,7 @@ The default is 800 kilobytes.  Measured in bytes.
 ** Subpress warning buffer
 #+begin_src emacs-lisp
   (setq native-comp-async-report-warnings-errors nil)
+  (async-shell-command "emacs -batch -l ~/.emacs.d/init.el -f straight-pull-all")
 #+end_src
 * Given an old school emacs user interface
 ** Answer y or n not yes or no
@@ -1450,11 +1451,11 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
   (use-package rake
     :straight t)
 
-  (use-package robe
-    :straight t
-    :diminish
-    :hook
-    (after-ruby-mode . robe-mode))
+  ;; (use-package robe
+  ;;   :straight t
+  ;;   :diminish
+  ;;   :hook
+  ;;   (after-ruby-mode . robe-mode))
 
   (use-package ruby-hash-syntax
     :straight t
@@ -1462,11 +1463,11 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
     :hook
     (after-ruby-mode . ruby-hash-syntax))
 
-  (use-package rubocop
-    :straight t
-    :diminish
-    :hook
-    (after-ruby-mode . rubocop-mode))
+  ;; (use-package rubocop
+  ;;   :straight t
+  ;;   :diminish
+  ;;   :hook
+  ;;   (after-ruby-mode . rubocop-mode))
 
   (use-package haml-mode
     :straight t)
