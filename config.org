@@ -1715,8 +1715,8 @@ Save Org buffers after refiling!
 #+begin_src emacs-lisp
   (defmacro defun-open-conf (config-name filepath)
     "Open conf macro.
-  Argument CONFIG-NAME Alias name for your function.
-  Argument FILEPATH Filepath of the file."
+    Argument CONFIG-NAME Alias name for your function.
+    Argument FILEPATH Filepath of the file."
     `(defun ,(intern (format "open-conf-%s" config-name)) ()
        ,(format "Open %s: \"%s\"" config-name filepath)
        (interactive)
@@ -1724,13 +1724,14 @@ Save Org buffers after refiling!
 
   (defun open-conf (filepath)
     "Argument FILEPATH Filepath of the file."
-    (switch-to-buffer
-     (find-file-noselect filepath)))
+    ;; (switch-to-buffer
+    ;;  (find-file-noselect filepath))
+    (find-file-other-frame filepath))
 
   (defun-open-conf "work"      "~/Documents/org/work.org")
   (defun-open-conf "blog"      "~/Documents/org/blog.org")
   (defun-open-conf "todo"      "~/Documents/org/todo.org")
-;;  (defun-open-conf "note"      "~/Documents/org/note.org")
+  ;;  (defun-open-conf "note"      "~/Documents/org/note.org")
   (defun-open-conf "reminder"  "~/Documents/org/reminder.org")
   ;; (defun-open-conf "index"     "~/Documents/org/roam/index.org")
 #+end_src
