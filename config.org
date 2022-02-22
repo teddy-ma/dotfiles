@@ -72,9 +72,10 @@ Try your best to make custom config clean.
 
 ** Faster start
 *** Less garbage collection
-The default is 800 kilobytes.  Measured in bytes.
+The default is 800 kilobytes. Measured in bytes.
 #+begin_src emacs-lisp
-  (setq gc-cons-threshold (* 50 1000 1000))
+  (setq gc-cons-threshold 80000000)
+  (setq read-process-output-max (* 1024 1024))
 #+end_src
 
 *** How to measure it
@@ -983,7 +984,7 @@ I only want this in programming modes, and I don't want colour names to be highl
   (use-package quickrun
     :straight t)
 #+end_src
-** Quick insert log
+** Tree Sitter
 #+begin_src emacs-lisp
   (use-package tree-sitter-langs
     :straight t)
@@ -991,7 +992,9 @@ I only want this in programming modes, and I don't want colour names to be highl
   (use-package tree-sitter
     :straight t
     :after tree-sitter-langs)
-
+#+end_src
+** Quick insert log
+#+begin_src emacs-lisp
   (use-package turbo-log
     :straight '(turbo-log :host github
                           :branch "master"
@@ -1153,7 +1156,23 @@ It's quite effective even with dynamic libraries like JS and Python.
 #+begin_src emacs-lisp
   (use-package magit
     :straight t
-    :bind ("C-x g" . magit-status))
+    :commands (magit-status magit-file-dispatch)
+    :config
+    (setq magit-blame-styles
+          '((margin
+             (margin-format    . ("%a %A %s"))
+             (margin-width     . 42)
+             (margin-face      . magit-blame-margin)
+             (margin-body-face . (magit-blame-dimmed)))
+            (headings
+             (heading-format   . "%-20a %C %s\n"))
+            (highlight
+             (highlight-face   . magit-blame-highlight))
+            (lines
+             (show-lines       . t)
+             (show-message     . t))))
+    :bind
+    ("C-x g" . magit-status))
 #+end_src
 *** Display line changes in gutter based on git history. Enable it everywhere.
 #+begin_src emacs-lisp
@@ -1260,7 +1279,12 @@ I don't want suggestions from open files / buffers to be automatically lowercase
 ** Snippets
 Type the shortcut and press =TAB= to complete, or =M-/= to autosuggest a snippet.
 http://ergoemacs.org/emacs/yasnippet_templates_howto.html
+
+yasnippet-snippets has to be loaded before yasnippet for user snippets to override the pre-built ones.
 #+begin_src emacs-lisp
+  (use-package yasnippet-snippets
+    :straight t)
+
   (use-package yasnippet
     :straight t
     :diminish yas-minor-mode
@@ -1268,9 +1292,6 @@ http://ergoemacs.org/emacs/yasnippet_templates_howto.html
     (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
     (yas-global-mode 1)
     (global-set-key (kbd "M-/") 'company-yasnippet))
-
-  (use-package yasnippet-snippets
-    :straight t)
 
   (use-package consult-yasnippet
     :straight '(consult-yasnippet :host github
