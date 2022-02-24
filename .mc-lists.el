@@ -16,4 +16,5 @@
       '(
         iedit-switch-to-mc-mode
         mouse-set-region
+        mouse-set-secondary
         ))
