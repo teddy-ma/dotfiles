@@ -1655,7 +1655,7 @@ Emmet mode, use ~C-j~ to expand it
 ** Basic setup
 #+begin_src emacs-lisp
   (use-package org
-    :straight t
+    :straight nil
     :diminish org-indent-mode
     :config
     (setq org-startup-indented 'f)
@@ -1825,7 +1825,7 @@ Interactive agenda in the console https://github.com/rougier/agenda
 ** Org Roam
 #+begin_src emacs-lisp
   (use-package org-roam
-    :straight t
+    :straight nil
     :init
     (setq org-roam-v2-ack t)
     :custom
@@ -1840,19 +1840,6 @@ Interactive agenda in the console https://github.com/rougier/agenda
     :config
     (org-roam-setup))
 
-  (use-package org-roam-ui
-    :straight
-    (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
-    :after org-roam
-    ;; normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-    ;; a hookable mode anymore, you're advised to pick something yourself
-    ;; if you don't care about startup time, use
-    ;; :hook (after-init . org-roam-ui-mode)
-    :config
-    (setq org-roam-ui-sync-theme t
-          org-roam-ui-follow t
-          org-roam-ui-update-on-save t
-          org-roam-ui-open-on-start nil))
 #+end_src
 *** Turn heading into a node
 move the cursor to the heading, and run:
@@ -1872,14 +1859,14 @@ move the cursor to the heading, and run:
 ** Beautify Org heading symbol
 #+begin_src emacs-lisp
    (use-package org-superstar
-     :straight t
+     :straight nil
      :hook (org-mode . org-superstar-mode))
 #+end_src
 ** Emoji Org tag
 #+begin_src emacs-lisp
   (use-package org-pretty-tags
     :diminish org-pretty-tags-mode
-    :straight t
+    :straight nil
     :config
     ;;(setq org-pretty-tags-surrogate-strings
     ;; '(
@@ -1910,7 +1897,7 @@ move the cursor to the heading, and run:
 #+begin_src emacs-lisp
   (use-package org-fancy-priorities
     :diminish
-    :straight t
+    :straight nil
     :hook (org-mode . org-fancy-priorities-mode)
     :config
     (setq org-fancy-priorities-list '("🅰" "🅱" "🅲" "🅳" "🅴")))
@@ -1971,6 +1958,7 @@ to intensify the sense of achievement.
 ** Apply UI
 #+begin_src emacs-lisp
   (use-package org
+    :straight nil
     :diminish org-indent-mode
     :hook
     (org-mode . teddy-ma/org-font-setup)
