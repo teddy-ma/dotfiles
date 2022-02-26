@@ -2103,18 +2103,20 @@ https://github.com/elken/eshell-p10k optional theme
 
 vterm
 #+begin_src emacs-lisp
-  (use-package vterm
-    :straight t
-    :config
-    (setq vterm-shell (executable-find "fish")
-          vterm-max-scrollback 10000))
+  (when(not (eq system-type 'windows-nt))
+    (use-package vterm
+      :straight t
+      :config
+      (setq vterm-shell (executable-find "fish")
+            vterm-max-scrollback 10000))
 
-  (use-package vterm-toggle
-    :straight t)
+    (use-package vterm-toggle
+      :straight t)
 
-  (use-package shell-pop
-    :straight t
-    :custom
-    (shell-pop-shell-type '("vterm" "*vterm*" (lambda () (vterm))))
-    (shell-pop-full-span t))
+    (use-package shell-pop
+      :straight t
+      :custom
+      (shell-pop-shell-type '("vterm" "*vterm*" (lambda () (vterm))))
+      (shell-pop-full-span t))
+    )
 #+end_src
