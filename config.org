@@ -1882,13 +1882,13 @@ move the cursor to the heading, and run:
     :straight t
     :config
     ;;(setq org-pretty-tags-surrogate-strings
-    ;;    '(
-    ;;    ("work"  . "⚒")
-    ;;  ("@pc" . "🖥")
+    ;; '(
+    ;; ("work"  . "⚒")
+    ;; ("@pc" . "🖥")
     ;; ("@ps5" . "🎮")
-    ;;("@switch" . "🕹")
-    ;;("@script" . "📝")
-    ;;))
+    ;; ("@switch" . "🕹")
+    ;; ("@script" . "📝")
+    ;; ))
     (org-pretty-tags-global-mode))
 #+end_src
 ** Colorful todo stags
@@ -1971,12 +1971,11 @@ to intensify the sense of achievement.
 ** Apply UI
 #+begin_src emacs-lisp
   (use-package org
-      :straight t
-      :diminish org-indent-mode
-      :hook
-      (org-mode . teddy-ma/org-font-setup)
-      (org-mode . teddy-ma/org-block-setup)
-      (org-mode . teddy-ma/org-buffer-setup))
+    :diminish org-indent-mode
+    :hook
+    (org-mode . teddy-ma/org-font-setup)
+    (org-mode . teddy-ma/org-block-setup)
+    (org-mode . teddy-ma/org-buffer-setup))
 #+end_src
 * Given a file explorer
 ** Go to start or end
