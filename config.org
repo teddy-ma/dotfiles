@@ -664,6 +664,12 @@ no tool bar, no scroll bar, no menu bar, very clear
 #+begin_src emacs-lisp
   (setq inhibit-startup-screen t)
 #+end_src
+** Make font a bit larger
+Font on windows with 4k minitor is too small
+#+begin_src emacs-lisp
+  (when  (eq system-type 'windows-nt)
+    (set-face-attribute 'default nil :height 150))
+#+end_src
 ** A dashboard on startup can clean my mind
 #+begin_src emacs-lisp
   (setq emacs-banner "~/Dropbox/Photos/emacs-banner.png")
@@ -684,7 +690,6 @@ no tool bar, no scroll bar, no menu bar, very clear
 It works fine with windows and org table in Chinese
 #+begin_src emacs-lisp
   (when (display-graphic-p)
-
     (when (eq system-type 'darwin)
       (setq fonts '("Monaco" "STKaiti"))
       (set-face-attribute 'default nil :font
