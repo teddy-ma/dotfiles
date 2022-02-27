@@ -1655,7 +1655,7 @@ Emmet mode, use ~C-j~ to expand it
 ** Basic setup
 #+begin_src emacs-lisp
   (use-package org
- :straight (:type built-in)
+    :straight (:type built-in)
     :diminish org-indent-mode
     :config
     (setq org-startup-indented 'f)
@@ -1669,9 +1669,7 @@ Emmet mode, use ~C-j~ to expand it
           browse-url-generic-program "Chromium")
     (setq org-file-apps
           '((auto-mode . emacs)
-           ("\\.x?html?\\'" . "Chromium %s")))
-
-    )
+            ("\\.x?html?\\'" . "Chromium %s"))))
 #+end_src
 ** Change level recusively
 M+S+<left/right>
@@ -1824,9 +1822,11 @@ Interactive agenda in the console https://github.com/rougier/agenda
 #+end_src
 ** Org Roam
 #+begin_src emacs-lisp
+  (use-package emacsql-sqlite
+    :straight t)
+
   (use-package org-roam
-    :straight (:host github :repo "org-roam/org-roam"
-             :files (:defaults "extensions/*"))
+    :straight (:host github :repo "org-roam/org-roam" :files (:defaults "extensions/*"))
     :init
     (setq org-roam-v2-ack t)
     :custom
@@ -1965,9 +1965,10 @@ to intensify the sense of achievement.
     )
   ;; (setq-default prettify-symbols-alist '(("#+BEGIN_SRC" . "»") ("#+END_SRC" . "«")("#+begin_src" . "»") ("#+end_src" . "«") ("lambda"  . "λ") ("->" . "→") ("->>" . "↠")))
 #+end_src
-** Apply UI
+** Apply Custom UI
 #+begin_src emacs-lisp
   (use-package org
+    :straight (:type built-in)
     :diminish org-indent-mode
     :hook
     (org-mode . teddy-ma/org-font-setup)
