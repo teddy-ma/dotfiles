@@ -1748,6 +1748,23 @@ Save Org buffers after refiling!
                    (file+olp "~/Documents/org/work.org" "2021")
                    "** %?" :empty-lines 0)))
 #+end_src
+** Screenshots
+#+begin_src emacs-lisp
+  (use-package org-download
+    :straight t
+    :after org
+    :custom
+    (org-download-method 'attach)
+    (org-download-image-dir "images")
+    (org-download-heading-lvl nil)
+    (org-download-timestamp "%Y%m%d-%H%M%S_")
+    (org-image-actual-width 300)
+    (org-download-screenshot-method "/usr/local/bin/pngpaste %s")
+    :bind
+    ("C-M-y" . org-download-screenshot)
+    :config
+    (require 'org-download))
+#+end_src
 ** Easily open common files                                        :@script:
 #+begin_src emacs-lisp
   (defmacro defun-open-conf (config-name filepath)
@@ -2002,6 +2019,7 @@ press v
 in dired mode, embark-export and Edit, change file names and save
 for project search, use ~find-name-dired~ select root folder path and ~wdired-change-to-wdired-mode~
 ** Use tab to expand folder
+TODO UI issue about subtree color
 #+begin_src emacs-lisp :lexical no
   (use-package dired-subtree
     :straight t
