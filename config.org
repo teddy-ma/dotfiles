@@ -1674,6 +1674,7 @@ Emmet mode, use ~C-j~ to expand it
     :straight (:type built-in)
     :diminish org-indent-mode
     :config
+    (setq org-attach-use-inheritance t) ;; use parent node id as attachment folder
     (setq org-startup-indented 'f)
     (setq org-special-ctrl-a/e 't)
     (setq org-startup-folded t)
@@ -2019,13 +2020,15 @@ press v
 in dired mode, embark-export and Edit, change file names and save
 for project search, use ~find-name-dired~ select root folder path and ~wdired-change-to-wdired-mode~
 ** Use tab to expand folder
-TODO UI issue about subtree color
 #+begin_src emacs-lisp :lexical no
   (use-package dired-subtree
     :straight t
     :after dired
+    :config
+    (setq dired-subtree-use-backgrounds nil)
     :bind (:map dired-mode-map
                 ("TAB" . dired-subtree-toggle)))
+
 #+end_src
 * Given a git repo
 ** Delete local and remote branch
