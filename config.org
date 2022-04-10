@@ -38,6 +38,8 @@ By the way, ~C-c i~ can open system config file.
 #+end_src
 ** Install packages
 straight.el
+
+pull all package in command line: ~(async-shell-command "emacs -batch -l ~/.emacs.d/init.el -f straight-pull-all")~
 #+begin_src emacs-lisp
   (defvar bootstrap-version)
   (let ((bootstrap-file
@@ -58,8 +60,7 @@ straight.el
   (straight-use-package 'use-package)
 
   (setq straight-use-package-by-default t)
-
-  ;;(async-shell-command "emacs -batch -l ~/.emacs.d/init.el -f straight-pull-all")
+  (setq straight-vc-git-default-clone-depth 1)
 #+end_src
 ** Split custom settings config file
 Set up the customize file to its own separate file, instead of saving customize settings in [[file:init.el][init.el]].
@@ -991,8 +992,7 @@ I only want this in programming modes, and I don't want colour names to be highl
 
 ** Format all
 #+begin_src emacs-lisp
-  (use-package format-all
-    :straight t)
+  ;;(use-package format-all :straight t)
 #+end_src
 ** Quickrun
 #+begin_src emacs-lisp
