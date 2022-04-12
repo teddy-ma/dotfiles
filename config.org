@@ -1732,22 +1732,27 @@ Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
 #+end_src
 * Given an org workflow
-** Capture my task or idea
+** Capture my task and idea
 #+begin_src emacs-lisp
   (use-package org-capture
     :straight nil
     :bind ("C-c c" . org-capture)
     :after org
     :config
-    (add-to-list 'org-capture-templates
-                 '("t" "Todo"  entry
-                   (file "~/Documents/org/todo.org")
-                   "* TODO %?" :empty-lines 0))
+    (setq org-capture-templates
+          '(
+            ("g" "General To-Do"
+             entry (file+headline "~/Documents/org/todo.org" "General Tasks")
+             "* TODO [#B] %?\n:Created: %T\n "
+             :empty-lines 0)
 
-    (add-to-list 'org-capture-templates
-                 '("w" "Work" entry
-                   (file+olp "~/Documents/org/work.org" "2021")
-                   "** %?" :empty-lines 0)))
+            ("c" "Code To-Do"
+             entry (file+headline "~/Documents/org/todo.org" "Code Related Tasks")
+             "* TODO [#B] %?\n:Created: %T\n%i\n%a\nProposed Solution: "
+             :empty-lines 0)
+            )
+          )
+    )
 #+end_src
 ** Screenshots
 #+begin_src emacs-lisp
@@ -1974,8 +1979,8 @@ to intensify the sense of achievement.
 #+begin_src emacs-lisp
   (defun teddy-ma/org-block-setup ()
     (let ((background-color (face-background 'default))
-	  (foreground-color (face-foreground 'default))
-	  (primary-green "#60a83d"))
+          (foreground-color (face-foreground 'default))
+          (primary-green "#60a83d"))
       (set-face-attribute 'fringe nil :foreground foreground-color :background background-color)
       (set-face-attribute 'org-indent nil :background nil :foreground nil)
       (set-face-attribute 'org-block-begin-line nil :foreground primary-green :background nil)
