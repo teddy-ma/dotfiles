@@ -629,7 +629,7 @@ after saved, use ~wgrep-save-all-buffers~ to confirm change
 
 ** v/h layout toggle
 #+begin_src emacs-lisp
-  ;;(use-package transpose-frame :straight t)
+  (use-package transpose-frame :straight t)
 #+end_src
 ** swap window
 ~ace-swap-window~
@@ -673,23 +673,25 @@ no tool bar, no scroll bar, no menu bar, very clear
 ** Make font a bit larger
 Font on windows with 4k minitor is too small
 #+begin_src emacs-lisp
-  (when  (eq system-type 'windows-nt)
+  (when (eq system-type 'windows-nt)
     (set-face-attribute 'default nil :height 150))
 #+end_src
 ** A dashboard on startup can clean my mind
 #+begin_src emacs-lisp
-  (setq emacs-banner "~/Dropbox/Photos/emacs-banner.png")
-  (use-package dashboard
-    :straight t
-    :config
-    (dashboard-setup-startup-hook)
-    (if (file-exists-p emacs-banner)
-        (setq dashboard-startup-banner emacs-banner))
+  (when (not (eq system-type 'windows-nt))
+    (setq emacs-banner "~/Dropbox/Photos/emacs-banner.png")
+    (use-package dashboard
+      :straight t
+      :config
+      (dashboard-setup-startup-hook)
+      (if (file-exists-p emacs-banner)
+          (setq dashboard-startup-banner emacs-banner))
 
-    (setq dashboard-items '((recents  . 5)
-                            ;;(bookmarks . 5)
-                            (projects . 5)
-                            (agenda . 5))))
+      (setq dashboard-items '((recents  . 5)
+                              ;;(bookmarks . 5)
+                              (projects . 5)
+                              (agenda . 5))))
+    )
 #+end_src
 
 ** Chinese and English font must align                             :@script:
