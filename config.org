@@ -673,7 +673,7 @@ no tool bar, no scroll bar, no menu bar, very clear
 ** Make font a bit larger
 Font on windows with 4k minitor is too small
 #+begin_src emacs-lisp
-  ;;(when (eq system-type 'windows-nt) (set-face-attribute 'default nil :height 150))
+  (when (eq system-type 'windows-nt) (set-face-attribute 'default nil :height 150))
 #+end_src
 ** A dashboard on startup can clean my mind
 #+begin_src emacs-lisp
@@ -1001,12 +1001,14 @@ I only want this in programming modes, and I don't want colour names to be highl
 #+end_src
 ** Tree Sitter
 #+begin_src emacs-lisp
-  (use-package tree-sitter-langs
-    :straight t)
+  (when (not (eq system-type 'windows-nt))
+    (use-package tree-sitter-langs
+      :straight t)
 
-  (use-package tree-sitter
-    :straight t
-    :after tree-sitter-langs)
+    (use-package tree-sitter
+      :straight t
+      :after tree-sitter-langs)
+    )
 #+end_src
 ** Quick insert log
 #+begin_src emacs-lisp
