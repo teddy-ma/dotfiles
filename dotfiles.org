@@ -2092,8 +2092,8 @@ lg_ultrawide_monitor = "LG ULTRAWIDE"
 ** App Launcher
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/app.lua" "no") :mkdirp "yes"
   hs.hotkey.bind(hyper, 'i', function()
-                    -- hs.application.launchOrFocus('Terminal')
-                    hs.application.launchOrFocus('Warp')
+                    hs.application.launchOrFocus('Terminal')
+                    -- hs.application.launchOrFocus('Warp')
   end)
 
   hs.hotkey.bind(hyper, 'f', function()
@@ -3062,12 +3062,6 @@ services:
       - redis:/var/lib/redis
 
 #+end_src
-** gogs
-self host 的 git server
-
-window 下要把 C:\Program Files\Git\usr\bin 加入到 path, 主要需要里面的 ssh-keygen
-
-然后下载 gogs, 在命令行中执行 gogs.exe web, 设置界面要选择独立 ssh
 ** openwrt
 直接使用镜像， 镜像转换需要以管理员身份执行
 ** simple static file server

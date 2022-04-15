@@ -1711,6 +1711,9 @@ org-narrow-to-subtree (bound in org-mode)
 #+begin_src emacs-lisp
   (setq org-todo-keywords '((sequence "TODO" "DOING" "|" "DONE" "BLOCKED")))
 #+end_src
+** nested check list
+- [] C-c [/]
+ctrl+shift+enter create new checkbox
 ** Log time when a task is done
 #+begin_src emacs-lisp
   (setq org-log-into-drawer t)
@@ -1751,7 +1754,7 @@ Save Org buffers after refiling!
             ("c" "Code To-Do"
              entry (file+headline "~/Documents/org/todo.org" "Code Related Tasks")
              "* TODO [#B] %?\n:Created: %T\n%i\n%a\nProposed Solution: "
-             :empty-lines 0)
+             :empty-lines-before 0)
 
             ("j" "Work Log Entry"
              entry (file+datetree "~/Documents/org/work.org")
@@ -2004,11 +2007,11 @@ to intensify the sense of achievement.
 ** Beautify Org Checkbox Symbol
 #+begin_src emacs-lisp
   (defun teddy-ma/org-buffer-setup ()
-    (push '("[ ]" . "☐" ) prettify-symbols-alist)
-    (push '("☑" . "☑" ) prettify-symbols-alist)
-    (push '("[-]" . "❍" ) prettify-symbols-alist)
-    (prettify-symbols-mode)
-    )
+    ;;(push '("[ ]" . "☐" ) prettify-symbols-alist)
+    ;;(push '("☑" . "☑" ) prettify-symbols-alist)
+    ;;(push '("[-]" . "❍" ) prettify-symbols-alist)
+    (prettify-symbols-mode))
+
   ;; (setq-default prettify-symbols-alist '(("#+BEGIN_SRC" . "»") ("#+END_SRC" . "«")("#+begin_src" . "»") ("#+end_src" . "«") ("lambda"  . "λ") ("->" . "→") ("->>" . "↠")))
 #+end_src
 ** Apply Custom UI
