@@ -673,7 +673,7 @@ no tool bar, no scroll bar, no menu bar, very clear
 ** Make font a bit larger
 Font on windows with 4k minitor is too small
 #+begin_src emacs-lisp
-  (when (eq system-type 'windows-nt) (set-face-attribute 'default nil :height 150))
+  (when (eq system-type 'windows-nt) (set-face-attribute 'default nil :height 100))
 #+end_src
 ** A dashboard on startup can clean my mind
 #+begin_src emacs-lisp
@@ -949,14 +949,12 @@ Just one space is needed.
   (setq sentence-end-double-space nil)
  #+end_src
 ** Make matched parentheses colored
-
 #+begin_src emacs-lisp
   (use-package rainbow-delimiters
     :straight t
     :config
     (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 #+end_src
-
 ** Keep parentheses balanced
 #+begin_src emacs-lisp
   (use-package smartparens
@@ -1712,8 +1710,10 @@ org-narrow-to-subtree (bound in org-mode)
   (setq org-todo-keywords '((sequence "TODO" "DOING" "|" "DONE" "BLOCKED")))
 #+end_src
 ** nested check list
-- [] C-c [/]
-ctrl+shift+enter create new checkbox
+to use checkbox just typing ~- []~
+for parent check list, add ~[/]~
+use ~C-c~ to toggle finish checkbox
+~ctrl+shift+enter~ to create new checkbox
 ** Log time when a task is done
 #+begin_src emacs-lisp
   (setq org-log-into-drawer t)
