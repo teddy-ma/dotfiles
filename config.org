@@ -522,7 +522,11 @@ M-t w z a - avy-action-zap-to-char: kill from point up to selected point.
     :straight t
     :diminish undo-tree-mode
     :config
-    (global-undo-tree-mode 1))
+    (global-undo-tree-mode 1)
+    :custom
+    (undo-tree-visualizer-diff t)
+    (undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
+    (undo-tree-visualizer-timestamps t))
 #+END_SRC
 ** Magnifying current line when showing content to other poeple
 #+begin_src emacs-lisp
@@ -1485,6 +1489,11 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
   (use-package alchemist
     :straight t)
 #+end_src
+** Solidity
+#+begin_src elisp
+  (use-package solidity-mode
+    :straight t)
+#+end_src
 ** Ruby
 *** Basic
 #+begin_src emacs-lisp
@@ -2192,20 +2201,20 @@ https://github.com/elken/eshell-p10k optional theme
 
 vterm
 #+begin_src emacs-lisp
-  (when(not (eq system-type 'windows-nt))
-    (use-package vterm
-      :straight t
-      :config
-      (setq vterm-shell (executable-find "fish")
-            vterm-max-scrollback 10000))
+  ;; (when(not (eq system-type 'windows-nt))
+  ;;   (use-package vterm
+  ;;     :straight t
+  ;;     :config
+  ;;     (setq vterm-shell (executable-find "fish")
+  ;;           vterm-max-scrollback 10000))
 
-    (use-package vterm-toggle
-      :straight t)
+  ;;   (use-package vterm-toggle
+  ;;     :straight t)
 
-    (use-package shell-pop
-      :straight t
-      :custom
-      (shell-pop-shell-type '("vterm" "*vterm*" (lambda () (vterm))))
-      (shell-pop-full-span t))
-    )
+  ;;   (use-package shell-pop
+  ;;     :straight t
+  ;;     :custom
+  ;;     (shell-pop-shell-type '("vterm" "*vterm*" (lambda () (vterm))))
+  ;;     (shell-pop-full-span t))
+  ;;   )
 #+end_src
