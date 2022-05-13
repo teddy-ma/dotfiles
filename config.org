@@ -198,15 +198,6 @@ Run ~M-x all-the-icons-install-fonts~ to install fonts (only once)
   (column-number-mode t)
 #+end_src
 
-** Leave some padding of text in windows
-   #+begin_src emacs-lisp
-     (use-package visual-fill-column
-       :straight t
-       :hook (org-mode . visual-fill-column-mode)
-       :custom
-       (visual-fill-column-center-text t)
-       (visual-fill-column-width 120))
-   #+end_src
 ** Long text of one line should be broken
     #+begin_src emacs-lisp
       (global-visual-line-mode 1)
@@ -1427,7 +1418,7 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
     :straight t)
  #+end_src
 *** Typescript
-#+begin_src emacs-lisp :lexical no
+#+begin_src emacs-lisp :lexical t
   (use-package typescript-mode
     :straight t)
 #+end_src
@@ -1490,7 +1481,7 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
     :straight t)
 #+end_src
 ** Solidity
-#+begin_src elisp
+#+begin_src emacs-lisp
   (use-package solidity-mode
     :straight t)
 #+end_src
@@ -1985,6 +1976,15 @@ Set fixed pitch font for org (conflict with Chinese table)
     ;;   (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
     )
 #+end_src
+** Keep some padding each side
+ #+begin_src emacs-lisp
+   (use-package visual-fill-column
+     :straight t
+     :hook (org-mode . visual-fill-column-mode)
+     :custom
+     (visual-fill-column-center-text t)
+     (visual-fill-column-width 120))
+ #+end_src
 ** Completed tasks should be pierced through visually
 to intensify the sense of achievement.
 #+begin_src emacs-lisp
@@ -2044,7 +2044,7 @@ press v
 in dired mode, embark-export and Edit, change file names and save
 for project search, use ~find-name-dired~ select root folder path and ~wdired-change-to-wdired-mode~
 ** Use tab to expand folder
-#+begin_src emacs-lisp :lexical no
+#+begin_src emacs-lisp :lexical t
   (use-package dired-subtree
     :straight t
     :after dired
@@ -2057,7 +2057,7 @@ for project search, use ~find-name-dired~ select root folder path and ~wdired-ch
 * Given a git repo
 ** Clone repo from clipboard
 https://xenodium.com/emacs-clone-git-repo-from-clipboard/?utm_source=pocket_mylist
-#+begin_src elisp
+#+begin_src emacs-lisp
   (defun ar/git-clone-clipboard-url ()
     "Clone git URL in clipboard asynchronously and open in dired when finished."
     (interactive)
