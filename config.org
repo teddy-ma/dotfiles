@@ -1690,11 +1690,10 @@ Emmet mode, use ~C-j~ to expand it
     (setq org-src-tab-acts-natively t)
     (setq org-src-fontify-natively t)
     (setq org-src-window-setup 'current-window)
-    (setq browse-url-browser-function 'browse-url-generic
-          browse-url-generic-program "Chromium")
-    (setq org-file-apps
-          '((auto-mode . emacs)
-            ("\\.x?html?\\'" . "Chromium %s"))))
+    ;;(setq browse-url-browser-function 'browse-url-generic
+          ;;browse-url-generic-program "Chromium")
+    ;;(setq org-file-apps '((auto-mode . emacs)("\\.x?html?\\'" . "Chromium %s")))
+    )
 #+end_src
 ** Change level recusively
 M+S+<left/right>
@@ -1831,6 +1830,7 @@ I can style it myself
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
+     (lisp . t)
      (ruby . t)
      (js .t )
      (lua .t )
