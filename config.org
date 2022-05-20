@@ -506,19 +506,28 @@ M-t w y a - avy-action-yank: yank the word at point,
 M-t w t a - avy-action-teleport: kill the word and yank it at point,
 M-t w z a - avy-action-zap-to-char: kill from point up to selected point.
 ** Undo many times and lost yourself?
-=undo-tree= visualises undo history as a tree for easy navigation.
+Vundo (visual undo) displays the undo history as a tree and lets you
+move in the tree to go back to previous buffer states. To use vundo,
+type M-x vundo RET in the buffer you want to undo. An undo tree buffer
+should pop up. To move around, type:
 
+  f   to go forward
+  b   to go backward
+
+  n   to go to the node below when you at a branching point
+  p   to go to the node above
+
+  a   to go back to the last branching point
+  e   to go forward to the end/tip of the branch
+
+  q   to quit, you can also type C-g
 #+BEGIN_SRC emacs-lisp
-  (use-package undo-tree
-    :straight t
-    :diminish undo-tree-mode
-    :config
-    (global-undo-tree-mode 1)
-    :custom
-    (undo-tree-visualizer-diff t)
-    (undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
-    (undo-tree-visualizer-timestamps t))
+  (use-package vundo
+    :straight '(vundo :host github
+                      :branch "master"
+                      :repo "casouri/vundo"))
 #+END_SRC
+
 ** Magnifying current line when showing content to other poeple
 #+begin_src emacs-lisp
   (defun magnifying-current-line ()
