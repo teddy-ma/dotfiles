@@ -2154,32 +2154,65 @@ Proselint is an external program, install it with =pip install proselint= for th
 #+end_src
 ** Chinese input method                                         :@dependent:
 #+begin_src emacs-lisp
-   (use-package pyim
-     :straight t
-     :demand t
-     :config
-     (use-package pyim-wbdict
-       :straight t)
+  (use-package pyim
+    :straight t
+    :demand t
+    :config
+    (use-package pyim-basedict
+      :straight t
+      :config (pyim-basedict-enable))
 
-     (setq pyim-default-scheme 'wubi)
-     (pyim-wbdict-v86-enable)
+    (setq default-input-method "pyim")
 
-     (setq-default pyim-english-input-switch-functions
-                   '(pyim-probe-dynamic-english
-                     pyim-probe-isearch-mode
-                     pyim-probe-program-mode
-                     pyim-probe-org-structure-template))
+    (setq-default pyim-english-input-switch-functions
+                  '(pyim-probe-dynamic-english
+                    pyim-probe-isearch-mode
+                    pyim-probe-program-mode
+                    pyim-probe-org-structure-template))
 
-     (setq-default pyim-punctuation-half-width-functions
-                   '(pyim-probe-punctuation-line-beginning
-                     pyim-probe-punctuation-after-punctuation))
+    (setq-default pyim-punctuation-half-width-functions
+                  '(pyim-probe-punctuation-line-beginning
+                    pyim-probe-punctuation-after-punctuation))
 
-     ;;(pyim-isearch-mode 1)
-     (setq pyim-page-tooltip 'posframe)
-     (setq pyim-page-length 5)
+    ;;(pyim-isearch-mode 1)
+    (setq pyim-page-tooltip 'posframe)
+    (setq pyim-page-length 5)
 
-     :bind
-     (("M-j" . pyim-convert-string-at-point)))
+    (setq pyim-dicts
+          '((:name "tsinghua"
+                   :file "~/Dropbox/Config/pyim-tsinghua-dict.pyim")))
+
+    :bind
+    (("M-j" . pyim-convert-string-at-point)))
+#+end_src
+
+#+begin_src emacs-lisp
+  ;; (use-package pyim
+  ;;   :straight t
+  ;;   :demand t
+  ;;   :config
+  ;;   (use-package pyim-wbdict
+  ;;     :straight t)
+
+  ;;   (setq pyim-default-scheme 'wubi)
+  ;;   (pyim-wbdict-v86-enable)
+
+  ;;   (setq-default pyim-english-input-switch-functions
+  ;;                 '(pyim-probe-dynamic-english
+  ;;                   pyim-probe-isearch-mode
+  ;;                   pyim-probe-program-mode
+  ;;                   pyim-probe-org-structure-template))
+
+  ;;   (setq-default pyim-punctuation-half-width-functions
+  ;;                 '(pyim-probe-punctuation-line-beginning
+  ;;                   pyim-probe-punctuation-after-punctuation))
+
+  ;;   ;;(pyim-isearch-mode 1)
+  ;;   (setq pyim-page-tooltip 'posframe)
+  ;;   (setq pyim-page-length 5)
+
+  ;;   :bind
+  ;;   (("M-j" . pyim-convert-string-at-point)))
 #+end_src
 
 ** English Chinese Dictionary
