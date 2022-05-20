@@ -6,6 +6,7 @@
         crux-move-beginning-of-line
         end-of-visual-line
         indent-for-tab-command
+        org-kill-line
         org-self-insert-command
         smart-hungry-delete-backward-char
         smart-hungry-delete-forward-char
@@ -17,4 +18,5 @@
         iedit-switch-to-mc-mode
         mouse-set-region
         mouse-set-secondary
+        org-end-of-line
         ))
