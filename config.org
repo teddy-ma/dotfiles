@@ -2275,14 +2275,6 @@ vterm (need compile)
     (interactive)
     (message "hello"))
 
-  (defun hikarian-visit-last-migration ()
-    "Open the last file in 'db/migrate/'."
-    (interactive)
-    (dired (expand-file-name "db/migrate" (projectile-project-root)))
-    (end-of-buffer)
-    (previous-line)
-    (dired-find-file)
-    (kill-buffer "migrate"))
 
   ;;(setq rails-routes-list (""))
 
@@ -2350,8 +2342,49 @@ vterm (need compile)
     (interactive)
     (yas-expand-snippet (yas-lookup-snippet "class ... end")))
 
+  ;; UI start ---------------------------------------
+  (defun hikarian-create-controller()
+    "Prompt user to enter a controller name"
+    (interactive)
 
-  ;;(add-hook 'projectile-rails-mode-hook #'projectile-rails-setup-auto-insert-maybe)
-  (provide 'hikarian)
+    (let ((name (read-string "Enter controller name:")))
+      (message "you want to create controller %s" name)
+      (let* (
+             (name_with_level (split-string name "/"))
+             (namespace (string-join (butlast name_with_level) "/"))
+             (controller_name (car (last name_with_level)))
+             )
+        ;;(message " %s %s %s" name_with_level namespace controller_name)
+        (hikarian-find-or-create-file namespace controller_name)
+        )))
+
+    (defun hikarian-create-model()
+      "Prompt user to enter a model name"
+      (interactive)
+
+      (let ((name (read-string "Enter model name:")))
+        (message "you want to create controller %s" name)
+        ))
+
+    (defun hikarian-visit-last-migration ()
+      "Open the last file in 'db/migrate/'."
+      (interactive)
+      (dired (expand-file-name "db/migrate" (projectile-project-root)))
+      (end-of-buffer)
+      (previous-line)
+      (dired-find-file)
+      (kill-buffer "migrate"))
+
+    ;; UI end ---------------------------------------
+
+    (defun hikarian-find-or-create-file (folder file)
+      "if file exist open it else create"
+      (message "result is %s %s" folder file)
+      )
+
+    (split-string "admin/api/user" "/")
+
+    ;;(add-hook 'projectile-rails-mode-hook #'projectile-rails-setup-auto-insert-maybe)
+    (provide 'hikarian)
   ;;; hikarian.el ends here
 #+end_src
