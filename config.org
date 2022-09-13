@@ -2358,43 +2358,45 @@ vterm (need compile)
         (hikarian-find-or-create-file
          (concat "app/controllers/" namespace)
          (concat controller_name "s_controller.rb")
-        ))))
+         ))))
 
-    (defun hikarian-create-model()
-      "Prompt user to enter a model name"
-      (interactive)
+  (defun hikarian-create-model()
+    "Prompt user to enter a model name"
+    (interactive)
 
-      (let ((name (read-string "Enter model name:")))
-        (message "you want to create controller %s" name)
-        ))
+    (let ((name (read-string "Enter model name:")))
+      (message "you want to create controller %s" name)
+      ))
 
-    (defun hikarian-visit-last-migration ()
-      "Open the last file in 'db/migrate/'."
-      (interactive)
-      (dired (expand-file-name "db/migrate" (projectile-project-root)))
-      (end-of-buffer)
-      (previous-line)
-      (dired-find-file)
-      (kill-buffer "migrate"))
-
-    ;; UI end ---------------------------------------
+  (defun hikarian-visit-last-migration ()
+    "Open the last file in 'db/migrate/'."
+    (interactive)
+    (dired (expand-file-name "db/migrate" (projectile-project-root)))
+    (end-of-buffer)
+    (previous-line)
+    (dired-find-file)
+    (kill-buffer "migrate"))
+  ;; UI end ---------------------------------------
 
   (defun hikarian-get-project-root ()
     "get project root depend on user config"
     "~/code/gfresh/beachpricex"
     )
 
-    (defun hikarian-find-or-create-file (folder file)
-      "if file exist open it else create"
-      (message "result is %s %s" folder file)
-      (let ((file_project_path (concat (hikarian-get-project-root) "/" folder "/" file)))
-        (message "will check %s" file_project_path)
-        (message "is file exists? %s" (file-exists-p file_project_path))
-        ))
+  (defun hikarian-find-or-create-file (folder file)
+    "if file exist open it else create"
+    (message "result is %s %s" folder file)
+    (let ((file_project_path (concat (hikarian-get-project-root) "/" folder "/" file)))
+      (message "will check %s" file_project_path)
+      (message "is file exists? %s" (file-exists-p file_project_path))
+      (if (file-exists-p file_project_path)
+          (find-file file_project_path)
 
-    (split-string "admin/api/user" "/")
+        (message "will create file with some content .....")
+      )))
 
-    ;;(add-hook 'projectile-rails-mode-hook #'projectile-rails-setup-auto-insert-maybe)
-    (provide 'hikarian)
+
+  ;;(add-hook 'projectile-rails-mode-hook #'projectile-rails-setup-auto-insert-maybe)
+  (provide 'hikarian)
   ;;; hikarian.el ends here
 #+end_src
