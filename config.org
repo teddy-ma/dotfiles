@@ -8,8 +8,8 @@
 
 * Given a vanilla emacs
 ** Open this config file                                           :@script:
-I can use ~C-c I~ to open this config file and ~C-c R~ to reload it.
-By the way, ~C-c i~ can open system config file.
+I can use ~C-c I~ to open this config file and use ~C-c R~ to reload it.
+By the way, I can use ~C-c i~ to open system config file.
 
 #+begin_src emacs-lisp
   (defun find-config ()
@@ -37,9 +37,9 @@ By the way, ~C-c i~ can open system config file.
         user-mail-address "mlc880926@gmail.com")
 #+end_src
 ** Install packages
-straight.el
+~straight.el~ is a good tool to manage packages, but it is slow when pull all the packages,
+so I can use the command line : ~(async-shell-command "emacs -batch -l ~/.emacs.d/init.el -f straight-pull-all")~
 
-pull all package in command line: ~(async-shell-command "emacs -batch -l ~/.emacs.d/init.el -f straight-pull-all")~
 #+begin_src emacs-lisp
   (defvar bootstrap-version)
   (let ((bootstrap-file
@@ -70,7 +70,6 @@ Try your best to make custom config clean.
   (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
   (load custom-file)
 #+end_src
-
 ** Faster start
 *** Less garbage collection
 The default is 800 kilobytes. Measured in bytes.
@@ -85,17 +84,17 @@ The default is 800 kilobytes. Measured in bytes.
   :straight t)
 #+end_src
 
+* Given an old school emacs user interface
+** Answer y or n instead of yes or no
+#+begin_src emacs-lisp
+  (setq-default use-short-answers t)
+#+end_src
 ** Subpress warning buffer
 #+begin_src emacs-lisp
   (setq native-comp-async-report-warnings-errors nil)
 #+end_src
-* Given an old school emacs user interface
-** Answer y or n not yes or no
-#+begin_src emacs-lisp
-  (setq-default use-short-answers t)
-#+end_src
 ** The behavior of shell should be same when in emacs                  :@os:
-looks only macOS has this issue
+Only macOS needs this config
 #+begin_src emacs-lisp
   (use-package exec-path-from-shell
     :straight t
@@ -136,18 +135,18 @@ looks only macOS has this issue
   (blink-cursor-mode -1)
 #+end_src
 
-** Auto save and backup file make many temp file, I don't like it
+** Avoid auto save and backup file which makes too many temp file
 #+begin_src emacs-lisp
   (setq make-backup-file nil)
   (setq auto-save-default nil)
   (setq backup-inhibited t)
   (setq backup-directory-alist `(("." . "~/.saves")))
 #+end_src
-** Move file to trash instead of delete it, it's more safe
+** Move file to trash instead of delete it, it's safer
 #+begin_src emacs-lisp
   (setq-default delete-by-moving-to-trash t)
 #+end_src
-** After change opened file on other place, auto refresh is needed
+** After change opened file on other place, auto refresh it
 #+begin_src emacs-lisp
   (global-auto-revert-mode t)
 #+end_src
@@ -198,10 +197,10 @@ Run ~M-x all-the-icons-install-fonts~ to install fonts (only once)
   (column-number-mode t)
 #+end_src
 
-** Long text of one line should be broken
-    #+begin_src emacs-lisp
-      (global-visual-line-mode 1)
-    #+end_src
+** Long text in one line should be broken
+ #+begin_src emacs-lisp
+   (global-visual-line-mode 1)
+ #+end_src
 
 ** Restore previous window layout
 #+begin_src emacs-lisp
@@ -1004,13 +1003,17 @@ I only want this in programming modes, and I don't want colour names to be highl
 ** Tree Sitter
 #+begin_src emacs-lisp
   (when (not (eq system-type 'windows-nt))
-    (use-package tree-sitter-langs
-      :straight t)
-
     (use-package tree-sitter
       :straight t
-      :after tree-sitter-langs)
-    )
+      :config
+      (global-tree-sitter-mode)
+      ;; you can easily see the difference tree-sitter-hl-mode makes for python, ts or tsx
+      ;; by switching on and off
+      (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+
+    (use-package tree-sitter-langs
+      :straight t
+      :after tree-sitter))
 #+end_src
 ** Quick insert log
 #+begin_src emacs-lisp
@@ -1205,7 +1208,9 @@ It's quite effective even with dynamic libraries like JS and Python.
 *** TimeMachine lets us step through the history of a file as recorded in git.
 #+begin_src emacs-lisp
   (use-package git-timemachine
-    :straight t)
+    :straight '(git-timemachine :host github
+                                :branch "master"
+                                :repo "emacsmirror/git-timemachine")
 #+end_src
 
 *** bind =M-p -= to list all git repos in some folder
@@ -1435,9 +1440,11 @@ Prettier-js autoformats JS code - much like `gofmt` - and we hook it into JS2 an
     :straight t)
  #+end_src
 *** Typescript
+https://vxlabs.com/2022/06/12/typescript-development-with-emacs-tree-sitter-and-lsp-in-2022/
 #+begin_src emacs-lisp :lexical t
   (use-package typescript-mode
-    :straight t)
+    :straight t
+    :after tree-sitter)
 #+end_src
 ** Yaml
 *** sytnax highlight
@@ -2073,7 +2080,7 @@ https://geekinney.com/post/emacs-workflow-file-management/
 #+end_src
 * Given a git repo
 ** Clone repo from clipboard
-https://xenodium.com/emacs-clone-git-repo-from-clipboard/?utm_source=pocket_mylist
+https://xenodium.com/emacs-clone-git-repo-from-clipboard
 #+begin_src emacs-lisp
   (defun ar/git-clone-clipboard-url ()
     "Clone git URL in clipboard asynchronously and open in dired when finished."
@@ -2265,4 +2272,100 @@ vterm
   ;;     (shell-pop-shell-type '("vterm" "*vterm*" (lambda () (vterm))))
   ;;     (shell-pop-full-span t))
   ;;   )
+#+end_src
+
+* Hikarian
+#+begin_src emacs-lisp
+  (defun hikarian-hello()
+    (interactive)
+    (message "hello"))
+
+  (defun hikarian-visit-last-migration ()
+    "Open the last file in 'db/migrate/'."
+    (interactive)
+    (dired (expand-file-name "db/migrate" (projectile-project-root)))
+    (end-of-buffer)
+    (previous-line)
+    (dired-find-file)
+    (kill-buffer "migrate"))
+
+  ;;(setq rails-routes-list (""))
+
+  (defun hikarian-insert-route ()
+    "List all the routes and let user select one to insert"
+    ;; (let* ((selected-value (split-string (completing-read "Route: " (rails-routes--get-routes-cached)) " +"))
+    ;;        (selected-route (nth (if (eq (length selected-value) 5) 3 2) selected-value)))
+    ;;   (when (not (rails-routes--guess-ignore-class)) (insert rails-routes-class-name))
+    ;;   (rails-routes--insert-value selected-value)
+    ;;   (when (or (string-match-p ":id" selected-route)
+    ;;             (string-match-p ":[a-zA-Z0-9]+_id" selected-route))
+    ;;     (progn (insert "()") (backward-char)))))
+    ()
+    )
+
+  (defun hikarian-get-routes-from-command ()
+    "Run rails-routes-search-command and return it."
+    (interactive)
+    (message "Fetching routes.  Please wait.")
+    (let ((command-result ((split-string (shell-command-to-string "rails routes") "\n"))))
+      (message "rails routes no need to run in project root, the result is: %s" command-result)
+      command-result))
+
+  (defun hikarian-list-resource-files(resource_name)
+    "list relation resource"
+    ())
+
+  (defun hikarian--auto-insert-init-template ()
+    "init code template when file create."
+    (interactive)
+    ;; make sure auto inser mode active
+    (auto-insert-mode t)
+    (let* ((file-re (format "^%s.*\\.rb$" (projectile-project-root)))
+           (current-project-cond `(,file-re . "hikarian")))
+      (message "file re is %s" file-re)
+      (define-auto-insert
+        current-project-cond
+        [
+         (lambda ()
+           (let ((snippet (hikarian-corresponding-snippet)))
+             (when snippet
+               (insert snippet))))
+         hikarian-expand-yas-buffer ;; after buffer with template, then expand it
+         ]
+        )))
+
+  ;; (string-match "app/models/\\(.+\\)\\.rb$" name)
+  ;;                  (projectile-rails--snippet-for-model (match-string 1 name))
+
+  (defun hikarian-corresponding-snippet ()
+    ;;"module %s\n  extend ActiveSupport::Concern\n  $0\nend")
+    "cls")
+
+  (defun hikarian-expand-yas-buffer ()
+    "Called right after buffer is populate with snippet by Auto-insert mode."
+    (interactive)
+    (yas-lookup-snippet (buffer-string) (point-min) (point-max) '((yas-indent-line 'nothing))))
+
+  (defun autoinsert-yas-expand()
+    "Replace text in yasnippet template."
+    (interactive)
+    (yas-expand-snippet (buffer-string) (point-min) (point-max)))
+
+  (defun test-autoinsert()
+    (interactive)
+    (yas-expand-snippet (yas-lookup-snippet "class ... end")))
+
+
+  ;;(add-hook 'projectile-rails-mode-hook #'projectile-rails-setup-auto-insert-maybe)
+
+
+
+
+
+
+
+
+
+  (provide 'hikarian)
+        ;;; hikarian.el ends here
 #+end_src
