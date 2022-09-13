@@ -1723,6 +1723,12 @@ Emmet mode, use ~C-j~ to expand it
     ;;(setq org-file-apps '((auto-mode . emacs)("\\.x?html?\\'" . "Chromium %s")))
     )
 #+end_src
+** Navigate between headings
+| C-c  C-n | next heading (can be difference level)     |
+| C-c  C-p | previous heading (can be difference level) |
+| C-c  C-f | next heading (same level)                  |
+| C-c  C-b | previous heading (same level)              |
+| C-c  C-u | upper level                                |
 ** Change level recusively
 M+S+<left/right>
 ** Quick insert code block
@@ -1747,8 +1753,9 @@ org-narrow-to-subtree (bound in org-mode)
 ** nested check list
 to use checkbox just typing ~- []~
 for parent check list, add ~[/]~
-use ~C-c~ to toggle finish checkbox
-~ctrl+shift+enter~ to create new checkbox
+use ~C-c C-c~ to toggle finish checkbox
+~M-S-RET~ to create new checkbox
+
 ** Log time when a task is done
 #+begin_src emacs-lisp
   (setq org-log-into-drawer t)
@@ -1799,7 +1806,8 @@ Save Org buffers after refiling!
           )
     )
 #+end_src
-** Screenshots
+** Screenshots                                                  :@dependent:
+require pngpaste installed
 #+begin_src emacs-lisp
   (use-package org-download
     :straight t
@@ -1854,6 +1862,7 @@ I can style it myself
         org-html-htmlize-output-type 'css)
 #+end_src
 ** Execute Org src block
+in src block press ~C-c C-c~ to run code
 #+begin_src emacs-lisp
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -1878,6 +1887,9 @@ I can style it myself
        ("$" "$" nil org-mode )))
     (add-hook 'org-mode-hook 'wrap-region-mode))
 #+end_src
+** Insert table quickly
+Use ~C-c |~ to fire create table function
+input ~|||~ and press TAB to quick insert a three colum table
 ** Agenda
 Interactive agenda in the console https://github.com/rougier/agenda
 
