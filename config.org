@@ -927,6 +927,8 @@ Only works on windowed emacs on macOS
 #+end_src
 
 ** Long may the sun shine!
+Solaire YYDS!
+
 #+begin_src emacs-lisp
   (use-package solaire-mode
     :straight t
@@ -940,13 +942,15 @@ Only works on windowed emacs on macOS
     (interactive "r")
     (align-regexp BEG END "\\(\\s-*\\)\\S-+" 1 1 t))
 #+end_src
-** no tabs and show empty line
+** No tabs and
 #+begin_src emacs-lisp
   (setq-default indent-tabs-mode nil)
+#+end_src
+** Show empty line
+#+begin_src emacs-lisp
   (setq-default indicate-empty-lines nil)
 #+end_src
-
-Don't count two spaces after a period as the end of a sentence.
+** Don't count two spaces after a period as the end of a sentence.
 Just one space is needed.
 #+begin_src emacs-lisp
   (setq sentence-end-double-space nil)
@@ -973,7 +977,9 @@ I only want this in programming modes, and I don't want colour names to be highl
   (use-package rainbow-mode
     :straight t
     :config
-    (setq rainbow-x-colors nil))
+    (setq rainbow-x-colors nil)
+    :hook
+    (prog-mode . rainbow-mode))
 #+end_src
 
 ** Auto indented code when edit
@@ -993,7 +999,10 @@ I only want this in programming modes, and I don't want colour names to be highl
 
 ** Format all
 #+begin_src emacs-lisp
-  ;;(use-package format-all :straight t)
+  (use-package format-all
+    :straight t
+    :hook
+    (prog-mode . format-all-mode))
 #+end_src
 ** Quickrun
 #+begin_src emacs-lisp
@@ -1035,7 +1044,7 @@ I only want this in programming modes, and I don't want colour names to be highl
 ** View DevDocs
 #+begin_src emacs-lisp
   (use-package devdocs
-      :straight t)
+    :straight t)
 #+end_src
 
 ** Underscore -> UPCASE -> CamelCase conversion
@@ -1050,8 +1059,7 @@ I only want this in programming modes, and I don't want colour names to be highl
       (string-inflection-java-style-cycle))
      ((eq major-mode 'ruby-mode)
       (string-inflection-ruby-style-cycle))
-     (t
-      ;; default
+     (t ;; default
       (string-inflection-all-cycle))))
 
   (use-package string-inflection
@@ -1126,7 +1134,11 @@ I only want this in programming modes, and I don't want colour names to be highl
 *** Consult integration for projectile
 #+begin_src emacs-lisp
   (use-package consult-projectile
-    :straight (consult-projectile :type git :host gitlab :repo "OlMon/consult-projectile" :branch "master"))
+    :straight (consult-projectile
+               :type git
+               :host gitlab
+               :repo "OlMon/consult-projectile"
+               :branch "master"))
 #+end_src
 ** Fuzzy search
 =fzf= is a fuzzy file finder which is very quick.
