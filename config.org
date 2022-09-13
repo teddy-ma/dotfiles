@@ -2355,8 +2355,10 @@ vterm (need compile)
              (controller_name (car (last name_with_level)))
              )
         ;;(message " %s %s %s" name_with_level namespace controller_name)
-        (hikarian-find-or-create-file namespace controller_name)
-        )))
+        (hikarian-find-or-create-file
+         (concat "app/controllers/" namespace)
+         (concat controller_name "s_controller.rb")
+        ))))
 
     (defun hikarian-create-model()
       "Prompt user to enter a model name"
@@ -2377,10 +2379,18 @@ vterm (need compile)
 
     ;; UI end ---------------------------------------
 
+  (defun hikarian-get-project-root ()
+    "get project root depend on user config"
+    "~/code/gfresh/beachpricex"
+    )
+
     (defun hikarian-find-or-create-file (folder file)
       "if file exist open it else create"
       (message "result is %s %s" folder file)
-      )
+      (let ((file_project_path (concat (hikarian-get-project-root) "/" folder "/" file)))
+        (message "will check %s" file_project_path)
+        (message "is file exists? %s" (file-exists-p file_project_path))
+        ))
 
     (split-string "admin/api/user" "/")
 
