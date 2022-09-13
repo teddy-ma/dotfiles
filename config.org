@@ -39,7 +39,7 @@ By the way, I can use ~C-c i~ to open system config file.
 ** Install packages
 ~straight.el~ is a good tool to manage packages, but it is slow when pull all the packages,
 so I can use the command line : ~(async-shell-command "emacs -batch -l ~/.emacs.d/init.el -f straight-pull-all")~
-
+when something wrong with 'can not find package xxx', try to delete the local repo of package and restart emacs
 #+begin_src emacs-lisp
   (defvar bootstrap-version)
   (let ((bootstrap-file
@@ -1222,7 +1222,7 @@ It's quite effective even with dynamic libraries like JS and Python.
   (use-package git-timemachine
     :straight '(git-timemachine :host github
                                 :branch "master"
-                                :repo "emacsmirror/git-timemachine")
+                                :repo "emacsmirror/git-timemachine"))
 #+end_src
 
 *** bind =M-p -= to list all git repos in some folder
@@ -2213,36 +2213,6 @@ Proselint is an external program, install it with =pip install proselint= for th
     :bind
     (("M-j" . pyim-convert-string-at-point)))
 #+end_src
-
-#+begin_src emacs-lisp
-  ;; (use-package pyim
-  ;;   :straight t
-  ;;   :demand t
-  ;;   :config
-  ;;   (use-package pyim-wbdict
-  ;;     :straight t)
-
-  ;;   (setq pyim-default-scheme 'wubi)
-  ;;   (pyim-wbdict-v86-enable)
-
-  ;;   (setq-default pyim-english-input-switch-functions
-  ;;                 '(pyim-probe-dynamic-english
-  ;;                   pyim-probe-isearch-mode
-  ;;                   pyim-probe-program-mode
-  ;;                   pyim-probe-org-structure-template))
-
-  ;;   (setq-default pyim-punctuation-half-width-functions
-  ;;                 '(pyim-probe-punctuation-line-beginning
-  ;;                   pyim-probe-punctuation-after-punctuation))
-
-  ;;   ;;(pyim-isearch-mode 1)
-  ;;   (setq pyim-page-tooltip 'posframe)
-  ;;   (setq pyim-page-length 5)
-
-  ;;   :bind
-  ;;   (("M-j" . pyim-convert-string-at-point)))
-#+end_src
-
 ** English Chinese Dictionary
 #+begin_src emacs-lisp
   (use-package youdao-dictionary
@@ -2257,6 +2227,7 @@ https://github.com/elken/eshell-p10k optional theme
 #+begin_src emacs-lisp
   (use-package eshell-git-prompt
     :straight t)
+
   (use-package eshell
     :straight t
     :config
@@ -2266,7 +2237,7 @@ https://github.com/elken/eshell-p10k optional theme
                                               nil))))
 #+end_src
 
-vterm
+vterm (need compile)
 #+begin_src emacs-lisp
   ;; (when(not (eq system-type 'windows-nt))
   ;;   (use-package vterm
