@@ -2410,11 +2410,15 @@ vterm (need compile)
   (defun hikarian-create-and-init-file (file)
     (message "will create file with some content .....")
     (find-file file_project_path)
-    (insert (yas-expand-snippet (yas-lookup-snippet "rails_controller")))
+
+    (setq resource_name "user")
+    (insert (yas-expand-snippet (yas-lookup-snippet "hikarian_controller")))
     )
 
+  (defun get_resource_name ()
+    resource_name
+    )
+  ;;(get_resource_name)
   (provide 'hikarian)
-  ;;; hikarian.el ends here
-
-
+    ;;; hikarian.el ends here
 #+end_src
