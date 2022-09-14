@@ -1377,6 +1377,13 @@ yasnippet-snippets has to be loaded before yasnippet for user snippets to overri
            (find-file file-path)
            (current-buffer))))))
 #+end_src
+** Snippet
+Snippet is very importent since it can save many time when programming.
+Here are some help function when using snippet template
+#+begin_src emacs-lisp
+  TODO class name with namespace
+  TODO initilaize method with params assigned
+#+end_src
 * Given a programming language
 ** LSP
 Language Server Protocol
@@ -2394,11 +2401,11 @@ vterm (need compile)
         (hikarian-create-and-init-file file_project_path)
         )))
 
-    (defun hikarian-create-and-init-file (file)
-      (message "will create file with some content .....")
-      (find-file file_project_path)
-      (insert (yas-expand-snippet (yas-lookup-snippet "class ... end")))
-      )
+  (defun hikarian-create-and-init-file (file)
+    (message "will create file with some content .....")
+    (find-file file_project_path)
+    (insert (yas-expand-snippet (yas-lookup-snippet "class ... end")))
+    )
 
   (provide 'hikarian)
   ;;; hikarian.el ends here
