@@ -2399,26 +2399,35 @@ vterm (need compile)
   (defun hikarian-find-or-create-file (folder file)
     "if file exist open it else create"
     (message "result is %s %s" folder file)
-    (let ((file_project_path (concat (hikarian-get-project-root) "/" folder "/" file)))
-      (message "will check %s" file_project_path)
-      (message "is file exists? %s" (file-exists-p file_project_path))
-      (if (file-exists-p file_project_path)
-          (find-file file_project_path)
-        (hikarian-create-and-init-file file_project_path)
+    (let ((project-path-file (concat (hikarian-get-project-root) "/" folder "/" file)))
+      (message "will check %s" project-path-file)
+      (message "is file exists? %s" (file-exists-p project-path-file))
+      (if (file-exists-p project-path-file)
+          (find-file project-path-file)
+        (hikarian-create-and-init-file project-path-file)
         )))
 
   (defun hikarian-create-and-init-file (file)
-    (message "will create file with some content .....")
-    (find-file file_project_path)
 
-    (setq resource_name "user")
+    (message "will create file with some content .....") ;; app/controllers/xxx.rb
+    (find-file project-path-file)
+
+    (setq hikarian-resource-name "user")
     (insert (yas-expand-snippet (yas-lookup-snippet "hikarian_controller")))
     )
 
-  (defun get_resource_name ()
-    resource_name
-    )
-  ;;(get_resource_name)
+  (defun hikarian-single-resource-name ()
+    resource_name)
+
+  (defun hikarian-capitalize-single-resource-name ()
+    (capitalize hikarian-resource-name))
+
+  (defun hikarian-pluralize-resource-name ()
+    (inflection-pluralize-string hikarian-resource-name))
+
+  (defun hikarian-capitalize-pluralize-resource-name ()
+    (capitalize (inflection-pluralize-string hikarian-resource-name)))
+
   (provide 'hikarian)
-    ;;; hikarian.el ends here
+  ;;; hikarian.el ends here
 #+end_src
