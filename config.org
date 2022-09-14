@@ -2391,12 +2391,15 @@ vterm (need compile)
       (message "is file exists? %s" (file-exists-p file_project_path))
       (if (file-exists-p file_project_path)
           (find-file file_project_path)
+        (hikarian-create-and-init-file file_project_path)
+        )))
 
-        (message "will create file with some content .....")
-      )))
+    (defun hikarian-create-and-init-file (file)
+      (message "will create file with some content .....")
+      (find-file file_project_path)
+      (insert (yas-expand-snippet (yas-lookup-snippet "class ... end")))
+      )
 
-
-  ;;(add-hook 'projectile-rails-mode-hook #'projectile-rails-setup-auto-insert-maybe)
   (provide 'hikarian)
   ;;; hikarian.el ends here
 #+end_src
