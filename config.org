@@ -2315,71 +2315,35 @@ vterm (need compile)
     "list relation resource"
     ())
 
-  (defun hikarian--auto-insert-init-template ()
-    "init code template when file create."
-    (interactive)
-    ;; make sure auto inser mode active
-    (auto-insert-mode t)
-    (let* ((file-re (format "^%s.*\\.rb$" (projectile-project-root)))
-           (current-project-cond `(,file-re . "hikarian")))
-      (message "file re is %s" file-re)
-      (define-auto-insert
-        current-project-cond
-        [
-         (lambda ()
-           (let ((snippet (hikarian-corresponding-snippet)))
-             (when snippet
-               (insert snippet))))
-         hikarian-expand-yas-buffer ;; after buffer with template, then expand it
-         ]
-        )))
-
-  ;; (string-match "app/models/\\(.+\\)\\.rb$" name)
-  ;;                  (projectile-rails--snippet-for-model (match-string 1 name))
-
-  (defun hikarian-corresponding-snippet ()
-    ;;"module %s\n  extend ActiveSupport::Concern\n  $0\nend")
-    "cls")
-
-  (defun hikarian-expand-yas-buffer ()
-    "Called right after buffer is populate with snippet by Auto-insert mode."
-    (interactive)
-    (yas-lookup-snippet (buffer-string) (point-min) (point-max) '((yas-indent-line 'nothing))))
-
-  (defun autoinsert-yas-expand()
-    "Replace text in yasnippet template."
-    (interactive)
-    (yas-expand-snippet (buffer-string) (point-min) (point-max)))
-
-  (defun test-autoinsert()
-    (interactive)
-    (yas-expand-snippet (yas-lookup-snippet "class ... end")))
-
   ;; UI start ---------------------------------------
   (defun hikarian-create-controller()
     "Prompt user to enter a controller name"
     (interactive)
 
-    (let ((name (read-string "Enter controller name:")))
-      (message "you want to create controller %s" name)
+    (let ((input (read-string "Enter controller name:")))
+      (setq hikarian-resource-name input)
+      (setq hikarian-resource-type "controller")
+
+      (message "you want to create controller (single) %s" input)
       (let* (
-             (name_with_level (split-string name "/"))
-             (namespace (string-join (butlast name_with_level) "/"))
-             (controller_name (car (last name_with_level)))
+             (name-arrayed (split-string name "/"))
+             (namespace (string-join (butlast name-arrayed) "/"))
+             (controller-name (car (last name-arrayed)))
              )
-        ;;(message " %s %s %s" name_with_level namespace controller_name)
+
         (hikarian-find-or-create-file
-         (concat "app/controllers/" namespace)
-         (concat controller_name "s_controller.rb")
-         ))))
+         (concat "app/controllers/" controller-name "s_controller.rb")
+         name-with-space))))
 
   (defun hikarian-create-model()
     "Prompt user to enter a model name"
     (interactive)
 
     (let ((name (read-string "Enter model name:")))
-      (message "you want to create controller %s" name)
-      ))
+      (let ((input (read-string "Enter model name:")))
+        (setq hikarian-resource-name input)
+        (setq hikarian-resource-type "model")
+        (message "you want to create controller %s" name))))
 
   (defun hikarian-visit-last-migration ()
     "Open the last file in 'db/migrate/'."
@@ -2393,40 +2357,49 @@ vterm (need compile)
 
   (defun hikarian-get-project-root ()
     "get project root depend on user config"
-    "~/code/gfresh/beachpricex"
-    )
+    "~/code/gfresh/beachpricex")
 
-  (defun hikarian-find-or-create-file (folder file)
+  (defun hikarian-find-or-create-file (full_path name-with-space)
     "if file exist open it else create"
-    (message "result is %s %s" folder file)
-    (let ((project-path-file (concat (hikarian-get-project-root) "/" folder "/" file)))
+    (let ((project-path-file (concat (hikarian-get-project-root) "/" full_path)))
       (message "will check %s" project-path-file)
       (message "is file exists? %s" (file-exists-p project-path-file))
       (if (file-exists-p project-path-file)
           (find-file project-path-file)
-        (hikarian-create-and-init-file project-path-file)
-        )))
+        (hikarian-init-file project-path-file name-with-space))))
 
-  (defun hikarian-create-and-init-file (file)
-
-    (message "will create file with some content .....") ;; app/controllers/xxx.rb
+  (defun hikarian-init-file (project-path-file name-with-space)
+    (message "will create file with some content .....%s ..." project-path-file)
     (find-file project-path-file)
-
-    (setq hikarian-resource-name "user")
-    (insert (yas-expand-snippet (yas-lookup-snippet "hikarian_controller")))
-    )
+    (insert (yas-expand-snippet (yas-lookup-snippet "hikarian_%s" hikarian-resource-type))))
 
   (defun hikarian-single-resource-name ()
-    resource_name)
+    (car (last (split-string hikarian-resource-name "/"))))
 
   (defun hikarian-capitalize-single-resource-name ()
-    (capitalize hikarian-resource-name))
+    (capitalize (hikarian-single-resource-name)))
 
   (defun hikarian-pluralize-resource-name ()
-    (inflection-pluralize-string hikarian-resource-name))
+    (inflection-pluralize-string (hikarian-single-resource-name)))
 
   (defun hikarian-capitalize-pluralize-resource-name ()
-    (capitalize (inflection-pluralize-string hikarian-resource-name)))
+    (capitalize (hikarian-pluralize-resource-name)))
+
+  (defun hikarian-namespace-name ()
+    (if (eq 1 (length (split-string hikarian-resource-name "/")))
+        nil
+      (car (split-string hikarian-resource-name "/"))))
+
+  (defun hikarian-resource-full-class-name ()
+    (if (hikarian-namespace-name)
+        (concat (capitalize (hikarian-namespace-name)) "::" (hikarian-capitalize-single-resource-name))
+      (hikarian-capitalize-single-resource-name)
+    ))
+
+  ;;(setq hikarian-resource-name "admin/user")
+  ;;(hikarian-namespace-name)
+  ;;(hikarian-resource-full-class-name)
+
 
   (provide 'hikarian)
   ;;; hikarian.el ends here
