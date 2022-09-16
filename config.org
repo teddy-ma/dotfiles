@@ -2410,12 +2410,24 @@ vterm (need compile)
         (concat (capitalize (hikarian-namespace-name)) "::" (hikarian-capitalize-pluralize-resource-name))
       (hikarian-capitalize-pluralize-resource-name)))
 
+
+
+  (defun hikarian-get-current-resource ()
+    ;; get project path of current file
+
+    ;; controllers/books_controller.rb
+    ;; model/book.rb
+    ;; views/admin/new.html.erb
+    ;; TODO arch/entity ...
+
+    )
+
   ;;(setq hikarian-resource-name "admin/user")
   ;;(hikarian-namespace-name)
   ;;(hikarian-resource-full-class-name)
 
   (provide 'hikarian)
-  ;;; hikarian.el ends here
+      ;;; hikarian.el ends here
 
   (defun my-pick-one ()
     "Prompt user to pick a choice from a list."
@@ -2429,5 +2441,14 @@ vterm (need compile)
     (interactive)
     (let ((result (my-pick-one)))
       (message "the result is %s" result)))
+
+  (defun insert-file-name ()
+    "Insert the full path file name into the current buffer."
+    (interactive)
+    (insert (buffer-file-name (window-buffer (minibuffer-selected-window)))))
+
+
+  (file-relative-name "~/src/dotfiles/emacs.d/conf.org" "~/src/dotfiles")
+
 
 #+end_src
