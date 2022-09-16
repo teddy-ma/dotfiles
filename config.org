@@ -2404,10 +2404,30 @@ vterm (need compile)
         (concat (capitalize (hikarian-namespace-name)) "::" (hikarian-capitalize-single-resource-name))
       (hikarian-capitalize-single-resource-name)))
 
+
+  (defun hikarian-resource-full-class-pluralize-name ()
+    (if (hikarian-namespace-name)
+        (concat (capitalize (hikarian-namespace-name)) "::" (hikarian-capitalize-pluralize-resource-name))
+      (hikarian-capitalize-pluralize-resource-name)))
+
   ;;(setq hikarian-resource-name "admin/user")
   ;;(hikarian-namespace-name)
   ;;(hikarian-resource-full-class-name)
 
   (provide 'hikarian)
   ;;; hikarian.el ends here
+
+  (defun my-pick-one ()
+    "Prompt user to pick a choice from a list."
+    (interactive)
+    (let ((choices '("cat" "dog" "dragon" "tiger")))
+      (message "%s" (completing-read "Open bookmark:" choices ))
+      choices
+      ))
+
+  (defun use-pick-one()
+    (interactive)
+    (let ((result (my-pick-one)))
+      (message "the result is %s" result)))
+
 #+end_src
