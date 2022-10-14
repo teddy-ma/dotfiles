@@ -570,9 +570,8 @@ should pop up. To move around, type:
 #+end_src
 
 * Given multiple files (buffers) when edit
-** Wgrep multi search result
-use ~consult-grep~ to get global search result, C-S-a (embark-act) and E to export and C-c C-p to use wgrep to edit,
-after saved, use ~wgrep-save-all-buffers~ to confirm change
+** Wgrep search result
+use ~consult-grep~ to get global search result, ~C-S-a~ (embark-act) and ~E~ to export and ~C-c C-p~ to use wgrep to edit, after saved, use ~wgrep-save-all-buffers~ to confirm changes.
 #+begin_src emacs-lisp
   (use-package embark
     :straight t
@@ -605,6 +604,7 @@ after saved, use ~wgrep-save-all-buffers~ to confirm change
     :straight t)
 #+end_src
 
+get project root path
 #+begin_src emacs-lisp
   (use-package consult
     :straight t
@@ -616,6 +616,12 @@ after saved, use ~wgrep-save-all-buffers~ to confirm change
     )
 #+end_src
 
+** Deadgrep
+You can now edit files directly from results buffers with M-x deadgrep-edit-mode.
+#+begin_src emacs-lisp
+  (use-package deadgrep
+    :straight t)
+#+end_src
 * Given multiple windows
 ** jump between windows
 ~M-o~ if more than two windows, a leader key is needed
@@ -943,7 +949,7 @@ Solaire YYDS!
     (interactive "r")
     (align-regexp BEG END "\\(\\s-*\\)\\S-+" 1 1 t))
 #+end_src
-** No tabs and
+** No tabs
 #+begin_src emacs-lisp
   (setq-default indent-tabs-mode nil)
 #+end_src
@@ -1145,12 +1151,6 @@ I only want this in programming modes, and I don't want colour names to be highl
 =fzf= is a fuzzy file finder which is very quick.
 #+begin_src emacs-lisp
   (use-package fzf
-    :straight t)
-#+end_src
-** Deadgrep
-You can now edit files directly from results buffers with M-x deadgrep-edit-mode.
-#+begin_src emacs-lisp
-  (use-package deadgrep
     :straight t)
 #+end_src
 ** Open File with Line Number                                      :@script:
@@ -1377,19 +1377,6 @@ yasnippet-snippets has to be loaded before yasnippet for user snippets to overri
          (save-window-excursion
            (find-file file-path)
            (current-buffer))))))
-#+end_src
-** Snippet
-Snippet is very importent since it can save many time when programming.
-Here are some help function when using snippet template
-#+begin_src emacs-lisp
-  ;;;TODO class name with namespace
-  ;;;TODO initilaize method with params assigned
-
-  (defun teddy-ma/get-name-with-namespace-and-without-extension ()
-    (capitalize (file-name-nondirectory
-                                 (file-name-sans-extension
-                                 (or (buffer-file-name)
-                                     (buffer-name (current-buffer)))))))
 #+end_src
 * Given a programming language
 ** LSP
