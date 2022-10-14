@@ -2435,29 +2435,45 @@ vterm (need compile)
   ;; e.g abc_def_controller aaa.rb bbb(view)
   ;; return the resource name
   (defun hikarian-extract-current-resource(resource_file_name type)
-    (cond
-     ((eq "controller" type) (car split-string resource_file_name  "_"))
-     ((eq "model" type) (car split-string resource_file_name  "."))
-     ((eq "view" type) ()) ;; TODO app/views/users/index.html remove app/views (users/index) get first
-  ))
+    ;;(message "the params is %s %s"  resource_file_name type)  ;; the params is app/models/bid.rb model
+    (let ((result (cond
+                   ((equal "controller" type) (car (split-string resource_file_name  "_")))
+                   ((equal "model" type) (car (split-string resource_file_name  "\\.")))
+                   ((equal "view" type) ()) ;; TODO app/views/users/index.html remove app/views (users/index) get first
+                   )))
 
-    ;;(setq hikarian-resource-name "admin/user")
+      (hikarian-pick-file-of-resource result)
+      ))
+
+  ;; (car (last (split-string "app/models/bid.rb" "/")))
+  ;; (car (split-string "bid.rb" "\\."))
+  ;; (car (split-string "app/models/bid_ddd.rb" "_"))
+
+  ;;(setq hikarian-resource-name "admin/user")
   ;;(hikarian-namespace-name)
   ;;(hikarian-resource-full-class-name)
 
   (provide 'hikarian)
-      ;;; hikarian.el ends here
+           ;;; hikarian.el ends here
 
-  (defun hikarian-related-files-of-resource ()
+  (defun hikarian-related-files-of-resource (resource)
     "Prompt user to pick a choice from a list accourding resource"
     (interactive)
-    (let ((choices '("cat" "dog" "dragon" "tiger")))
-       (completing-read "Open bookmark:" choices )))
+
+    (let ((choices (list
+                    (concat "app/controllers/" resource ".rb")
+                    (concat "app/models" resource ".rb")
+                    (concat "app/views/" resource "s/index.html.erb")
+                    (concat "app/views/" resource "s/show.html.erb")
+                    (concat "app/views/" resource "s/edit.html.erb") ;; TODO dymatic list view files
+                    )))
+      (completing-read "Open or create file:" choices )))
 
 
-  (defun hikarian-pick-file-of-resource()
-    (interactive)
-    (let ((result (hikarian-related-files-of-resource)))
+
+  (defun hikarian-pick-file-of-resource(resource)
+    ;;(interactive)
+    (let ((result (hikarian-related-files-of-resource resource)))
       (message "the result is %s" result)
       (find-file (concat (hikarian-get-project-root) "/" result))
       ))
@@ -2466,7 +2482,5 @@ vterm (need compile)
     "Insert the full path file name into the current buffer."
     (interactive)
     (insert (buffer-file-name (window-buffer (minibuffer-selected-window)))))
-
-
 
 #+end_src
