@@ -2288,7 +2288,6 @@ vterm (need compile)
     (interactive)
     (message "hello"))
 
-
   ;;(setq rails-routes-list (""))
 
   (defun hikarian-insert-route ()
@@ -2410,17 +2409,25 @@ vterm (need compile)
         (concat (capitalize (hikarian-namespace-name)) "::" (hikarian-capitalize-pluralize-resource-name))
       (hikarian-capitalize-pluralize-resource-name)))
 
-
-
   (defun hikarian-get-current-resource ()
     ;; get project path of current file
-
+    (interactive)
     ;; controllers/books_controller.rb
     ;; model/book.rb
     ;; views/admin/new.html.erb
     ;; TODO arch/entity ...
+    ;; (file-relative-name "~/src/dotfiles/emacs.d/conf.org" "~/src/dotfiles")
+    (buffer-file-name)
+    (let ((current_file_path (file-relative-name (buffer-file-name) (hikarian-get-project-root))))
+      (message current_file_path)
+      (cond
+       ((string-match-p "controller" current_file_path) (message "this is controller"))
+       ((string-match-p "model"  current_file_path) (message "this is model"))
+       ((string-match-p "view"  current_file_path) (message "this is view"))
 
-    )
+       )))
+
+  (string-match-p "controller" "app/controllers/abc_controller.rb")
 
   ;;(setq hikarian-resource-name "admin/user")
   ;;(hikarian-namespace-name)
@@ -2447,8 +2454,6 @@ vterm (need compile)
     (interactive)
     (insert (buffer-file-name (window-buffer (minibuffer-selected-window)))))
 
-
-  (file-relative-name "~/src/dotfiles/emacs.d/conf.org" "~/src/dotfiles")
 
 
 #+end_src
