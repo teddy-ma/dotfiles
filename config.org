@@ -402,7 +402,8 @@ enchance default backspace and C-d
     :config (smart-hungry-delete-add-default-hooks))
 #+end_src
 
-** Never leave whitespace at the end of lines, remove it on save.
+** Never leave whitespace at the end of lines
+remove it on save.
 #+begin_src emacs-lisp
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+end_src
@@ -2421,33 +2422,45 @@ vterm (need compile)
     (let ((current_file_path (file-relative-name (buffer-file-name) (hikarian-get-project-root))))
       (message current_file_path)
       (cond
-       ((string-match-p "controller" current_file_path) (message "this is controller"))
-       ((string-match-p "model"  current_file_path) (message "this is model"))
-       ((string-match-p "view"  current_file_path) (message "this is view"))
-
+       ((string-match-p "controller" current_file_path)
+        (hikarian-extract-current-resource (car (last (split-string current_file_path "/"))) "controller"))
+       ((string-match-p "model"  current_file_path)
+        (hikarian-extract-current-resource (car (last (split-string current_file_path "/"))) "model"))
+       ((string-match-p "view"  current_file_path)
+        (hikarian-extract-current-resource (car (last (split-string current_file_path "/"))) "view"))
        )))
+  ;;(car (last '(1 2 3)))
+  ;;(string-match-p "controller" "app/controllers/abc_controller.rb")
 
-  (string-match-p "controller" "app/controllers/abc_controller.rb")
+  ;; e.g abc_def_controller aaa.rb bbb(view)
+  ;; return the resource name
+  (defun hikarian-extract-current-resource(resource_file_name type)
+    (cond
+     ((eq "controller" type) (car split-string resource_file_name  "_"))
+     ((eq "model" type) (car split-string resource_file_name  "."))
+     ((eq "view" type) ()) ;; TODO app/views/users/index.html remove app/views (users/index) get first
+  ))
 
-  ;;(setq hikarian-resource-name "admin/user")
+    ;;(setq hikarian-resource-name "admin/user")
   ;;(hikarian-namespace-name)
   ;;(hikarian-resource-full-class-name)
 
   (provide 'hikarian)
       ;;; hikarian.el ends here
 
-  (defun my-pick-one ()
-    "Prompt user to pick a choice from a list."
+  (defun hikarian-related-files-of-resource ()
+    "Prompt user to pick a choice from a list accourding resource"
     (interactive)
     (let ((choices '("cat" "dog" "dragon" "tiger")))
-      (message "%s" (completing-read "Open bookmark:" choices ))
-      choices
-      ))
+       (completing-read "Open bookmark:" choices )))
 
-  (defun use-pick-one()
+
+  (defun hikarian-pick-file-of-resource()
     (interactive)
-    (let ((result (my-pick-one)))
-      (message "the result is %s" result)))
+    (let ((result (hikarian-related-files-of-resource)))
+      (message "the result is %s" result)
+      (find-file (concat (hikarian-get-project-root) "/" result))
+      ))
 
   (defun insert-file-name ()
     "Insert the full path file name into the current buffer."
