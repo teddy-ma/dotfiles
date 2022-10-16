@@ -2446,17 +2446,8 @@ vterm (need compile)
   (defun hikarian-related-files-of-resource (resource)
     "Prompt user to pick a choice from a list accourding resource"
     (interactive)
-
-    (let ((choices (list
-                    (concat "app/controllers/" resource ".rb")
-                    (concat "app/models" resource ".rb")
-                    (concat "app/views/" resource "s/index.html.erb")
-                    (concat "app/views/" resource "s/show.html.erb")
-                    (concat "app/views/" resource "s/edit.html.erb") ;; TODO dymatic list view files
-                    )))
+    (let ((choices (hikarian-list-related-files resource)))
       (completing-read "Open or create file:" choices )))
-
-
 
   (defun hikarian-pick-file-of-resource(resource)
     ;;(interactive)
@@ -2465,9 +2456,17 @@ vterm (need compile)
       (find-file (concat (hikarian-get-project-root) "/" result))
       ))
 
-  (defun insert-file-name ()
-    "Insert the full path file name into the current buffer."
-    (interactive)
-    (insert (buffer-file-name (window-buffer (minibuffer-selected-window)))))
+  (defun hikarian-list-related-files (resource)
+    (list
+     (concat "app/controllers/" resource ".rb")
+     (concat "app/models" resource ".rb")
+     (concat "app/views/" resource "s/index.html.erb")
+     (concat "app/views/" resource "s/show.html.erb")
+     (concat "app/views/" resource "s/edit.html.erb") ;; TODO dymatic list view files
+     ))
+
+  (defun hikarian-detect-file-exist (file_path)
+    (let ((project-path-file (concat (hikarian-get-project-root) "/" file_path)))
+      (file-exists-p project-path-file)))
 
 #+end_src
