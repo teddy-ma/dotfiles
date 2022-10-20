@@ -2446,13 +2446,21 @@ vterm (need compile)
   ;;(hikarian-resource-full-class-name)
 
   (provide 'hikarian)
-           ;;; hikarian.el ends here
+             ;;; hikarian.el ends here
 
   (defun hikarian-related-files-of-resource (resource)
     "Prompt user to pick a choice from a list accourding resource"
     (interactive)
-    (let ((choices (hikarian-list-related-files resource)))
-      (completing-read "Open or create file:" choices )))
+    (let ((related-files (hikarian-list-related-files resource)))
+      (let ((related-file-with-status (hikarian-list-related-files-with-status related-files)))
+
+       (let ((choices related-file-with-status))
+
+         (alist-get
+          (completing-read "Choose: " choices)
+          choices nil nil 'equal))
+          )))
+  ;;      (completing-read "Open or create file:" choices )))
 
   (defun hikarian-pick-file-of-resource(resource)
     ;;(interactive)
@@ -2463,18 +2471,42 @@ vterm (need compile)
 
   (defun hikarian-list-related-files (resource)
     (list
-     (concat "app/controllers/" resource ".rb")
-     (concat "app/models" resource ".rb")
+     (concat "app/controllers/" resource "s_controller.rb")
+     (concat "app/models/" resource ".rb")
      (concat "app/views/" resource "s/index.html.erb")
      (concat "app/views/" resource "s/show.html.erb")
      (concat "app/views/" resource "s/edit.html.erb") ;; TODO dymatic list view files
-     ))
+     )
+    )
 
   (defun hikarian-detect-file-exist (file_path)
+    "check file exists in project"
     (let ((project-path-file (concat (hikarian-get-project-root) "/" file_path)))
       (file-exists-p project-path-file)))
 
 
   ;; TODO return relation resource showing if file exists
   ;; https://stackoverflow.com/questions/35390729/how-to-return-the-value-instead-of-key-by-completing-read
+
+  (defun hikarian-list-related-files-with-status (relate-files)
+    (message "here")
+    (message "%s" relate-files)
+    (mapcar (lambda (file)
+              (if (hikarian-detect-file-exist file)
+                  (cons file file)
+                (cons (concat file " (new)") file)))
+            relate-files))
+
+  (hikarian-list-related-files-with-status (list "a/b" "b/c"))
+
+  (mapcar
+   (lambda (x) (+ x 1))
+   [1 2] )
+
+  (let ((choices '(("First"  . 'first-choice)
+                   ("Second" . 'second-choice)
+                   ("Third"  . 'third-choice))))
+    (alist-get
+     (completing-read "Choose: " choices)
+     choices nil nil 'equal))
 #+end_src
