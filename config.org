@@ -1659,14 +1659,18 @@ https://robert.kra.hn/posts/2021-02-07_rust-with-emacs/
 ** Web mode                                                     :@dependent:
 *** sytnax highlight
 Web mode handles html/css/js.
-
 #+begin_src emacs-lisp
   (use-package web-mode
     :straight t
-    :mode (("\\.html\\'" . web-mode)
-           ("\\.erb\\'" . web-mode))
+    :mode
+    (("\\.html\\'" . web-mode)
+     ("\\.erb\\'" . web-mode))
     :config
     (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-css-indent-offset 2)
+    (setq web-mode-code-indent-offset 2)
+    (setq web-mode-script-padding 2)
+    (setq web-mode-style-padding 2)
     )
 #+end_src
 
