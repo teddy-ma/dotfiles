@@ -976,7 +976,10 @@ Just one space is needed.
     :diminish
     smartparens-mode
     :hook
-    (prog-mode . smartparens-mode))
+    (prog-mode . smartparens-mode)
+    :config
+    (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
+    (sp-local-pair 'lisp-interaction-mode "'" nil :actions nil))
 #+end_src
 ** Highlight strings which represent colors
 I only want this in programming modes, and I don't want colour names to be highlighted (=x-colors=).
