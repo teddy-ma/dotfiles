@@ -1670,8 +1670,7 @@ Web mode handles html/css/js.
     (setq web-mode-css-indent-offset 2)
     (setq web-mode-code-indent-offset 2)
     (setq web-mode-script-padding 2)
-    (setq web-mode-style-padding 2)
-    )
+    (setq web-mode-style-padding 2))
 #+end_src
 
 *** close tag manually
@@ -1689,6 +1688,10 @@ Web mode handles html/css/js.
                 ("C-c b" . web-beautify-js)))
 #+end_src
 *** HTML preview
+~M-x httpd-start~ first to start server
+then ~M-x impatient-mode~
+visit http://localhost:8080/imp/
+
 #+begin_src emacs-lisp
   (use-package impatient-mode
     :straight t)
