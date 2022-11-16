@@ -45,6 +45,7 @@
 #+end_src
 
 * shell
+recommend font: Hack Nerd Font Mono
 ** fish                                                            :@script:
 Setup scripts
 #+begin_src shell :results none
@@ -90,7 +91,7 @@ set fish_pager_color_progress brwhite --background=cyan
 
 Path and source (macOS)
 #+begin_src conf :tangle (if (eq system-type 'darwin) "~/.config/fish/config.fish" "no") :mkdirp "yes"
-source /usr/local/opt/asdf/asdf.fish
+echo -e "\nsource "(brew --prefix asdf)"/libexec/asdf.fish" >> ~/.config/fish/config.fish
 mcfly init fish | source
 fish_add_path ~/.cargo/bin
 fish_add_path ~/.local/share/solana/install/active_release/bin
