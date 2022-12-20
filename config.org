@@ -1539,11 +1539,8 @@ https://vxlabs.com/2022/06/12/typescript-development-with-emacs-tree-sitter-and-
   (use-package rake
     :straight t)
 
-  ;; (use-package robe
-  ;;   :straight t
-  ;;   :diminish
-  ;;   :hook
-  ;;   (after-ruby-mode . robe-mode))
+  (use-package ruby-mode
+    :straight t)
 
   (use-package ruby-hash-syntax
     :straight t
@@ -2495,6 +2492,19 @@ vterm (need compile)
      (concat "app/views/" resource "s/show.html.erb")
      (concat "app/views/" resource "s/edit.html.erb") ;; TODO dymatic list view files
      )
+    )
+
+  (defun hikarian-fixed-resource-files (resource)
+    (list
+     (concat "app/controllers/" resource "s_controller.rb")
+     (concat "app/models/" resource ".rb")
+     (concat "app/views/" resource "s/index.html.erb")
+     (concat "app/views/" resource "s/show.html.erb")
+     (concat "app/views/" resource "s/edit.html.erb") ;; TODO dymatic list view files
+     )
+    )
+  (defun hikarian-exists-resource-files (resource)
+    ;; TODO list files of app/views/resources/**
     )
 
   (defun hikarian-detect-file-exist (file_path)
