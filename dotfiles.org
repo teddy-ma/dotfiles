@@ -91,7 +91,7 @@ set fish_pager_color_progress brwhite --background=cyan
 
 Path and source (macOS)
 #+begin_src conf :tangle (if (eq system-type 'darwin) "~/.config/fish/config.fish" "no") :mkdirp "yes"
-echo -e "\nsource "(brew --prefix asdf)"/libexec/asdf.fish" >> ~/.config/fish/config.fish
+source /usr/local/opt/asdf/libexec/asdf.fish
 mcfly init fish | source
 fish_add_path ~/.cargo/bin
 fish_add_path ~/.local/share/solana/install/active_release/bin
