@@ -2141,44 +2141,44 @@ set -x MOZ_ENABLE_WAYLAND 1
 #+end_src
 ** Install fennel                                                  :@script:
 #+begin_src sh
-luarocks install fennel
+  luarocks install fennel
 #+end_src
 ** Setup
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/init.lua" "no") :mkdirp "yes"
-hs.loadSpoon("AClock")
-hs.loadSpoon("WinWin")
-hs.loadSpoon("WindowScreenLeftAndRight")
-hs.loadSpoon("WindowHalfsAndThirds")
-hs.loadSpoon("Cherry")
-hs.loadSpoon("PopupTranslateSelection")
+  hs.loadSpoon("AClock")
+  hs.loadSpoon("WinWin")
+  hs.loadSpoon("WindowScreenLeftAndRight")
+  hs.loadSpoon("WindowHalfsAndThirds")
+  hs.loadSpoon("Cherry")
+  hs.loadSpoon("PopupTranslateSelection")
 
-require "modules/config"
-require "modules/reload"
-require "modules/app"
-require "modules/window"
-require "modules/screen"
-require "modules/key"
-require "modules/dashboard"
-require "modules/select"
-require "modules/layout"
-require "modules/react"
-require "modules/caffeine"
-require "modules/pomo"
-require "modules/translate"
-require "modules/cherry"
+  require "modules/config"
+  require "modules/reload"
+  require "modules/app"
+  require "modules/window"
+  require "modules/screen"
+  require "modules/key"
+  require "modules/dashboard"
+  require "modules/select"
+  require "modules/layout"
+  require "modules/react"
+  require "modules/caffeine"
+  require "modules/pomo"
+  require "modules/translate"
+  require "modules/cherry"
 
--- Support upcoming 5.4 release and also use luarocks' local path
-package.path = package.path .. ";" .. os.getenv("HOME") .. "/.luarocks/share/lua/5.4/?.lua;" .. os.getenv("HOME") .. "/.luarocks/share/lua/5.4/?/init.lua"
-package.cpath = package.cpath .. ";" .. os.getenv("HOME") .. "/.luarocks/lib/lua/5.4/?.so"
-package.path = package.path .. ";" .. os.getenv("HOME") .. "/.luarocks/share/lua/5.3/?.lua;" .. os.getenv("HOME") .. "/.luarocks/share/lua/5.3/?/init.lua"
-package.cpath = package.cpath .. ";" .. os.getenv("HOME") .. "/.luarocks/lib/lua/5.3/?.so"
+  -- Support upcoming 5.4 release and also use luarocks' local path
+  package.path = package.path .. ";" .. os.getenv("HOME") .. "/.luarocks/share/lua/5.4/?.lua;" .. os.getenv("HOME") .. "/.luarocks/share/lua/5.4/?/init.lua"
+  package.cpath = package.cpath .. ";" .. os.getenv("HOME") .. "/.luarocks/lib/lua/5.4/?.so"
+  package.path = package.path .. ";" .. os.getenv("HOME") .. "/.luarocks/share/lua/5.3/?.lua;" .. os.getenv("HOME") .. "/.luarocks/share/lua/5.3/?/init.lua"
+  package.cpath = package.cpath .. ";" .. os.getenv("HOME") .. "/.luarocks/lib/lua/5.3/?.so"
 
-fennel = require("fennel")
-table.insert(package.loaders or package.searchers, fennel.searcher)
+  fennel = require("fennel")
+  table.insert(package.loaders or package.searchers, fennel.searcher)
 
-hs.hotkey.bind(hyper, 'h', function() hs.alert.show("Hello World!") end)
+  hs.hotkey.bind(hyper, 'h', function() hs.alert.show("Hello World!") end)
 
-require "core"
+  require "core"
 #+end_src
 ** Core
 #+begin_src fennel :tangle (if (eq system-type 'darwin) "~/.hammerspoon/core.fnl" "no") :mkdirp "yes"
@@ -2192,17 +2192,16 @@ require "core"
 #+end_src
 ** Config
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/config.lua" "no") :mkdirp "yes"
-hyper = {'cmd', 'alt', 'ctrl'}
-hyperShift = {'alt', 'cmd', 'shift'}
-macbook_monitor = "Color LCD"
-dostyle_monitor = "DM320QC"
-lg_4k_monitor = "LV273HUPR"
-portable_monitor = "CLUO FHD"
-lg_ultrawide_monitor = "LG ULTRAWIDE"
+  hyper = {'cmd', 'alt', 'ctrl'}
+  hyperShift = {'alt', 'cmd', 'shift'}
+  macbook_monitor = "Color LCD"
+  dostyle_monitor = "DM320QC"
+  lg_4k_monitor = "LV273HUPR"
+  portable_monitor = "CLUO FHD"
+  lg_ultrawide_monitor = "LG ULTRAWIDE"
 #+end_src
 ** Reload
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/reload.lua" "no") :mkdirp "yes"
-
   function reloadConfig(files)
       doReload = false
       for _,file in pairs(files) do
@@ -2246,229 +2245,229 @@ lg_ultrawide_monitor = "LG ULTRAWIDE"
 #+end_src
 ** Key
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/key.lua" "no")  :mkdirp "yes"
-function showKeyPress(tap_event)
-   local duration = 1.5  -- popup duration
-   local modifiers = ""  -- key modifiers string representation
-   local flags = tap_event:getFlags()
-   local character = hs.keycodes.map[tap_event:getKeyCode()]
-   -- we only want to read special characters via getKeyCode, so we use this subset of hs.keycodes.map
-   local special_chars = {
-      ["f1"] = true, ["f2"] = true, ["f3"] = true, ["f4"] = true,
-      ["f5"] = true, ["f6"] = true, ["f7"] = true, ["f8"] = true,
-      ["f9"] = true, ["f10"] = true, ["f11"] = true, ["f12"] = true,
-      ["f13"] = true, ["f14"] = true, ["f15"] = true, ["f16"] = true,
-      ["f17"] = true, ["f18"] = true, ["f19"] = true, ["f20"] = true,
-      ["pad"] = true, ["pad*"] = true, ["pad+"] = true, ["pad/"] = true,
-      ["pad-"] = true, ["pad="] = true, ["pad0"] = true, ["pad1"] = true,
-      ["pad2"] = true, ["pad3"] = true, ["pad4"] = true, ["pad5"] = true,
-      ["pad6"] = true, ["pad7"] = true, ["pad8"] = true, ["pad9"] = true,
-      ["padclear"] = true, ["padenter"] = true, ["return"] = true,
-      ["tab"] = true, ["space"] = true, ["delete"] = true, ["escape"] = true,
-      ["help"] = true, ["home"] = true, ["pageup"] = true,
-      ["forwarddelete"] = true, ["end"] = true, ["pagedown"] = true,
-      ["left"] = true, ["right"] = true, ["down"] = true, ["up"] = true
-   }
+  function showKeyPress(tap_event)
+     local duration = 1.5  -- popup duration
+     local modifiers = ""  -- key modifiers string representation
+     local flags = tap_event:getFlags()
+     local character = hs.keycodes.map[tap_event:getKeyCode()]
+     -- we only want to read special characters via getKeyCode, so we use this subset of hs.keycodes.map
+     local special_chars = {
+        ["f1"] = true, ["f2"] = true, ["f3"] = true, ["f4"] = true,
+        ["f5"] = true, ["f6"] = true, ["f7"] = true, ["f8"] = true,
+        ["f9"] = true, ["f10"] = true, ["f11"] = true, ["f12"] = true,
+        ["f13"] = true, ["f14"] = true, ["f15"] = true, ["f16"] = true,
+        ["f17"] = true, ["f18"] = true, ["f19"] = true, ["f20"] = true,
+        ["pad"] = true, ["pad*"] = true, ["pad+"] = true, ["pad/"] = true,
+        ["pad-"] = true, ["pad="] = true, ["pad0"] = true, ["pad1"] = true,
+        ["pad2"] = true, ["pad3"] = true, ["pad4"] = true, ["pad5"] = true,
+        ["pad6"] = true, ["pad7"] = true, ["pad8"] = true, ["pad9"] = true,
+        ["padclear"] = true, ["padenter"] = true, ["return"] = true,
+        ["tab"] = true, ["space"] = true, ["delete"] = true, ["escape"] = true,
+        ["help"] = true, ["home"] = true, ["pageup"] = true,
+        ["forwarddelete"] = true, ["end"] = true, ["pagedown"] = true,
+        ["left"] = true, ["right"] = true, ["down"] = true, ["up"] = true
+     }
 
-   -- if we have a simple character (no modifiers), we want a shorter popup duration.
-   if (not flags.shift and not flags.cmd and not flags.alt and not flags.ctrl) then
-      duration = 0.3
-   end
+     -- if we have a simple character (no modifiers), we want a shorter popup duration.
+     if (not flags.shift and not flags.cmd and not flags.alt and not flags.ctrl) then
+        duration = 0.3
+     end
 
-   -- we want to get regular characters via getCharacters as it "cleans" the key for us
-   -- (e.g. for a "⇧-5" keypress we want to show "⇧-%").
-   if special_chars[character] == nil then
-      character = tap_event:getCharacters(true)
-      if flags.shift then
-         character = string.lower(character)
-      end
-   end
+     -- we want to get regular characters via getCharacters as it "cleans" the key for us
+     -- (e.g. for a "⇧-5" keypress we want to show "⇧-%").
+     if special_chars[character] == nil then
+        character = tap_event:getCharacters(true)
+        if flags.shift then
+           character = string.lower(character)
+        end
+     end
 
-   local pretty_characters = {
-      ["return"]  = "⏎",
-      ["delete"]  = "⌫",
-      ["escape"]  = "⎋",
-      ["space"]   = "SPC",
-      ["up"]      = "↑",
-      ["down"]    = "↓",
-      ["left"]    = "←",
-      ["right"]   = "→",
-      ["tab"]     = "⇥"
-   }
+     local pretty_characters = {
+        ["return"]  = "⏎",
+        ["delete"]  = "⌫",
+        ["escape"]  = "⎋",
+        ["space"]   = "SPC",
+        ["up"]      = "↑",
+        ["down"]    = "↓",
+        ["left"]    = "←",
+        ["right"]   = "→",
+        ["tab"]     = "⇥"
+     }
 
-   character = pretty_characters[character] or character
+     character = pretty_characters[character] or character
 
-   -- get modifiers' string representation
-   if flags.ctrl then
-      modifiers = modifiers .. "⌃-"
-   end
-   if flags.cmd then
-      modifiers = modifiers .. "⌘-"
-   end
-   if flags.shift then
-      modifiers = modifiers .. "⇧-"
-   end
-   if flags.alt then
-      modifiers = modifiers .. "⌥-"
-   end
+     -- get modifiers' string representation
+     if flags.ctrl then
+        modifiers = modifiers .. "⌃-"
+     end
+     if flags.cmd then
+        modifiers = modifiers .. "⌘-"
+     end
+     if flags.shift then
+        modifiers = modifiers .. "⇧-"
+     end
+     if flags.alt then
+        modifiers = modifiers .. "⌥-"
+     end
 
-   key_char = modifiers .. character
-   display_key_char(key_char)
-end
+     key_char = modifiers .. character
+     display_key_char(key_char)
+  end
 
-function display_key_char(key_char)
-   build_exist_key_string(key_char)
+  function display_key_char(key_char)
+     build_exist_key_string(key_char)
 
-   if not key_draw then
-      create_draw(exist_key_string)
-   else
-      destroy_draw(key_draw)
-      create_draw(exist_key_string)
-   end
-   key_draw:show()
-   reset_key_display_timer()
-end
+     if not key_draw then
+        create_draw(exist_key_string)
+     else
+        destroy_draw(key_draw)
+        create_draw(exist_key_string)
+     end
+     key_draw:show()
+     reset_key_display_timer()
+  end
 
-function build_exist_key_string(string)
-   local max_display_key_command_length = 8
-   key_array = key_array or {}
+  function build_exist_key_string(string)
+     local max_display_key_command_length = 8
+     key_array = key_array or {}
 
-   if #key_array > max_display_key_command_length then
-      table.remove(key_array, 1)
-   end
+     if #key_array > max_display_key_command_length then
+        table.remove(key_array, 1)
+     end
 
-   key_array[#key_array + 1] = string
-   exist_key_string = table.concat(key_array, ' ')
-end
+     key_array[#key_array + 1] = string
+     exist_key_string = table.concat(key_array, ' ')
+  end
 
-function reset_key_display_timer()
-   if key_display_timer then
-      key_display_timer:stop()
-   end
-   key_display_timer = hs.timer.doAfter(2, function() destroy_draw(key_draw) key_array = {} end)
-end
+  function reset_key_display_timer()
+     if key_display_timer then
+        key_display_timer:stop()
+     end
+     key_display_timer = hs.timer.doAfter(2, function() destroy_draw(key_draw) key_array = {} end)
+  end
 
-function create_draw(content)
-   local mainRes = hs.mouse.getCurrentScreen():fullFrame() -- e.g w:1920 h:1080
-   local font_size = 40
-   local styledString = hs.styledtext.new(
-      content,
-      {
-         font = { name = "Fira Mono", size = font_size },
-         color = hs.drawing.color.hammerspoon.osx_green, --hs.drawing.color.x11.silver,
-         paragraphStyle = { alignment = "center" }
-      }
-   )
-   local w = mainRes.w * 2 / 3
-   local h = font_size * 1.5
-   local x = mainRes.w / 2 - w / 3
-   local y = mainRes.y + h + w / 2
-   local keyFrame = hs.geometry.rect(x, y, w, h)
-   key_draw = hs.drawing.text(keyFrame, styledString)
-   key_draw:setLevel(hs.drawing.windowLevels.overlay)
-end
+  function create_draw(content)
+     local mainRes = hs.mouse.getCurrentScreen():fullFrame() -- e.g w:1920 h:1080
+     local font_size = 40
+     local styledString = hs.styledtext.new(
+        content,
+        {
+           font = { name = "Fira Mono", size = font_size },
+           color = hs.drawing.color.hammerspoon.osx_green, --hs.drawing.color.x11.silver,
+           paragraphStyle = { alignment = "center" }
+        }
+     )
+     local w = mainRes.w * 2 / 3
+     local h = font_size * 1.5
+     local x = mainRes.w / 2 - w / 3
+     local y = mainRes.y + h + w / 2
+     local keyFrame = hs.geometry.rect(x, y, w, h)
+     key_draw = hs.drawing.text(keyFrame, styledString)
+     key_draw:setLevel(hs.drawing.windowLevels.overlay)
+  end
 
-function destroy_draw(draw)
-   if draw then
-      key_draw:delete()
-      key_draw = nil
-   end
-end
+  function destroy_draw(draw)
+     if draw then
+        key_draw:delete()
+        key_draw = nil
+     end
+  end
 
-local key_tap = hs.eventtap.new(
-   {hs.eventtap.event.types.keyDown},
-   showKeyPress
-)
+  local key_tap = hs.eventtap.new(
+     {hs.eventtap.event.types.keyDown},
+     showKeyPress
+  )
 
--- Enable/Disable Keypress Show Mode with "hyper-p"
-k = hs.hotkey.modal.new(hyper, 'P')
-function k:entered()
-   hs.alert.show("Enabling Keypress Show Mode", 1.5)
-   key_tap:start()
-end
-function k:exited()
-   hs.alert.show("Disabling Keypress Show Mode", 1.5)
-end
-k:bind(hyper, 'P', function()
-          key_tap:stop()
-          k:exit()
-end)
+  -- Enable/Disable Keypress Show Mode with "hyper-p"
+  k = hs.hotkey.modal.new(hyper, 'P')
+  function k:entered()
+     hs.alert.show("Enabling Keypress Show Mode", 1.5)
+     key_tap:start()
+  end
+  function k:exited()
+     hs.alert.show("Disabling Keypress Show Mode", 1.5)
+  end
+  k:bind(hyper, 'P', function()
+            key_tap:stop()
+            k:exit()
+  end)
 
 #+end_src
 ** Layout
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/layout.lua" "no") :mkdirp "yes"
-top_half    = hs.geometry.unitrect(0,0,1,0.5)
-buttom_half = hs.geometry.unitrect(0,0.5,1,0.5)
-left_half   = hs.layout.left50
-right_half  = hs.layout.right50
-maximized   = hs.layout.maximized
+  top_half    = hs.geometry.unitrect(0,0,1,0.5)
+  buttom_half = hs.geometry.unitrect(0,0.5,1,0.5)
+  left_half   = hs.layout.left50
+  right_half  = hs.layout.right50
+  maximized   = hs.layout.maximized
 
 
-local reading_layout= {
-  {"Emacs",         nil, macbook_monitor, maximized, nil, nil},
-  {"Google Chrome", nil, main_monitor,    right_half,   nil, nil},
-  {"iBooks",        nil, main_monitor,    left_half,    nil, nil},
-  {"Telegram",      nil, second_monitor,  top_half,    nil, nil},
-  {"Mail",          nil, second_monitor,  buttom_half,   nil, nil},
-}
+  local reading_layout= {
+     {"Emacs",         nil, macbook_monitor, maximized, nil, nil},
+     {"Google Chrome", nil, main_monitor,    right_half,   nil, nil},
+     {"iBooks",        nil, main_monitor,    left_half,    nil, nil},
+     {"Telegram",      nil, second_monitor,  top_half,    nil, nil},
+     {"Mail",          nil, second_monitor,  buttom_half,   nil, nil},
+  }
 
-local coding_layout= {
-  {"Terminal",      nil, macbook_monitor, maximized, nil, nil},
-  {"Google Chrome", nil, main_monitor,    left_half,    nil, nil},
-  {"Emacs",         nil, main_monitor,    right_half,   nil, nil},
-  {"Station",       nil, second_monitor,  top_half,    nil, nil},
-  {"TablePlus",     nil, second_monitor,  buttom_half,   nil, nil},
-}
+  local coding_layout= {
+     {"Terminal",      nil, macbook_monitor, maximized, nil, nil},
+     {"Google Chrome", nil, main_monitor,    left_half,    nil, nil},
+     {"Emacs",         nil, main_monitor,    right_half,   nil, nil},
+     {"Station",       nil, second_monitor,  top_half,    nil, nil},
+     {"TablePlus",     nil, second_monitor,  buttom_half,   nil, nil},
+  }
 
-local writing_layout= {
-  {"Emacs",         nil, main_monitor,    maximized, nil, nil},
-  {"Google Chrome", nil, second_monitor,  maximized, nil, nil},
-  {"IINA",          nil, macbook_monitor, maximized, nil, nil},
-}
+  local writing_layout= {
+     {"Emacs",         nil, main_monitor,    maximized, nil, nil},
+     {"Google Chrome", nil, second_monitor,  maximized, nil, nil},
+     {"IINA",          nil, macbook_monitor, maximized, nil, nil},
+  }
 
-hs.hotkey.bind(hyper, '1', function()
-  hs.application.launchOrFocus('Emacs')
-  hs.application.launchOrFocus('Google Chrome')
-  hs.application.launchOrFocus('iBooks')
-  hs.application.launchOrFocus('Telegram')
-  hs.application.launchOrFocus('Mail')
+  hs.hotkey.bind(hyper, '1', function()
+                    hs.application.launchOrFocus('Emacs')
+                    hs.application.launchOrFocus('Google Chrome')
+                    hs.application.launchOrFocus('iBooks')
+                    hs.application.launchOrFocus('Telegram')
+                    hs.application.launchOrFocus('Mail')
 
-  hs.layout.apply(reading_layout)
-end)
+                    hs.layout.apply(reading_layout)
+  end)
 
-hs.hotkey.bind(hyper, '2', function()
-  hs.application.launchOrFocus('Terminal')
-  hs.application.launchOrFocus('Google Chrome')
-  hs.application.launchOrFocus('Emacs')
-  hs.application.launchOrFocus('Station')
-  hs.application.launchOrFocus('TablePlus')
+  hs.hotkey.bind(hyper, '2', function()
+                    hs.application.launchOrFocus('Terminal')
+                    hs.application.launchOrFocus('Google Chrome')
+                    hs.application.launchOrFocus('Emacs')
+                    hs.application.launchOrFocus('Station')
+                    hs.application.launchOrFocus('TablePlus')
 
-  hs.layout.apply(coding_layout)
-end)
+                    hs.layout.apply(coding_layout)
+  end)
 
-hs.hotkey.bind(hyper, '3', function()
-  hs.application.launchOrFocus('Google Chrome')
-  hs.application.launchOrFocus('Emacs')
-  hs.application.launchOrFocus('IINA')
+  hs.hotkey.bind(hyper, '3', function()
+                    hs.application.launchOrFocus('Google Chrome')
+                    hs.application.launchOrFocus('Emacs')
+                    hs.application.launchOrFocus('IINA')
 
-  hs.layout.apply(writing_layout)
-end)
+                    hs.layout.apply(writing_layout)
+  end)
 #+end_src
 ** React
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/react.lua" "no")  :mkdirp "yes"
-function applicationWatcher(appName, eventType, appObject)
-   if (eventType == hs.application.watcher.activated) then
-      if (appName == "Terminal") then
-         appObject:selectMenuItem({"Window", "Bring All to Front"})
-      elseif (appName == "Finder") then
-         appObject:selectMenuItem({"Window", "Bring All to Front"})
-      elseif (appName == "Google Chrome") then
-         appObject:selectMenuItem({"Window", "Bring All to Front"})
-      end
-   end
-end
+  function applicationWatcher(appName, eventType, appObject)
+     if (eventType == hs.application.watcher.activated) then
+        if (appName == "Terminal") then
+           appObject:selectMenuItem({"Window", "Bring All to Front"})
+        elseif (appName == "Finder") then
+           appObject:selectMenuItem({"Window", "Bring All to Front"})
+        elseif (appName == "Google Chrome") then
+           appObject:selectMenuItem({"Window", "Bring All to Front"})
+        end
+     end
+  end
 
-appWatcher = hs.application.watcher.new(applicationWatcher)
-appWatcher:start()
+  appWatcher = hs.application.watcher.new(applicationWatcher)
+  appWatcher:start()
 #+end_src
 ** Caffeine
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/caffeine.lua" "no")  :mkdirp "yes"
@@ -2523,96 +2522,95 @@ appWatcher:start()
      caffeine:setClickCallback(caffeineClicked)
      setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
   end
-
 #+end_src
 ** Screen
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/screen.lua" "no") :mkdirp "yes"
-function focus_other_screen() -- focuses the other screen
-   local current_screen = hs.mouse.getCurrentScreen()
-   local nextScreen = current_screen:next()
-   local rect = nextScreen:fullFrame()
-   local center = hs.geometry.rectMidPoint(rect)
-   hs.mouse.setAbsolutePosition(center)
-   return nextScreen
-end
+  function focus_other_screen() -- focuses the other screen
+     local current_screen = hs.mouse.getCurrentScreen()
+     local nextScreen = current_screen:next()
+     local rect = nextScreen:fullFrame()
+     local center = hs.geometry.rectMidPoint(rect)
+     hs.mouse.setAbsolutePosition(center)
+     return nextScreen
+  end
 
-function get_window_under_mouse() -- from https://gist.github.com/kizzx2/e542fa74b80b7563045a
-   local my_pos = hs.geometry.new(hs.mouse.getAbsolutePosition())
-   local my_screen = hs.mouse.getCurrentScreen()
-   return hs.fnutils.find(hs.window.orderedWindows(), function(w)
-                             return my_screen == w:screen() and my_pos:inside(w:frame())
-   end)
-end
+  function get_window_under_mouse() -- from https://gist.github.com/kizzx2/e542fa74b80b7563045a
+     local my_pos = hs.geometry.new(hs.mouse.getAbsolutePosition())
+     local my_screen = hs.mouse.getCurrentScreen()
+     return hs.fnutils.find(hs.window.orderedWindows(), function(w)
+                               return my_screen == w:screen() and my_pos:inside(w:frame())
+     end)
+  end
 
-function activate_other_screen()
-   local next_screen = focus_other_screen()
-   local win = get_window_under_mouse()
-   win:focus()
-   redrawBorder()
-end
+  function activate_other_screen()
+     local next_screen = focus_other_screen()
+     local win = get_window_under_mouse()
+     win:focus()
+     redrawBorder()
+  end
 
-hs.hotkey.bind(hyper, 'o', function()
-                  activate_other_screen()
-end)
+  hs.hotkey.bind(hyper, 'o', function()
+                    activate_other_screen()
+  end)
 
-function redrawBorder()
-   win = hs.window.focusedWindow()
-   if not win then
-      return
-   end
-   top_left = win:topLeft()
-   size = win:size()
-   if global_border ~= nil then global_border:delete() end
-   global_border = hs.drawing.rectangle(hs.geometry.rect(top_left['x'], top_left['y'], size['w'], size['h']))
-   global_border:setStrokeColor({ ["red"] = 1, ["blue"] = 0, ["green"] = 0, ["alpha"] = 0.8 })
-   global_border:setFill(false)
-   global_border:setStrokeWidth(8)
-   global_border:show()
-   hs.timer.doAfter(1, function() global_border:hide() end)
-end
+  function redrawBorder()
+     win = hs.window.focusedWindow()
+     if not win then
+        return
+     end
+     top_left = win:topLeft()
+     size = win:size()
+     if global_border ~= nil then global_border:delete() end
+     global_border = hs.drawing.rectangle(hs.geometry.rect(top_left['x'], top_left['y'], size['w'], size['h']))
+     global_border:setStrokeColor({ ["red"] = 1, ["blue"] = 0, ["green"] = 0, ["alpha"] = 0.8 })
+     global_border:setFill(false)
+     global_border:setStrokeWidth(8)
+     global_border:show()
+     hs.timer.doAfter(1, function() global_border:hide() end)
+  end
 
-function mouseHighlight()
-   -- Delete an existing highlight if it exists
-   if mouseCircle then
-      mouseCircle:delete()
-      if mouseCircleTimer then
-         mouseCircleTimer:stop()
-      end
-   end
-   -- Get the current co-ordinates of the mouse pointer
-   mousepoint = hs.mouse.getAbsolutePosition()
-   hs.alert.show(mousepoint)
-   -- Prepare a big red circle around the mouse pointer
-   mouseCircle = hs.drawing.circle(hs.geometry.rect(mousepoint.x-40, mousepoint.y-40, 80, 80))
-   mouseCircle:setStrokeColor({ ["red"] = 1, ["blue"] = 0, ["green"] = 0, ["alpha"] = 1 })
-   mouseCircle:setFill(false)
-   mouseCircle:setStrokeWidth(5)
-   mouseCircle:show()
+  function mouseHighlight()
+     -- Delete an existing highlight if it exists
+     if mouseCircle then
+        mouseCircle:delete()
+        if mouseCircleTimer then
+           mouseCircleTimer:stop()
+        end
+     end
+     -- Get the current co-ordinates of the mouse pointer
+     mousepoint = hs.mouse.getAbsolutePosition()
+     hs.alert.show(mousepoint)
+     -- Prepare a big red circle around the mouse pointer
+     mouseCircle = hs.drawing.circle(hs.geometry.rect(mousepoint.x-40, mousepoint.y-40, 80, 80))
+     mouseCircle:setStrokeColor({ ["red"] = 1, ["blue"] = 0, ["green"] = 0, ["alpha"] = 1 })
+     mouseCircle:setFill(false)
+     mouseCircle:setStrokeWidth(5)
+     mouseCircle:show()
 
-   -- Set a timer to delete the circle after 3 seconds
-   mouseCircleTimer = hs.timer.doAfter(3, function() mouseCircle:delete() end)
-end
+     -- Set a timer to delete the circle after 3 seconds
+     mouseCircleTimer = hs.timer.doAfter(3, function() mouseCircle:delete() end)
+  end
 
 #+end_src
 ** Window
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/window.lua" "no")  :mkdirp "yes"
--- hs.window.animationDuration = 0
-spoon.WindowScreenLeftAndRight:bindHotkeys({
-      screen_left = { hyperShift, "Left" },
-      screen_right= { hyperShift, "Right" },
-})
+  -- hs.window.animationDuration = 0
+  spoon.WindowScreenLeftAndRight:bindHotkeys({
+        screen_left = { hyperShift, "Left" },
+        screen_right= { hyperShift, "Right" },
+  })
 
-spoon.WindowHalfsAndThirds:bindHotkeys({
-      left_half   = { hyper, "Left" },
-      right_half  = { hyper, "Right" },
-      top_half    = { hyper, "Up" },
-      bottom_half = { hyper, "Down" },
-})
+  spoon.WindowHalfsAndThirds:bindHotkeys({
+        left_half   = { hyper, "Left" },
+        right_half  = { hyper, "Right" },
+        top_half    = { hyper, "Up" },
+        bottom_half = { hyper, "Down" },
+  })
 
--- hs.hotkey.bind(hyper, "m", function()
---   local win = hs.window.focusedWindow()
---   win:maximize()
--- end)
+  -- hs.hotkey.bind(hyper, "m", function()
+  --   local win = hs.window.focusedWindow()
+  --   win:maximize()
+  -- end)
 #+end_src
 ** Dashboard
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/dashboard.lua" "no")
@@ -2705,201 +2703,201 @@ spoon.WindowHalfsAndThirds:bindHotkeys({
 #+end_src
 ** Pomo
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/pomo.lua" "no") :mkdirp "yes"
---- Pomodoro module
+  --- Pomodoro module
 
---------------------------------------------------------------------------------
--- Configuration variables
---------------------------------------------------------------------------------
-local pom={}
-pom.bar = {
-  indicator_height = 0.1, -- ratio from the height of the menubar (0..1)
-  indicator_alpha  = 0.3,
-  indicator_in_all_spaces = true,
-  color_time_remaining = hs.drawing.color.green,
-  color_time_used      = hs.drawing.color.red,
+  --------------------------------------------------------------------------------
+  -- Configuration variables
+  --------------------------------------------------------------------------------
+  local pom={}
+  pom.bar = {
+     indicator_height = 0.1, -- ratio from the height of the menubar (0..1)
+     indicator_alpha  = 0.3,
+     indicator_in_all_spaces = true,
+     color_time_remaining = hs.drawing.color.green,
+     color_time_used      = hs.drawing.color.red,
 
-  c_left = hs.drawing.rectangle(hs.geometry.rect(0,0,0,0)),
-  c_used = hs.drawing.rectangle(hs.geometry.rect(0,0,0,0))
-}
+     c_left = hs.drawing.rectangle(hs.geometry.rect(0,0,0,0)),
+     c_used = hs.drawing.rectangle(hs.geometry.rect(0,0,0,0))
+  }
 
-pom.config = {
-  enable_color_bar = true,
-  work_period_sec  = 25 * 60,
-  rest_period_sec  = 5 * 60,
+  pom.config = {
+     enable_color_bar = true,
+     work_period_sec  = 25 * 60,
+     rest_period_sec  = 5 * 60,
 
-}
+  }
 
-pom.var = {
-  is_active        = false,
-  disable_count    = 0,
-  work_count       = 0,
-  curr_active_type = "🍄", -- {"work", "rest"}
-  time_left        = pom.config.work_period_sec,
-  max_time_sec     = pom.config.work_period_sec
-}
+  pom.var = {
+     is_active        = false,
+     disable_count    = 0,
+     work_count       = 0,
+     curr_active_type = "🍄", -- {"work", "rest"}
+     time_left        = pom.config.work_period_sec,
+     max_time_sec     = pom.config.work_period_sec
+  }
 
---------------------------------------------------------------------------------
--- Color bar for pomodoor
---------------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+  -- Color bar for pomodoor
+  --------------------------------------------------------------------------------
 
-function pom_del_indicators()
-  pom.bar.c_left:delete()
-  pom.bar.c_used:delete()
-end
-
-function pom_draw_on_menu(target_draw, screen, offset, width, fill_color)
-  local screeng                  = screen:fullFrame()
-  local screen_frame_height      = screen:frame().y
-  local screen_full_frame_height = screeng.y
-  local height_delta             = screen_frame_height - screen_full_frame_height
-  local height                   = pom.bar.indicator_height * (height_delta)
-
-  target_draw:setSize(hs.geometry.rect(screeng.x + offset, screen_full_frame_height, width, height))
-  target_draw:setTopLeft(hs.geometry.point(screeng.x + offset, screen_full_frame_height))
-  target_draw:setFillColor(fill_color)
-  target_draw:setFill(true)
-  target_draw:setAlpha(pom.bar.indicator_alpha)
-  target_draw:setLevel(hs.drawing.windowLevels.overlay)
-  target_draw:setStroke(false)
-  if pom.bar.indicator_in_all_spaces then
-    target_draw:setBehavior(hs.drawing.windowBehaviors.canJoinAllSpaces)
-  end
-  target_draw:show()
-end
-
-function pom_draw_indicator(time_left, max_time)
-  local main_screen = hs.screen.mainScreen()
-  local screeng     = main_screen:fullFrame()
-  local time_ratio  = time_left / max_time
-  local width       = math.ceil(screeng.w * time_ratio)
-  local left_width  = screeng.w - width
-
-  pom_draw_on_menu(pom.bar.c_left, main_screen, left_width, width,      pom.bar.color_time_remaining)
-  pom_draw_on_menu(pom.bar.c_used, main_screen, 0,          left_width, pom.bar.color_time_used)
-
-end
---------------------------------------------------------------------------------
-
--- update display
-local function pom_update_display()
-  local time_min = math.floor( (pom.var.time_left / 60))
-  local time_sec = pom.var.time_left - (time_min * 60)
-  local str = string.format ("[ %s | %02d:%02d | #%02d ]", pom.var.curr_active_type, time_min, time_sec, pom.var.work_count)
-  pom_menu:setTitle(str)
-end
-
--- stop the clock
--- Stateful:
--- * Disabling once will pause the countdown
--- * Disabling twice will reset the countdown
--- * Disabling trice will shut down and hide the pomodoro timer
-function pom_disable()
-
-  local pom_was_active = pom.var.is_active
-  pom.var.is_active = false
-
-  if (pom.var.disable_count == 0) then
-     if (pom_was_active) then
-      pom_timer:stop()
-    end
-  elseif (pom.var.disable_count == 1) then
-    pom.var.time_left         = pom.config.work_period_sec
-    pom.var.curr_active_type  = "🍄"
-    pom_update_display()
-  elseif (pom.var.disable_count >= 2) then
-    if pom_menu == nil then
-      pom.var.disable_count = 2
-      return
-    end
-
-    pom_menu:delete()
-    pom_menu = nil
-    pom_timer:stop()
-    pom_timer = nil
-    pom_del_indicators()
+  function pom_del_indicators()
+     pom.bar.c_left:delete()
+     pom.bar.c_used:delete()
   end
 
-  pom.var.disable_count = pom.var.disable_count + 1
+  function pom_draw_on_menu(target_draw, screen, offset, width, fill_color)
+     local screeng                  = screen:fullFrame()
+     local screen_frame_height      = screen:frame().y
+     local screen_full_frame_height = screeng.y
+     local height_delta             = screen_frame_height - screen_full_frame_height
+     local height                   = pom.bar.indicator_height * (height_delta)
 
-end
-
--- update pomodoro timer
-local function pom_update_time()
-  if pom.var.is_active == false then
-    return
-  else
-    pom.var.time_left = pom.var.time_left - 1
-
-    if (pom.var.time_left <= 0 ) then
-      pom_disable()
-      if pom.var.curr_active_type == "🍄" then
-        hs.alert.show("Work Complete!", 2)
-        pom.var.work_count        =  pom.var.work_count + 1
-        pom.var.curr_active_type  = "☕️"
-        pom.var.time_left         = pom.config.rest_period_sec
-        pom.var.max_time_sec      = pom.config.rest_period_sec
-      else
-          hs.alert.show("Done resting.", 2)
-          pom.var.curr_active_type  = "🍄"
-          pom.var.time_left         = pom.config.work_period_sec
-          pom.var.max_time_sec      = pom.config.work_period_sec
-      end
-    end
-
-    -- draw color bar indicator, if enabled.
-    if (pom.config.enable_color_bar == true) then
-      pom_draw_indicator(pom.var.time_left, pom.var.max_time_sec)
-    end
-
-  end
-end
-
--- update menu display
-local function pom_update_menu()
-  pom_update_time()
-  pom_update_display()
-end
-
-local function pom_create_menu(pom_origin)
-  if pom_menu == nil then
-    pom_menu = hs.menubar.new()
-    pom.bar.c_left = hs.drawing.rectangle(hs.geometry.rect(0,0,0,0))
-    pom.bar.c_used = hs.drawing.rectangle(hs.geometry.rect(0,0,0,0))
-  end
-end
-
--- start the pomodoro timer
-function pom_enable()
-  pom.var.disable_count = 0;
-  if (pom.var.is_active) then
-    return
+     target_draw:setSize(hs.geometry.rect(screeng.x + offset, screen_full_frame_height, width, height))
+     target_draw:setTopLeft(hs.geometry.point(screeng.x + offset, screen_full_frame_height))
+     target_draw:setFillColor(fill_color)
+     target_draw:setFill(true)
+     target_draw:setAlpha(pom.bar.indicator_alpha)
+     target_draw:setLevel(hs.drawing.windowLevels.overlay)
+     target_draw:setStroke(false)
+     if pom.bar.indicator_in_all_spaces then
+        target_draw:setBehavior(hs.drawing.windowBehaviors.canJoinAllSpaces)
+     end
+     target_draw:show()
   end
 
-  pom_create_menu()
-  pom_timer = hs.timer.new(1, pom_update_menu)
+  function pom_draw_indicator(time_left, max_time)
+     local main_screen = hs.screen.mainScreen()
+     local screeng     = main_screen:fullFrame()
+     local time_ratio  = time_left / max_time
+     local width       = math.ceil(screeng.w * time_ratio)
+     local left_width  = screeng.w - width
 
-  pom.var.is_active = true
-  pom_timer:start()
-end
+     pom_draw_on_menu(pom.bar.c_left, main_screen, left_width, width,      pom.bar.color_time_remaining)
+     pom_draw_on_menu(pom.bar.c_used, main_screen, 0,          left_width, pom.bar.color_time_used)
 
--- reset work count
--- TODO - reset automatically every day
-function pom_reset_work()
-  pom.var.work_count = 0;
-end
--- Use examples:
+  end
+  --------------------------------------------------------------------------------
 
--- init pomodoro -- show menu immediately
--- pom_create_menu()
--- pom_update_menu()
+  -- update display
+  local function pom_update_display()
+     local time_min = math.floor( (pom.var.time_left / 60))
+     local time_sec = pom.var.time_left - (time_min * 60)
+     local str = string.format ("[ %s | %02d:%02d | #%02d ]", pom.var.curr_active_type, time_min, time_sec, pom.var.work_count)
+     pom_menu:setTitle(str)
+  end
 
--- show menu only on first pom_enable
--- hs.hotkey.bind(hyper, '9', function() pom_enable() end)
--- hs.hotkey.bind(hyper, '0', function() pom_disable() end)
+  -- stop the clock
+  -- Stateful:
+  -- * Disabling once will pause the countdown
+  -- * Disabling twice will reset the countdown
+  -- * Disabling trice will shut down and hide the pomodoro timer
+  function pom_disable()
+
+     local pom_was_active = pom.var.is_active
+     pom.var.is_active = false
+
+     if (pom.var.disable_count == 0) then
+        if (pom_was_active) then
+           pom_timer:stop()
+        end
+     elseif (pom.var.disable_count == 1) then
+        pom.var.time_left         = pom.config.work_period_sec
+        pom.var.curr_active_type  = "🍄"
+        pom_update_display()
+     elseif (pom.var.disable_count >= 2) then
+        if pom_menu == nil then
+           pom.var.disable_count = 2
+           return
+        end
+
+        pom_menu:delete()
+        pom_menu = nil
+        pom_timer:stop()
+        pom_timer = nil
+        pom_del_indicators()
+     end
+
+     pom.var.disable_count = pom.var.disable_count + 1
+
+  end
+
+  -- update pomodoro timer
+  local function pom_update_time()
+     if pom.var.is_active == false then
+        return
+     else
+        pom.var.time_left = pom.var.time_left - 1
+
+        if (pom.var.time_left <= 0 ) then
+           pom_disable()
+           if pom.var.curr_active_type == "🍄" then
+              hs.alert.show("Work Complete!", 2)
+              pom.var.work_count        =  pom.var.work_count + 1
+              pom.var.curr_active_type  = "☕️"
+              pom.var.time_left         = pom.config.rest_period_sec
+              pom.var.max_time_sec      = pom.config.rest_period_sec
+           else
+              hs.alert.show("Done resting.", 2)
+              pom.var.curr_active_type  = "🍄"
+              pom.var.time_left         = pom.config.work_period_sec
+              pom.var.max_time_sec      = pom.config.work_period_sec
+           end
+        end
+
+        -- draw color bar indicator, if enabled.
+        if (pom.config.enable_color_bar == true) then
+           pom_draw_indicator(pom.var.time_left, pom.var.max_time_sec)
+        end
+
+     end
+  end
+
+  -- update menu display
+  local function pom_update_menu()
+     pom_update_time()
+     pom_update_display()
+  end
+
+  local function pom_create_menu(pom_origin)
+     if pom_menu == nil then
+        pom_menu = hs.menubar.new()
+        pom.bar.c_left = hs.drawing.rectangle(hs.geometry.rect(0,0,0,0))
+        pom.bar.c_used = hs.drawing.rectangle(hs.geometry.rect(0,0,0,0))
+     end
+  end
+
+  -- start the pomodoro timer
+  function pom_enable()
+     pom.var.disable_count = 0;
+     if (pom.var.is_active) then
+        return
+     end
+
+     pom_create_menu()
+     pom_timer = hs.timer.new(1, pom_update_menu)
+
+     pom.var.is_active = true
+     pom_timer:start()
+  end
+
+  -- reset work count
+  -- TODO - reset automatically every day
+  function pom_reset_work()
+     pom.var.work_count = 0;
+  end
+  -- Use examples:
+
+  -- init pomodoro -- show menu immediately
+  -- pom_create_menu()
+  -- pom_update_menu()
+
+  -- show menu only on first pom_enable
+  -- hs.hotkey.bind(hyper, '9', function() pom_enable() end)
+  -- hs.hotkey.bind(hyper, '0', function() pom_disable() end)
 #+end_src
 ** Translate
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/translate.lua" "no")
-hs.hotkey.bind(hyper, '8', function() spoon.PopupTranslateSelection:translateSelectionPopup() end)
+  hs.hotkey.bind(hyper, '8', function() spoon.PopupTranslateSelection:translateSelectionPopup() end)
 #+end_src
 ** Cherry
 #+begin_src lua :tangle (if (eq system-type 'darwin) "~/.hammerspoon/modules/cherry.lua" "no")
