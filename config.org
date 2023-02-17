@@ -687,20 +687,19 @@ Font on windows with 4k minitor is too small
 #+end_src
 ** A dashboard on startup can clean my mind
 #+begin_src emacs-lisp
-  (when (not (eq system-type 'windows-nt))
-    (setq emacs-banner "~/Dropbox/Photos/emacs-banner.png")
-    (use-package dashboard
-      :straight t
-      :config
-      (dashboard-setup-startup-hook)
-      (if (file-exists-p emacs-banner)
-          (setq dashboard-startup-banner emacs-banner))
-
-      (setq dashboard-items '((recents  . 5)
-                              ;;(bookmarks . 5)
-                              (projects . 5)
-                              (agenda . 5))))
-    )
+  ;;  (when (not (eq system-type 'windows-nt))
+  ;;(setq emacs-banner "~/Dropbox/Photos/emacs-banner.png")
+  ;;(use-package dashboard
+  ;;      :straight t
+  ;;    :config
+  ;;  (dashboard-setup-startup-hook)
+  ;;      (if (file-exists-p emacs-banner)
+  ;;        (setq dashboard-startup-banner emacs-banner))
+  ;;  (setq dashboard-items '((recents  . 5)
+  ;;                        ;;(bookmarks . 5)
+  ;;                      (projects . 5)
+  ;;                    (agenda . 5))))
+  ;;    )
 #+end_src
 
 ** Chinese and English font must align                             :@script:
