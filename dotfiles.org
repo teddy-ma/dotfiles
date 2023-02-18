@@ -91,10 +91,10 @@ set fish_pager_color_progress brwhite --background=cyan
 
 Path and source (macOS)
 #+begin_src conf :tangle (if (eq system-type 'darwin) "~/.config/fish/config.fish" "no") :mkdirp "yes"
-source /usr/local/opt/asdf/libexec/asdf.fish
-mcfly init fish | source
-fish_add_path ~/.cargo/bin
-fish_add_path ~/.local/share/solana/install/active_release/bin
+  source /usr/local/opt/asdf/libexec/asdf.fish
+  # mcfly init fish | source
+  fish_add_path ~/.cargo/bin
+  fish_add_path ~/.local/share/solana/install/active_release/bin
 #+end_src
 
 Path and source (Linux)
@@ -1370,7 +1370,7 @@ key_bindings:
 
 * tmux
 ** basic
-#+begin_src conf :tangle "~/.tmux.conf")
+#+begin_src conf :tangle ~/.tmux.conf
 # cat << ►_◄ > /dev/null
 # 上面这行可以用来检测特殊字符能否在当前环境被显示
 
@@ -1468,7 +1468,7 @@ run '~/.tmux/plugins/tpm/tpm'
 #+end_src
 
 ** local
-#+begin_src conf :tangle "~/.tmux.conf.local")
+#+begin_src conf :tangle ~/.tmux.conf.local)
 # tmux theme, colors and status line
 # available themes:
 #   - powerline (a powerline inspired theme)
